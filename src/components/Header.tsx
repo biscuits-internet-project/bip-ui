@@ -8,14 +8,14 @@ class Header extends React.Component {
 		return (
 
 			<header className="header">
-				<h1>BIP</h1>
+				<h1><Link to="/">BIP</Link></h1>
 				<nav>
 					<ul>
 						<li>
-							<Link to="/setlists">Setlists</Link>
+							<Link to="/">Home</Link>
 						</li>
 						<li>
-							<Link to="/shows">Shows</Link>
+							<Link to="/setlists">Setlists</Link>
 						</li>
 						<li>
 							<Link to="/songs">Songs</Link>
