@@ -12,10 +12,13 @@ class Header extends React.Component {
 				<nav>
 					<ul>
 						<li>
-							<Link to="/">Homepage</Link>
+							<Link to="/setlists">Setlists</Link>
 						</li>
 						<li>
 							<Link to="/shows">Shows</Link>
+						</li>
+						<li>
+							<Link to="/songs">Songs</Link>
 						</li>
 					</ul>
 				</nav>

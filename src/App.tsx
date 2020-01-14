@@ -3,7 +3,9 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Home from './Home';
+import Setlists from './components/Setlists';
 import Shows from './components/Shows';
+import Songs from './components/Songs';
 import NotFound from './NotFound';
 
 class App extends React.Component {
@@ -13,7 +15,9 @@ class App extends React.Component {
       <Router>
         <Switch>
           <Route path="/" exact component={Home} />
+          <Route path="/setlists" exact component={Setlists} />
           <Route path="/shows" exact component={Shows} />
+          <Route path="/songs" exact component={Songs} />
           <Route component={NotFound} />
         </Switch>
       </Router>

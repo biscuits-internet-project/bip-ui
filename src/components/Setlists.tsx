@@ -2,16 +2,17 @@ import React from 'react';
 
 import Wrap from './Wrap';
 
-class Shows extends React.Component {
+class Setlists extends React.Component{
+
 	render() {
 		return (
 
 			<Wrap>
-				<h1>Shows</h1>
+				<h1>Setlists</h1>
 			</Wrap>
 
 		)
 	}
 }
 
-export default Shows;
+export default Setlists;
