@@ -2,14 +2,21 @@ import React from 'react';
 
 import SetlistSong from './SetlistSong';
 
-interface TrackObj { song_name: string, segue: string, position: number, set: string, annotations: string[] }
+interface TrackObj {
+	song_name: string,
+	segue: string,
+	position: number,
+	set: string,
+	annotations: string[]
+}
+
 interface MyState {
 	date: string,
 	venue: { name: string, city: string, state: string },
 	tracks: TrackObj[],
 }
 
-class Setlist extends React.Component<{}, MyState> {
+export default class Setlist extends React.Component<{}, MyState> {
 
 	constructor(props) {
 		super(props);
@@ -152,20 +159,20 @@ class Setlist extends React.Component<{}, MyState> {
 	  };
 	}
 
-	componentDidMount() {
+	componentDidMount = () => {
 		this.orderTracks(this.state.tracks);
 	}
 
 	orderTracks = (tracks) => {
 		let sets = {};
-		tracks.forEach(function(track) {
+		tracks.forEach(track => {
 			if(!sets[track.set]) { sets[track.set] = []; }
 			sets[track.set].push(track);
 		});
 		return sets;
 	}
 
-	render() {
+	render = () => {
 		let { date, venue, tracks } = this.state,
 				setlist = this.orderTracks(tracks);
 
@@ -176,22 +183,20 @@ class Setlist extends React.Component<{}, MyState> {
 					<h3 className="setlist__date">{date}</h3>
 					<h3 className="setlist__location">{venue.name}, {venue.city}, {venue.state}</h3>
 				</header>
-				<div className="setlist__set">
+				<div className="setlist__set-wrap">
 					{Object.keys(setlist).map((key) => {
 						return (
 
-							<div key={key}>
-								<strong className="setlist__label">{key}</strong>
-								<ul className="set">
-									{setlist[key].map((track, i) => {
-										return (
+							<ul className="set" key={key}>
+								<li className="set__label">{key}</li>
+								{setlist[key].map((track, i) => {
+									return (
 
-											<li className="set__track">{track.song_name} {track.segue}</li>
+										<li className="set__track">{track.song_name} {track.segue}</li>
 
-										)
-									})}
-								</ul>
-							</div>
+									)
+								})}
+							</ul>
 
 						)
 					})}
@@ -201,5 +206,3 @@ class Setlist extends React.Component<{}, MyState> {
 		)
 	}
 }
-
-export default Setlist;

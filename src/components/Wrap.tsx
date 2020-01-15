@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Header from './Header';
+import Footer from './Footer';
 
 class Wrap extends React.Component {
 
@@ -10,6 +11,7 @@ class Wrap extends React.Component {
 			<div className="page-wrap">
 				<Header />
 				{this.props.children}
+				<Footer />
 			</div>
 				
 		);

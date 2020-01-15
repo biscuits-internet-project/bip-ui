@@ -1,18 +1,19 @@
 import React from 'react';
 
 import Wrap from './Wrap';
+import Setlist from './Setlist';
 
-class Setlists extends React.Component{
+export default class Setlists extends React.Component{
 
 	render() {
 		return (
 
 			<Wrap>
-				<h1>Setlists</h1>
+				<h2>Setlists</h2>
+
+				<Setlist />
 			</Wrap>
 
 		)
 	}
 }
-
-export default Setlists;
