@@ -1,8 +1,13 @@
 .header{
 	display: flex;
-	justify-content: space-between;
+	align-items: center;
 }
 
 .nav-main__list{
 	display: flex;
+	margin-left: 20px;
+
+	li{
+		margin-right: 20px;
+	}
 }
