@@ -1,0 +1,15 @@
+
+.set{
+	display: flex;
+}
+
+.set__label{
+	font: {
+		weight: bold;
+	}
+}
+
+.set__label,
+.set__track{
+	margin-right: 5px;
+}
