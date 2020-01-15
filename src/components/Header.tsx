@@ -9,8 +9,8 @@ class Header extends React.Component {
 
 			<header className="header">
 				<h1><Link to="/">BIP</Link></h1>
-				<nav>
-					<ul>
+				<nav className="nav-main">
+					<ul className="nav-main__list">
 						<li>
 							<Link to="/">Home</Link>
 						</li>

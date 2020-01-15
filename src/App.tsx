@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Home from './Home';
 import Setlists from './components/Setlists';
 import Songs from './components/Songs';
+import Song from './components/Song';
 import NotFound from './NotFound';
 
 class App extends React.Component {
@@ -16,6 +17,7 @@ class App extends React.Component {
           <Route path="/" exact component={Home} />
           <Route path="/setlists" exact component={Setlists} />
           <Route path="/songs" exact component={Songs} />
+          <Route path="/songs/:id" component={Song} />
           <Route component={NotFound} />
         </Switch>
       </Router>
