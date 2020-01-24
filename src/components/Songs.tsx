@@ -26,10 +26,10 @@ const Songs: React.FC = () => {
 		}
 		fetchSongs()
 	},[])
-	if(loading) return <h3>.....Loading</h3>
 	return (
 		<Wrap>
 			<h1>Songs</h1>
+			{loading && <h3>.....Loading</h3>}
 			{songs.map((song: ISong) => {
 			return <h5 key={song.id}>{song.title}</h5>
 			})}
