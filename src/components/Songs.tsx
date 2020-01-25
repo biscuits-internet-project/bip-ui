@@ -20,7 +20,7 @@ const Songs: React.FC = () => {
 	useEffect(()=> {
 		setLoading(true)
 		const fetchSongs = async () => {
-			const data:AxiosResponse = await axios.get('https://bip-api-staging.herokuapp.com/api/songs')
+			const data:AxiosResponse = await axios.get('http://stg-api.discobiscuits.net/api/songs')
 			setSongs(data.data)
 			setLoading(false)
 		}
