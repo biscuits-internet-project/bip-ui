@@ -1,5 +1,7 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/b2c3be4b-00f1-4d8d-96b7-f4e1f68dcf1e/deploy-status)](https://app.netlify.com/sites/biscuits-internet-project/deploys)
+
 ## Available Scripts
 
 In the project directory, you can run:
