@@ -20,6 +20,9 @@ class Header extends React.Component {
 						<li>
 							<Link to="/songs">Songs</Link>
 						</li>
+						<li>
+							<Link to="/venues">Venues</Link>
+						</li>
 					</ul>
 				</nav>
 			</header>
