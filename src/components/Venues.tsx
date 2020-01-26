@@ -1,18 +1,26 @@
 import React, {useState, useEffect} from 'react';
 import axios, { AxiosResponse } from 'axios'
 import Wrap from './Wrap';
+import AddVenue from './AddVenue'
 
-interface IVenue {
-	id: string,
-	city: string,
-	name: string,
-	slug: string,
-	state: string
+export interface IVenue {
+	id?: string,
+	city?: string,
+	postal_code?: string,
+	name?: string,
+	slug?: string,
+	state?: string,
+	phone?: string,
+	website?: string
+	street?: string,
+	country?: string
 }
 
 const Venues: React.FC = () => {
 	const [loading, setLoading] = useState(false)
 	const [venues, setVenues] = useState<IVenue[]>([])
+
+	
 	useEffect(()=> {
 		setLoading(true)
 		const fetchVenues = async () => {
@@ -25,6 +33,7 @@ const Venues: React.FC = () => {
 	return (
 		<Wrap>
 			<h1>Venues</h1>
+			<AddVenue updateVenues={(venue: IVenue)=> setVenues([venue,...venues])}/>
 			{loading && <h3>.....Loading</h3>}
 			<table>
 				<thead>

@@ -1,35 +1,57 @@
 import React from 'react'
-import { Form, Formik, FormikProps} from 'formik'
+import { Form, Formik, FormikProps,FormikHelpers} from 'formik'
+import axios, { AxiosResponse } from 'axios'
 import TextField from './shared/TextField'
-
-interface IValues {
-    one: string
-    two: string
-    three: string
+import {IVenue} from './Venues'
+interface IAddVenue {
+    updateVenues(venue: IVenue): void
 }
 
-const AddVenue: React.FC = () => {
+const initialValues = {
+	city: "",
+	postal_code: "",
+	name: "",
+    slug: "",
+    street: "",
+    country: "",
+	state: "",
+	phone: "",
+	website: ""
+}
+const postVenue = async (values: IVenue, actions:FormikHelpers<IVenue>, updateVenues: (venue: IVenue) => void) => {
+    // const newVenue:AxiosResponse = await axios({
+    //     method: 'post',
+    //     url: 'https://stg-api.discobiscuits.net/api/venues',
+    //     data: values,
+    //     headers: {
+    //         "Content-Type":	"application/json",
+    //         "Authorization": "jfghsjdgfhjdsghjf" 
+    //     }
+    // });
+    
+    // updateVenues(newVenue.data)
+    updateVenues(values)
+    actions.resetForm()
+}
+
+const AddVenue: React.FC<IAddVenue> = ({updateVenues}) => {
     return (
         <div>
           <h1>Add Venue</h1>
           <Formik
-            initialValues={{
-              one: '',
-              two: '',
-              three: '',
-            }}
-            onSubmit={(values, actions) => {
-              setTimeout(() => {
-                alert(JSON.stringify(values, null, 2));
-                actions.setSubmitting(false);
-              }, 1000);
-            }}
+            initialValues={initialValues}
+            onSubmit={(values, actions) => postVenue(values, actions, updateVenues)}
           >
-            {(props: FormikProps<IValues>) => (
+            {(props: FormikProps<IVenue>) => (
               <Form>
-                <TextField name="firstName" type="text" label="First Name" />
-                <TextField name="lastName" type="text" label="Last Name" />
-                <TextField name="email" type="email" label="Email" />
+                <TextField name="name" type="password" label="Name" />
+                <TextField name="street" type="text" label="Street" />
+                <TextField name="city" type="text" label="City" />
+                <TextField name="state" type="text" label="State" />
+                <TextField name="country" type="text" label="Country"/>
+                <TextField name="postal_code" type="text" label="Postal Code" />
+                <TextField name="phone" type="text" label="Phone" />
+                <TextField name="website" type="text" label="Website" />
                 <button type="submit">Submit</button>
               </Form>
             )}
