@@ -9,7 +9,6 @@ interface IPrivateRoute {
 
 const PrivateRoute = ({component: Component, roles, ...rest}) => (
     <Route {...rest} render={(props:RouteComponentProps<any>): React.ReactNode => {
-        console.log(roles, 'roles')
         return roles.includes('admin') ? <Component {...props}/> : <Redirect to='/login'  />
     }}/>
 )
