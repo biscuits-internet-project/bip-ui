@@ -1,6 +1,4 @@
 import React from 'react';
-
-import Wrap from './Wrap';
 import Setlist from './Setlist';
 
 interface MyState {

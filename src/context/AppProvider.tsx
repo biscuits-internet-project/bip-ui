@@ -57,11 +57,13 @@ const AppProvider:React.FC = ({children}) => {
     const [state, dispatch] = useReducer(appReducer, initialState)
 
     useEffect(() => {
-      const token:Nullable<string> = localStorage.getItem('token')
+      let token:Nullable<string> = null
       let roles: string[] = []
 
+      const tokenStorage = localStorage.getItem('token')
 
-      if (typeof token === 'string') {
+      if (typeof tokenStorage === 'string') {
+        token = JSON.parse(tokenStorage)
         roles = jwt(token).roles
       }
         dispatch({

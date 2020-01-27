@@ -4549,7 +4549,7 @@ form-data@~2.3.2:
 
 formik@^2.1.2:
   version "2.1.2"
-  resolved "https://registry.npmjs.org/formik/-/formik-2.1.2.tgz#573f63383d35461c607dad717ea9417e6c192682"
+  resolved "https://registry.yarnpkg.com/formik/-/formik-2.1.2.tgz#573f63383d35461c607dad717ea9417e6c192682"
   integrity sha512-lbhyV8FQ/hkg4tsVf075Ad9/vDXVbSj6XLW8ooZtAZyNJK8MBYLf1fRJ6iEo2C0pODQneDboYpEUby7nsPW00Q==
   dependencies:
     deepmerge "^2.1.1"
@@ -6407,7 +6407,11 @@ jsx-ast-utils@^2.2.1:
 
 jwt-decode@^2.2.0:
   version "2.2.0"
+<<<<<<< HEAD
   resolved "https://registry.npmjs.org/jwt-decode/-/jwt-decode-2.2.0.tgz#7d86bd56679f58ce6a84704a657dd392bba81a79"
+=======
+  resolved "https://registry.yarnpkg.com/jwt-decode/-/jwt-decode-2.2.0.tgz#7d86bd56679f58ce6a84704a657dd392bba81a79"
+>>>>>>> 94c977397ec13151d141de1d2cd6d1c6a7d2a792
   integrity sha1-fYa9VmefWM5qhHBKZX3TkruoGnk=
 
 killable@^1.0.1:

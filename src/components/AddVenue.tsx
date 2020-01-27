@@ -44,7 +44,7 @@ const AddVenue: React.FC<IAddVenue> = ({updateVenues}) => {
           >
             {(props: FormikProps<IVenue>) => (
               <Form>
-                <TextField name="name" type="password" label="Name" />
+                <TextField name="name" type="text" label="Name" />
                 <TextField name="street" type="text" label="Street" />
                 <TextField name="city" type="text" label="City" />
                 <TextField name="state" type="text" label="State" />

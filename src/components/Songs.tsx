@@ -1,17 +1,18 @@
 import React, {useState, useEffect} from 'react';
+import { Link } from 'react-router-dom';
 import axios, { AxiosResponse } from 'axios'
-import Wrap from './Wrap';
+import AddSong from './AddSong'
 
-interface ISong {
-	id: string,
-	author_id: string,
-	author_name: string,
-	cover: boolean,
-	lyrics: string,
-	notes: string,
-	slug: string,
-	tabs: string,
-	title: string
+export interface ISong {
+	id?: string,
+	title?: string
+	author_id?: string,
+	author_name?: string,
+	cover?: boolean,
+	lyrics?: string,
+	notes?: string,
+	slug?: string,
+	tabs?: string,
 }
 
 const Songs: React.FC = () => {
@@ -30,8 +31,13 @@ const Songs: React.FC = () => {
 		<>
 			<h1>Songs</h1>
 			{loading && <h3>.....Loading</h3>}
+			<AddSong updateSongs={(song: ISong)=> setSongs([song,...songs])}/>
 			{songs.map((song: ISong) => {
-			return <h5 key={song.id}>{song.title}</h5>
+			return <div key={song.id}>
+					  <Link to={"/songs/" + song.slug}>
+						{song.title}
+					  </Link>
+				   </div>
 			})}
 		</>
 	)

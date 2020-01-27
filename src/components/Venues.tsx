@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import axios, { AxiosResponse } from 'axios'
-import Wrap from './Wrap';
 import AddVenue from './AddVenue'
 
 export interface IVenue {
