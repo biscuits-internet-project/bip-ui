@@ -1,13 +1,19 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react';
 import { Form, Formik, FormikProps,FormikHelpers} from 'formik'
 import axios, { AxiosResponse } from 'axios'
+import {ISong} from './Songs'
 import TextField from './shared/TextField'
 import TextAreaField from './shared/TextAreaField'
-import {ISong} from './Songs'
 import CheckboxField from './shared/CheckboxField'
+import SelectField from './shared/SelectField'
 
 interface IAddSong {
     updateSongs(song: ISong): void
+}
+
+interface IAuthor {
+  id: string
+  name: string
 }
 
 const initialValues = {
@@ -34,6 +40,14 @@ const postSong = async (values: ISong, actions:FormikHelpers<ISong>, updateSongs
 }
 
 const AddSong: React.FC<IAddSong> = ({updateSongs}) => {
+    const [authors, setAuthors] = useState<IAuthor[]>([])
+    useEffect(()=> {
+      const fetchAuthors = async () => {
+        const data:AxiosResponse = await axios.get('https://stg-api.discobiscuits.net/api/authors')
+        setAuthors(data.data)
+      }
+      fetchAuthors()
+    },[])
     return (
         <div>
           <h1>Add Song</h1>
