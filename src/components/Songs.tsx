@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import { Link } from 'react-router-dom';
 import axios, { AxiosResponse } from 'axios'
 import Wrap from './Wrap';
 
@@ -31,7 +32,11 @@ const Songs: React.FC = () => {
 			<h1>Songs</h1>
 			{loading && <h3>.....Loading</h3>}
 			{songs.map((song: ISong) => {
-			return <h5 key={song.id}>{song.title}</h5>
+			return <div key={song.id}>
+					  <Link to={"/songs/" + song.slug}>
+						{song.title}
+					  </Link>
+				   </div>
 			})}
 		</Wrap>
 	)
