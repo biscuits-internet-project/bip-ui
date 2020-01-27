@@ -15,7 +15,6 @@ import Wrap from './components/Wrap'
 const App:React.FC = () => {
   const {state} = useContext(AppContext)
   const {roles} = state
-  console.log(state)
   return (
     <Router>
       <Wrap>

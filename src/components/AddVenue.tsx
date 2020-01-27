@@ -1,6 +1,7 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import { Form, Formik, FormikProps,FormikHelpers} from 'formik'
 import axios, { AxiosResponse } from 'axios'
+import {AppContext} from '../context/AppProvider'
 import TextField from './shared/TextField'
 import {IVenue} from './Venues'
 interface IAddVenue {
@@ -18,29 +19,28 @@ const initialValues = {
 	phone: "",
 	website: ""
 }
-const postVenue = async (values: IVenue, actions:FormikHelpers<IVenue>, updateVenues: (venue: IVenue) => void) => {
-    // const newVenue:AxiosResponse = await axios({
-    //     method: 'post',
-    //     url: 'https://stg-api.discobiscuits.net/api/venues',
-    //     data: values,
-    //     headers: {
-    //         "Content-Type":	"application/json",
-    //         "Authorization": "jfghsjdgfhjdsghjf" 
-    //     }
-    // });
-    
-    // updateVenues(newVenue.data)
-    updateVenues(values)
+const postVenue = async (values: IVenue, actions:FormikHelpers<IVenue>, updateVenues: (venue: IVenue) => void, token: string | null) => {
+    const newVenue:AxiosResponse = await axios({
+        method: 'post',
+        url: 'https://stg-api.discobiscuits.net/api/venues',
+        data: values,
+        headers: {
+            "Content-Type":	"application/json",
+            "Authorization": token
+        }
+    });
+    updateVenues(newVenue.data)
     actions.resetForm()
 }
 
 const AddVenue: React.FC<IAddVenue> = ({updateVenues}) => {
+    const {state} = useContext(AppContext)
     return (
         <div>
           <h1>Add Venue</h1>
           <Formik
             initialValues={initialValues}
-            onSubmit={(values, actions) => postVenue(values, actions, updateVenues)}
+            onSubmit={(values, actions) => postVenue(values, actions, updateVenues, state.token)}
           >
             {(props: FormikProps<IVenue>) => (
               <Form>
