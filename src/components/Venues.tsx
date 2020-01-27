@@ -31,7 +31,7 @@ const Venues: React.FC = () => {
 		fetchVenues()
 	},[])
 	return (
-		<Wrap>
+		<>
 			<h1>Venues</h1>
 			<AddVenue updateVenues={(venue: IVenue)=> setVenues([venue,...venues])}/>
 			{loading && <h3>.....Loading</h3>}
@@ -53,7 +53,7 @@ const Venues: React.FC = () => {
 					    </tr>
 			})}
 			</table>
-		</Wrap>
+		</>
 	)
 }
 export default Venues

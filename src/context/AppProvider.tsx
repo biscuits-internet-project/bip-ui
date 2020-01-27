@@ -34,13 +34,18 @@ const appReducer = (state: AppState, action:Action): AppState => {
           roles: action.payload.roles,
           ready: true
         };
-      // case "LOGOUT":
-      //   localStorage.clear();
-      //   return {
-      //     ...state,
-      //     //isAuthenticated: false,
-      //     //user: null
-      //   };
+      case "LOGIN":
+        return {
+          ...state,
+          token: action.payload.token,
+          roles: action.payload.roles,
+        };
+      case "LOGOUT":
+        return {
+          ...state,
+          token: null,
+          roles: []
+        };
       default:
         return state;
     }
@@ -52,13 +57,11 @@ const AppProvider:React.FC = ({children}) => {
     const [state, dispatch] = useReducer(appReducer, initialState)
 
     useEffect(() => {
-      let token:Nullable<string> = null
+      const token:Nullable<string> = localStorage.getItem('token')
       let roles: string[] = []
 
-      const tokenStorage = localStorage.getItem('token')
 
-      if (typeof tokenStorage === 'string') {
-        token = JSON.parse(tokenStorage)
+      if (typeof token === 'string') {
         roles = jwt(token).roles
       }
         dispatch({

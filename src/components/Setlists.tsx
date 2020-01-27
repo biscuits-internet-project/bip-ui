@@ -25,7 +25,7 @@ export default class Setlists extends React.Component<{}, MyState> {
 		let { years } = this.state;
 		return (
 
-			<Wrap>
+			<>
 				<h2>Setlists</h2>
 				<select name="years" id="years" onChange={this.handleChange}>
 					{years.map((year, key) => {
@@ -36,7 +36,7 @@ export default class Setlists extends React.Component<{}, MyState> {
 					})}
 				</select>
 				<Setlist />
-			</Wrap>
+			</>
 
 		)
 	}

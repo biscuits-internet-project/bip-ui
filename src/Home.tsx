@@ -7,11 +7,9 @@ class Home extends React.Component {
 
 	render() {
 		return (
-
-			<Wrap>
+			<>
 				<LatestSetlists />
-			</Wrap>
-
+			</>
 		)
 	}
 }

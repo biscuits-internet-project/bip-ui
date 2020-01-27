@@ -12,9 +12,9 @@ export default class Song extends React.Component<MyProps, {}> {
 
 		return (
 
-			<Wrap>
+			<>
 				<h1>Song</h1>
-			</Wrap>
+			</>
 
 		)
 	}
