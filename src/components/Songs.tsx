@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import axios, { AxiosResponse } from 'axios'
-import Wrap from './Wrap';
 import AddSong from './AddSong'
 
 export interface ISong {
@@ -29,7 +28,7 @@ const Songs: React.FC = () => {
 		fetchSongs()
 	},[])
 	return (
-		<Wrap>
+		<>
 			<h1>Songs</h1>
 			{loading && <h3>.....Loading</h3>}
 			<AddSong updateSongs={(song: ISong)=> setSongs([song,...songs])}/>
@@ -40,7 +39,7 @@ const Songs: React.FC = () => {
 					  </Link>
 				   </div>
 			})}
-		</Wrap>
+		</>
 	)
 }
 export default Songs

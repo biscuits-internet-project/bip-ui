@@ -34,13 +34,18 @@ const appReducer = (state: AppState, action:Action): AppState => {
           roles: action.payload.roles,
           ready: true
         };
-      // case "LOGOUT":
-      //   localStorage.clear();
-      //   return {
-      //     ...state,
-      //     //isAuthenticated: false,
-      //     //user: null
-      //   };
+      case "LOGIN":
+        return {
+          ...state,
+          token: action.payload.token,
+          roles: action.payload.roles,
+        };
+      case "LOGOUT":
+        return {
+          ...state,
+          token: null,
+          roles: []
+        };
       default:
         return state;
     }

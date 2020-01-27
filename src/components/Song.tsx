@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { useParams } from 'react-router-dom';
 import axios, { AxiosResponse } from 'axios'
-import Wrap from './Wrap';
 
 interface ISong {
 	id: string,
@@ -27,14 +26,14 @@ const Songs: React.FC = () => {
 	useEffect(()=> {
 		setLoading(true)
 		const fetchSong = async () => {
-			const data:AxiosResponse = await axios.get('https://stg-api.discobiscuits.net/api/songs/' + params.id)
+			const data:AxiosResponse = await axios.get(`https://stg-api.discobiscuits.net/api/songs/${params.id}`)
 			setSong(data.data)
 			setLoading(false)
 		}
 		fetchSong()
-	},[])
+	},[params.id])
 	return (
-		<Wrap>
+		<>
 			{loading && <h3>.....Loading</h3>}
 			{song && 
 				<div>
@@ -44,7 +43,7 @@ const Songs: React.FC = () => {
 					<div>last time played: {song.last_time_played}</div>
 				</div>
 			}
-		</Wrap>
+		</>
 	)
 }
 export default Songs
