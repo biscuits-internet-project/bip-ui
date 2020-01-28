@@ -23,7 +23,8 @@ const initialValues = {
 	cover: false, 
 	lyrics: "",
 	notes: "",
-	tabs: ""
+  tabs: "",
+  author_id: ""
 }
 const postSong = async (values: ISong, actions:FormikHelpers<ISong>, updateSongs: (song: ISong) => void, token: string | null) => {
     const newSong:AxiosResponse = await axios({
@@ -51,9 +52,6 @@ const AddSong: React.FC<IAddSong> = ({updateSongs}) => {
           return {label: author.name, value: author.id}
         })
         setAuthors(authors)
-        // let options:ISelectOption[] = authors.map(author => ISelectOption[] 
-        //   return {label: author.name, value: author.id}
-        // )
       }
       fetchAuthors()
     },[])
@@ -67,7 +65,6 @@ const AddSong: React.FC<IAddSong> = ({updateSongs}) => {
             {(props: FormikProps<ISong>) => (
               <Form>
                 <TextField name="title" type="text" label="Title" />
-                {/* todo: need to get authors passed over to SelectField */}
                 <SelectField name="author_id" label="Author" options={authors}/>
                 <CheckboxField name="cover" label="Cover" checked={false} />
                 <TextAreaField name="notes" label="Notes" />
