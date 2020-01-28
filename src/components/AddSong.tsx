@@ -49,7 +49,7 @@ const AddSong: React.FC<IAddSong> = ({updateSongs}) => {
       const fetchAuthors = async () => {
         const data:AxiosResponse = await axios.get('https://stg-api.discobiscuits.net/api/authors')
         const authors:ISelectOption[] = data.data.map((author):ISelectOption =>  {
-          return {label: author.name, value: author.id}
+          return {label: author.name, value: author.id, selected: false}
         })
         setAuthors(authors)
       }
