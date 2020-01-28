@@ -18,17 +18,17 @@ const initialValues = {
 	tabs: ""
 }
 const postSong = async (values: ISong, actions:FormikHelpers<ISong>, updateSongs: (song: ISong) => void) => {
-    // const newSong:AxiosResponse = await axios({
-    //     method: 'post',
-    //     url: 'https://stg-api.discobiscuits.net/api/songs',
-    //     data: values,
-    //     headers: {
-    //         "Content-Type":	"application/json",
-    //         "Authorization": "jfghsjdgfhjdsghjf" 
-    //     }
-    // });
+    const newSong:AxiosResponse = await axios({
+        method: 'post',
+        url: 'https://stg-api.discobiscuits.net/api/songs',
+        data: values,
+        headers: {
+            "Content-Type":	"application/json",
+            "Authorization": localStorage.getItem('token') 
+        }
+    });
     
-    // updateSongs(newSong.data)
+    updateSongs(newSong.data)
     updateSongs(values)
     actions.resetForm()
 }
@@ -43,8 +43,8 @@ const AddSong: React.FC<IAddSong> = ({updateSongs}) => {
           >
             {(props: FormikProps<ISong>) => (
               <Form>
-                <TextField name="tile" type="text" label="Title" />
-                // todo: add author dropdown
+                <TextField name="title" type="text" label="Title" />
+                <SelectField name="author_id" label="Author" />
                 <CheckboxField name="cover" label="Cover" checked={false} />
                 <TextAreaField name="notes" label="Notes" />
                 <TextAreaField name="lyrics" label="Lyrics" />
