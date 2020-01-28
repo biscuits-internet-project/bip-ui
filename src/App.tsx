@@ -9,6 +9,7 @@ import Song from './components/Song';
 import Venues from './components/Venues';
 import NotFound from './NotFound';
 import Login from './components/Login';
+import Register from './components/Register';
 import Admin from './components/Admin'
 import Wrap from './components/Wrap'
 
@@ -25,6 +26,7 @@ const App:React.FC = () => {
           <Route path="/songs/:id" component={Song} />
           <Route path="/venues" exact component={Venues}/>
           <Route path="/login" exact component={Login}/>
+          <Route path="/register" exact component={Register}/>
           <PrivateRoute path="/admin" component={Admin} roles={roles}/>
           <Route component={NotFound}/>
         </Switch>

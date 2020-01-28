@@ -34,7 +34,7 @@ const Songs: React.FC = () => {
 			<AddSong updateSongs={(song: ISong)=> setSongs([song,...songs])}/>
 			{songs.map((song: ISong) => {
 			return <div key={song.id}>
-					  <Link to={"/songs/" + song.slug}>
+					  <Link to={`/songs/${song.slug}`}>
 						{song.title}
 					  </Link>
 				   </div>
