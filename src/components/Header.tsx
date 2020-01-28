@@ -29,6 +29,9 @@ const Header:React.FC = () => {
 					<li>
 						<Link to="/admin">Admin</Link>
 					</li>
+					<li>
+						<Link to="/register">Register</Link>
+					</li>
 					<li onClick={logoutUser}>
 						Logout
 					</li>

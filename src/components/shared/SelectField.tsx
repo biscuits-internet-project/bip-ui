@@ -5,14 +5,25 @@ interface ISelectField {
     label: string
     name: string
     value?: string
+    options: ISelectOption[]
 }
 
-const SelectField: React.FC<ISelectField> = ({label, name, value}) => {
+export interface ISelectOption {
+  label: string
+  value?: string
+}
+
+const SelectField: React.FC<ISelectField> = ({label, name, value, options}) => {
     const [field, meta, /*helpers*/] = useField({name,value})
     return (
       <div style={{margin: '16px 8px'}}>
         <label style={{display: 'inline-block', width: '100px'}}>{label}</label>
         <select {...field} name={name} value={value}>
+          return (
+            {options.forEach((option) => {
+              <option label={option.label} value={option.value}></option>
+            })}
+          )
         </select>
         {meta.touched && meta.error ? (
           <div className='error'>{meta.error}</div>

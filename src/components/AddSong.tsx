@@ -6,6 +6,7 @@ import TextField from './shared/TextField'
 import TextAreaField from './shared/TextAreaField'
 import CheckboxField from './shared/CheckboxField'
 import SelectField from './shared/SelectField'
+import {ISelectOption}  from './shared/SelectField'
 
 interface IAddSong {
     updateSongs(song: ISong): void
@@ -45,6 +46,9 @@ const AddSong: React.FC<IAddSong> = ({updateSongs}) => {
       const fetchAuthors = async () => {
         const data:AxiosResponse = await axios.get('https://stg-api.discobiscuits.net/api/authors')
         setAuthors(data.data)
+        // let options:ISelectOption[] = authors.map(author => ISelectOption[] 
+        //   return {label: author.name, value: author.id}
+        // )
       }
       fetchAuthors()
     },[])
@@ -58,7 +62,8 @@ const AddSong: React.FC<IAddSong> = ({updateSongs}) => {
             {(props: FormikProps<ISong>) => (
               <Form>
                 <TextField name="title" type="text" label="Title" />
-                <SelectField name="author_id" label="Author" />
+                {/* todo: need to get authors passed over to SelectField */}
+                {/* <SelectField name="author_id" label="Author" /> */}
                 <CheckboxField name="cover" label="Cover" checked={false} />
                 <TextAreaField name="notes" label="Notes" />
                 <TextAreaField name="lyrics" label="Lyrics" />
