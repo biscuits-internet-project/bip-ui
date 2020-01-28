@@ -43,11 +43,14 @@ const postSong = async (values: ISong, actions:FormikHelpers<ISong>, updateSongs
 
 const AddSong: React.FC<IAddSong> = ({updateSongs}) => {
     const {state} = useContext(AppContext)
-    const [authors, setAuthors] = useState<IAuthor[]>([])
+    const [authors, setAuthors] = useState<ISelectOption[]>([])
     useEffect(()=> {
       const fetchAuthors = async () => {
         const data:AxiosResponse = await axios.get('https://stg-api.discobiscuits.net/api/authors')
-        setAuthors(data.data)
+        const authors:ISelectOption[] = data.data.map((author):ISelectOption =>  {
+          return {label: author.name, value: author.id}
+        })
+        setAuthors(authors)
         // let options:ISelectOption[] = authors.map(author => ISelectOption[] 
         //   return {label: author.name, value: author.id}
         // )
@@ -65,7 +68,7 @@ const AddSong: React.FC<IAddSong> = ({updateSongs}) => {
               <Form>
                 <TextField name="title" type="text" label="Title" />
                 {/* todo: need to get authors passed over to SelectField */}
-                {/* <SelectField name="author_id" label="Author" /> */}
+                <SelectField name="author_id" label="Author" options={authors}/>
                 <CheckboxField name="cover" label="Cover" checked={false} />
                 <TextAreaField name="notes" label="Notes" />
                 <TextAreaField name="lyrics" label="Lyrics" />
