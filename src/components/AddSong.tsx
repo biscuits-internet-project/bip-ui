@@ -1,6 +1,7 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import { Form, Formik, FormikProps,FormikHelpers} from 'formik'
 import axios, { AxiosResponse } from 'axios'
+import {AppContext} from '../context/AppProvider'
 import {ISong} from './Songs'
 import TextField from './shared/TextField'
 import TextAreaField from './shared/TextAreaField'
@@ -24,14 +25,14 @@ const initialValues = {
 	notes: "",
 	tabs: ""
 }
-const postSong = async (values: ISong, actions:FormikHelpers<ISong>, updateSongs: (song: ISong) => void) => {
+const postSong = async (values: ISong, actions:FormikHelpers<ISong>, updateSongs: (song: ISong) => void, token: string | null) => {
     const newSong:AxiosResponse = await axios({
         method: 'post',
         url: 'https://stg-api.discobiscuits.net/api/songs',
         data: values,
         headers: {
             "Content-Type":	"application/json",
-            "Authorization": localStorage.getItem('token') 
+            "Authorization": token
         }
     });
     
@@ -41,6 +42,7 @@ const postSong = async (values: ISong, actions:FormikHelpers<ISong>, updateSongs
 }
 
 const AddSong: React.FC<IAddSong> = ({updateSongs}) => {
+    const {state} = useContext(AppContext)
     const [authors, setAuthors] = useState<IAuthor[]>([])
     useEffect(()=> {
       const fetchAuthors = async () => {
@@ -57,7 +59,7 @@ const AddSong: React.FC<IAddSong> = ({updateSongs}) => {
           <h1>Add Song</h1>
           <Formik
             initialValues={initialValues}
-            onSubmit={(values, actions) => postSong(values, actions, updateSongs)}
+            onSubmit={(values, actions) => postSong(values, actions, updateSongs, state.token)}
           >
             {(props: FormikProps<ISong>) => (
               <Form>
