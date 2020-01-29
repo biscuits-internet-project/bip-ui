@@ -1,9 +1,32 @@
 import React from 'react';
-
+import {Route, Switch } from 'react-router-dom';
+import Dashboard from './admin/Dashboard'
+import Navbar from './admin/Navbar'
+import SideMenu from './admin/SideMenu'
+import Setlists from './Setlists';
+import AdminSongs from './admin/songs/AdminSongs';
+import Song from './Song';
+import Venues from './Venues';
+import NotFound from '../NotFound';
 
 const Admin: React.FC = () => {
 	return (
-		<h1>You have access to admin!!!</h1>
+		<>
+		<Navbar/>
+		<div style={{ display: 'flex' }}>
+        <SideMenu />
+		<div style={{ margin: '16px', width: 'calc(100vw - 300px)' }}>
+			<Switch>
+				<Route path="/admin/setlists" exact component={Setlists} />
+				<Route path="/admin/songs" exact component={AdminSongs} />
+				<Route path="/admin/songs/:id" component={Song} />
+				<Route path="/admin/venues" exact component={Venues}/>
+				<Route path="/admin"component={Dashboard}/>
+				<Route component={NotFound}/>
+			</Switch>
+		</div>
+		</div>
+		</>
 	)
 }
 export default Admin
