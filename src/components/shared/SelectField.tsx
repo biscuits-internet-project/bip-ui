@@ -1,6 +1,7 @@
 import React from 'react'
 import { useField } from 'formik'
 import Select from '@material-ui/core/Select';
+import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 interface ISelectField {
@@ -30,15 +31,18 @@ const SelectField: React.FC<ISelectField> = ({label, name, value, options}) => {
         {meta.touched && meta.error ? (
           <div className='error'>{meta.error}</div>
         ) : null} */}
-        <InputLabel id="label" style={{marginBottom: '6px', marginLeft: '10px'}}>{label}</InputLabel>
+        <FormControl variant="outlined" fullWidth>
+        <InputLabel id="label">{label}</InputLabel>
         <Select
-          fullWidth
+          //fullWidth
           value={value}
           {...field}
-          variant="outlined"
+          //variant="outlined"
         >
           {options.map((option) => <MenuItem key={option.value} value={option.value}>{option.label}</MenuItem>)}
         </Select>
+
+        </FormControl>
       </div>
     )
   }

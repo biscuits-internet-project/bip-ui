@@ -70,7 +70,7 @@ const AddSong: React.FC<IAddSong> = ({updateSongs}) => {
                   <div style={{width: '75%'}}>
                     <SelectField name="author_id" label="Author" options={authors}/>
                   </div>
-                  <div style={{marginTop: '24px'}}>
+                  <div style={{marginTop: '12px'}}>
                     <CheckboxField name="cover" label="Cover" />
                   </div>
                 </div>
