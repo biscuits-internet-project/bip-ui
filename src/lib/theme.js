@@ -267,6 +267,19 @@ const baseTheme = {
           display: 'block'
         }
       }
+    },
+    // MuiFormControl: {
+    //   fullWidth: {
+    //     '& label': {
+    //       display: 'table'
+    //     }
+    //   }
+    // },
+    MuiInputLabel: {
+      outlined: {
+        background: 'white',
+        //padding: '0px 6px'
+      }
     }
     //   MuiMenuItem: {
     //     root: {
