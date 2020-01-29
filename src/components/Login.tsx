@@ -68,7 +68,7 @@ const Login: React.FC = () => {
     const history = useHistory();
     return (
         <div style={{width: '100vw', height:  '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          <Card style={{width: '600px', maxWidth: '90%'}}>
+          <Card style={{width: '400px', maxWidth: '90%'}}>
             <CardContent>
               <div style={{display: 'flex', alignItems: 'center', flexDirection: 'column'}}>
               <img alt="logo" style={{ width: '64px', height: '64px', margin: '16px'}} src="/logoInvert.svg" />
