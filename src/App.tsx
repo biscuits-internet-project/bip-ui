@@ -1,36 +1,33 @@
 import React, {useContext} from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import './App.css';
+import { ThemeProvider } from '@material-ui/core/styles';
 import PrivateRoute from './routing/PrivateRoute'
 import {AppContext} from './context/AppProvider'
+import {defaultTheme} from './lib/theme'
 import Home from './Home';
-import Setlists from './components/Setlists';
-import Songs from './components/Songs';
-import Song from './components/Song';
-import Venues from './components/Venues';
-import NotFound from './NotFound';
+// import Setlists from './components/Setlists';
+// import Songs from './components/Songs';
+// import Song from './components/Song';
+// import Venues from './components/Venues';
+// import NotFound from './NotFound';
 import Login from './components/Login';
-import Register from './components/Register';
+//import Register from './components/Register';
 import Admin from './components/Admin'
-import Wrap from './components/Wrap'
+//import Wrap from './components/Wrap'
 
 const App:React.FC = () => {
   const {state} = useContext(AppContext)
   const {roles} = state
   return (
     <Router>
-      <Wrap>
-        <Switch>
-          <Route path="/" exact component={Home}/>
-          <Route path="/setlists" exact component={Setlists} />
-          <Route path="/songs" exact component={Songs} />
-          <Route path="/songs/:id" component={Song} />
-          <Route path="/venues" exact component={Venues}/>
-          <Route path="/login" exact component={Login}/>
-          <Route path="/register" exact component={Register}/>
-          <PrivateRoute path="/admin" component={Admin} roles={roles}/>
-          <Route component={NotFound}/>
-        </Switch>
-      </Wrap>
+        <ThemeProvider theme={defaultTheme}>
+          <Switch>
+            <PrivateRoute path="/admin/:adminPage?" component={Admin} roles={roles}/>
+            <Route path="/login" component={Login}/>
+            <Route path="/" component={Home}/>
+          </Switch>
+        </ThemeProvider> 
     </Router>
   )
 }

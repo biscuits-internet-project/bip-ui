@@ -1,6 +1,6 @@
 import React from 'react'
 import { useField} from 'formik'
-
+import TextField from '@material-ui/core/TextField';
 interface ITextField {
     label: string
     name: string
@@ -8,16 +8,14 @@ interface ITextField {
     value?: string
 }
 
-const TextField: React.FC<ITextField> = ({label, name, type, value}) => {
-    const [field, meta, /*helpers*/] = useField({name,value})
-    console.log(meta)
-    return (
-      <div style={{margin: '0px 8px', display: 'flex', flexDirection: 'column', alignItems: 'flex-start'}}>
-        <label style={{display: 'inline-block', width: '100px', padding: '8px 0px'}}>{label}</label>
-        <input {...field} type={type} style={{width: '200px', height: '30px'}}/>
-        <div style={{color: 'red', padding: '8px 0px', height: '16px', opacity: meta.touched && meta.error ? 1 : 0 }}>{meta.error}</div>
-      </div>
-    )
-  }
+const TextFieldContainer: React.FC<ITextField> = ({label, name, type, value}) => {
+  const [field, meta, /*helpers*/] = useField({name,value})
+  const fieldError = !!meta.error && meta.touched
+  return (
+    <>
+      <TextField id={label} label={label} {...field} fullWidth error={fieldError} helperText={fieldError && meta.error}/>
+    </>
+  )
+}
 
-export default TextField
+export default TextFieldContainer

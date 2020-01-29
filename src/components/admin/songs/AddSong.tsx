@@ -1,13 +1,14 @@
 import React, {useState, useEffect, useContext} from 'react';
 import { Form, Formik, FormikProps,FormikHelpers} from 'formik'
 import axios, { AxiosResponse } from 'axios'
-import {AppContext} from '../context/AppProvider'
-import {ISong} from './Songs'
-import TextField from './shared/TextField'
-import TextAreaField from './shared/TextAreaField'
-import CheckboxField from './shared/CheckboxField'
-import SelectField from './shared/SelectField'
-import {ISelectOption}  from './shared/SelectField'
+import {AppContext} from '../../../context/AppProvider'
+import {ISong} from '../../Songs'
+import TextField from '../../shared/TextField'
+import TextAreaField from '../../shared/TextAreaField'
+import CheckboxField from '../../shared/CheckboxField'
+import SelectField from '../../shared/SelectField'
+import {ISelectOption}  from '../../shared/SelectField'
+import Button from '@material-ui/core/Button'
 
 interface IAddSong {
     updateSongs(song: ISong): void
@@ -27,6 +28,7 @@ const initialValues = {
   author_id: ""
 }
 const postSong = async (values: ISong, actions:FormikHelpers<ISong>, updateSongs: (song: ISong) => void, token: string | null) => {
+    console.log(values)
     const newSong:AxiosResponse = await axios({
         method: 'post',
         url: 'https://stg-api.discobiscuits.net/api/songs',
@@ -57,7 +59,6 @@ const AddSong: React.FC<IAddSong> = ({updateSongs}) => {
     },[])
     return (
         <div>
-          <h1>Add Song</h1>
           <Formik
             initialValues={initialValues}
             onSubmit={(values, actions) => postSong(values, actions, updateSongs, state.token)}
@@ -65,12 +66,22 @@ const AddSong: React.FC<IAddSong> = ({updateSongs}) => {
             {(props: FormikProps<ISong>) => (
               <Form>
                 <TextField name="title" type="text" label="Title" />
-                <SelectField name="author_id" label="Author" options={authors}/>
-                <CheckboxField name="cover" label="Cover" checked={false} />
+                <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%'}}>
+                  <div style={{width: '75%'}}>
+                    <SelectField name="author_id" label="Author" options={authors}/>
+                  </div>
+                  <div style={{marginTop: '24px'}}>
+                    <CheckboxField name="cover" label="Cover" />
+                  </div>
+                </div>
                 <TextAreaField name="notes" label="Notes" />
                 <TextAreaField name="lyrics" label="Lyrics" />
                 <TextAreaField name="tabs" label="Tabs" />
-                <button type="submit">Submit</button>
+                <div style={{display: 'flex', justifyContent: 'flex-end', marginTop: '16px'}}>
+                  <Button variant="contained" color="primary" type="submit">
+                    Submit
+                  </Button>
+                </div>
               </Form>
             )}
           </Formik>
