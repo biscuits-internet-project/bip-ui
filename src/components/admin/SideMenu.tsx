@@ -52,7 +52,7 @@ const SideMenu = () => {
 									<ListItem  
 										key={item.label} 
 										button 
-										selected={adminPage === item.name} 
+										selected={adminPage ? adminPage === item.name : !item.name} 
 										onClick={()=> history.push(`/admin/${item.name}`)}
 									>
 										<ListItemIcon>
