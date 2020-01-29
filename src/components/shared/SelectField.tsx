@@ -13,6 +13,7 @@ interface ISelectField {
 export interface ISelectOption {
   label: string
   value?: string
+  selected: boolean
 }
 
 const SelectField: React.FC<ISelectField> = ({label, name, value, options}) => {

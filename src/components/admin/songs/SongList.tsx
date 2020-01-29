@@ -1,25 +1,13 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import {ISong} from '../../Songs'
 
-const useStyles = makeStyles({
-  container: {
-    marginTop: '16px'
-  },
-  table: {
-    minWidth: 650,
-  },
-});
-
-
-const SongList = ({songs}) => {
-  const classes = useStyles();
-    console.log(songs)
+const SongList:React.FC<{songs: ISong[]}> = ({songs}) => {
   return (
     <TableContainer>
       <Table>
@@ -30,7 +18,7 @@ const SongList = ({songs}) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {songs.map(song => (
+          {songs.map((song: ISong) => (
             <TableRow key={song.id}>
               <TableCell>
                 {song.title}
