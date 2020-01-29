@@ -68,7 +68,7 @@ const Login: React.FC = () => {
     const history = useHistory();
     return (
         <div style={{width: '100vw', height:  '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          <Card style={{width: '30%'}}>
+          <Card style={{width: '600px', maxWidth: '90%'}}>
             <CardContent>
               <div style={{display: 'flex', alignItems: 'center', flexDirection: 'column'}}>
               <img alt="logo" style={{ width: '64px', height: '64px', margin: '16px'}} src="/logoInvert.svg" />
@@ -79,7 +79,7 @@ const Login: React.FC = () => {
                   validationSchema={LoginSchema}
                 >
                   {(props: FormikProps<ILogin>) => (
-                    <Form style={{display: 'flex', flexDirection: 'column', alignItems: 'center', width: '400px'}}>
+                    <Form style={{display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%'}}>
                       <TextField name="email" type="email" label="Email" />
                       <div style={{height: '30px'}}/>
                       <TextField name="password" type="password" label="Password" />
