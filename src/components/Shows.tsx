@@ -1,40 +1,50 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react'
+import { useParams } from 'react-router-dom';
+import axios, { AxiosResponse } from 'axios'
+import {ISetlist} from './Setlist';
 import Setlist from './Setlist';
 
-interface MyState {
-	years: number[],
-}
+const Shows: React.FC = () => {
 
-export default class Shows extends React.Component<{}, MyState> {
-
-	constructor(props) {
-	  super(props);
+	const [loading, setLoading] = useState(false)
+	const [setlists, setSetlists] = useState<ISetlist[]>([])
+	const params = useParams();
+	const years = Array(new Date().getFullYear() - 1995 + 1).fill(0).map((_, idx) => 1995 + idx)
+	let selectedYear = params.year || 2020
 	
-	  this.state = {
-	  	years: [ 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020 ]
-	  };
-	}
+	useEffect(()=> {
+		setLoading(true)
+		const fetchSetlists = async () => {
+			const data:AxiosResponse = await axios.get(`https://stg-api.discobiscuits.net/api/shows?year=${selectedYear}`)
+			setSetlists(data.data)
+			setLoading(false)
+		}
+		fetchSetlists()
+	},[])
+	return (
+		<>
+			{loading && <h3>.....Loading</h3>}
+			<select name="years" id="years">
+				{years.map((year) => {
+					return (
+						<option value={year} selected={year == selectedYear}>{year}</option>
+					)
+				})}
+			</select>
 
-	handleChange = () => {
-		alert('give me all your fucking money');
-	}
-
-	render() {
-		let { years } = this.state;
-		return (
-
-			<>
-				<h2>Shows</h2>
-				<select name="years" id="years" onChange={this.handleChange}>
-					{years.map((year, key) => {
+			<div className="setlists">
+				<h2 className="setlists__title">Shows</h2>
+				<div className="setlists__feed setlists__feed--latest">
+					{setlists.map((setlist) => {
 						return (
-
-							<option value={year}>{year}</option>
+							<Setlist date={setlist.date} venue={setlist.venue} tracks={setlist.tracks} notes={setlist.notes} />
 						)
 					})}
-				</select>
-			</>
+				</div>
+			</div>
+		</>
 
-		)
-	}
+	)
 }
+
+export default Shows;  
