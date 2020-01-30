@@ -18,7 +18,7 @@ interface ISong {
 }
 
 
-const Songs: React.FC = () => {
+const Song: React.FC = () => {
 
 	const params = useParams();
 	const [loading, setLoading] = useState(false)
@@ -46,4 +46,4 @@ const Songs: React.FC = () => {
 		</>
 	)
 }
-export default Songs
+export default Song
