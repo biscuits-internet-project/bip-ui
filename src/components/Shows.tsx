@@ -5,7 +5,7 @@ interface MyState {
 	years: number[],
 }
 
-export default class Setlists extends React.Component<{}, MyState> {
+export default class Shows extends React.Component<{}, MyState> {
 
 	constructor(props) {
 	  super(props);
@@ -24,7 +24,7 @@ export default class Setlists extends React.Component<{}, MyState> {
 		return (
 
 			<>
-				<h2>Setlists</h2>
+				<h2>Shows</h2>
 				<select name="years" id="years" onChange={this.handleChange}>
 					{years.map((year, key) => {
 						return (
@@ -33,7 +33,6 @@ export default class Setlists extends React.Component<{}, MyState> {
 						)
 					})}
 				</select>
-				<Setlist />
 			</>
 
 		)

@@ -18,7 +18,6 @@ export interface IVenue {
 const Venues: React.FC = () => {
 	const [loading, setLoading] = useState(false)
 	const [venues, setVenues] = useState<IVenue[]>([])
-
 	
 	useEffect(()=> {
 		setLoading(true)
