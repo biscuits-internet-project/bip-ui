@@ -85,6 +85,8 @@ const Login: React.FC = () => {
                       <TextField name="password" type="password" label="Password" />
                       <div style={{height: '30px'}}/>
                       <Button variant="contained" color="primary" type="submit" disabled={loading}>LOG IN</Button>
+
+                      add forgot password here
                     </Form>
                   )}
                 </Formik>

@@ -18,7 +18,7 @@ const initialValues: IRegister = {
     password: "",
     password_confirmation: "",
     first_name: "",
-    last_name: ""
+    last_name: "",
 }
 
 const postRegister = async (values: IRegister, actions:FormikHelpers<IRegister>) => {
@@ -43,10 +43,14 @@ const Register: React.FC = () => {
             {(props: FormikProps<IRegister>) => (
               <Form>
                 <TextField name="email" type="email" label="Email" />
+                <TextField name="username" type="text" label="Username" />
                 <TextField name="first_name" type="text" label="First Name" />
                 <TextField name="last_name" type="text" label="Last Name" />
                 <TextField name="password" type="password" label="Password" />
                 <TextField name="password_confirmation" type="password" label="Password Confirmation" />
+
+                // add image avatar upload to rails here //
+
                 <button type="submit">Submit</button>
               </Form>
             )}
