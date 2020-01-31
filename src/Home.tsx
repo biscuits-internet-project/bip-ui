@@ -10,6 +10,7 @@ import Login from './components/Login';
 import Register from './components/Register';
 import Admin from './components/Admin'
 import Wrap from './components/Wrap'
+import Tour from './components/Tour';
 class Home extends React.Component {
 
 	render() {
@@ -24,9 +25,11 @@ class Home extends React.Component {
 					<Route path="/shows/state/:state" exact component={Shows} />
 					<Route path="/songs" exact component={Songs} />
 					<Route path="/songs/:id" component={Song} />
-					<Route path="/venues" exact component={Venues}/>
-					<Route path="/login" exact component={Login}/>
-					<Route path="/register" exact component={Register}/>
+					<Route path="/venues" exact component={Venues} />
+					<Route path="/tour" exact component={Tour} />
+					<Route path="/login" exact component={Login} />
+					<Route path="/register" exact component={Register} />
+					<Route path="/register/confirm" exact component={Register}/>
 					{/* <PrivateRoute path="/admin" component={Admin} roles={roles}/> */}
 					<Route component={NotFound}/>
 				</Switch>
