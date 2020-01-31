@@ -11,6 +11,9 @@ import Register from './components/Register';
 import Admin from './components/Admin'
 import Wrap from './components/Wrap'
 import Tour from './components/Tour';
+import Resources from './components/Resources';
+import About from './components/About';
+import Contact from './components/Contact';
 class Home extends React.Component {
 
 	render() {
@@ -29,6 +32,9 @@ class Home extends React.Component {
 					<Route path="/tour" exact component={Tour} />
 					<Route path="/login" exact component={Login} />
 					<Route path="/register" exact component={Register} />
+					<Route path="/resources" exact component={Resources} />
+					<Route path="/about" exact component={About} />
+					<Route path="/contact" exact component={Contact} />
 					<Route path="/register/confirm" exact component={Register}/>
 					{/* <PrivateRoute path="/admin" component={Admin} roles={roles}/> */}
 					<Route component={NotFound}/>

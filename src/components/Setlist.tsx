@@ -38,6 +38,9 @@ const Setlist: React.FC<ISetlist> = ({date,venue,tracks,notes}) => {
 				<h3 className="setlist__notes">{notes}</h3>
 			</header>
 			<div className="setlist__set-wrap">
+
+				// todo - still need to render the annotations properly
+
 				{Object.keys(sets).map((key) => {
 					return (
 						<ul className="set" key={key}>
@@ -45,7 +48,12 @@ const Setlist: React.FC<ISetlist> = ({date,venue,tracks,notes}) => {
 							{sets[key].map((track) => {
 								return (
 									<li className="set__track">
-										<Link to={`/songs/${track.song_slug}`}>{track.song_title}</Link> {track.segue}
+										<Link to={`/songs/${track.song_slug}`}>{track.song_title}</Link>
+										{track.annotations.map((a, i) => {
+											return <span>{a}</span>
+										})}
+
+										{track.segue}
 									</li>
 								)
 							})}
