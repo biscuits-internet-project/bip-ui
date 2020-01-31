@@ -5,6 +5,7 @@ import TextField from './shared/TextField'
 
 interface IRegister {
     email: string
+    username: string
     first_name: string
     last_name: string
     password: string
@@ -13,6 +14,7 @@ interface IRegister {
 
 const initialValues: IRegister = {
     email: "",
+    username: "",
     password: "",
     password_confirmation: "",
     first_name: "",

@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import { useParams } from 'react-router-dom';
+import { useParams, useRouteMatch, useHistory } from 'react-router-dom';
 import axios, { AxiosResponse } from 'axios'
 import {ISetlist} from './Setlist';
 import Setlist from './Setlist';
@@ -7,11 +7,18 @@ import Setlist from './Setlist';
 const Shows: React.FC = () => {
 
 	const [loading, setLoading] = useState(false)
+	const currentYear = new Date().getFullYear()
+	const [selectedYear, setSelectedYear] = useState(currentYear)
 	const [setlists, setSetlists] = useState<ISetlist[]>([])
 	const params = useParams();
-	const years = Array(new Date().getFullYear() - 1995 + 1).fill(0).map((_, idx) => 1995 + idx)
-	let selectedYear = params.year || 2020
-	
+	const years = Array(currentYear - 1995 + 1).fill(0).map((_, idx) => 1995 + idx)
+	const history = useHistory()	
+
+	const changeYear = (e) => {
+		setSelectedYear(e.target.value)
+		history.push(`/shows?year=${e.target.value}`)
+	}
+
 	useEffect(()=> {
 		setLoading(true)
 		const fetchSetlists = async () => {
@@ -24,7 +31,7 @@ const Shows: React.FC = () => {
 	return (
 		<>
 			{loading && <h3>.....Loading</h3>}
-			<select name="years" id="years">
+			<select name="years" id="years" onChange={changeYear}>
 				{years.map((year) => {
 					return (
 						<option value={year} selected={year == selectedYear}>{year}</option>
