@@ -181,7 +181,7 @@ const baseTheme = {
     MuiMenuItem: {
       dense: {
         color: colors.primary,
-        fontWeight: 700,s
+        fontWeight: 700,
       },
       root: {
         width: 'calc(100% - 16px)'

@@ -27,8 +27,8 @@ const ChipField: React.FC<IChipField> = ({label, name}) => {
   return (
       <>
         <div style={{width: '100%', position: 'relative'}}><TextField type="text" label={label} value={inputValue} onChange={handleChange} onKeyPress={handleKey} fullWidth margin="dense"/></div>
-        <div style={{position:'absolute', right: 10}}>
-            {field.value.map((chip:string,index:number) => <Chip style={{height: '26px', marginTop:'4px', marginLeft: '4px'}} label={chip} color="primary" onDelete={()=>{}}/>)}
+        <div style={{position:'absolute', right: 14, top: 19}}>
+            {field.value.map((chip:string,index:number) => <Chip key={index} style={{height: '26px', marginTop:'4px', marginLeft: '4px'}} label={chip} color="primary" onDelete={()=>{}}/>)}
         </div>
     </>
   )

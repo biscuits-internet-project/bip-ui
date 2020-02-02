@@ -2,10 +2,7 @@ import React, {useReducer, createContext, useEffect} from 'react';
 import jwt from 'jwt-decode'
 import asyncActions from './asyncActions'
 import {IVenue} from '../components/Venues'
-<<<<<<< HEAD
 import {ISong} from '../components/Songs'
-=======
->>>>>>> 4fe6cfa01c522eb32577b156cf07911ddd65f5b5
 
 type Nullable<T> = T | null;
 

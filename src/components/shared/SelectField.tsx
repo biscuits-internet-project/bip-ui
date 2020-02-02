@@ -19,8 +19,8 @@ export interface ISelectOption {
   //[key:string]: any
 }
 
-const SelectField: React.FC<ISelectField> = ({label, name, value, options, onSelect}) => {
-    const [field, ,helpers] = useField({name,value})
+const SelectField: React.FC<ISelectField> = ({label, name, value, options}) => {
+    const [field] = useField({name,value})
     return (
       <div>
         <FormControl variant="outlined" fullWidth margin="dense">
@@ -28,11 +28,6 @@ const SelectField: React.FC<ISelectField> = ({label, name, value, options, onSel
         <Select
           value={value}
           {...field}
-          onChange={(evt)=>{
-            helpers.setValue(evt.target.value)
-            onSelect && onSelect(evt.target.value)
-          }}
-          variant="outlined"
         >
           {options.map((option) => <MenuItem key={option.value} value={option.value}>{option.label}</MenuItem>)}
         </Select>
