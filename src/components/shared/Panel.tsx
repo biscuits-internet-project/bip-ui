@@ -4,9 +4,6 @@ import { FolderOutlined} from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import Button from '@material-ui/core/Button';
-//import { flexbox } from '@material-ui/system';
 
 const useStyles = makeStyles({
     container: {
@@ -24,7 +21,7 @@ const useStyles = makeStyles({
 });
 
 
-const Panel = ({children, title,width = '100%'}) => {
+const Panel = ({children, title, width = 'calc(100vw - 280px'}) => {
     const classes = useStyles()
     return (
         <>
@@ -32,7 +29,7 @@ const Panel = ({children, title,width = '100%'}) => {
             <FolderOutlined color="secondary" className={classes.icon}/>
             <Typography variant='h6'>{title}</Typography>
         </div>
-        <Card style={{width}}>
+        <Card style={{width, marginBottom: '16px'}}>
             <CardContent>
                 {children}
             </CardContent>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { useField } from 'formik'
+import { useField, setNestedObjectValues } from 'formik'
 import Select from '@material-ui/core/Select';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -9,35 +9,30 @@ interface ISelectField {
     name: string
     value?: string
     options: ISelectOption[]
+    onSelect?: (any:any)=> any
 }
 
 export interface ISelectOption {
-  label: string
+  label?: string
   value?: string
-  selected: boolean
+  selected?: boolean
+  //[key:string]: any
 }
 
-const SelectField: React.FC<ISelectField> = ({label, name, value, options}) => {
-    const [field, meta, /*helpers*/] = useField({name,value})
+const SelectField: React.FC<ISelectField> = ({label, name, value, options, onSelect}) => {
+    const [field, meta, helpers] = useField({name,value})
     return (
       <div>
-        {/* <label style={{display: 'inline-block', width: '100px'}}>{label}</label>
-        <select {...field} name={name} value={value}>
-            <option value="none" selected disabled> 
-              Select One
-            </option>
-          {options.map((option) => <option key={option.value} label={option.label} value={option.value}></option>)}
-        </select>
-        {meta.touched && meta.error ? (
-          <div className='error'>{meta.error}</div>
-        ) : null} */}
-        <FormControl variant="outlined" fullWidth>
+        <FormControl variant="outlined" fullWidth margin="dense">
         <InputLabel id="label">{label}</InputLabel>
         <Select
-          //fullWidth
           value={value}
           {...field}
-          //variant="outlined"
+          onChange={(evt)=>{
+            helpers.setValue(evt.target.value)
+            onSelect && onSelect(evt.target.value)
+          }}
+          variant="outlined"
         >
           {options.map((option) => <MenuItem key={option.value} value={option.value}>{option.label}</MenuItem>)}
         </Select>

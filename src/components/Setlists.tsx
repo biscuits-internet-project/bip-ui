@@ -1,5 +1,6 @@
 import React from 'react';
 import Setlist from './Setlist';
+import AddSetlist from './admin/setlists/AddSetlist';
 
 interface MyState {
 	years: number[],
@@ -29,10 +30,11 @@ export default class Setlists extends React.Component<{}, MyState> {
 					{years.map((year, key) => {
 						return (
 
-							<option value={year}>{year}</option>
+							<option key={key} value={year}>{year}</option>
 						)
 					})}
 				</select>
+				<AddSetlist/>
 				<Setlist />
 			</>
 
