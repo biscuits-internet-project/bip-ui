@@ -1,16 +1,69 @@
 import React from 'react';
 import { Helmet } from "react-helmet";
+import axios, { AxiosResponse } from 'axios';
+import { Formik, Form, FormikProps } from 'formik';
+import TextField from './shared/TextField'
+import TextAreaField from './shared/TextAreaField'
+import ReCaptcha from './shared/ReCaptcha'
+import * as Yup from 'yup';
 
-const About: React.FC = () => {
-	return (
-		<>
-			<Helmet>
-				<title>Biscuits Internet Project - About</title>
-			</Helmet>
-			<h1>Contact Us</h1>
+const ContactSchema = Yup.object().shape({
+	email: Yup.string()
+	  .email('Invalid email')
+	  .required('Email is required'),
+	name: Yup.string()
+	  .required('Name is required'),
+	message: Yup.string()
+	  .required('Message is required'),
+  })
 
-			contact form will go here, submits to api and uses sendgrid from there
-		</>
-	)
+interface IContact {
+	email: string
+    name: string
+    message: string
 }
-export default About
+
+const initialValues: IContact = {
+    email: "",
+    name: "",
+    message: ""
+}
+
+const postContact = async (values: IContact) => {
+    const contactRequest:AxiosResponse = await axios({
+        method: 'post',
+        url: 'https://stg-api.discobiscuits.net/api/contact',
+        data: values,
+        headers: {
+            "Content-Type":	"application/json", 
+        }
+    });
+    return contactRequest.data
+}
+
+const Register: React.FC = () => {
+    return (
+        <div>
+			<Helmet>
+				<title>Biscuits Internet Project - Contact</title>
+			</Helmet>
+          <Formik
+            initialValues={initialValues}
+            onSubmit={(values) => postContact(values)}
+            validationSchema={ContactSchema}
+          >
+            {(props: FormikProps<IContact>) => (
+              <Form>
+                <TextField name="email" type="email" label="Email" />
+                <TextField name="name" type="text" label="Name" />
+                <TextAreaField name="message" label="Message" />
+				<ReCaptcha></ReCaptcha>
+                <button type="submit">Submit</button>
+              </Form>
+            )}
+          </Formik>
+        </div>
+      );
+}
+
+  export default Register 
