@@ -21,7 +21,7 @@ const useStyles = makeStyles({
 });
 
 
-const Panel = ({children, title, width = 'calc(100vw - 280px'}) => {
+const Panel = ({children, title, width = '100%'}) => {
     const classes = useStyles()
     return (
         <>

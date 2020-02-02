@@ -24,7 +24,6 @@ const ChipField: React.FC<IChipField> = ({label, name}) => {
         setInputValue('')
       }
   }
-  console.log('gdhgfjhds', field)
   return (
       <>
         <div style={{width: '100%', position: 'relative'}}><TextField type="text" label={label} value={inputValue} onChange={handleChange} onKeyPress={handleKey} fullWidth margin="dense"/></div>

@@ -9,7 +9,6 @@ import Venue from './components/Venue';
 import NotFound from './NotFound';
 import Login from './components/Login';
 import Register from './components/Register';
-import Admin from './components/Admin'
 import Wrap from './components/Wrap'
 import Tour from './components/Tour';
 import Resources from './components/Resources';
