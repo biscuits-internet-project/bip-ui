@@ -264,6 +264,12 @@ const baseTheme = {
         }
       }
     },
+    MuiFormHelperText: {
+      root: {
+        position: 'absolute',
+        top: '3em'
+      }
+    },
     // MuiFormControl: {
     //   fullWidth: {
     //     '& label': {

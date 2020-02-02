@@ -27,7 +27,6 @@ const initialValues = {
   author_id: ""
 }
 const postSong = async (values: ISong, actions:FormikHelpers<ISong>, updateSongs: (song: ISong) => void, token: string | null) => {
-    console.log(values)
     const newSong:AxiosResponse = await axios({
         method: 'post',
         url: 'https://stg-api.discobiscuits.net/api/songs',
