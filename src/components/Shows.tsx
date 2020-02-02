@@ -3,7 +3,6 @@ import { useHistory } from 'react-router-dom';
 import axios, { AxiosResponse } from 'axios'
 import {ISetlist} from './Setlist';
 import Setlist from './Setlist';
-import AddShow from './admin/shows/AddShow'
 import { Helmet } from "react-helmet"
 
 const Shows: React.FC = () => {
@@ -36,7 +35,6 @@ const Shows: React.FC = () => {
 			<Helmet>
 				<title>Biscuits Internet Project - Shows</title>
 			</Helmet>
-			<AddShow/>
 			<select name="years" id="years" onChange={changeYear}>
 				{years.map((year) => {
 					return (
