@@ -5,6 +5,10 @@ import { Link } from 'react-router-dom';
 
 const Header:React.FC = () => {
 	const {dispatch} = useContext(AppContext)
+	const {state} = useContext(AppContext)
+	const {username} = state
+	const {roles} = state
+	const admin = roles.includes('admin')
 	const logoutUser = () => {
 		localStorage.removeItem('token')
 		dispatch({type: "LOGOUT"})
@@ -32,15 +36,18 @@ const Header:React.FC = () => {
 					<li>
 						<Link to="/resources">Resources</Link>
 					</li>
-					<li>
-						<Link to="/login">Login</Link>
-					</li>
-					<li>
-						<Link to="/register">Register</Link>
-					</li>
-					<li onClick={logoutUser}>
-						<Link to="/logout">Logout</Link>
-					</li>
+					{username ? (
+						<li onClick={logoutUser}>
+							{username} | <Link to="/logout">Logout</Link>
+							{admin && 
+							  <Link to="/admin/dashboard">Admin</Link>
+							}
+						</li>
+					) : (
+						<li>
+							<Link to="/register">Register</Link> | <Link to="/login">Login</Link>
+						</li>
+					)}
 				</ul>
 			</nav>
 		</header>
