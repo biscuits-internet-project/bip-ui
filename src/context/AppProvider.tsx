@@ -14,6 +14,7 @@ export type Action = {
 export interface AppState {
   token: Nullable<string> ,
   roles: string[],
+  username: Nullable<string>,
   ready: boolean
   venues: IVenue[]
   songs: ISong[]
@@ -27,6 +28,7 @@ interface IContextProps {
 
 const initialState:AppState = {
   token: null,
+  username: null,
   roles: [],
   ready: false,
   venues: [],
@@ -39,6 +41,7 @@ const appReducer = (state: AppState, action:Action): AppState => {
         return {
           ...state,
           token: action.payload.token,
+          username: action.payload.username,
           roles: action.payload.roles,
           ready: true
         };
@@ -46,12 +49,14 @@ const appReducer = (state: AppState, action:Action): AppState => {
         return {
           ...state,
           token: action.payload.token,
+          username: action.payload.username,
           roles: action.payload.roles,
         };
       case "LOGOUT":
         return {
           ...state,
           token: null,
+          username: null,
           roles: []
         };
       case "GET_VENUES":
@@ -77,15 +82,17 @@ const AppProvider:React.FC = ({children}) => {
     useEffect(() => {
       const token:Nullable<string> = localStorage.getItem('token')
       let roles: string[] = []
-
+      let username: Nullable<string> = null
 
       if (typeof token === 'string') {
         roles = jwt(token).roles
+        username = jwt(token).username
       }
         dispatch({
           type: 'INITIATE',
           payload: {
             token,
+            username,
             roles
           }
         })
