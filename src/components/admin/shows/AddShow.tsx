@@ -1,5 +1,6 @@
 import React, {useMemo, useEffect, useContext} from 'react';
-import { Form, Formik, FormikHelpers, FieldArray} from 'formik'
+import { Form, Formik, FormikHelpers, FieldArray, validateYupSchema, yupToFormErrors} from 'formik'
+import * as Yup from 'yup';
 import axios from 'axios'
 import {AppContext} from '../../../context/AppProvider'
 import {ISong} from '../../Songs'
@@ -13,7 +14,6 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '../../shared/TextField'
 import Panel from '../../shared/Panel'
 import Button from '@material-ui/core/Button'
-
 import Track from './Track'
 
 export interface IShow {
@@ -69,6 +69,8 @@ const initialData: ISetlistForm = {
   activeSet: 0
 }
 
+
+
 const createData = (data: ISetlistForm) => {
   const {notes,date,venue_id, sets} = data
   let tracks:ITrack[] = []
@@ -88,6 +90,42 @@ const createData = (data: ISetlistForm) => {
   }
   return show
 }
+
+const validationSchema = Yup.lazy(() => {
+  return Yup.object().shape({
+    date: Yup.string()
+      .required('A valid date is required'),
+    venue_id: Yup.string()
+      .required('Venue is required'),
+    sets: Yup.array()
+      .of(
+        Yup.object().shape({
+          tracks: Yup.array()
+            .of(
+              Yup.object().shape({
+                song_id: Yup.string()
+                .required('A Song is required'),
+              })
+            )
+        })
+      )
+  });
+})
+// const schema = Yup.object().shape({
+//   friends: Yup.array()
+//     .of(
+//       Yup.object().shape({
+//         name: Yup.string()
+//           .min(4, 'too short')
+//           .required('Required'), // these constraints take precedence
+//         salary: Yup.string()
+//           .min(3, 'cmon')
+//           .required('Required'), // these constraints take precedence
+//       })
+//     )
+//     .required('Must have friends') // these constraints are shown if and only if inner constraints are satisfied
+//     .min(3, 'Minimum of 3 friends'),
+// });
 
 const AddShow:React.FC = () => {
   const {state,asyncActions} = useContext(AppContext)
@@ -142,10 +180,17 @@ const AddShow:React.FC = () => {
     <div style={{marginTop: '32px', width: '100%'}}>
       <Typography variant="h4">Add Show</Typography>
       <Formik
+        enableReinitialize
         initialValues={initialData}
         onSubmit={(values, actions) => handleSubmit(values, actions, state.token)}
+        validate={(values) => {
+          return validateYupSchema(values, validationSchema, false)
+          .catch((err) => {
+            return yupToFormErrors(err)
+          })
+        }}
       >
-        {({values, setFieldValue}) => {
+        {({values, setFieldValue,errors,submitCount}) => {
           return (
             <>
             <Form>
@@ -209,7 +254,7 @@ const AddShow:React.FC = () => {
                                   <div style={{width: '100%', margin: '16px'}}>
                                     {values.sets[values.activeSet].tracks.map((track,index) => (
                                       <div key={index}>
-                                        <Track trackIndex={index} values={values} songOptions={songOptions} setFieldValue={setFieldValue} arrayHelpers={arrayHelpers}/>
+                                        <Track trackIndex={index} submitCount={submitCount} values={values} songOptions={songOptions} setFieldValue={setFieldValue} arrayHelpers={arrayHelpers}/>
                                       </div>
                                     ))}
                                   </div>
