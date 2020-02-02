@@ -3,6 +3,7 @@ import { useParams, useRouteMatch, useHistory } from 'react-router-dom';
 import axios, { AxiosResponse } from 'axios'
 import {ISetlist} from './Setlist';
 import Setlist from './Setlist';
+import { Helmet } from "react-helmet"
 
 const Shows: React.FC = () => {
 
@@ -31,6 +32,9 @@ const Shows: React.FC = () => {
 	return (
 		<>
 			{loading && <h3>.....Loading</h3>}
+			<Helmet>
+				<title>Biscuits Internet Project - Shows</title>
+			</Helmet>
 			<select name="years" id="years" onChange={changeYear}>
 				{years.map((year) => {
 					return (

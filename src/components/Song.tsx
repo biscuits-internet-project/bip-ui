@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { useParams } from 'react-router-dom';
 import axios, { AxiosResponse } from 'axios'
 import { IVenue } from './Venues';
+import { Helmet } from "react-helmet";
 
 interface ISong {
 	id: string,
@@ -56,12 +57,17 @@ const Song: React.FC = () => {
 		<>
 			{loading && <h3>.....Loading</h3>}
 			{song && 
-				<div>
-					<h1>{song.title}</h1>
-					<div>number of times played: {song.times_played}</div>
-					<div>first time played: {song.first_time_played}</div>
-					<div>last time played: {song.last_time_played}</div>
-				</div>
+				<>
+					<Helmet>
+						<title>Biscuits Internet Project - {song.title}</title>
+					</Helmet>
+					<div>
+						<h1>{song.title}</h1>
+						<div>number of times played: {song.times_played}</div>
+						<div>first time played: {song.first_time_played}</div>
+						<div>last time played: {song.last_time_played}</div>
+					</div>
+				</>
 			}
 
 				<table>

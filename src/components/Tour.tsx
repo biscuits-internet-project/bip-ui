@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import axios, { AxiosResponse } from 'axios'
+import { Helmet } from "react-helmet"
 
 interface ITourDate {
 	details?: string,
@@ -36,7 +37,10 @@ const Tour: React.FC = () => {
 	},[])
 	return (
 		<>
-			<h1>Tour</h1>
+			<Helmet>
+				<title>Biscuits Internet Project - Tour Dates</title>
+			</Helmet>
+			<h1>Tour Dates</h1>
 			{loading && <h3>.....Loading</h3>}
 			<table>
 				<thead>
