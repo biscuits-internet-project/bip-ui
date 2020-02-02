@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import axios, { AxiosResponse } from 'axios'
+import { Helmet } from "react-helmet"
 
 export interface IVenue {
 	id?: string,
@@ -29,6 +30,9 @@ const Venues: React.FC = () => {
 	},[])
 	return (
 		<>
+			<Helmet>
+				<title>Biscuits Internet Project - Venues</title>
+			</Helmet>
 			<h1>Venues</h1>
 			{loading && <h3>.....Loading</h3>}
 			<table>
