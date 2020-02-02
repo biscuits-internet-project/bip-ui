@@ -3,7 +3,7 @@ import { Form, Formik, FormikHelpers, FieldArray} from 'formik'
 import axios, { AxiosResponse } from 'axios'
 import {AppContext} from '../../../context/AppProvider'
 import {ISong} from '../../Songs'
-import {ISelectOption} from '../../shared/SelectField'
+import SelectField, {ISelectOption} from '../../shared/SelectField'
 import IconButton from '@material-ui/core/IconButton'
 import { AddCircle} from '@material-ui/icons';
 import Typography from '@material-ui/core/Typography';
@@ -90,8 +90,17 @@ const createData = (data: ISetlistForm) => {
 }
 
 const AddShow:React.FC = () => {
-  const {state} = useContext(AppContext)
+  const {state,asyncActions} = useContext(AppContext)
   const [songOptions, setSongOptions] = useState<ISongOption[]>([])
+  const venueOptions: ISelectOption[] = state.venues.map((venue) => {
+    return  {
+      value: venue.id,
+      label: venue.name
+    }
+  })
+
+  //useEffect(()=> asyncActions.getVenues(),[asyncActions])
+
   const handleActiveSet = (val: number, setFieldValue: (field:string,val:number )=>void) => {
     setFieldValue('activeSet', val);
   };
@@ -109,6 +118,7 @@ const AddShow:React.FC = () => {
     actions.resetForm()
   }
 	useEffect(()=> {
+    asyncActions.getVenues()
 		const fetchSongs = async () => {
 			const data:AxiosResponse = await axios.get('https://stg-api.discobiscuits.net/api/songs')
 			setSongOptions(data.data.map((song:ISong): ISongOption => {
@@ -119,8 +129,10 @@ const AddShow:React.FC = () => {
                 }
             }))
 		}
-		fetchSongs()
+    fetchSongs()
+    /*eslint-disable */
     },[])
+    /*eslint-enable */
     return (
       <div style={{marginTop: '32px', width: '100%'}}>
         <Typography variant="h4">Add Show</Typography>
@@ -142,8 +154,8 @@ const AddShow:React.FC = () => {
                     />
                   </Grid>
                   <Grid item xs={5}>
-                    <TextField 
-                        type="text"
+                    <SelectField 
+                        options={venueOptions}
                         name="venue_id"
                         label="Venue"
                     />

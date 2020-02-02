@@ -6,7 +6,6 @@ import SideMenu from './admin/SideMenu'
 import Shows from './Shows';
 import Song from './Song';
 import AdminSongs from './admin/songs/AdminSongs';
-import Venues from './Venues';
 import AdminVenues from './admin/venues/AdminVenues';
 import NotFound from '../NotFound';
 
