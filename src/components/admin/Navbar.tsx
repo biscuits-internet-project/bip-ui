@@ -50,10 +50,8 @@ const Navbar = () => {
     <Grid container>
       <AppBar position="static">
         <Toolbar disableGutters>
-          <Grid item xs={3}>
+          <Grid item xs={9}>
             <LeftNavbar />
-          </Grid>
-          <Grid item xs={6}>
           </Grid>
           <Grid item xs={3}>
             <RightNavbar dispatch={dispatch}/>
