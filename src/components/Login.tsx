@@ -11,6 +11,7 @@ import CardContent from '@material-ui/core/CardContent';
 import TextField from './shared/TextField'
 //import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
+import ForgotPassword from './ForgotPassword'
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
@@ -85,11 +86,11 @@ const Login: React.FC = () => {
                       <TextField name="password" type="password" label="Password" />
                       <div style={{height: '30px'}}/>
                       <Button variant="contained" color="primary" type="submit" disabled={loading}>LOG IN</Button>
-
-                      add forgot password here
                     </Form>
                   )}
                 </Formik>
+
+                <ForgotPassword></ForgotPassword>
               </div>
             </CardContent>
           </Card>

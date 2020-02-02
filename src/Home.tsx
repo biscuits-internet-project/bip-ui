@@ -14,6 +14,7 @@ import Tour from './components/Tour';
 import Resources from './components/Resources';
 import About from './components/About';
 import Contact from './components/Contact';
+import ResetPassword from './components/ResetPassword';
 class Home extends React.Component {
 
 	render() {
@@ -37,6 +38,7 @@ class Home extends React.Component {
 					<Route path="/about" exact component={About} />
 					<Route path="/contact" exact component={Contact} />
 					<Route path="/register/confirm" exact component={Register}/>
+					<Route path="/password/reset/:token" exact component={ResetPassword}/>
 					{/* <PrivateRoute path="/admin" component={Admin} roles={roles}/> */}
 					<Route component={NotFound}/>
 				</Switch>
