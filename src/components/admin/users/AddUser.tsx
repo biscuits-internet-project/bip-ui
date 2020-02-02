@@ -6,6 +6,7 @@ import TextField from '../../shared/TextField'
 import {IUser} from './AdminUsers'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
+import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 
 interface IAddUser {
     updateUsers(user: IUser): void
@@ -21,7 +22,7 @@ const initialValues = {
   last_name: "",
   avatar: ""
 }
-const postUser = async (values: IUser, actions:FormikHelpers<IUser>, updateUsers: (user: IUser) => void, token: string | null, setError) => {
+const postUser = async (values: IUser, actions:FormikHelpers<IUser>, updateUsers: (user: IUser) => void, token: string | null, setError, setSuccess) => {
     try{
       setError(null)
       const newUser:AxiosResponse = await axios({
@@ -33,6 +34,7 @@ const postUser = async (values: IUser, actions:FormikHelpers<IUser>, updateUsers
             "Authorization": token
         }
       });
+      setSuccess(true)
       updateUsers(newUser.data)
     }
     catch(error){
@@ -46,11 +48,12 @@ const postUser = async (values: IUser, actions:FormikHelpers<IUser>, updateUsers
 const AddUser: React.FC<IAddUser> = ({updateUsers}) => {
     const {state} = useContext(AppContext)
     const [error, setError] = useState(null)
+    const [success, setSuccess] = useState(false)
     return (
         <div>
-          <Formik
+          {success ? (<Formik
             initialValues={initialValues}
-            onSubmit={(values, actions) => postUser(values, actions, updateUsers, state.token, setError)}
+            onSubmit={(values, actions) => postUser(values, actions, updateUsers, state.token, setError, setSuccess)}
           >
             {(props: FormikProps<IUser>) => (
               <Form>
@@ -71,7 +74,16 @@ const AddUser: React.FC<IAddUser> = ({updateUsers}) => {
                 </div>
               </Form>
             )}
-          </Formik>
+          </Formik>) : (
+            <div style={{width: '100%', height: '600px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column'}}>
+              <CheckCircleOutlineIcon color="secondary" fontSize='large'/>
+              <Typography  variant="h4">Success!</Typography>
+              <Typography  variant="h6">User has been successfully been created</Typography>
+                <Button variant="contained" color="primary" style={{marginTop: '32px'}}onClick={()=>setSuccess(!success)}>
+                    Create Another User
+                </Button>
+            </div>
+          )}
         </div>
       );
 }
