@@ -1,5 +1,6 @@
 import React, {useState, useEffect, useContext} from 'react';
 import { Form, Formik, FormikProps,FormikHelpers} from 'formik'
+import * as Yup from 'yup';
 import axios, { AxiosResponse } from 'axios'
 import {AppContext} from '../../../context/AppProvider'
 import TextField from '../../shared/TextField'
@@ -39,11 +40,33 @@ const postUser = async (values: IUser, actions:FormikHelpers<IUser>, updateUsers
     }
     catch(error){
       const {response} = error
-      //Could be as granular as we like here or could leave it generic.
-      console.log(response)
-      setError(response.statusText)
+      const {data} = response
+      if (typeof data === 'object'){
+        Object.keys(data).forEach(key => actions.setFieldError(key, data[key]))
+      }
+      else {
+        setError(response.statusText)
+      }
     }
 }
+
+const validationSchema = Yup.object().shape({
+  email: Yup.string()
+    .email('Invalid email')
+    .required('Email is required'),
+  username: Yup.string()
+    .required('Username is required'),
+  first_name: Yup.string()
+    .required('First Name is required'),
+  last_name: Yup.string()
+    .required('Last Name is required'),
+  password: Yup.string()
+    .required('Password is required')
+    .min(6, 'Password must be 6 characters long'),
+  password_confirmation: Yup.string()
+    .oneOf([Yup.ref('password'), null], "Passwords must match")
+    .required('Password is required')
+});
 
 const AddUser: React.FC<IAddUser> = ({updateUsers}) => {
     const {state} = useContext(AppContext)
@@ -51,7 +74,8 @@ const AddUser: React.FC<IAddUser> = ({updateUsers}) => {
     const [success, setSuccess] = useState(false)
     return (
         <div>
-          {success ? (<Formik
+          {!success ? (<Formik
+            validationSchema={validationSchema}
             initialValues={initialValues}
             onSubmit={(values, actions) => postUser(values, actions, updateUsers, state.token, setError, setSuccess)}
           >
