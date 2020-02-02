@@ -4,9 +4,10 @@ import Dashboard from './admin/Dashboard'
 import Navbar from './admin/Navbar'
 import SideMenu from './admin/SideMenu'
 import Shows from './Shows';
-import AdminSongs from './admin/songs/AdminSongs';
 import Song from './Song';
+import AdminSongs from './admin/songs/AdminSongs';
 import Venues from './Venues';
+import AdminVenues from './admin/venues/AdminVenues';
 import NotFound from '../NotFound';
 
 const Admin: React.FC = () => {
@@ -20,7 +21,7 @@ const Admin: React.FC = () => {
 				<Route path="/admin/shows" exact component={Shows} />
 				<Route path="/admin/songs" exact component={AdminSongs} />
 				<Route path="/admin/songs/:id" component={Song} />
-				<Route path="/admin/venues" exact component={Venues}/>
+				<Route path="/admin/venues" exact component={AdminVenues}/>
 				<Route path="/admin" component={Dashboard}/>
 				<Route component={NotFound}/>
 			</Switch>
