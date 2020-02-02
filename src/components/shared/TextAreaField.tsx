@@ -6,11 +6,11 @@ interface ITextAreaField {
     name: string
     value?: string
     rows?: number
-    columns?: number
 }
 
-const TextField2: React.FC<ITextAreaField> = ({label, name, value, rows, columns}) => {
+const TextAreaField: React.FC<ITextAreaField> = ({label, name, value, rows}) => {
     const [field, meta, /*helpers*/] = useField({name,value})
+    const fieldError = !!meta.error && meta.touched
     return (
       <div>
         <TextField 
@@ -18,18 +18,12 @@ const TextField2: React.FC<ITextAreaField> = ({label, name, value, rows, columns
           label={label} 
           {...field} 
           fullWidth
-          multiline
-          rowsMax="4"
+          multiline={true}
+          rows={rows || 8}
+          error={fieldError} helperText={fieldError && meta.error} 
         />
-        {/* <label style={{display: 'inline-block', width: '100px'}}>{label}</label>
-        <textarea {...field} rows={rows || 5} cols={columns || 50}>
-          {value}
-        </textarea> */}
-        {meta.touched && meta.error ? (
-          <div className='error'>{meta.error}</div>
-        ) : null}
       </div>
     )
   }
 
-export default TextField2
+export default TextAreaField

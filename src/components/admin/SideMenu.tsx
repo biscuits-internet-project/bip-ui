@@ -5,7 +5,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import { QueueMusic, LibraryMusic, Room, Home } from '@material-ui/icons';
+import { QueueMusic, LibraryMusic, Room, Home, AccountCircle } from '@material-ui/icons';
 
 interface sideMenuItem {
 	name: string | undefined,
@@ -32,6 +32,11 @@ const itemList: sideMenuItem[] = [
 		name: 'venues',
 		label: 'Venues',
 		icon: <Room/>
+	},
+	{
+		name: 'users',
+		label: 'Users',
+		icon: <AccountCircle/>
 	},
 ]
 
