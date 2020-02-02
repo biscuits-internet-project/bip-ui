@@ -2,6 +2,19 @@ import React, {useContext} from 'react'
 import { Form, Formik, FormikProps,FormikHelpers} from 'formik'
 import axios, { AxiosResponse } from 'axios'
 import TextField from './shared/TextField'
+import * as Yup from 'yup';
+
+const RegisterSchema = Yup.object().shape({
+  email: Yup.string()
+    .email('Invalid email')
+    .required('Email is required'),
+  username: Yup.string()
+    .required('Username is required'),
+  password: Yup.string()
+    .required('Password is required'),
+  password_confirmation: Yup.string()
+    .required('Password confirmation is required')
+});
 
 interface IRegister {
     email: string
@@ -10,6 +23,7 @@ interface IRegister {
     last_name: string
     password: string
     password_confirmation: string
+    avatar: string
 }
 
 const initialValues: IRegister = {
@@ -19,6 +33,7 @@ const initialValues: IRegister = {
     password_confirmation: "",
     first_name: "",
     last_name: "",
+    avatar: ""
 }
 
 const postRegister = async (values: IRegister, actions:FormikHelpers<IRegister>) => {
@@ -39,6 +54,7 @@ const Register: React.FC = () => {
           <Formik
             initialValues={initialValues}
             onSubmit={(values, actions) => postRegister(values, actions)}
+            validationSchema={RegisterSchema}
           >
             {(props: FormikProps<IRegister>) => (
               <Form>
@@ -50,6 +66,7 @@ const Register: React.FC = () => {
                 <TextField name="password_confirmation" type="password" label="Password Confirmation" />
 
                 // add image avatar upload to rails here //
+                <input name="avatar" type="file"></input>
 
                 <button type="submit">Submit</button>
               </Form>
