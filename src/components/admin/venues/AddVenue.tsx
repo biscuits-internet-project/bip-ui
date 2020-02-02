@@ -1,9 +1,11 @@
 import React, {useContext} from 'react'
 import { Form, Formik, FormikProps,FormikHelpers} from 'formik'
 import axios, { AxiosResponse } from 'axios'
-import {AppContext} from '../context/AppProvider'
-import TextField from './shared/TextField'
-import {IVenue} from './Venues'
+import {AppContext} from '../../../context/AppProvider'
+import TextField from '../../shared/TextField'
+import {IVenue} from '../../Venues'
+import Button from '@material-ui/core/Button'
+
 interface IAddVenue {
     updateVenues(venue: IVenue): void
 }
@@ -37,7 +39,6 @@ const AddVenue: React.FC<IAddVenue> = ({updateVenues}) => {
     const {state} = useContext(AppContext)
     return (
         <div>
-          <h1>Add Venue</h1>
           <Formik
             initialValues={initialValues}
             onSubmit={(values, actions) => postVenue(values, actions, updateVenues, state.token)}
@@ -52,7 +53,11 @@ const AddVenue: React.FC<IAddVenue> = ({updateVenues}) => {
                 <TextField name="postal_code" type="text" label="Postal Code" />
                 <TextField name="phone" type="text" label="Phone" />
                 <TextField name="website" type="text" label="Website" />
-                <button type="submit">Submit</button>
+                <div style={{display: 'flex', justifyContent: 'flex-end', marginTop: '16px'}}>
+                  <Button variant="contained" color="primary" type="submit">
+                    Submit
+                  </Button>
+                </div>
               </Form>
             )}
           </Formik>

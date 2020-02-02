@@ -19,7 +19,7 @@ const baseTheme = {
     h3: { fontFamily: headingFont, fontWeight: '700' },
     h4: { fontFamily: headingFont, fontWeight: '700', marginBottom: '32px'},
     h5: { fontFamily: headingFont },
-    h6: { fontFamily: headingFont },
+    h6: { fontFamily: headingFont, fontSize: '16px' },
 
   },
   zIndex: {
@@ -183,6 +183,9 @@ const baseTheme = {
         color: colors.primary,
         fontWeight: 700,
       },
+      root: {
+        width: 'calc(100% - 16px)'
+      }
     },
     MuiAvatar: {
       colorDefault: {
@@ -244,22 +247,15 @@ const baseTheme = {
         fontWeight: 700,
         fontSize: '16px',
       },
-    },
-    MuiTabs: {
-      inidicator: {
-        backgroundColor: 'red',
-      },
-    },
-    MuiFab: {
-      root: {
-        'boxShadow': 'none',
-        '&$focusVisible': {
-          boxShadow: 'none',
-        },
-        '&:active': {
-          boxShadow: 'none',
-        },
-      },
+      // root: {
+      //   'boxShadow': 'none',
+      //   '&$focusVisible': {
+      //     boxShadow: 'none',
+      //   },
+      //   '&:active': {
+      //     boxShadow: 'none',
+      //   },
+      // },
     },
     MuiOutlinedInput: {
       notchedOutline: {
@@ -278,7 +274,7 @@ const baseTheme = {
     MuiInputLabel: {
       outlined: {
         background: 'white',
-        //padding: '0px 6px'
+        padding: '0px 6px'
       }
     }
     //   MuiMenuItem: {

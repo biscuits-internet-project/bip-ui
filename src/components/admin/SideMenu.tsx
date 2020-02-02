@@ -19,8 +19,8 @@ const itemList: sideMenuItem[] = [
 		icon: <Home/>
 	},
 	{
-		name: 'setlists',
-		label: 'Setlists',
+		name: 'shows',
+		label: 'Shows',
 		icon: <QueueMusic/>
 	},
 	{
@@ -39,7 +39,6 @@ const SideMenu = () => {
 		const match = useRouteMatch();
 		const history = useHistory()
 		const {adminPage} = match.params
-		console.log(adminPage)
 		return (
 				<Drawer
 					variant="persistent"

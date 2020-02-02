@@ -6,7 +6,7 @@ import PrivateRoute from './routing/PrivateRoute'
 import {AppContext} from './context/AppProvider'
 import {defaultTheme} from './lib/theme'
 import Home from './Home';
-// import Setlists from './components/Setlists';
+// import Shows from './components/Shows';
 // import Songs from './components/Songs';
 // import Song from './components/Song';
 // import Venues from './components/Venues';
