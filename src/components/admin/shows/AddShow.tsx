@@ -195,7 +195,7 @@ const AddShow:React.FC = () => {
                             </div>
                             
                           </Tabs>
-                            <div style={{width: 'calc(100vw - 300px)'}}>
+                            <div style={{width: 'calc(100vw - 280px)'}}>
                              <FieldArray
                                  name={`sets[${values.activeSet}].tracks`}
                                  render={(arrayHelpers)=> (
