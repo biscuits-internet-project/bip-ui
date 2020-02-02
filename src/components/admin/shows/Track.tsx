@@ -15,16 +15,18 @@ interface ITrack {
     songOptions: ISongOption[]
     setFieldValue(field: string, value: any, shouldValidate?: boolean): void
     arrayHelpers: FieldArrayRenderProps
+    submitCount?: number
 }
 
-const Track:React.FC<ITrack> = ({trackIndex,values, songOptions, setFieldValue,arrayHelpers}) => {
+const Track:React.FC<ITrack> = ({trackIndex,values, songOptions, setFieldValue,arrayHelpers, submitCount}) => {
     return (
-        <Grid container spacing={4} alignItems="center">
+        <Grid container spacing={4} alignItems="center" style={{marginBottom: '8px'}}>
             <Grid item xs={4}>
                 <SelectField 
                     name={`sets[${values.activeSet}].tracks[${trackIndex}].song_id`} 
                     label="Song" 
-                    options={songOptions} 
+                    options={songOptions}
+                    submitCount={submitCount}
                     />
             </Grid>
             

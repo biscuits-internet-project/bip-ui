@@ -3,6 +3,7 @@ import { Form, Formik, FormikProps} from 'formik'
 import axios, { AxiosResponse } from 'axios'
 import TextField from './shared/TextField'
 import * as Yup from 'yup';
+import ReCaptcha from './shared/ReCaptcha';
 
 const RegisterSchema = Yup.object().shape({
   email: Yup.string()
@@ -67,6 +68,8 @@ const Register: React.FC = () => {
 
                 // add image avatar upload to rails here //
                 <input name="avatar" type="file"></input>
+
+                <ReCaptcha></ReCaptcha>
 
                 <button type="submit">Submit</button>
               </Form>

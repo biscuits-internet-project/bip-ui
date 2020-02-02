@@ -181,7 +181,7 @@ const baseTheme = {
     MuiMenuItem: {
       dense: {
         color: colors.primary,
-        fontWeight: 700,s
+        fontWeight: 700,
       },
       root: {
         width: 'calc(100% - 16px)'
@@ -262,6 +262,12 @@ const baseTheme = {
         '& legend': {
           display: 'block'
         }
+      }
+    },
+    MuiFormHelperText: {
+      root: {
+        position: 'absolute',
+        top: '3em'
       }
     },
     // MuiFormControl: {
