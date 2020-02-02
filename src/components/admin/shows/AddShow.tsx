@@ -5,17 +5,13 @@ import {AppContext} from '../../../context/AppProvider'
 import {ISong} from '../../Songs'
 import {ISelectOption} from '../../shared/SelectField'
 import IconButton from '@material-ui/core/IconButton'
-import { AddCircle, Delete } from '@material-ui/icons';
+import { AddCircle} from '@material-ui/icons';
 import Typography from '@material-ui/core/Typography';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Grid from '@material-ui/core/Grid';
 import TextField from '../../shared/TextField'
 import Panel from '../../shared/Panel'
-// import TextAreaField from '../../shared/TextAreaField'
-// import CheckboxField from '../../shared/CheckboxField'
-// import SelectField from '../../shared/SelectField'
-// import {ISelectOption}  from '../../shared/SelectField'
 import Button from '@material-ui/core/Button'
 
 import Track from './Track'
@@ -93,7 +89,7 @@ const createData = (data: ISetlistForm) => {
   return show
 }
 
-const AddSetlist:React.FC = () => {
+const AddShow:React.FC = () => {
   const {state} = useContext(AppContext)
   const [songOptions, setSongOptions] = useState<ISongOption[]>([])
   const handleActiveSet = (val: number, setFieldValue: (field:string,val:number )=>void) => {
@@ -127,7 +123,7 @@ const AddSetlist:React.FC = () => {
     },[])
     return (
       <div style={{marginTop: '32px', width: '100%'}}>
-
+        <Typography variant="h4">Add Show</Typography>
         <Formik
           initialValues={initialData}
           onSubmit={(values, actions) => handleSubmit(values, actions, state.token)}
@@ -136,7 +132,7 @@ const AddSetlist:React.FC = () => {
             return (
               <>
               <Form>
-              <Panel title="Setlist Information">
+              <Panel title="Show Information">
                 <Grid container alignItems="center" spacing={4}>
                   <Grid item xs={2}>
                     <TextField 
@@ -161,7 +157,7 @@ const AddSetlist:React.FC = () => {
                   </Grid>
                 </Grid>
               </Panel>
-              <Panel title="Setlist Tracks">
+              <Panel title="Setlists">
                 
                   <FieldArray
                     name="sets"
@@ -220,69 +216,4 @@ const AddSetlist:React.FC = () => {
   );
 }
 
-  export default AddSetlist
-
-  // <div style={{display: 'flex', alignItems: 'center'}}>
-  //                                      <Typography variant="h5">{`Set ${value + 1}`}</Typography>
-  //                                      <IconButton color="primary" onClick={() => setArrayHelpers.insert(value + 1, emptySet)}>
-  //                                        <AddCircle />
-  //                                      </IconButton>
-  //                                      <IconButton color="primary" disabled={values.sets.length === 1} onClick={() => setArrayHelpers.remove(value)}>
-  //                                        <Delete />
-  //                                      </IconButton> 
-  //                                    </div>
-
-
-  // {values.sets.map((set, setIndex)=> (
-  //   <>
-    
-  
-  // </>
-  //))}
-
-  // {/* <TabPanel value={value} index={0}>
-  //                         Page One
-  //                       </TabPanel>
-  //                       <TabPanel value={value} index={1}>
-  //                         Page Two
-  //                       </TabPanel>
-  //                       <TabPanel value={value} index={2}>
-  //                         Page Three
-  //                       </TabPanel> */}
-  //                         {/* <div style={{width: '500px'}}>
-  //                           <FieldArray
-  //                               name={`sets[${setIndex}].tracks`}
-  //                               render={(arrayHelpers)=> (
-  //                                 <div style={{width: '100%', margin: '16px'}}>
-  //                                   <div style={{display: 'flex', alignItems: 'center'}}>
-  //                                     <Typography variant="h5">{`Set ${setIndex + 1}`}</Typography>
-  //                                     <IconButton color="primary" onClick={() => setArrayHelpers.insert(setIndex + 1, emptySet)}>
-  //                                       <AddCircle />
-  //                                     </IconButton>
-  //                                     <IconButton color="primary" disabled={values.sets.length === 1} onClick={() => setArrayHelpers.remove(setIndex)}>
-  //                                       <Delete />
-  //                                     </IconButton> 
-  //                                   </div>
-                                    
-  //                                   {values.sets[setIndex].tracks.map((track,index) => (
-  //                                       <div key={index} style={{display: 'flex', width: '100%', alignItems: 'center'}}>
-  //                                         <Avatar>{index + 1}</Avatar>
-  //                                         <div style={{width: '300px', marginBottom: '10px', marginLeft: '16px'}}>
-  //                                           <SelectField name={`sets[${setIndex}].tracks[${index}].song_id`} label="Song" options={songOptions} onSelect={(id:string): void => {
-  //                                             const songOption = songOptions.find((songOption: ISetSong):boolean => songOption.song.id === id)
-  //                                             setFieldValue(`sets[${setIndex}].tracks[${index}].song_slug`, songOption?.song.slug)
-  //                                             setFieldValue(`sets[${setIndex}].tracks[${index}].song_title`, songOption?.song.title)
-  //                                           }}/>
-  //                                         </div>
-  //                                         <IconButton color="primary" onClick={() => arrayHelpers.insert(index + 1, emptyTrack)}>
-  //                                           <AddCircle />
-  //                                         </IconButton>
-  //                                         <IconButton color="primary" disabled={values.sets[setIndex].tracks.length === 1} onClick={() => arrayHelpers.remove(index)}>
-  //                                           <Delete />
-  //                                         </IconButton> 
-  //                                       </div>
-  //                                   ))}
-  //                                 </div>
-  //                               )}
-  //                             />
-  //                         </div> */}
+  export default AddShow

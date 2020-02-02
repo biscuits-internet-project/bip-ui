@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import axios, { AxiosResponse } from 'axios'
+import { Helmet } from "react-helmet";
 
 export interface ISong {
 	id?: string,
@@ -28,6 +29,9 @@ const Songs: React.FC = () => {
 	},[])
 	return (
 		<>
+			<Helmet>
+				<title>Biscuits Internet Project - Songs</title>
+			</Helmet>
 			<h1>Songs</h1>
 			{loading && <h3>.....Loading</h3>}
 			{/* <AddSong updateSongs={(song: ISong)=> setSongs([song,...songs])}/> */}

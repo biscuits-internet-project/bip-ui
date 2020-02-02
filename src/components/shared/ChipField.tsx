@@ -19,6 +19,7 @@ const ChipField: React.FC<IChipField> = ({label, name}) => {
   }
   const handleKey = (evt:KeyboardEvent<HTMLElement>) => {
       if(evt.key ==='Enter'){
+        evt.preventDefault()
         helpers.setValue([...field.value, inputValue])
         setInputValue('')
       }

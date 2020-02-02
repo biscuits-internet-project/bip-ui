@@ -19,8 +19,8 @@ const itemList: sideMenuItem[] = [
 		icon: <Home/>
 	},
 	{
-		name: 'setlists',
-		label: 'Setlists',
+		name: 'shows',
+		label: 'Shows',
 		icon: <QueueMusic/>
 	},
 	{

@@ -6,7 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import { AddCircle, Delete } from '@material-ui/icons';
 import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import {ISetlistForm, ISongOption,emptyTrack} from './AddSetlist'
+import {ISetlistForm, ISongOption,emptyTrack} from './AddShow'
 import ChipField from '../../shared/ChipField'
 
 interface ITrack {
