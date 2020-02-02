@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Form, Formik, FormikProps} from 'formik'
 import axios, { AxiosResponse } from 'axios'
 import TextField from './shared/TextField'
 import * as Yup from 'yup';
 import ReCaptcha from './shared/ReCaptcha';
+import { Typography } from '@material-ui/core';
 
 const RegisterSchema = Yup.object().shape({
   email: Yup.string()
@@ -37,7 +38,9 @@ const initialValues: IRegister = {
     avatar: ""
 }
 
-const postRegister = async (values: IRegister) => {
+const postRegister = async (values: IRegister, setError, setSuccess) => {
+  try {
+    setError(null)
     const registerRequest:AxiosResponse = await axios({
         method: 'post',
         url: 'https://stg-api.discobiscuits.net/api/auth/register',
@@ -46,35 +49,49 @@ const postRegister = async (values: IRegister) => {
             "Content-Type":	"application/json", 
         }
     });
+    setSuccess(true)
     return registerRequest.data
+  }
+  catch(error){
+    const {response} = error
+    //Could be as granular as we like here or could leave it generic.
+    console.log(response)
+    setError(response.statusText)
+  }
 }
 
 const Register: React.FC = () => {
+    const [error, setError] = useState(null)
+    const [success, setSuccess] = useState(false)
     return (
         <div>
-          <Formik
-            initialValues={initialValues}
-            onSubmit={(values) => postRegister(values)}
-            validationSchema={RegisterSchema}
-          >
-            {(props: FormikProps<IRegister>) => (
-              <Form>
-                <TextField name="email" type="email" label="Email" />
-                <TextField name="username" type="text" label="Username" />
-                <TextField name="first_name" type="text" label="First Name" />
-                <TextField name="last_name" type="text" label="Last Name" />
-                <TextField name="password" type="password" label="Password" />
-                <TextField name="password_confirmation" type="password" label="Password Confirmation" />
+          {success ? (
+            <div>Please check your email and click the link to confirm and complete your registration.</div>
+          ) : (
+            <Formik
+              initialValues={initialValues}
+              onSubmit={(values) => postRegister(values, setError, setSuccess)}
+              validationSchema={RegisterSchema}
+            >
+              {(props: FormikProps<IRegister>) => (
+                <Form>
+                  {error && <Typography color="error" variant="h6">{error}</Typography>}
+                  <TextField name="email" type="email" label="Email" />
+                  <TextField name="username" type="text" label="Username" />
+                  <TextField name="first_name" type="text" label="First Name" />
+                  <TextField name="last_name" type="text" label="Last Name" />
+                  <TextField name="password" type="password" label="Password" />
+                  <TextField name="password_confirmation" type="password" label="Password Confirmation" />
 
-                // add image avatar upload to rails here //
-                <input name="avatar" type="file"></input>
+                  // add image avatar upload to rails here //
+                  <input name="avatar" type="file"></input>
 
-                <ReCaptcha></ReCaptcha>
+                  <ReCaptcha></ReCaptcha>
 
-                <button type="submit">Submit</button>
-              </Form>
-            )}
-          </Formik>
+                  <button type="submit">Submit</button>
+                </Form>
+              )}
+            </Formik>)}
         </div>
       );
 }
