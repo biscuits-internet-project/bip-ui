@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import axios, { AxiosResponse } from 'axios'
 import { IVenue } from './Venues';
 import { Helmet } from "react-helmet";
@@ -83,8 +83,16 @@ const Song: React.FC = () => {
 
 				{songsPlayed.map((s: ISongPlayed) => {
 					 return <tr>
-								<td>{s.show.date}</td>
-								<td>{s.venue.name}</td>
+								<td>
+									<Link to={`/shows/${s.show.slug}`}>
+										{s.show.date}
+									</Link>
+								</td>
+								<td>
+									<Link to={`/venues/${s.venue.slug}`}>
+										{s.venue.name}
+									</Link>
+								</td>
 								<td>{s.set}</td>
 								<td>{s.venue.city}</td>
 								<td>{s.venue.state}</td>

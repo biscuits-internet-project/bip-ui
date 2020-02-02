@@ -13,7 +13,7 @@ const TextFieldContainer: React.FC<ITextField> = ({label, name, type, value}) =>
   const fieldError = !!meta.error && meta.touched
   return (
     <div>
-      <TextField id={label} label={label} {...field} fullWidth error={fieldError} helperText={fieldError && meta.error} margin="dense"/>
+      <TextField id={label} type={type} label={label} {...field} fullWidth error={fieldError} helperText={fieldError && meta.error} margin="dense"/>
     </div>
   )
 }

@@ -5,6 +5,7 @@ import Shows from './components/Shows';
 import Songs from './components/Songs';
 import Song from './components/Song';
 import Venues from './components/Venues';
+import Venue from './components/Venue';
 import NotFound from './NotFound';
 import Login from './components/Login';
 import Register from './components/Register';
@@ -28,6 +29,7 @@ class Home extends React.Component {
 					<Route path="/songs" exact component={Songs} />
 					<Route path="/songs/:id" component={Song} />
 					<Route path="/venues" exact component={Venues} />
+					<Route path="/venues/:id" exact component={Venue} />
 					<Route path="/tour" exact component={Tour} />
 					<Route path="/login" exact component={Login} />
 					<Route path="/register" exact component={Register} />
