@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import { Link } from 'react-router-dom';
 import axios, { AxiosResponse } from 'axios'
 import { Helmet } from "react-helmet"
 
@@ -39,15 +40,17 @@ const Venues: React.FC = () => {
 				<thead>
 					<tr>
 						<td>Name</td>
-						<td>Slug</td>
 						<td>City</td>
 						<td>State</td>
 					</tr>
 				</thead>
 			{venues.map((venue: IVenue) => {
 				return <tr key={venue.id}>
-							<td>{venue.name}</td>
-							<td>{venue.slug}</td>
+							<td>
+								<Link to={`/venues/${venue.slug}`}>
+									{venue.name}
+								</Link>
+							</td>
 							<td>{venue.city}</td>
 							<td>{venue.state}</td>
 					    </tr>
