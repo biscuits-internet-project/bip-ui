@@ -181,8 +181,11 @@ const baseTheme = {
     MuiMenuItem: {
       dense: {
         color: colors.primary,
-        fontWeight: 700,
+        fontWeight: 700,s
       },
+      root: {
+        width: 'calc(100% - 16px)'
+      }
     },
     MuiAvatar: {
       colorDefault: {
@@ -244,22 +247,15 @@ const baseTheme = {
         fontWeight: 700,
         fontSize: '16px',
       },
-    },
-    MuiTabs: {
-      inidicator: {
-        backgroundColor: 'red',
-      },
-    },
-    MuiFab: {
-      root: {
-        'boxShadow': 'none',
-        '&$focusVisible': {
-          boxShadow: 'none',
-        },
-        '&:active': {
-          boxShadow: 'none',
-        },
-      },
+      // root: {
+      //   'boxShadow': 'none',
+      //   '&$focusVisible': {
+      //     boxShadow: 'none',
+      //   },
+      //   '&:active': {
+      //     boxShadow: 'none',
+      //   },
+      // },
     },
     MuiOutlinedInput: {
       notchedOutline: {

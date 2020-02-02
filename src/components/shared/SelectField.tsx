@@ -1,5 +1,5 @@
 import React from 'react'
-import { useField, setNestedObjectValues } from 'formik'
+import { useField} from 'formik'
 import Select from '@material-ui/core/Select';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -20,7 +20,7 @@ export interface ISelectOption {
 }
 
 const SelectField: React.FC<ISelectField> = ({label, name, value, options, onSelect}) => {
-    const [field, meta, helpers] = useField({name,value})
+    const [field, ,helpers] = useField({name,value})
     return (
       <div>
         <FormControl variant="outlined" fullWidth margin="dense">

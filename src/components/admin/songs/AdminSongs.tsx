@@ -19,14 +19,14 @@ export interface ISong {
 }
 
 const AdminSongs = () => {
-    const [loading, setLoading] = useState(false)
+    //const [loading, setLoading] = useState(false)
 	const [songs, setSongs] = useState<ISong[]>([])
 	useEffect(()=> {
-		setLoading(true)
+		//setLoading(true)
 		const fetchSongs = async () => {
 			const data:AxiosResponse = await axios.get('https://stg-api.discobiscuits.net/api/songs')
 			setSongs(data.data)
-			setLoading(false)
+			//setLoading(false)
 		}
 		fetchSongs()
 	},[])

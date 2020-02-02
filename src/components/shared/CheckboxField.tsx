@@ -11,7 +11,7 @@ interface ICheckboxField {
 }
 
 const CheckboxField: React.FC<ICheckboxField> = ({label, name, value}) => {
-    const [field, meta, /*helpers*/] = useField({name})
+    const [field] = useField({name})
     return (
       <div style={{margin: '16px 8px'}}>
         {/* <label style={{display: 'inline-block', width: '100px'}}>{label}</label>

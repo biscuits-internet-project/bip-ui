@@ -28,7 +28,7 @@ const Track:React.FC<ITrack> = ({trackIndex,values, songOptions, setFieldValue,a
                     />
             </Grid>
             
-            <Grid container xs={5} alignItems="center" style={{position: 'relative'}}>
+            <Grid item xs={5} style={{position: 'relative'}}>
                 <ChipField label="Annotations" name={`sets[${values.activeSet}].tracks[${trackIndex}].annotations`}/>
             </Grid>
             <Grid item xs={3}>

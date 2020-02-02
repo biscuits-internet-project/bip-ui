@@ -1,5 +1,5 @@
-import React, {useContext} from 'react'
-import { Form, Formik, FormikProps,FormikHelpers} from 'formik'
+import React from 'react'
+import { Form, Formik, FormikProps} from 'formik'
 import axios, { AxiosResponse } from 'axios'
 import TextField from './shared/TextField'
 import * as Yup from 'yup';
@@ -36,7 +36,7 @@ const initialValues: IRegister = {
     avatar: ""
 }
 
-const postRegister = async (values: IRegister, actions:FormikHelpers<IRegister>) => {
+const postRegister = async (values: IRegister) => {
     const registerRequest:AxiosResponse = await axios({
         method: 'post',
         url: 'https://stg-api.discobiscuits.net/api/auth/register',
@@ -45,7 +45,7 @@ const postRegister = async (values: IRegister, actions:FormikHelpers<IRegister>)
             "Content-Type":	"application/json", 
         }
     });
-    const {data} = registerRequest
+    return registerRequest.data
 }
 
 const Register: React.FC = () => {
@@ -53,7 +53,7 @@ const Register: React.FC = () => {
         <div>
           <Formik
             initialValues={initialValues}
-            onSubmit={(values, actions) => postRegister(values, actions)}
+            onSubmit={(values) => postRegister(values)}
             validationSchema={RegisterSchema}
           >
             {(props: FormikProps<IRegister>) => (

@@ -1,6 +1,6 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useMemo, useEffect, useContext} from 'react';
 import { Form, Formik, FormikHelpers, FieldArray} from 'formik'
-import axios, { AxiosResponse } from 'axios'
+import axios from 'axios'
 import {AppContext} from '../../../context/AppProvider'
 import {ISong} from '../../Songs'
 import SelectField, {ISelectOption} from '../../shared/SelectField'
@@ -91,15 +91,35 @@ const createData = (data: ISetlistForm) => {
 
 const AddShow:React.FC = () => {
   const {state,asyncActions} = useContext(AppContext)
-  const [songOptions, setSongOptions] = useState<ISongOption[]>([])
-  const venueOptions: ISelectOption[] = state.venues.map((venue) => {
-    return  {
-      value: venue.id,
-      label: venue.name
-    }
-  })
 
-  //useEffect(()=> asyncActions.getVenues(),[asyncActions])
+  useEffect(
+    ()=> {
+      !state.songs.length && asyncActions.getSongs()
+      !state.venues.length && asyncActions.getVenues()
+      }
+    ,[state.venues.length, state.songs.length, asyncActions]
+  )
+
+  const songOptions: ISongOption[] = useMemo(() => {
+    return state.songs.map((song:ISong): ISongOption => {
+      return {
+          label: song.title,
+          value: song.id,
+          song: song
+      }
+    })
+  },[state.songs]) 
+
+  const venueOptions: ISelectOption[] = useMemo(() => {
+    return state.venues.map((venue): ISelectOption => {
+      return  {
+        value: venue.id,
+        label: venue.name
+      }
+    })
+  },[state.venues] )
+
+  
 
   const handleActiveSet = (val: number, setFieldValue: (field:string,val:number )=>void) => {
     setFieldValue('activeSet', val);
@@ -117,74 +137,62 @@ const AddShow:React.FC = () => {
     });
     actions.resetForm()
   }
-	useEffect(()=> {
-    asyncActions.getVenues()
-		const fetchSongs = async () => {
-			const data:AxiosResponse = await axios.get('https://stg-api.discobiscuits.net/api/songs')
-			setSongOptions(data.data.map((song:ISong): ISongOption => {
-                return {
-                    label: song.title,
-                    value: song.id,
-                    song: song
-                }
-            }))
-		}
-    fetchSongs()
-    /*eslint-disable */
-    },[])
-    /*eslint-enable */
-    return (
-      <div style={{marginTop: '32px', width: '100%'}}>
-        <Typography variant="h4">Add Show</Typography>
-        <Formik
-          initialValues={initialData}
-          onSubmit={(values, actions) => handleSubmit(values, actions, state.token)}
-        >
-          {({values, setFieldValue}) => {
-            return (
-              <>
-              <Form>
-              <Panel title="Show Information">
-                <Grid container alignItems="center" spacing={4}>
-                  <Grid item xs={2}>
-                    <TextField 
-                        type="text"
-                        name="date"
-                        label="Date"
-                    />
-                  </Grid>
-                  <Grid item xs={5}>
-                    <SelectField 
-                        options={venueOptions}
-                        name="venue_id"
-                        label="Venue"
-                    />
-                  </Grid>
-                  <Grid item xs={5}>
-                    <TextField 
-                        type="text"
-                        name="notes"
-                        label="Notes"
-                    />
-                  </Grid>
+
+  return (
+    <div style={{marginTop: '32px', width: '100%'}}>
+      <Typography variant="h4">Add Show</Typography>
+      <Formik
+        initialValues={initialData}
+        onSubmit={(values, actions) => handleSubmit(values, actions, state.token)}
+      >
+        {({values, setFieldValue}) => {
+          return (
+            <>
+            <Form>
+            <Panel title="Show Information">
+              <Grid container alignItems="center" spacing={4}>
+                <Grid item xs={2}>
+                  <TextField 
+                      type="text"
+                      name="date"
+                      label="Date"
+                  />
                 </Grid>
-              </Panel>
-              <Panel title="Setlists">
-                
-                  <FieldArray
-                    name="sets"
-                    render={(setArrayHelpers)=>(
-                      <div style={{height: '600px'}}>
-                        
+                <Grid item xs={5}>
+                  <SelectField 
+                      options={venueOptions}
+                      name="venue_id"
+                      label="Venue"
+                  />
+                </Grid>
+                <Grid item xs={5}>
+                  <TextField 
+                      type="text"
+                      name="notes"
+                      label="Notes"
+                  />
+                </Grid>
+              </Grid>
+            </Panel>
+            <Panel title="Setlists">
+              
+                <FieldArray
+                  name="sets"
+                  render={(setArrayHelpers)=>(
+                    <div style={{height: '600px'}}>
+                        <div style={{display: 'flex'}}>
                           <Tabs
                             value={values.activeSet}
                             onChange={(evt,val) => handleActiveSet(val, setFieldValue)}
                             aria-label="nav tabs example"
                           > 
                             {values.sets.map((set, setIndex) => (
-                              <Tab label={`Set ${setIndex + 1 }`}  value={setIndex}/>
+                              <Tab key={setIndex} label={`Set ${setIndex + 1 }`}  value={setIndex}/>
                             ))}
-                            <div style={{display: 'flex', alignItems: 'center'}}>
+                            
+                            
+                          </Tabs>
+                          <div style={{display: 'flex', alignItems: 'center'}}>
                             <Typography variant="h6">Add Set</Typography>
                             <IconButton color="primary" onClick={() => {
                               setArrayHelpers.insert(values.activeSet + 1, emptySet)
@@ -192,39 +200,38 @@ const AddShow:React.FC = () => {
                             }}>
                               <AddCircle />
                             </IconButton>
-                            </div>
-                            
-                          </Tabs>
-                            <div style={{width: 'calc(100vw - 280px)'}}>
-                             <FieldArray
-                                 name={`sets[${values.activeSet}].tracks`}
-                                 render={(arrayHelpers)=> (
-                                   <div style={{width: '100%', margin: '16px'}}>
-                                     {values.sets[values.activeSet].tracks.map((track,index) => (
-                                        <>
-                                          <Track trackIndex={index} values={values} songOptions={songOptions} setFieldValue={setFieldValue} arrayHelpers={arrayHelpers}/>
-                                        </>
-                                     ))}
-                                   </div>
-                                 )}
-                               />
-                           </div>
-                        
-                        
-                      </div>
-                    )}
-                  />
-                  
-                  <Button variant="contained" color="primary" type="submit">
-                      Submit
-                  </Button>
-              </Panel>
-              </Form>
-              </>
-            )
-          }}
-        </Formik>
-      </div>
+                          </div>
+                        </div>
+                          <div style={{width: 'calc(100vw - 280px)'}}>
+                            <FieldArray
+                                name={`sets[${values.activeSet}].tracks`}
+                                render={(arrayHelpers)=> (
+                                  <div style={{width: '100%', margin: '16px'}}>
+                                    {values.sets[values.activeSet].tracks.map((track,index) => (
+                                      <div key={index}>
+                                        <Track trackIndex={index} values={values} songOptions={songOptions} setFieldValue={setFieldValue} arrayHelpers={arrayHelpers}/>
+                                      </div>
+                                    ))}
+                                  </div>
+                                )}
+                              />
+                          </div>
+                      
+                      
+                    </div>
+                  )}
+                />
+                
+                <Button variant="contained" color="primary" type="submit">
+                    Submit
+                </Button>
+            </Panel>
+            </Form>
+            </>
+          )
+        }}
+      </Formik>
+    </div>
   );
 }
 

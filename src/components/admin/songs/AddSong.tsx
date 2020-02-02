@@ -6,8 +6,7 @@ import {ISong} from '../../Songs'
 import TextField from '../../shared/TextField'
 import TextAreaField from '../../shared/TextAreaField'
 import CheckboxField from '../../shared/CheckboxField'
-import SelectField from '../../shared/SelectField'
-import {ISelectOption}  from '../../shared/SelectField'
+import SelectField, {ISelectOption} from '../../shared/SelectField'
 import Button from '@material-ui/core/Button'
 
 interface IAddSong {

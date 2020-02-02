@@ -11,7 +11,7 @@ interface IChipField {
 
 const ChipField: React.FC<IChipField> = ({label, name}) => {
   const [inputValue,setInputValue] = useState('')
-  const [field, meta, helpers] = useField({name})
+  const [field, ,helpers] = useField({name})
   //const fieldError = !!meta.error && meta.touched
   const handleChange:ReactEventHandler = (evt:ChangeEvent<HTMLInputElement>):void => {
     const {value} = evt.target
