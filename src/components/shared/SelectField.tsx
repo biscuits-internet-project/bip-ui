@@ -22,8 +22,8 @@ export interface ISelectOption {
 }
 
 const SelectField: React.FC<ISelectField> = ({label, name, value, options,submitCount = 0}) => {
-    const [field,meta,helpers] = useField({name,value})
-    const fieldError = !!meta.error && submitCount > 0
+    const [field,meta] = useField({name,value})
+    const fieldError = !!meta.error && (submitCount > 0 || meta.touched)
     return (
       <div>
         <FormControl variant="outlined" fullWidth margin="dense" error={fieldError}>
