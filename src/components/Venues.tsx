@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import axios, { AxiosResponse } from 'axios'
-import AddVenue from './AddVenue'
 
 export interface IVenue {
 	id?: string,
@@ -31,7 +30,6 @@ const Venues: React.FC = () => {
 	return (
 		<>
 			<h1>Venues</h1>
-			<AddVenue updateVenues={(venue: IVenue)=> setVenues([venue,...venues])}/>
 			{loading && <h3>.....Loading</h3>}
 			<table>
 				<thead>
