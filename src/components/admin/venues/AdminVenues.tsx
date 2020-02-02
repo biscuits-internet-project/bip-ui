@@ -20,14 +20,14 @@ export interface IVenue {
 }
 
 const AdminVenues = () => {
-    const [loading, setLoading] = useState(false)
+    // const [loading, setLoading] = useState(false)
 	const [venues, setVenues] = useState<IVenue[]>([])
 	useEffect(()=> {
-		setLoading(true)
+		// setLoading(true)
 		const fetchVenues = async () => {
 			const data:AxiosResponse = await axios.get('https://stg-api.discobiscuits.net/api/venues')
 			setVenues(data.data)
-			setLoading(false)
+			// setLoading(false)
 		}
 		fetchVenues()
 	},[])

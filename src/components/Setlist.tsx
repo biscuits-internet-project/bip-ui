@@ -45,12 +45,12 @@ const Setlist: React.FC<ISetlist> = ({date,venue,tracks,notes}) => {
 					return (
 						<ul className="set" key={key}>
 							<li className="set__label">{key}</li>
-							{sets[key].map((track) => {
+							{sets[key].map((track: ITrack,index: number) => {
 								return (
-									<li className="set__track">
+									<li className="set__track" key={index}>
 										<Link to={`/songs/${track.song_slug}`}>{track.song_title}</Link>
 										{track.annotations.map((a, i) => {
-											return <span>{a}</span>
+											return <span key={i}>{a}</span>
 										})}
 
 										{track.segue}
