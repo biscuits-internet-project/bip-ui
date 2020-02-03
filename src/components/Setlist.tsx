@@ -20,13 +20,23 @@ interface ITrack {
 
 const Setlist: React.FC<ISetlist> = ({date,venue,tracks,notes}) => {
 
+	let annLookup = {}
+
 	const orderTracks = (tracks) => {
 		let sets = {};
 		tracks.forEach(track => {
 			if(!sets[track.set]) { sets[track.set] = []; }
 			sets[track.set].push(track);
+
+			track.annotations.forEach(ann => {
+				if (!annLookup.hasOwnProperty(ann)) {
+					annLookup[ann] = Object.keys(annLookup).length + 1
+				}
+			})
 		});
 		return sets;
+
+
 	}
 	let sets = orderTracks(tracks)
 		
@@ -39,8 +49,6 @@ const Setlist: React.FC<ISetlist> = ({date,venue,tracks,notes}) => {
 			</header>
 			<div className="setlist__set-wrap">
 
-				// todo - still need to render the annotations properly
-
 				{Object.keys(sets).map((key) => {
 					return (
 						<ul className="set" key={key}>
@@ -50,16 +58,25 @@ const Setlist: React.FC<ISetlist> = ({date,venue,tracks,notes}) => {
 									<li className="set__track" key={index}>
 										<Link to={`/songs/${track.song_slug}`}>{track.song_title}</Link>
 										{track.annotations.map((a, i) => {
-											return <span key={i}>{a}</span>
+											return <sup key={i}> {annLookup[a]} </sup>
 										})}
 
-										{track.segue}
+										<span> {track.segue}</span>
 									</li>
 								)
 							})}
 						</ul>
 					)
 				})}
+
+				{annLookup && Object.keys(annLookup).map(function (key) {
+					return (
+						<span><strong>{annLookup[key]}</strong> {key} </span>
+					)
+				})}
+				<br/><hr/><br />
+			</div>
+			<div>
 			</div>
 		</section>
 	)
