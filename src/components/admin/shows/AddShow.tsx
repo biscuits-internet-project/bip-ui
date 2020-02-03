@@ -111,21 +111,6 @@ const validationSchema = Yup.lazy(() => {
       )
   });
 })
-// const schema = Yup.object().shape({
-//   friends: Yup.array()
-//     .of(
-//       Yup.object().shape({
-//         name: Yup.string()
-//           .min(4, 'too short')
-//           .required('Required'), // these constraints take precedence
-//         salary: Yup.string()
-//           .min(3, 'cmon')
-//           .required('Required'), // these constraints take precedence
-//       })
-//     )
-//     .required('Must have friends') // these constraints are shown if and only if inner constraints are satisfied
-//     .min(3, 'Minimum of 3 friends'),
-// });
 
 const AddShow:React.FC = () => {
   const {state,asyncActions} = useContext(AppContext)
@@ -178,7 +163,7 @@ const AddShow:React.FC = () => {
 
   return (
     <div style={{marginTop: '32px', width: '100%'}}>
-      <Typography variant="h4">Add Show</Typography>
+      {/* <Typography variant="h4">Add Show</Typography> */}
       <Formik
         enableReinitialize
         initialValues={initialData}
@@ -224,7 +209,7 @@ const AddShow:React.FC = () => {
                 <FieldArray
                   name="sets"
                   render={(setArrayHelpers)=>(
-                    <div style={{height: '600px'}}>
+                    <div style={{minHeight: '300px'}}>
                         <div style={{display: 'flex'}}>
                           <Tabs
                             value={values.activeSet}
