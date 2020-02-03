@@ -25,7 +25,7 @@ const SelectField: React.FC<ISelectField> = ({label, name, value, options,submit
     const [field,meta] = useField({name,value})
     const fieldError = !!meta.error && (submitCount > 0 || meta.touched)
     return (
-      <div style={{marginBottom: '16px'}}>
+      <>
         <FormControl variant="outlined" fullWidth margin="dense" error={fieldError}>
         <InputLabel id="label">{label}</InputLabel>
         <Select
@@ -39,7 +39,7 @@ const SelectField: React.FC<ISelectField> = ({label, name, value, options,submit
         {fieldError && <FormHelperText>{meta.error}</FormHelperText>}
 
         </FormControl>
-      </div>
+      </>
     )
   }
 

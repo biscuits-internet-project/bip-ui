@@ -12,7 +12,6 @@ const TextAreaField: React.FC<ITextAreaField> = ({label, name, value, rows}) => 
     const [field, meta, /*helpers*/] = useField({name,value})
     const fieldError = !!meta.error && meta.touched
     return (
-      <div>
         <TextField 
           id={label} 
           label={label} 
@@ -22,7 +21,6 @@ const TextAreaField: React.FC<ITextAreaField> = ({label, name, value, rows}) => 
           rows={rows || 8}
           error={fieldError} helperText={fieldError && meta.error} 
         />
-      </div>
     )
   }
 

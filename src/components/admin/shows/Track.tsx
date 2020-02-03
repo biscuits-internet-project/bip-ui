@@ -34,7 +34,7 @@ const Track:React.FC<ITrack> = ({trackIndex,values, songOptions, setFieldValue,a
                 <ChipField label="Annotations" name={`sets[${values.activeSet}].tracks[${trackIndex}].annotations`}/>
             </Grid>
             <Grid item xs={3}>
-                <div style={{display: 'flex',justifyContent: 'space-between', padding: '0px 16px'}}>
+                <div style={{display: 'flex',justifyContent: 'space-between', padding: '0px 16px', marginBottom:"16px" }}>
                     <FormControlLabel
                     value="top"
                     control={

@@ -27,9 +27,7 @@ const AdminShows = () => {
             <Typography variant='h4'>Shows</Typography>
             <Grid container spacing={3}>
                 <Grid item xs={12}>
-                    <Panel title="Add Song">
-                        <AddShow></AddShow>
-                    </Panel>
+                    <AddShow/>
                 </Grid>
                 <Grid item xs={12}>
                     <Panel title="Show List">

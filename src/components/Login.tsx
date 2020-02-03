@@ -73,7 +73,6 @@ const Login: React.FC = () => {
             <CardContent>
               <div style={{display: 'flex', alignItems: 'center', flexDirection: 'column'}}>
               <img alt="logo" style={{ width: '64px', height: '64px', margin: '16px'}} src="/logoInvert.svg" />
-                {/* <Typography variant="h6">Login</Typography> */}
                 <Formik
                   initialValues={initialValues}
                   onSubmit={(values, actions) => postLogin(values, actions,dispatch,history, setLoading)}
@@ -82,15 +81,15 @@ const Login: React.FC = () => {
                   {(props: FormikProps<ILogin>) => (
                     <Form style={{display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%'}}>
                       <TextField name="email" type="email" label="Email" />
-                      <div style={{height: '30px'}}/>
+                      <div style={{height: "32px"}}></div>
                       <TextField name="password" type="password" label="Password" />
-                      <div style={{height: '30px'}}/>
+                      <div style={{height: "32px"}}></div>
                       <Button variant="contained" color="primary" type="submit" disabled={loading}>LOG IN</Button>
                     </Form>
                   )}
                 </Formik>
 
-                <ForgotPassword></ForgotPassword>
+                <ForgotPassword/>
               </div>
             </CardContent>
           </Card>
