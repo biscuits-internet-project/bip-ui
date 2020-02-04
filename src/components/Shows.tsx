@@ -38,7 +38,7 @@ const Shows: React.FC = () => {
 			<select name="years" id="years" onChange={changeYear}>
 				{years.map((year) => {
 					return (
-						<option key={year} value={year} selected={selectedYear == year}>{year}</option>
+						<option key={year} value={year} selected={selectedYear === year}>{year}</option>
 					)
 				})}
 			</select>
