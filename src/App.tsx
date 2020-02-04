@@ -2,6 +2,7 @@ import React, {useContext} from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
 import { ThemeProvider } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
 import PrivateRoute from './routing/PrivateRoute'
 import {AppContext} from './context/AppProvider'
 import {defaultTheme} from './lib/theme'
@@ -20,15 +21,19 @@ const App:React.FC = () => {
   const {state} = useContext(AppContext)
   const {roles} = state
   return (
-    <Router>
-        <ThemeProvider theme={defaultTheme}>
-          <Switch>
-            <PrivateRoute path="/admin/:adminPage?" component={Admin} roles={roles}/>
-            <Route path="/login" component={Login}/>
-            <Route path="/" component={Home}/>
-          </Switch>
-        </ThemeProvider> 
-    </Router>
+    <React.Fragment>
+      <CssBaseline />
+      {/* The rest of your application */}
+      <Router>
+          <ThemeProvider theme={defaultTheme}>
+            <Switch>
+              <PrivateRoute path="/admin/:adminPage?" component={Admin} roles={roles}/>
+              <Route path="/login" component={Login}/>
+              <Route path="/" component={Home}/>
+            </Switch>
+          </ThemeProvider> 
+      </Router>
+    </React.Fragment>
   )
 }
 
