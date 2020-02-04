@@ -56,7 +56,7 @@ const Venue: React.FC = () => {
 
 					{shows && shows.map((show) => {
 						return (
-							<Setlist date={show.date} venue={show.venue} tracks={show.tracks} notes={show.notes} />
+							<Setlist date={show.date} slug={show.slug} venue={show.venue} tracks={show.tracks} notes={show.notes} />
 						)
 					})}
 				</>

@@ -38,7 +38,7 @@ const Shows: React.FC = () => {
 			<select name="years" id="years" onChange={changeYear}>
 				{years.map((year) => {
 					return (
-						<option key={year} value={year}>{year}</option>
+						<option key={year} value={year} selected={selectedYear == year}>{year}</option>
 					)
 				})}
 			</select>
@@ -48,7 +48,7 @@ const Shows: React.FC = () => {
 				<div className="setlists__feed setlists__feed--latest">
 					{setlists.map((setlist,id) => {
 						return (
-							<Setlist key={id} date={setlist.date} venue={setlist.venue} tracks={setlist.tracks} notes={setlist.notes} />
+							<Setlist key={id} date={setlist.date} slug={setlist.slug} venue={setlist.venue} tracks={setlist.tracks} notes={setlist.notes} />
 						)
 					})}
 				</div>

@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 export interface ISetlist {
+	slug: string
 	notes: string
 	date: string
 	venue: { id: string, slug: string, name: string, city: string, state: string }
@@ -18,7 +19,7 @@ interface ITrack {
 	annotations: string[]
 }
 
-const Setlist: React.FC<ISetlist> = ({date,venue,tracks,notes}) => {
+const Setlist: React.FC<ISetlist> = ({date,slug,venue,tracks,notes}) => {
 
 	let annLookup = {}
 
@@ -43,8 +44,14 @@ const Setlist: React.FC<ISetlist> = ({date,venue,tracks,notes}) => {
 	return (
 		<section className="setlist">
 			<header className="setlist__header">
-				<h3 className="setlist__date">{date}</h3>
-				<h3 className="setlist__location">{venue.name}, {venue.city}, {venue.state}</h3>
+				<h3 className="setlist__date">
+					<Link to={`/shows/${slug}`}>{date}</Link>
+				</h3>
+				<h3 className="setlist__location">
+					<Link to={`/venues/${venue.slug}`}>
+						{venue.name} {venue.city}, {venue.state}
+					</Link>
+				</h3>
 				<h3 className="setlist__notes">{notes}</h3>
 			</header>
 			<div className="setlist__set-wrap">
