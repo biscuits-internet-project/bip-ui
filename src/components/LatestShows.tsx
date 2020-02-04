@@ -25,7 +25,7 @@ const LatestShows: React.FC = () => {
 				<div className="setlists__feed setlists__feed--latest">
 					{setlists.map((setlist) => {
 						return (
-							<Setlist date={setlist.date} venue={setlist.venue} tracks={setlist.tracks} notes={setlist.notes} />
+							<Setlist date={setlist.date} slug={setlist.slug} venue={setlist.venue} tracks={setlist.tracks} notes={setlist.notes} />
 						)
 					})}
 				</div>

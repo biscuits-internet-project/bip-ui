@@ -2,6 +2,7 @@ import React from 'react';
 import {Route, Switch } from 'react-router-dom';
 import LatestShows from './components/LatestShows';
 import Shows from './components/Shows';
+import Show from './components/Show';
 import Songs from './components/Songs';
 import Song from './components/Song';
 import Venues from './components/Venues';
@@ -23,7 +24,7 @@ class Home extends React.Component {
 				<Switch>
 					<Route path="/" exact component={LatestShows}/>
 					<Route path="/shows" exact component={Shows} />
-					<Route path="/shows/:id" exact component={Shows} />
+					<Route path="/shows/:id" exact component={Show} />
 					<Route path="/shows/year/:year" exact component={Shows} />
 					<Route path="/shows/venue/:venue_id" exact component={Shows} />
 					<Route path="/shows/state/:state" exact component={Shows} />
