@@ -16,7 +16,7 @@ const LeftNavbar = () => {
         alignItems: 'center',
       }}
     >
-      <img alt="logo" style={{ width: '64px', height: '64px' }} src="/logo.svg" />
+      <a href="/"><img alt="logo" style={{ width: '64px', height: '64px' }} src="/logo.svg" /></a>
       <Typography variant="h6" style={{ marginLeft: '30px' }}>
         BIP Admin
       </Typography>
