@@ -1,21 +1,38 @@
 import React, {useState, useEffect} from 'react'
 import { useParams } from 'react-router-dom';
 import axios, { AxiosResponse } from 'axios'
-import {ISetlist} from './Setlist';
+import {ITrack} from './Setlist';
 import Setlist from './Setlist';
 import { Helmet } from "react-helmet"
+import YouTube from 'react-youtube';
+
+export interface IShow {
+	slug: string
+	notes: string
+	date: string
+	youtube_id: string
+	venue: { id: string, slug: string, name: string, city: string, state: string }
+	tracks: ITrack[]
+}
 
 const Shows: React.FC = () => {
 
 	const [loading, setLoading] = useState(false)
-	const [setlist, setSetlist] = useState<ISetlist | undefined>(undefined)
+	const [show, setShow] = useState<IShow | undefined>(undefined)
 	const params = useParams();
+	const youtubeOpts = {
+		height: '390',
+		width: '640',
+		playerVars: { // https://developers.google.com/youtube/player_parameters
+		  autoplay: 0
+		}
+	  };
 
 	useEffect(()=> {
 		setLoading(true)
 		const fetchSetlist = async () => {
 			const data:AxiosResponse = await axios.get(`https://stg-api.discobiscuits.net/api/shows/${params.id}`)
-			setSetlist(data.data)
+			setShow(data.data)
 			setLoading(false)
 		}
 		fetchSetlist()
@@ -27,8 +44,17 @@ const Shows: React.FC = () => {
 				<title>Biscuits Internet Project - Shows - </title>
 			</Helmet>
 			<div className="setlist">
-				{setlist && 
-					<Setlist key={setlist.slug} date={setlist.date} slug={setlist.slug} venue={setlist.venue} tracks={setlist.tracks} notes={setlist.notes} />
+				{show && 
+					<Setlist key={show.slug} date={show.date} slug={show.slug} venue={show.venue} tracks={show.tracks} notes={show.notes} />
+				}
+			</div>
+
+			<div>
+				{show && show.youtube_id && 
+					<YouTube
+						videoId={show.youtube_id}
+						opts={youtubeOpts}
+					/>
 				}
 			</div>
 		</>

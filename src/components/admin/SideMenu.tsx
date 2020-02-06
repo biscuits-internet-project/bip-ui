@@ -37,7 +37,7 @@ const itemList: sideMenuItem[] = [
 		name: 'users',
 		label: 'Users',
 		icon: <AccountCircle/>
-	},
+	}
 ]
 
 const SideMenu = () => {
