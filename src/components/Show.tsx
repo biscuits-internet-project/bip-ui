@@ -11,6 +11,8 @@ export interface IShow {
 	notes: string
 	date: string
 	youtube_id: string
+	relisten_url: string
+	likes_count: number
 	venue: { id: string, slug: string, name: string, city: string, state: string }
 	tracks: ITrack[]
 }
@@ -40,23 +42,30 @@ const Shows: React.FC = () => {
 	return (
 		<>
 			{loading && <h3>.....Loading</h3>}
-			<Helmet>
-				<title>Biscuits Internet Project - Shows - </title>
-			</Helmet>
-			<div className="setlist">
-				{show && 
+			{show &&
+			<>
+				<Helmet>
+					<title>Biscuits Internet Project - Shows - </title>
+				</Helmet>
+				<div className="setlist">
+					<div>{show.likes_count} likes </div>
+					{show.relisten_url &&
+						<div><a href={show.relisten_url}>{show.relisten_url}</a></div>
+					}
+					<br/>
 					<Setlist key={show.slug} date={show.date} slug={show.slug} venue={show.venue} tracks={show.tracks} notes={show.notes} />
-				}
-			</div>
+				</div>
 
-			<div>
-				{show && show.youtube_id && 
-					<YouTube
-						videoId={show.youtube_id}
-						opts={youtubeOpts}
-					/>
-				}
-			</div>
+				<div>
+					{show.youtube_id && 
+						<YouTube
+							videoId={show.youtube_id}
+							opts={youtubeOpts}
+						/>
+					}
+				</div>
+			</>
+			}
 		</>
 
 	)
