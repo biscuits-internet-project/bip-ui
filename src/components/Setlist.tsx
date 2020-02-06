@@ -9,7 +9,7 @@ export interface ISetlist {
 	tracks: ITrack[]
 }
 
-interface ITrack {
+export interface ITrack {
 	song_title: string
 	song_slug: string
 	song_id: string

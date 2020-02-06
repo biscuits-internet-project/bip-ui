@@ -21,6 +21,7 @@ export interface IShow {
   notes: string
   date: string
   venue_id: string
+  youtube_id: string
 }
 
 export interface ISetlistForm {
@@ -29,6 +30,7 @@ export interface ISetlistForm {
   notes: string
   date: string
   venue_id: string
+  youtube_id: string
 }
 
 interface ISet {
@@ -66,13 +68,12 @@ const initialData: ISetlistForm = {
   notes: '',
   date: '',
   venue_id: '',
+  youtube_id: '',
   activeSet: 0
 }
 
-
-
 const createData = (data: ISetlistForm) => {
-  const {notes,date,venue_id, sets} = data
+  const {notes,youtube_id,date,venue_id, sets} = data
   let tracks:ITrack[] = []
   sets.forEach((set:ISet, setIndex:number) => {
     set.tracks.forEach((track: ITrack,index: number)=> {
@@ -86,7 +87,8 @@ const createData = (data: ISetlistForm) => {
     notes,
     date,
     venue_id,
-    tracks
+    tracks,
+    youtube_id
   }
   return show
 }
@@ -200,6 +202,13 @@ const AddShow:React.FC = () => {
                       type="text"
                       name="notes"
                       label="Notes"
+                  />
+                </Grid>
+                <Grid item xs={2}>
+                  <TextField 
+                      type="text"
+                      name="youtube_id"
+                      label="Youtube ID"
                   />
                 </Grid>
               </Grid>
