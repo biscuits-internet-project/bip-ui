@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useState, useEffect, useContext, useCallback} from 'react';
 import { Form, Formik, FormikProps,FormikHelpers} from 'formik'
 import axios, { AxiosResponse } from 'axios'
 import {AppContext} from '../../../context/AppProvider'
@@ -9,16 +9,24 @@ import CheckboxField from '../../shared/CheckboxField'
 import SelectField, {ISelectOption} from '../../shared/SelectField'
 import Button from '@material-ui/core/Button'
 
-interface IAddSong {
-    updateSongs(song: ISong): void
+interface ISongForm {
+    setSongs: (songs: ISong[]) => void
+    songs: ISong[],
+    id: string | null
+    handleClose: ()=> void
 }
 
 interface IAuthor {
   id: string
   name: string
+  author_id: string
 }
 
-const initialValues = {
+interface IAuthorOption extends ISelectOption {
+  author_id: string
+}
+
+const initialValues:ISong = {
   title: "",
 	cover: false, 
 	lyrics: "",
@@ -26,40 +34,64 @@ const initialValues = {
   tabs: "",
   author_id: ""
 }
-const postSong = async (values: ISong, actions:FormikHelpers<ISong>, updateSongs: (song: ISong) => void, token: string | null) => {
-    const newSong:AxiosResponse = await axios({
-        method: 'post',
-        url: 'https://stg-api.discobiscuits.net/api/songs',
-        data: values,
-        headers: {
-            "Content-Type":	"application/json",
-            "Authorization": token
-        }
-    });
-    
-    updateSongs(newSong.data)
-    updateSongs(values)
-    actions.resetForm()
-}
 
-const AddSong: React.FC<IAddSong> = ({updateSongs}) => {
+const SongForm: React.FC<ISongForm> = ({setSongs, songs, id, handleClose}) => {
     const {state} = useContext(AppContext)
-    const [authors, setAuthors] = useState<ISelectOption[]>([])
+    const [formData, setFormData] = useState(initialValues)
+    const [authors, setAuthors] = useState<IAuthorOption[]>([])
+    useEffect(()=> {
+      const fetchSong = async () => {
+        const data:AxiosResponse = await axios.get(`https://stg-api.discobiscuits.net/api/songs/${id}`)
+        const song:ISong = data.data
+        setFormData(song)
+      }
+      if(id){
+        fetchSong()
+      }
+    },[id])
     useEffect(()=> {
       const fetchAuthors = async () => {
         const data:AxiosResponse = await axios.get('https://stg-api.discobiscuits.net/api/authors')
-        const authors:ISelectOption[] = data.data.map((author):ISelectOption =>  {
-          return {label: author.name, value: author.id, selected: false}
+        const authors:IAuthorOption[] = data.data.map((author: IAuthor):IAuthorOption =>  {
+          return {label: author.name, value: author.id, selected: false, author_id: author.author_id}
         })
         setAuthors(authors)
       }
       fetchAuthors()
     },[])
+
+    const postSong = useCallback(async (values: ISong, actions:FormikHelpers<ISong>) => {
+      const newSong:AxiosResponse = await axios({
+          method: id ? 'put' : 'post',
+          url: `https://stg-api.discobiscuits.net/api/songs/${id ? id : ''}`,
+          data: values,
+          headers: {
+              "Content-Type":	"application/json",
+              "Authorization": state.token
+          }
+      });
+      const {data} = newSong 
+
+      if(!id){
+        setSongs([data, ...songs])
+        handleClose()
+      }
+
+      else {
+        const index = songs.findIndex(song => song.slug === id)
+        const newSongs = [...songs]
+        newSongs[index] = data
+        setSongs(newSongs)
+        handleClose()
+      }
+    }, [handleClose, id, setSongs, songs, state.token])
+
     return (
         <div>
           <Formik
-            initialValues={initialValues}
-            onSubmit={(values, actions) => postSong(values, actions, updateSongs, state.token)}
+            enableReinitialize
+            initialValues={formData}
+            onSubmit={(values, actions) => postSong(values, actions)}
           >
             {(props: FormikProps<ISong>) => (
               <Form>
@@ -87,4 +119,4 @@ const AddSong: React.FC<IAddSong> = ({updateSongs}) => {
       );
 }
 
-  export default AddSong
+  export default SongForm

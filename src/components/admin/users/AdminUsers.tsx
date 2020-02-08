@@ -20,10 +20,10 @@ export interface IUser {
 
 const AdminUsers = () => {
     const {state} = useContext(AppContext)
-    const [loading, setLoading] = useState(false)
+    //const [loading, setLoading] = useState(false)
 	const [users, setUsers] = useState<IUser[]>([])
 	useEffect(()=> {
-		setLoading(true)
+		//setLoading(true)
 		const fetchUsers = async () => {
             const data:AxiosResponse = await axios({
                 method: 'get',
@@ -34,10 +34,10 @@ const AdminUsers = () => {
                 }
             });
 			setUsers(data.data)
-			setLoading(false)
+			//setLoading(false)
 		}
 		fetchUsers()
-	},[])
+	},[state.token])
     return (
         <>
             <Typography variant='h4'>Users</Typography>

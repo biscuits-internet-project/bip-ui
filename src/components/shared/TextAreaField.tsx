@@ -18,7 +18,7 @@ const TextAreaField: React.FC<ITextAreaField> = ({label, name, value, rows}) => 
           {...field} 
           fullWidth
           multiline={true}
-          rows={rows || 8}
+          rows={rows || 5}
           error={fieldError} helperText={fieldError && meta.error} 
         />
     )
