@@ -1,6 +1,7 @@
 import React, {useState, useEffect, useContext, useCallback} from 'react';
 import { Form, Formik, FormikProps,FormikHelpers} from 'formik'
 import axios, { AxiosResponse } from 'axios'
+import { useSnackbar } from 'notistack'
 import {AppContext} from '../../../context/AppProvider'
 import {ISong} from '../../Songs'
 import TextField from '../../shared/TextField'
@@ -39,6 +40,8 @@ const SongForm: React.FC<ISongForm> = ({setSongs, songs, id, handleClose}) => {
     const {state} = useContext(AppContext)
     const [formData, setFormData] = useState(initialValues)
     const [authors, setAuthors] = useState<IAuthorOption[]>([])
+    const { enqueueSnackbar } = useSnackbar()
+    
     useEffect(()=> {
       const fetchSong = async () => {
         const data:AxiosResponse = await axios.get(`https://stg-api.discobiscuits.net/api/songs/${id}`)
@@ -74,7 +77,9 @@ const SongForm: React.FC<ISongForm> = ({setSongs, songs, id, handleClose}) => {
 
       if(!id){
         setSongs([data, ...songs])
+        enqueueSnackbar(`Successfully added ${data.title} by ${data.author_name}`, { variant: 'success' })
         handleClose()
+        
       }
 
       else {
@@ -82,9 +87,10 @@ const SongForm: React.FC<ISongForm> = ({setSongs, songs, id, handleClose}) => {
         const newSongs = [...songs]
         newSongs[index] = data
         setSongs(newSongs)
+        enqueueSnackbar(`Successfully edited ${data.title} by ${data.author_name}`, { variant: 'success' })
         handleClose()
       }
-    }, [handleClose, id, setSongs, songs, state.token])
+    }, [enqueueSnackbar, handleClose, id, setSongs, songs, state.token])
 
     return (
         <div>

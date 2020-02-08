@@ -10,6 +10,7 @@ import Button from '@material-ui/core/Button';
 import {AppContext} from '../../../context/AppProvider'
 import SongForm from './SongForm'
 import SongList from './SongList'
+import { useSnackbar } from 'notistack'
 export interface ISong {
 	id?: string,
 	title?: string
@@ -27,6 +28,7 @@ const AdminSongs = () => {
 	const [songs, setSongs] = useState<ISong[]>([])
 	const [open, setOpen] = useState(false)
 	const [id, setId] = useState<string | null>(null)
+	const { enqueueSnackbar } = useSnackbar()
 	
 	useEffect(()=> {
 		const fetchSongs = async () => {
@@ -37,7 +39,6 @@ const AdminSongs = () => {
 	},[])
 
 	const handleOpen = (id: string | null) => {
-		console.log(id)
 		if(id) setId(id)
 		setOpen(true);
 	};
@@ -56,6 +57,7 @@ const AdminSongs = () => {
 				"Authorization": state.token
 			}
 		});
+		enqueueSnackbar("successfully deleted", { variant: 'success' })
 		setSongs(songs.filter(song => song.slug !== id))
 	}
 	
