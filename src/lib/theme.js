@@ -17,7 +17,7 @@ const baseTheme = {
     h1: { fontFamily: headingFont },
     h2: { fontFamily: headingFont },
     h3: { fontFamily: headingFont, fontWeight: '700' },
-    h4: { fontFamily: headingFont, fontWeight: '700', marginBottom: '32px'},
+    h4: { fontFamily: headingFont, fontWeight: '700', marginBottom: '16px'},
     h5: { fontFamily: headingFont },
     h6: { fontFamily: headingFont, fontSize: '16px' },
 
@@ -229,6 +229,20 @@ const baseTheme = {
       root: {
         color: colors.primary,
         minWidth: '36px',
+      },
+    },
+    MuiDialogTitle: {
+      root: {
+        
+        '& h2': {
+          fontSize: '24px',
+          fontWeight: 700,
+        }
+      }
+    },
+    MuiTableContainer: {
+      root: {
+        padding: '16px',
       },
     },
     MuiTableCell: {
