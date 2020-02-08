@@ -10,7 +10,6 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import {AppContext} from '../../../context/AppProvider'
 import { useSnackbar } from 'notistack'
-import AddVenue from './VenueForm'
 import VenueList from './VenueList'
 import VenueForm from './VenueForm';
 
