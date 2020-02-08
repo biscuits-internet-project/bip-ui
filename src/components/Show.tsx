@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import { useParams } from 'react-router-dom';
 import axios, { AxiosResponse } from 'axios'
-import {ITrack} from './Setlist';
+import Tracklist, {ITrack} from './Tracklist';
 import Setlist from './Setlist';
 import { Helmet } from "react-helmet"
 import YouTube from 'react-youtube';
@@ -47,17 +47,21 @@ const Shows: React.FC = () => {
 				<Helmet>
 					<title>Biscuits Internet Project - Shows - </title>
 				</Helmet>
+				<h1 className="setlist__date">
+					{show.date} - {show.venue.name} {show.venue.city}, {show.venue.state}
+				</h1>
+				<h3 className="setlist__notes">{show.notes}</h3>
 				<div className="setlist">
 					<div>{show.likes_count} likes </div>
 					{show.relisten_url &&
 						<div><a href={show.relisten_url}>{show.relisten_url}</a></div>
 					}
 					<br/>
-					<Setlist key={show.slug} date={show.date} slug={show.slug} venue={show.venue} tracks={show.tracks} notes={show.notes} />
+					<Tracklist key={show.slug} tracks={show.tracks} />
 				</div>
 
 				<div>
-					{show.youtube_id && 
+					{show.youtube_id &&
 						<YouTube
 							videoId={show.youtube_id}
 							opts={youtubeOpts}
@@ -71,4 +75,4 @@ const Shows: React.FC = () => {
 	)
 }
 
-export default Shows;  
+export default Shows;
