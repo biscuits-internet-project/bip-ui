@@ -3,12 +3,12 @@ import { Form, Formik, FormikProps,FormikHelpers} from 'formik'
 import axios, { AxiosResponse } from 'axios'
 import { useSnackbar } from 'notistack'
 import {AppContext} from '../../../context/AppProvider'
-import {ISong} from '../../Songs'
 import TextField from '../../shared/TextField'
 import TextAreaField from '../../shared/TextAreaField'
 import CheckboxField from '../../shared/CheckboxField'
 import SelectField, {ISelectOption} from '../../shared/SelectField'
 import Button from '@material-ui/core/Button'
+import {ISong} from '../../Songs'
 
 interface ISongForm {
     setSongs: (songs: ISong[]) => void
@@ -29,7 +29,7 @@ interface IAuthorOption extends ISelectOption {
 
 const initialValues:ISong = {
   title: "",
-	cover: false, 
+	cover: false,
 	lyrics: "",
 	notes: "",
   tabs: "",
@@ -41,7 +41,7 @@ const SongForm: React.FC<ISongForm> = ({setSongs, songs, id, handleClose}) => {
     const [formData, setFormData] = useState(initialValues)
     const [authors, setAuthors] = useState<IAuthorOption[]>([])
     const { enqueueSnackbar } = useSnackbar()
-    
+
     useEffect(()=> {
       const fetchSong = async () => {
         const data:AxiosResponse = await axios.get(`https://stg-api.discobiscuits.net/api/songs/${id}`)
@@ -73,13 +73,13 @@ const SongForm: React.FC<ISongForm> = ({setSongs, songs, id, handleClose}) => {
               "Authorization": state.token
           }
       });
-      const {data} = newSong 
+      const {data} = newSong
 
       if(!id){
         setSongs([data, ...songs])
         enqueueSnackbar(`Successfully added ${data.title} by ${data.author_name}`, { variant: 'success' })
         handleClose()
-        
+
       }
 
       else {
