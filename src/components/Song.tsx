@@ -16,7 +16,9 @@ interface ISong {
 	title: string,
 	times_played: number,
 	first_time_played: Date,
-	last_time_played: Date
+	last_time_played: Date,
+	history: string,
+	featured_lyric: string
 }
 
 interface ISongPlayed {
@@ -56,16 +58,18 @@ const Song: React.FC = () => {
 	return (
 		<>
 			{loading && <h3>.....Loading</h3>}
-			{song && 
+			{song &&
 				<>
 					<Helmet>
 						<title>Biscuits Internet Project - {song.title}</title>
 					</Helmet>
 					<div>
 						<h1>{song.title}</h1>
+						<div><em>{song.featured_lyric}</em></div>
 						<div>number of times played: {song.times_played}</div>
 						<div>first time played: {song.first_time_played}</div>
 						<div>last time played: {song.last_time_played}</div>
+						<div><h3>History</h3>{song.history}<br/><br/></div>
 					</div>
 				</>
 			}
