@@ -34,6 +34,8 @@ const initialValues:ISong = {
 	cover: false,
 	lyrics: "",
 	notes: "",
+	history: "",
+	featured_lyric: "",
   tabs: "",
   author_id: ""
 }
@@ -53,7 +55,7 @@ const SongForm: React.FC<ISongForm> = ({setSongs, songs, id, handleClose}) => {
 
     useEffect(()=> {
       const fetchSong = async () => {
-        const data:AxiosResponse = await axios.get(`https://stg-api.discobiscuits.net/api/songs/${id}`)
+        const data:AxiosResponse = await axios.get(`https://stg-api.discobiscuits.net/api/songs/${id}?edit=true`)
         const song:ISong = data.data
         setFormData(song)
       }
@@ -120,6 +122,8 @@ const SongForm: React.FC<ISongForm> = ({setSongs, songs, id, handleClose}) => {
                     <CheckboxField name="cover" label="Cover" />
                   </div>
                 </div>
+                <TextAreaField name="history" label="History" />
+                <TextAreaField name="featured_lyric" label="Featured Lyric" />
                 <TextAreaField name="notes" label="Notes" />
                 <TextAreaField name="lyrics" label="Lyrics" />
                 <TextAreaField name="tabs" label="Tabs" />

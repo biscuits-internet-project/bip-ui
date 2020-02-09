@@ -16,7 +16,9 @@ interface ISong {
 	title: string,
 	times_played: number,
 	first_time_played: Date,
-	last_time_played: Date
+	last_time_played: Date,
+	history: string,
+	featured_lyric: string
 }
 
 interface ISongPlayed {
@@ -26,6 +28,7 @@ interface ISongPlayed {
 	set: string
 	venue: IVenue
 	show: IShow
+	note: string
 }
 
 interface IShow {
@@ -56,16 +59,26 @@ const Song: React.FC = () => {
 	return (
 		<>
 			{loading && <h3>.....Loading</h3>}
-			{song && 
+			{song &&
 				<>
 					<Helmet>
 						<title>Biscuits Internet Project - {song.title}</title>
 					</Helmet>
 					<div>
 						<h1>{song.title}</h1>
+						<div><em>{song.featured_lyric}</em></div>
 						<div>number of times played: {song.times_played}</div>
 						<div>first time played: {song.first_time_played}</div>
 						<div>last time played: {song.last_time_played}</div>
+						<h3>History</h3>
+						<div dangerouslySetInnerHTML={{__html: song.history}} />
+						{song.lyrics &&
+							<>
+								<h3>Lyrics</h3>
+								<div dangerouslySetInnerHTML={{__html: song.lyrics}} />
+							</>
+						}
+						<br/><br/>
 					</div>
 				</>
 			}
@@ -78,6 +91,7 @@ const Song: React.FC = () => {
 						<td>Set</td>
 						<td>City</td>
 						<td>State</td>
+						<td>Notes</td>
 					</tr>
 				</thead>
 
@@ -96,6 +110,7 @@ const Song: React.FC = () => {
 								<td>{s.set}</td>
 								<td>{s.venue.city}</td>
 								<td>{s.venue.state}</td>
+								<td>{s.note}</td>
 							</tr>
 				})}
 			</table>
