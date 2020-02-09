@@ -1,0 +1,43 @@
+@import "tailwindcss/base";
+
+h1 {
+    @apply text-2xl;
+  }
+  h2 {
+    @apply text-xl;
+  }
+  h3 {
+    @apply text-lg;
+  }
+  a {
+    @apply text-blue-600 underline;
+  }
+
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+.header{
+	display: flex;
+	align-items: center;
+}
+
+.set{
+	display: flex;
+}
+
+.set__label{
+	font-weight: bold;
+}
+
+.set__label, .set__track{
+	margin-right: 5px;
+}
+
+h1, h2, h3, h4, h5, h6{
+	margin: 0; padding: 0;
+}
+
+ul, ol{
+	list-style: none;
+	margin: 0; padding: 0;
+}

@@ -14,43 +14,45 @@ const Header:React.FC = () => {
 		dispatch({type: "LOGOUT"})
 	}
 	return (
-		<header className="header">
-			<h1><Link to="/">BIP</Link></h1>
-			<nav className="nav-main">
-				<ul className="nav-main__list">
-					<li>
-						<Link to="/">Home</Link>
+		<ul className="flex">
+			<li className="mr-4">
+				<Link to="/">Biscuits Internet Project</Link>
+			</li>
+			<li className="mr-4">
+				<Link to="/shows">Shows</Link>
+			</li>
+			<li className="mr-4">
+				<Link to="/tour">Tour</Link>
+			</li>
+			<li className="mr-4">
+				<Link to="/songs">Songs</Link>
+			</li>
+			<li className="mr-4">
+				<Link to="/venues">Venues</Link>
+			</li>
+			<li className="mr-4">
+				<Link to="/resources">Resources</Link>
+			</li>
+			{username ? (
+				<li className="mr-4" onClick={logoutUser}>
+					{username} | <Link to="/logout">Logout</Link>
+				</li>
+			) : (
+				<>
+					<li className="mr-4">
+						<Link to="/register">Register</Link>
 					</li>
-					<li>
-						<Link to="/shows">Shows</Link>
+					<li className="mr-4">
+						<Link to="/login">Login</Link>
 					</li>
-					<li>
-						<Link to="/tour">Tour</Link>
-					</li>
-					<li>
-						<Link to="/songs">Songs</Link>
-					</li>
-					<li>
-						<Link to="/venues">Venues</Link>
-					</li>
-					<li>
-						<Link to="/resources">Resources</Link>
-					</li>
-					{username ? (
-						<li onClick={logoutUser}>
-							{username} | <Link to="/logout">Logout</Link>
-							{admin && 
-							  <Link to="/admin/dashboard">Admin</Link>
-							}
-						</li>
-					) : (
-						<li>
-							<Link to="/register">Register</Link> | <Link to="/login">Login</Link>
-						</li>
-					)}
-				</ul>
-			</nav>
-		</header>
+				</>
+			)}
+			{admin &&
+				<li className="mr-4 right">
+					<Link to="/admin/dashboard">Admin</Link>
+				</li>
+			}
+		</ul>
 	)
 }
 

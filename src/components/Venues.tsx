@@ -19,7 +19,7 @@ export interface IVenue {
 const Venues: React.FC = () => {
 	const [loading, setLoading] = useState(false)
 	const [venues, setVenues] = useState<IVenue[]>([])
-	
+
 	useEffect(()=> {
 		setLoading(true)
 		const fetchVenues = async () => {
@@ -36,7 +36,7 @@ const Venues: React.FC = () => {
 			</Helmet>
 			<h1>Venues</h1>
 			{loading && <h3>.....Loading</h3>}
-			<table>
+			<table className="border border-black-500 shadow-md">
 				<thead>
 					<tr>
 						<td>Name</td>
@@ -44,17 +44,19 @@ const Venues: React.FC = () => {
 						<td>State</td>
 					</tr>
 				</thead>
-			{venues.map((venue: IVenue) => {
-				return <tr key={venue.id}>
-							<td>
-								<Link to={`/venues/${venue.slug}`}>
-									{venue.name}
-								</Link>
-							</td>
-							<td>{venue.city}</td>
-							<td>{venue.state}</td>
-					    </tr>
-			})}
+				<tbody>
+					{venues.map((venue: IVenue) => {
+						return <tr key={venue.id}>
+									<td>
+										<Link to={`/venues/${venue.slug}`}>
+											{venue.name}
+										</Link>
+									</td>
+									<td>{venue.city}</td>
+									<td>{venue.state}</td>
+								</tr>
+					})}
+				</tbody>
 			</table>
 		</>
 	)

@@ -39,18 +39,19 @@ const Tracklist: React.FC<ITracklist> = ({tracks}) => {
 		<div className="setlist__set-wrap">
 			{Object.keys(sets).map((key) => {
 				return (
-					<ul className="set" key={key}>
-						<li className="set__label">{key}</li>
+					<ul className="flex" key={key}>
+						<li className="flex mr-3">{key}</li>
 						{sets[key].map((track: ITrack,index: number) => {
 							return (
-								<li className="set__track" key={index}>
-									<Link to={`/songs/${track.song_slug}`}>{track.song_title}</Link>
-									{track.annotations.map((a, i) => {
-										return <sup key={i}> {annLookup[a]} </sup>
-									})}
-
-									<span> {track.segue}</span>
-								</li>
+								<>
+									<li className="flex mr-2" key={index}>
+										<Link to={`/songs/${track.song_slug}`}>{track.song_title}</Link>
+										{track.annotations.map((a, i) => {
+											return <sup key={i}> {annLookup[a]} </sup>
+										})}
+									</li>
+									<li className="flex mr-2"> {track.segue}</li>
+								</>
 							)
 						})}
 					</ul>

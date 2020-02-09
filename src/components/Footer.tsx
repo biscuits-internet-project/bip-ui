@@ -5,19 +5,19 @@ export default class Footer extends React.Component {
 
 	render() {
 		let currentYear = new Date().getFullYear();
-		
-		return (
 
-			<footer className="footer" role="contentinfo">
-				<span className="footer__copy">BIP v.11 :: &copy; {currentYear}</span>
-				<li>
+		return (
+			<ul className="flex">
+				<li className="mr-4">
+					<span>Biscuits Internet Project 2.0  &copy;{currentYear}</span>
+				</li>
+				<li className="mr-4">
 					<Link to="/about">About</Link>
 				</li>
-				<li>
+				<li className="mr-4">
 					<Link to="/contact">Contact</Link>
 				</li>
-			</footer>
-
+			</ul>
 		)
 	}
 }
