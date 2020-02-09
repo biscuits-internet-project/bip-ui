@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -7,10 +8,13 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import DeleteIcon from '@material-ui/icons/Delete';
 import CreateIcon from '@material-ui/icons/Create';
-import {ISong} from '../../Songs'
+import {ISong} from '../../Songs';
+import { LibraryMusic } from '@material-ui/icons';
+import { Tooltip } from '@material-ui/core';
+import Fade from '@material-ui/core/Fade';
 
 interface ISongList {
-  songs: ISong[] 
+  songs: ISong[]
   handleOpen: (type: string, id?: string) => void
 }
 
@@ -35,8 +39,17 @@ const SongList:React.FC<ISongList> = ({songs,handleOpen}) => {
                 {song.author_name}
               </TableCell>
               <TableCell align='right'>
-                <CreateIcon color="secondary" style={{margin: "0px 8px", cursor: "pointer"}} fontSize="small" onClick={()=>handleOpen('form', song.slug, )}/>
-                <DeleteIcon color="secondary" style={{margin: "0px 8px", cursor: "pointer"}} fontSize="small" onClick={()=>handleOpen('delete', song.slug, )}/>
+                <Tooltip title="Edit" TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} >
+                  <CreateIcon color="secondary" style={{margin: "0px 8px", cursor: "pointer"}} fontSize="small" onClick={()=>handleOpen('form', song.slug, )}/>
+                </Tooltip>
+                <Tooltip title="Tracks" TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} >
+                  <Link to={`/admin/songs/${song.slug}/tracks`} >
+                    <LibraryMusic color="secondary" style={{margin: "0px 8px", cursor: "pointer"}} fontSize="small" />
+                  </Link>
+                </Tooltip>
+                <Tooltip title="Delete" TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} >
+                  <DeleteIcon color="secondary" style={{margin: "0px 8px", cursor: "pointer"}} fontSize="small" onClick={()=>handleOpen('delete', song.slug, )}/>
+                </Tooltip>
               </TableCell>
             </TableRow>
           ))}
