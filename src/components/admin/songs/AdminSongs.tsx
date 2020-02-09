@@ -1,16 +1,19 @@
-import React, {useState, useEffect,useContext} from 'react'
+import React, {useState, useEffect,useContext,useCallback} from 'react'
 import axios, { AxiosResponse } from 'axios'
 import Typography from '@material-ui/core/Typography';
 import Dialog from '@material-ui/core/Dialog';
 import Card from '@material-ui/core/Card';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import {AppContext} from '../../../context/AppProvider'
 import SongForm from './SongForm'
 import SongList from './SongList'
+import DeleteConfirm from './DeleteConfirm'
 import { useSnackbar } from 'notistack'
+
 export interface ISong {
 	id?: string,
 	title?: string
@@ -26,8 +29,9 @@ export interface ISong {
 const AdminSongs = () => {
 	const {state} = useContext(AppContext)
 	const [songs, setSongs] = useState<ISong[]>([])
-	const [open, setOpen] = useState(false)
-	const [id, setId] = useState<string | null>(null)
+	const [formOpen, setFormOpen] = useState(false)
+	const [deleteOpen, setDeleteOpen] = useState(false)
+	const [id, setId] = useState('')
 	const { enqueueSnackbar } = useSnackbar()
 	
 	useEffect(()=> {
@@ -38,17 +42,17 @@ const AdminSongs = () => {
 		fetchSongs()
 	},[])
 
-	const handleOpen = (id: string | null) => {
+	const handleOpen = (type: string, id?: string) => {
 		if(id) setId(id)
-		setOpen(true);
+		type === 'form' ? setFormOpen(true) : setDeleteOpen(true)
 	};
 	
-	const handleClose = () => {
-		setId(null)
-		setOpen(false);
+	const handleClose = (type :string) => {
+		type === 'form' ? setFormOpen(false) : setDeleteOpen(false)
+		setTimeout(()=>setId(''), 500)
 	};
 
-	const handleDelete = async (id?: string) => {
+	const handleDelete = useCallback(async () => {
 		await axios({
 			method: 'delete',
 			url: `https://stg-api.discobiscuits.net/api/songs/${id}`,
@@ -59,8 +63,9 @@ const AdminSongs = () => {
 		});
 		enqueueSnackbar("successfully deleted", { variant: 'success' })
 		setSongs(songs.filter(song => song.slug !== id))
-	}
-	
+		handleClose('delete')
+	},[enqueueSnackbar, id, songs, state.token])
+
     return (
         <>	
 			<Grid container spacing={3} alignItems="center">
@@ -69,7 +74,7 @@ const AdminSongs = () => {
 				</Grid>
 				<Grid item md={2}>
 				<div style={{display: 'flex', justifyContent: 'flex-end'}}>
-					<Button variant="contained" color="primary" onClick={() =>handleOpen(null)}>Add Song</Button>
+					<Button variant="contained" color="primary" onClick={() =>handleOpen('form')}>Add Song</Button>
 				</div>
 				</Grid>
 			</Grid>
@@ -77,21 +82,26 @@ const AdminSongs = () => {
 				
                 <Grid item xs={12}>
                     <Card title="Song List">
-                        <SongList songs={songs} handleOpen={(id)=>handleOpen(id || null)} handleDelete={handleDelete}/>
+                        <SongList songs={songs} handleOpen={(type: string, id?: string, )=>handleOpen(type, id)}/>
                     </Card>
                 </Grid>
 				
 			</Grid>   
 			<Dialog
-				open={open}
-				onClose={handleClose}
-				aria-labelledby="responsive-dialog-title"
+				open={formOpen}
+				onClose={() => handleClose('form')}
 			>
-				<DialogTitle id="responsive-dialog-title">{id ? "Edit Song" : "Add Song"}</DialogTitle>
+				<DialogTitle>{id ? "Edit Song" : "Add Song"}</DialogTitle>
 				<DialogContent>
-					<SongForm setSongs={setSongs} songs={songs} id={id} handleClose={handleClose}/>
+					<SongForm setSongs={setSongs} songs={songs} id={id} handleClose={() => handleClose('form')}/>
 				</DialogContent>
 			</Dialog>
+			<DeleteConfirm 
+				songs={songs} 
+				handleClose={() => handleClose('delete')}  
+				deleteOpen={deleteOpen} id ={id} 
+				handleDelete={handleDelete}
+			/>
 		</> 
 )
 }
