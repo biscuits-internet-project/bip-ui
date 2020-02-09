@@ -28,6 +28,7 @@ interface ISongPlayed {
 	set: string
 	venue: IVenue
 	show: IShow
+	note: string
 }
 
 interface IShow {
@@ -71,6 +72,12 @@ const Song: React.FC = () => {
 						<div>last time played: {song.last_time_played}</div>
 						<h3>History</h3>
 						<div dangerouslySetInnerHTML={{__html: song.history}} />
+						{song.lyrics &&
+							<>
+								<h3>Lyrics</h3>
+								<div dangerouslySetInnerHTML={{__html: song.lyrics}} />
+							</>
+						}
 						<br/><br/>
 					</div>
 				</>
@@ -84,6 +91,7 @@ const Song: React.FC = () => {
 						<td>Set</td>
 						<td>City</td>
 						<td>State</td>
+						<td>Notes</td>
 					</tr>
 				</thead>
 
@@ -102,6 +110,7 @@ const Song: React.FC = () => {
 								<td>{s.set}</td>
 								<td>{s.venue.city}</td>
 								<td>{s.venue.state}</td>
+								<td>{s.note}</td>
 							</tr>
 				})}
 			</table>

@@ -46,7 +46,7 @@ const SongForm: React.FC<ISongForm> = ({setSongs, songs, id, handleClose}) => {
 
     useEffect(()=> {
       const fetchSong = async () => {
-        const data:AxiosResponse = await axios.get(`https://stg-api.discobiscuits.net/api/songs/${id}`)
+        const data:AxiosResponse = await axios.get(`https://stg-api.discobiscuits.net/api/songs/${id}?edit=true`)
         const song:ISong = data.data
         setFormData(song)
       }
