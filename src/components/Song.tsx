@@ -69,7 +69,9 @@ const Song: React.FC = () => {
 						<div>number of times played: {song.times_played}</div>
 						<div>first time played: {song.first_time_played}</div>
 						<div>last time played: {song.last_time_played}</div>
-						<div><h3>History</h3>{song.history}<br/><br/></div>
+						<h3>History</h3>
+						<div dangerouslySetInnerHTML={{__html: song.history}} />
+						<br/><br/>
 					</div>
 				</>
 			}
