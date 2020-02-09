@@ -67,11 +67,16 @@ const Song: React.FC = () => {
 					<div>
 						<h1>{song.title}</h1>
 						<div><em>{song.featured_lyric}</em></div>
+						<div>author: {song.author_name}</div>
 						<div>number of times played: {song.times_played}</div>
 						<div>first time played: {song.first_time_played}</div>
 						<div>last time played: {song.last_time_played}</div>
-						<h3>History</h3>
-						<div dangerouslySetInnerHTML={{__html: song.history}} />
+						{song.history &&
+							<>
+								<h3>History</h3>
+								<div dangerouslySetInnerHTML={{__html: song.history}} />
+							</>
+						}
 						{song.lyrics &&
 							<>
 								<h3>Lyrics</h3>
