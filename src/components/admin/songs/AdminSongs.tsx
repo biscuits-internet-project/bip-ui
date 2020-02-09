@@ -89,7 +89,7 @@ const AdminSongs = () => {
 			</Grid>   
 			<Dialog
 				open={formOpen}
-				onClose={handleClose}
+				onClose={() => handleClose('form')}
 			>
 				<DialogTitle>{id ? "Edit Song" : "Add Song"}</DialogTitle>
 				<DialogContent>
