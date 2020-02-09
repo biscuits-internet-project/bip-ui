@@ -13,6 +13,8 @@ export interface ISong {
 	notes?: string,
 	slug?: string,
 	tabs?: string,
+	history?: string,
+	featured_lyric?: string
 }
 
 const Songs: React.FC = () => {
