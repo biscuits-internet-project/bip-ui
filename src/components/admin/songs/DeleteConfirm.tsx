@@ -22,7 +22,7 @@ const DeleteConfirm:React.FC<IDeleteConfirm> = ({deleteOpen, handleClose, songs,
         <Dialog
             fullWidth
             open={deleteOpen}
-            //onClose={handleDeleteClose}
+            onClose={handleClose}
         >
             <DialogTitle style={{padding: '8px 24px'}}>Delete Song?</DialogTitle>
             <DialogContent style={{marginBottom: '16px'}}>
