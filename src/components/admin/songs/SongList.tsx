@@ -11,11 +11,10 @@ import {ISong} from '../../Songs'
 
 interface ISongList {
   songs: ISong[] 
-  handleOpen: (id?: string) => void
-  handleDelete: (id?: string) => void
+  handleOpen: (type: string, id?: string) => void
 }
 
-const SongList:React.FC<ISongList> = ({songs,handleOpen,handleDelete}) => {
+const SongList:React.FC<ISongList> = ({songs,handleOpen}) => {
   return (
     <TableContainer>
       <Table>
@@ -36,8 +35,8 @@ const SongList:React.FC<ISongList> = ({songs,handleOpen,handleDelete}) => {
                 {song.author_name}
               </TableCell>
               <TableCell align='right'>
-                <CreateIcon color="secondary" style={{margin: "0px 8px", cursor: "pointer"}} fontSize="small" onClick={()=>handleOpen(song.slug)}/>
-                <DeleteIcon color="secondary" style={{margin: "0px 8px", cursor: "pointer"}} fontSize="small" onClick={()=>handleDelete(song.slug)}/>
+                <CreateIcon color="secondary" style={{margin: "0px 8px", cursor: "pointer"}} fontSize="small" onClick={()=>handleOpen('form', song.slug, )}/>
+                <DeleteIcon color="secondary" style={{margin: "0px 8px", cursor: "pointer"}} fontSize="small" onClick={()=>handleOpen('delete', song.slug, )}/>
               </TableCell>
             </TableRow>
           ))}

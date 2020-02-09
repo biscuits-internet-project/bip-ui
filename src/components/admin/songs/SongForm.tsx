@@ -1,6 +1,7 @@
 import React, {useState, useEffect, useContext, useCallback} from 'react';
 import { Form, Formik, FormikProps,FormikHelpers} from 'formik'
 import axios, { AxiosResponse } from 'axios'
+import * as Yup from 'yup';
 import { useSnackbar } from 'notistack'
 import {AppContext} from '../../../context/AppProvider'
 import TextField from '../../shared/TextField'
@@ -9,6 +10,7 @@ import CheckboxField from '../../shared/CheckboxField'
 import SelectField, {ISelectOption} from '../../shared/SelectField'
 import Button from '@material-ui/core/Button'
 import {ISong} from '../../Songs'
+
 
 interface ISongForm {
     setSongs: (songs: ISong[]) => void
@@ -37,6 +39,13 @@ const initialValues:ISong = {
   tabs: "",
   author_id: ""
 }
+
+const SongFormSchema = Yup.object().shape({
+  title: Yup.string()
+    .required('Song is required'),
+  author_id: Yup.string().nullable()
+    .required('Author is required')
+});
 
 const SongForm: React.FC<ISongForm> = ({setSongs, songs, id, handleClose}) => {
     const {state} = useContext(AppContext)
@@ -100,6 +109,7 @@ const SongForm: React.FC<ISongForm> = ({setSongs, songs, id, handleClose}) => {
             enableReinitialize
             initialValues={formData}
             onSubmit={(values, actions) => postSong(values, actions)}
+            validationSchema={SongFormSchema}
           >
             {(props: FormikProps<ISong>) => (
               <Form>
