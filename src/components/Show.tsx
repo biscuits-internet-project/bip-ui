@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react'
 import { useParams } from 'react-router-dom';
 import axios, { AxiosResponse } from 'axios'
 import Tracklist, {ITrack} from './Tracklist';
-import Setlist from './Setlist';
 import { Helmet } from "react-helmet"
 import YouTube from 'react-youtube';
 

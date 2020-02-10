@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext, useCallback} from 'react'
+import React, {useState, useEffect} from 'react'
 import { useParams } from 'react-router-dom';
 import axios, { AxiosResponse } from 'axios'
 import Typography from '@material-ui/core/Typography';
@@ -8,11 +8,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
-import {AppContext} from '../../../context/AppProvider'
 import TrackForm from './TrackForm'
 import TrackList from './TrackList'
-import { useSnackbar } from 'notistack'
 import { IVenue } from '../../Venues';
 import { IShow } from '../../Show';
 import { ISong } from '../songs/AdminSongs';
@@ -26,10 +23,8 @@ export interface ITrack {
 }
 
 const AdminTracks = () => {
-    const {state} = useContext(AppContext)
 	const [formOpen, setFormOpen] = useState(false)
 	const [id, setId] = useState('')
-    const { enqueueSnackbar } = useSnackbar()
     const params = useParams();
     const [song, setSong] = useState<ISong | undefined>(undefined)
     const [tracks, setTracks] = useState<ITrack[]>([])

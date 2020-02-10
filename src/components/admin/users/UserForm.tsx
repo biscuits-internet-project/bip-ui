@@ -48,7 +48,6 @@ const validationSchema = Yup.object().shape({
 const UserForm: React.FC<IUserForm> = ({setUsers, users, id, handleClose}) => {
     const {state} = useContext(AppContext)
     const [error, setError] = useState(null)
-    const [success, setSuccess] = useState(false)
     const [formData, setFormData] = useState(initialValues)
     const { enqueueSnackbar } = useSnackbar()
 

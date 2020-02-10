@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Tracklist, { ITracklist, ITrack } from './Tracklist';
+import Tracklist, { ITrack } from './Tracklist';
 
 export interface ISetlist {
 	slug: string
