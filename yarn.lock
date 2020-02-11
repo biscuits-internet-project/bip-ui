@@ -10042,6 +10042,11 @@ slate-html-serializer@0.8.10:
   dependencies:
     type-of "^2.0.1"
 
+slate-lists@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/slate-lists/-/slate-lists-1.0.0.tgz#40049d07afb2a06aa3e5dd6688ba13c4a9f323f3"
+  integrity sha512-Sm+9+jmzUNK8ZDZPCvq4Vxl5rcZ0z42DYuucMZ3dQG72epKuLMwdPpFi6LAbo+EnrlFZKJGJHMZAmrznlaohmg==
+
 slate-plain-serializer@^0.7.10:
   version "0.7.11"
   resolved "https://registry.npmjs.org/slate-plain-serializer/-/slate-plain-serializer-0.7.11.tgz#74ff6eb949e9fbd92ad98ed833d74d5082f2688b"
