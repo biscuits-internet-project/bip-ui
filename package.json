@@ -3,8 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@convertkit/slate-lists": "^0.2.5",
     "@material-ui/core": "^4.9.0",
     "@material-ui/icons": "^4.5.1",
+    "@material-ui/lab": "^4.0.0-alpha.41",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
@@ -12,6 +14,7 @@
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
+    "@types/slate-react": "^0.22.9",
     "axios": "^0.19.2",
     "formik": "^2.1.2",
     "jwt-decode": "^2.2.0",
@@ -26,6 +29,9 @@
     "react-side-effect": "^2.1.0",
     "react-youtube": "^7.9.0",
     "serialize-javascript": "^2.1.2",
+    "slate": "0.47.8",
+    "slate-html-serializer": "0.8.10",
+    "slate-react": "0.22.9",
     "typescript": "~3.7.2",
     "yup": "^0.28.0"
   },
