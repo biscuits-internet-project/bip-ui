@@ -220,6 +220,11 @@ const baseTheme = {
         borderRadius: '8px',
       },
     },
+    MuiToggleButton: {
+      root: {
+        border: 'none'
+      }
+    },
     MuiListItemText: {
       primary: {
         fontWeight: 700,

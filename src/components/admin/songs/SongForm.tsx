@@ -8,6 +8,7 @@ import TextField from '../../shared/TextField'
 import TextAreaField from '../../shared/TextAreaField'
 import CheckboxField from '../../shared/CheckboxField'
 import SelectField, {ISelectOption} from '../../shared/SelectField'
+import TextEditorField from '../../shared/TextEditorField'
 import Button from '@material-ui/core/Button'
 import {ISong} from '../../Songs'
 
@@ -49,6 +50,7 @@ const SongFormSchema = Yup.object().shape({
 
 const SongForm: React.FC<ISongForm> = ({setSongs, songs, id, handleClose}) => {
     const {state} = useContext(AppContext)
+    const [dataLoaded, setDataLoaded] = useState(false)
     const [formData, setFormData] = useState(initialValues)
     const [authors, setAuthors] = useState<IAuthorOption[]>([])
     const { enqueueSnackbar } = useSnackbar()
@@ -58,9 +60,13 @@ const SongForm: React.FC<ISongForm> = ({setSongs, songs, id, handleClose}) => {
         const data:AxiosResponse = await axios.get(`https://stg-api.discobiscuits.net/api/songs/${id}?edit=true`)
         const song:ISong = data.data
         setFormData(song)
+        setDataLoaded(true)
       }
       if(id){
         fetchSong()
+      }
+      else {
+        setDataLoaded(true)
       }
     },[id])
     useEffect(()=> {
@@ -102,7 +108,7 @@ const SongForm: React.FC<ISongForm> = ({setSongs, songs, id, handleClose}) => {
         handleClose()
       }
     }, [enqueueSnackbar, handleClose, id, setSongs, songs, state.token])
-
+    if(!dataLoaded) return <div style={{width: '480px', height: '500px'}}></div>
     return (
         <div>
           <Formik
@@ -122,7 +128,7 @@ const SongForm: React.FC<ISongForm> = ({setSongs, songs, id, handleClose}) => {
                     <CheckboxField name="cover" label="Cover" />
                   </div>
                 </div>
-                <TextAreaField name="history" label="History" />
+                <TextEditorField name="history" label="History" />
                 <TextAreaField name="featured_lyric" label="Featured Lyric" />
                 <TextAreaField name="notes" label="Notes" />
                 <TextAreaField name="lyrics" label="Lyrics" />
