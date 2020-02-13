@@ -62,7 +62,6 @@ const Tracklist: React.FC<ITracklist> = ({tracks}) => {
 					<span><strong>{annLookup[key]}</strong> {key} </span>
 				)
 			})}
-			<br/><hr/><br />
 		</div>
 	)
 }
