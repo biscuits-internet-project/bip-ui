@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import axios, { AxiosResponse } from 'axios'
 import { IVenue } from './Venues';
 import { Helmet } from "react-helmet";
+import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody } from '@material-ui/core';
 
 interface ISong {
 	id: string,
@@ -88,37 +89,38 @@ const Song: React.FC = () => {
 				</>
 			}
 
-				<table>
-				<thead>
-					<tr>
-						<td>Date</td>
-						<td>Venue</td>
-						<td>Set</td>
-						<td>City</td>
-						<td>State</td>
-						<td>Notes</td>
-					</tr>
-				</thead>
-
-				{songsPlayed.map((s: ISongPlayed) => {
-					 return <tr>
-								<td>
+			<TableContainer component={Paper}>
+				<Table>
+					<TableHead>
+					<TableRow>
+						<TableCell>Date</TableCell>
+						<TableCell>Venue</TableCell>
+						<TableCell>City</TableCell>
+						<TableCell>State</TableCell>
+						<TableCell>Notes</TableCell>
+					</TableRow>
+					</TableHead>
+					<TableBody>
+						{songsPlayed.map((s: ISongPlayed) => (
+							<TableRow>
+								<TableCell component="th" scope="row">
 									<Link to={`/shows/${s.show.slug}`}>
 										{s.show.date}
 									</Link>
-								</td>
-								<td>
+								</TableCell>
+								<TableCell>
 									<Link to={`/venues/${s.venue.slug}`}>
 										{s.venue.name}
 									</Link>
-								</td>
-								<td>{s.set}</td>
-								<td>{s.venue.city}</td>
-								<td>{s.venue.state}</td>
-								<td>{s.note}</td>
-							</tr>
-				})}
-			</table>
+								</TableCell>
+								<TableCell>{s.venue.city}</TableCell>
+								<TableCell>{s.venue.state}</TableCell>
+								<TableCell>{s.note}</TableCell>
+							</TableRow>
+						))}
+					</TableBody>
+				</Table>
+			</TableContainer>
 		</>
 	)
 }

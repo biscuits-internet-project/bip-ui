@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import axios, { AxiosResponse } from 'axios'
 import { Helmet } from "react-helmet";
+import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody } from '@material-ui/core';
 
 export interface ISong {
 	id?: string,
@@ -36,14 +37,28 @@ const Songs: React.FC = () => {
 			</Helmet>
 			<h1>Songs</h1>
 			{loading && <h3>.....Loading</h3>}
-			{/* <AddSong updateSongs={(song: ISong)=> setSongs([song,...songs])}/> */}
-			{songs.map((song: ISong) => {
-			return <div key={song.id}>
-					  <Link to={`/songs/${song.slug}`}>
-						{song.title}
-					  </Link>
-				   </div>
-			})}
+			<TableContainer component={Paper}>
+				<Table>
+					<TableHead>
+					<TableRow>
+						<TableCell>Title</TableCell>
+						<TableCell>Author</TableCell>
+					</TableRow>
+					</TableHead>
+					<TableBody>
+						{songs.map((song: ISong) => (
+							<TableRow key={song.slug}>
+								<TableCell component="th" scope="row">
+									<Link to={`/songs/${song.slug}`}>
+										{song.title}
+									</Link>
+								</TableCell>
+								<TableCell>{song.author_name}</TableCell>
+							</TableRow>
+						))}
+					</TableBody>
+				</Table>
+			</TableContainer>
 		</>
 	)
 }

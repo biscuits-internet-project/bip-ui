@@ -41,7 +41,6 @@ import Toolbar from '@material-ui/core/Toolbar';
 import { ListItem, ListItemIcon, ListItemText, List, Link, IconButton } from '@material-ui/core';
 import { QueueMusic, Home, LibraryMusic, Room, AccountCircle, CardTravel, Info, Album, ChevronLeft, Menu} from '@material-ui/icons';
 
-
 interface sideMenuItem {
 	name: string | undefined,
 	label: string,

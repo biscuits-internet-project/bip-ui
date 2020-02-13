@@ -15,7 +15,7 @@ export interface ISetlist {
 var setlistStyle = {
 	padding: 15,
 	marginBottom: 20
-  };
+};
 
 const Setlist: React.FC<ISetlist> = ({date,slug,venue,tracks,notes}) => {
 

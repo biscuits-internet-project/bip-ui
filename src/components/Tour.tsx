@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import axios, { AxiosResponse } from 'axios'
 import { Helmet } from "react-helmet"
+import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody } from '@material-ui/core';
 
 interface ITourDate {
 	details?: string,
@@ -13,7 +14,7 @@ interface ITourDate {
 const Tour: React.FC = () => {
 	const [loading, setLoading] = useState(false)
 	const [tourDates, setTourDates] = useState<ITourDate[]>([])
-	
+
 	useEffect(()=> {
 		setLoading(true)
 		const fetchTourDates = async () => {
@@ -42,23 +43,28 @@ const Tour: React.FC = () => {
 			</Helmet>
 			<h1>Tour Dates</h1>
 			{loading && <h3>.....Loading</h3>}
-			<table>
-				<thead>
-					<tr>
-						<td>Date</td>
-						<td>Venue</td>
-						<td>Address</td>
-						<td>Details</td>
-					</tr>
-				</thead>
-			{tourDates.map((td: ITourDate) => {
-				return <tr> <td>{td.formatted_date}</td>
-							<td>{td.venue_name}</td>
-							<td>{td.address}</td>
-							<td>{td.details}</td>
-					    </tr>
-			})}
-			</table>
+			<TableContainer component={Paper}>
+				<Table>
+					<TableHead>
+					<TableRow>
+						<TableCell>Date</TableCell>
+						<TableCell>Venue</TableCell>
+						<TableCell>Address</TableCell>
+						<TableCell>Details</TableCell>
+					</TableRow>
+					</TableHead>
+					<TableBody>
+						{tourDates.map((td: ITourDate) => (
+							<TableRow key={td.formatted_date}>
+								<TableCell component="th" scope="row">{td.formatted_date}</TableCell>
+								<TableCell>{td.venue_name}</TableCell>
+								<TableCell>{td.address}</TableCell>
+								<TableCell>{td.details}</TableCell>
+							</TableRow>
+						))}
+					</TableBody>
+				</Table>
+			</TableContainer>
 		</>
 	)
 }

@@ -15,6 +15,26 @@ export interface ITrack {
 	annotations: string[]
 }
 
+var setsStyle = {
+	display: "flex",
+	listStyle: "none",
+	margin: 0,
+	padding: 0,
+};
+
+var setStyle = {
+	marginBottom: 5,
+	marginRight: 15
+};
+
+var trackStyle = {
+	listStyle: "none",
+	margin: 0,
+	padding: 0,
+	marginRight: 5
+}
+
+
 const Tracklist: React.FC<ITracklist> = ({tracks}) => {
 
 	let annLookup = {}
@@ -36,14 +56,14 @@ const Tracklist: React.FC<ITracklist> = ({tracks}) => {
 	let sets = orderTracks(tracks)
 
 	return (
-		<div className="setlist__set-wrap">
+		<div>
 			{Object.keys(sets).map((key) => {
 				return (
-					<ul className="set" key={key}>
-						<li className="set__label">{key}</li>
+					<ul style={setsStyle} key={key}>
+						<li style={setStyle}>{key}</li>
 						{sets[key].map((track: ITrack,index: number) => {
 							return (
-								<li className="set__track" key={index}>
+								<li style={trackStyle} key={index}>
 									<Link to={`/songs/${track.song_slug}`}>{track.song_title}</Link>
 									{track.annotations.map((a, i) => {
 										return <sup key={i}> {annLookup[a]} </sup>
