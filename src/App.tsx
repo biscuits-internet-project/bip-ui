@@ -1,6 +1,7 @@
 import React, {useContext, ReactElement} from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import { useRouteMatch, useHistory } from 'react-router-dom';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import PrivateRoute from './routing/PrivateRoute'
@@ -38,8 +39,8 @@ import {
 } from '@mui-treasury/layout';
 import Box from '@material-ui/core/Box';
 import Toolbar from '@material-ui/core/Toolbar';
-import { ListItem, ListItemIcon, ListItemText, List, Link, IconButton } from '@material-ui/core';
-import { QueueMusic, Home, LibraryMusic, Room, AccountCircle, CardTravel, Info, Album, ChevronLeft, Menu} from '@material-ui/icons';
+import { ListItem, ListItemIcon, ListItemText, List, IconButton, Button, Typography, Menu, MenuItem } from '@material-ui/core';
+import { QueueMusic, Home, LibraryMusic, Room, AccountCircle, CardTravel, Info, Album, ChevronLeft } from '@material-ui/icons';
 
 interface sideMenuItem {
 	name: string | undefined,
@@ -79,17 +80,48 @@ const itemList: sideMenuItem[] = [
 	}
 ]
 
-var contentStyle = {
-  padding: 30,
-};
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      flexGrow: 1,
+    },
+    menuButton: {
+      marginRight: theme.spacing(2),
+    },
+    title: {
+      flexGrow: 1,
+    },
+    contentStyle: {
+      padding: 20,
+    }
+  }),
+);
 
 function ListItemLink(props) {
   return <ListItem button component="a" {...props} />;
 }
 
 const App:React.FC = () => {
-  const {state} = useContext(AppContext)
-  const {roles} = state
+  const classes = useStyles();
+  const {dispatch} = useContext(AppContext)
+	const {state} = useContext(AppContext)
+	const {username} = state
+	const {roles} = state
+	const admin = roles.includes('admin')
+	const logoutUser = () => {
+		localStorage.removeItem('token')
+    dispatch({type: "LOGOUT"})
+  }
+
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   return (
     <React.Fragment>
       <CssBaseline />
@@ -113,7 +145,45 @@ const App:React.FC = () => {
                       <SidebarTrigger className={headerStyles.leftTrigger}>
                         <SidebarTriggerIcon />
                       </SidebarTrigger>
-                      <h1>Biscuits Internet Project</h1>
+                      <Typography variant="h4" className={classes.title}>
+                        Biscuits Internet Project
+                      </Typography>
+
+
+                      { username ? (
+                        <>
+                        <IconButton
+                          aria-label="account of current user"
+                          aria-controls="menu-appbar"
+                          aria-haspopup="true"
+                          onClick={handleMenu}
+                          color="inherit"
+                        >
+                          <AccountCircle />
+                        </IconButton>
+                        <Menu
+                          id="menu-appbar"
+                          anchorEl={anchorEl}
+                          anchorOrigin={{
+                            vertical: 'top',
+                            horizontal: 'right',
+                          }}
+                          keepMounted
+                          transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'right',
+                          }}
+                          open={open}
+                          onClose={handleClose}
+                        >
+                          <MenuItem><Link to="/profile">Profile</Link></MenuItem>
+                          {admin && <MenuItem><Link to="/admin/dashboard">Admin</Link></MenuItem> }
+                          <MenuItem><Link onclick={logoutUser}>Logout</Link></MenuItem>
+                        </Menu>
+                        </>
+                      ) : (
+                        <Link component="button" to="/login">Login</Link>
+                      )}
                     </Toolbar>
                   </Header>
                   <Sidebar>
@@ -135,7 +205,7 @@ const App:React.FC = () => {
                       <CollapseIcon />
                     </CollapseBtn>
                   </Sidebar>
-                  <Content style={contentStyle}>
+                  <Content className={classes.contentStyle}>
                     <Box minHeight={1000} >
                       <Route path="/" exact component={LatestShows}/>
                       <Route path="/shows" exact component={Shows} />
