@@ -15,7 +15,6 @@ import Songs from './components/Songs';
 import Song from './components/Song';
 import Venues from './components/Venues';
 import Venue from './components/Venue';
-import NotFound from './NotFound';
 import Register from './components/Register';
 import Tour from './components/Tour';
 import Resources from './components/Resources';
@@ -26,7 +25,7 @@ import Login from './components/Login';
 import Admin from './components/Admin'
 
 import Toolbar from '@material-ui/core/Toolbar';
-import { ListItem, ListItemIcon, ListItemText, List, IconButton, Button, Typography, Menu, MenuItem, Drawer, AppBar, Hidden, Divider } from '@material-ui/core';
+import { Switch as MuiSwitch, ListItem, ListItemIcon, ListItemText, List, IconButton, Button, Typography, Menu, MenuItem, Drawer, AppBar, Hidden, Divider, FormControlLabel, FormGroup, Grid, Box } from '@material-ui/core';
 import { QueueMusic, Home, LibraryMusic, Room, AccountCircle, CardTravel, Info, Album, ChevronLeft } from '@material-ui/icons';
 
 interface sideMenuItem {
@@ -102,6 +101,9 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 1,
       padding: theme.spacing(3),
     },
+    footer: {
+      marginTop: 30
+    },
     toolbar: {
       ...theme.mixins.toolbar,
     }
@@ -139,6 +141,12 @@ const App: React.FC = () => {
     setAnchorEl(null);
   };
 
+
+  const handleChange = (name: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
+
+  };
+
+
   const drawer = (
     <List>
       {itemList.map((item: sideMenuItem) => {
@@ -167,53 +175,76 @@ const App: React.FC = () => {
 
               <AppBar position="fixed" className={classes.appBar}>
                 <Toolbar>
-                  <IconButton
-                    color="inherit"
-                    aria-label="open drawer"
-                    edge="start"
-                    onClick={handleDrawerToggle}
-                    className={classes.menuButton}
+                  <Grid
+                    justify="space-between" // Add it here :)
+                    container
                   >
-                    <MenuIcon />
-                  </IconButton>
-                  <Typography variant="h4">
-                    Biscuits Internet Project
-                  </Typography>
-
-                  {username ? (
-                    <>
+                    <Grid item>
                       <IconButton
-                        aria-label="account of current user"
-                        aria-controls="menu-appbar"
-                        aria-haspopup="true"
-                        onClick={handleMenu}
                         color="inherit"
+                        aria-label="open drawer"
+                        edge="start"
+                        onClick={handleDrawerToggle}
+                        className={classes.menuButton}
                       >
-                        <AccountCircle />
+                        <MenuIcon />
                       </IconButton>
-                      <Menu
-                        id="menu-appbar"
-                        anchorEl={anchorEl}
-                        anchorOrigin={{
-                          vertical: 'top',
-                          horizontal: 'right',
-                        }}
-                        keepMounted
-                        transformOrigin={{
-                          vertical: 'top',
-                          horizontal: 'right',
-                        }}
-                        open={open}
-                        onClose={handleClose}
-                      >
-                        <MenuItem><Link to="/profile">Profile</Link></MenuItem>
-                        {admin && <MenuItem><Link to="/admin/dashboard">Admin</Link></MenuItem>}
-                        <MenuItem onClick={logoutUser}>Logout</MenuItem>
-                      </Menu>
-                    </>
-                  ) : (
-                      <Link component="button" to="/login">Login</Link>
-                    )}
+                      <Typography variant="h4">
+                        Biscuits Internet Project
+                    </Typography>
+
+                    </Grid>
+
+                    <Grid item>
+                      <MuiSwitch
+                        checked={true}
+                        onChange={handleChange('checkedB')}
+                        value="checkedB"
+                        color="primary"
+                        inputProps={{ 'aria-label': 'primary checkbox' }}
+                      />
+                    </Grid>
+
+                    <Grid item>
+
+                      {username ? (
+                        <>
+                          <IconButton
+                            aria-label="account of current user"
+                            aria-controls="menu-appbar"
+                            aria-haspopup="true"
+                            onClick={handleMenu}
+                            color="inherit"
+                          >
+                            <AccountCircle />
+                          </IconButton>
+                          <Menu
+                            id="menu-appbar"
+                            anchorEl={anchorEl}
+                            anchorOrigin={{
+                              vertical: 'top',
+                              horizontal: 'right',
+                            }}
+                            keepMounted
+                            transformOrigin={{
+                              vertical: 'top',
+                              horizontal: 'right',
+                            }}
+                            open={open}
+                            onClose={handleClose}
+                          >
+                            <MenuItem><Link to="/profile">Profile</Link></MenuItem>
+                            {admin && <MenuItem><Link to="/admin/dashboard">Admin</Link></MenuItem>}
+                            <MenuItem onClick={logoutUser}>Logout</MenuItem>
+                          </Menu>
+                        </>
+                      ) : (
+                          <Link component="button" to="/login">Login</Link>
+                        )}
+
+                    </Grid>
+                  </Grid>
+
                 </Toolbar>
               </AppBar>
               <nav className={classes.drawer} aria-label="mailbox folders">
@@ -268,12 +299,15 @@ const App: React.FC = () => {
                 <Route path="/register/confirm" exact component={Register} />
                 <Route path="/password/reset/:token" exact component={ResetPassword} />
 
-                <Divider/>
-                <Typography>
-                  <span>BIP 2.0 | </span>
-                  <span><Link to="/about">About</Link> | </span>
-                  <span><Link to="/contact">Contact</Link> </span>
-                </Typography>
+                <Divider />
+
+                <Box className={classes.footer}>
+                  <Typography>
+                    <span>BIP 2.0 | </span>
+                    <span><Link to="/about">About</Link> | </span>
+                    <span><Link to="/contact">Contact</Link> </span>
+                  </Typography>
+                </Box>
               </main>
             </div>
           </Switch>

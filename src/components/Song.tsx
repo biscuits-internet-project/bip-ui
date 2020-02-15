@@ -4,6 +4,7 @@ import axios, { AxiosResponse } from 'axios'
 import { IVenue } from './Venues';
 import { Helmet } from "react-helmet";
 import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody } from '@material-ui/core';
+import Moment from 'react-moment';
 
 interface ISong {
 	id: string,
@@ -104,8 +105,10 @@ const Song: React.FC = () => {
 						{songsPlayed.map((s: ISongPlayed) => (
 							<TableRow>
 								<TableCell component="th" scope="row">
-									<Link to={`/shows/${s.show.slug}`}>
-										{s.show.date}
+									<Link to={`/shows/${s.show.slug}`} >
+										<Moment format="MMMM D, YYYY">
+											{s.show.date}
+										</Moment>
 									</Link>
 								</TableCell>
 								<TableCell>
