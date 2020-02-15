@@ -7,7 +7,7 @@ const LatestShows: React.FC = () => {
 
 	const [loading, setLoading] = useState(false)
 	const [setlists, setSetlists] = useState<ISetlist[]>([])
-	
+
 	useEffect(()=> {
 		setLoading(true)
 		const fetchSetlists = async () => {
@@ -20,12 +20,12 @@ const LatestShows: React.FC = () => {
 	return (
 		<>
 			{loading && <h3>.....Loading</h3>}
-			<div className="setlists">
-				<h2 className="setlists__title">Latest Shows</h2>
-				<div className="setlists__feed setlists__feed--latest">
+			<div>
+				<h2>Latest Shows</h2>
+				<div>
 					{setlists.map((setlist) => {
 						return (
-							<Setlist date={setlist.date} slug={setlist.slug} venue={setlist.venue} tracks={setlist.tracks} notes={setlist.notes} />
+							<Setlist key={setlist.slug} date={setlist.date} slug={setlist.slug} venue={setlist.venue} tracks={setlist.tracks} notes={setlist.notes} />
 						)
 					})}
 				</div>

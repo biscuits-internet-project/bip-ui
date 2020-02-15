@@ -1,8 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import { Link } from 'react-router-dom';
 import axios, { AxiosResponse } from 'axios'
 import { Helmet } from "react-helmet";
-import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody } from '@material-ui/core';
+import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, Link } from '@material-ui/core';
 
 export interface ISong {
 	id?: string,
@@ -49,7 +48,7 @@ const Songs: React.FC = () => {
 						{songs.map((song: ISong) => (
 							<TableRow key={song.slug}>
 								<TableCell component="th" scope="row">
-									<Link to={`/songs/${song.slug}`}>
+									<Link href={`/songs/${song.slug}`}>
 										{song.title}
 									</Link>
 								</TableCell>

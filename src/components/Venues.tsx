@@ -1,8 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import { Link } from 'react-router-dom';
 import axios, { AxiosResponse } from 'axios'
 import { Helmet } from "react-helmet"
-import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody } from '@material-ui/core';
+import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, Link } from '@material-ui/core';
 
 export interface IVenue {
 	id?: string,
@@ -50,7 +49,7 @@ const Venues: React.FC = () => {
 						{venues.map((venue: IVenue) => (
 							<TableRow key={venue.slug}>
 								<TableCell component="th" scope="row">
-									<Link to={`/venues/${venue.slug}`}>
+									<Link href={`/venues/${venue.slug}`}>
 										{venue.name}
 									</Link>
 								</TableCell>

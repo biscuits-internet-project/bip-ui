@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Typography, Link } from '@material-ui/core';
 
 export interface ITracklist {
 	tracks: ITrack[]
@@ -27,13 +27,6 @@ var setStyle = {
 	marginRight: 15
 };
 
-var trackStyle = {
-	listStyle: "none",
-	margin: 0,
-	padding: 0,
-	marginRight: 5
-}
-
 
 const Tracklist: React.FC<ITracklist> = ({tracks}) => {
 
@@ -51,6 +44,7 @@ const Tracklist: React.FC<ITracklist> = ({tracks}) => {
 				}
 			})
 		});
+		console.log(sets)
 		return sets;
 	}
 	let sets = orderTracks(tracks)
@@ -59,27 +53,28 @@ const Tracklist: React.FC<ITracklist> = ({tracks}) => {
 		<div>
 			{Object.keys(sets).map((key) => {
 				return (
-					<ul style={setsStyle} key={key}>
-						<li style={setStyle}>{key}</li>
-						{sets[key].map((track: ITrack,index: number) => {
+					<Typography>
+						<div>
+						<span>{key} </span>
+						{sets[key].map((track: ITrack, index: number) => {
 							return (
-								<li style={trackStyle} key={index}>
-									<Link to={`/songs/${track.song_slug}`}>{track.song_title}</Link>
+								<>
+									<Link href={`/songs/${track.song_slug}`}>{track.song_title}</Link>
 									{track.annotations.map((a, i) => {
 										return <sup key={i}> {annLookup[a]} </sup>
 									})}
-
-									<span> {track.segue}</span>
-								</li>
+								<span> {track.segue} </span>
+								</>
 							)
 						})}
-					</ul>
+					</div>
+					</Typography>
 				)
 			})}
 
 			{annLookup && Object.keys(annLookup).map(function (key) {
 				return (
-					<span><strong>{annLookup[key]}</strong> {key} </span>
+					<span key={key}><strong>{annLookup[key]}</strong> {key} </span>
 				)
 			})}
 		</div>

@@ -1,9 +1,10 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom';
 import axios, { AxiosResponse } from 'axios'
-import {ISetlist} from './Setlist';
+import { ISetlist } from './Setlist';
 import Setlist from './Setlist';
 import { Helmet } from "react-helmet"
+import { FormControl, InputLabel, Select, MenuItem, Grid } from '@material-ui/core';
 
 const Shows: React.FC = () => {
 
@@ -20,10 +21,10 @@ const Shows: React.FC = () => {
 		history.push(`/shows?year=${e.target.value}`)
 	}
 
-	useEffect(()=> {
+	useEffect(() => {
 		setLoading(true)
 		const fetchSetlists = async () => {
-			const data:AxiosResponse = await axios.get(`https://stg-api.discobiscuits.net/api/shows?year=${selectedYear}`)
+			const data: AxiosResponse = await axios.get(`https://stg-api.discobiscuits.net/api/shows?year=${selectedYear}`)
 			setSetlists(data.data)
 			setLoading(false)
 		}
@@ -31,22 +32,36 @@ const Shows: React.FC = () => {
 	}, [selectedYear])
 	return (
 		<>
-			{loading && <h3>.....Loading</h3>}
 			<Helmet>
 				<title>Biscuits Internet Project - Shows</title>
 			</Helmet>
-			<div className="setlists">
-				<h2 className="setlists__title">Shows</h2>
-				<select name="years" id="years" onChange={changeYear}>
-					{years.map((year) => {
-						return (
-							<option key={year} value={year} selected={selectedYear === year}>{year}</option>
-						)
-					})}
-				</select>
+			<div>
+				<Grid container spacing={3}>
+					<Grid item xs={6}>
+						<h1>Shows from {selectedYear}</h1>
+					</Grid>
+					<Grid item xs={6}>
+						<FormControl>
+							<InputLabel id="yearLabel">Year</InputLabel>
+							<Select
+								labelId="yearYear"
+								id="year"
+								value={selectedYear}
+								onChange={changeYear}
+							>
+								{years.map((year) => {
+									return (
+										<MenuItem value={year} selected={selectedYear === year}>{year}</MenuItem>
+									)
+								})}
+							</Select>
+						</FormControl>
+					</Grid>
+				</Grid>
+				{loading && <h3>.....Loading</h3>}
 
-				<div className="setlists__feed setlists__feed--latest">
-					{setlists.map((setlist,id) => {
+				<div>
+					{setlists.map((setlist, id) => {
 						return (
 							<Setlist key={id} date={setlist.date} slug={setlist.slug} venue={setlist.venue} tracks={setlist.tracks} notes={setlist.notes} />
 						)
