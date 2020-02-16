@@ -21,7 +21,9 @@ const Admin: React.FC = () => {
 			<Navbar/>
 			<div style={{ display: 'flex' }}>
 				<SideMenu />
-				<div style={{ margin: '16px', width: 'calc(100vw - 300px)' }}>
+				
+				<div style={{ width: 'calc(100vw - 170px)', marginLeft: '170px', padding: '16px'}}>
+					
 					<Switch>
 						<Route path="/admin/shows" exact component={AdminShows} />
 						<Route path="/admin/songs" exact component={AdminSongs} />

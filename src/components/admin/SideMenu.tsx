@@ -6,6 +6,15 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import { QueueMusic, LibraryMusic, Room, Home, AccountCircle } from '@material-ui/icons';
+import { makeStyles, useTheme, Theme, createStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    drawerPaper: {
+      top: '80px'
+    }
+  })
+);
 
 interface sideMenuItem {
 	name: string | undefined,
@@ -41,11 +50,15 @@ const itemList: sideMenuItem[] = [
 ]
 
 const SideMenu = () => {
+		const classes = useStyles();
 		const match = useRouteMatch();
 		const history = useHistory()
 		const {adminPage} = match.params
 		return (
 				<Drawer
+					classes={{
+						paper: classes.drawerPaper
+					}}
 					variant="persistent"
 					anchor="left"
 					open={true}
