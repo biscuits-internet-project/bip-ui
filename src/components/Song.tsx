@@ -219,8 +219,6 @@ const Song: React.FC = () => {
 					<TableRow>
 						<TableCell>Date</TableCell>
 						<TableCell>Venue</TableCell>
-						<TableCell>City</TableCell>
-						<TableCell>State</TableCell>
 						<TableCell>Relisten</TableCell>
 						<TableCell>Notes</TableCell>
 					</TableRow>
@@ -237,12 +235,12 @@ const Song: React.FC = () => {
 								</TableCell>
 								<TableCell>
 									<Link component={RouterLink} to={`/venues/${s.venue.slug}`}>
-										{s.venue.name}
+										{s.venue.name}<br/>
+										{s.venue.city}
+										<span>, </span>
+										{s.venue.state}
 									</Link>
 								</TableCell>
-
-								<TableCell>{s.venue.city}</TableCell>
-								<TableCell>{s.venue.state}</TableCell>
 								<TableCell>
 									{s.show.relisten_url &&
 										<Link href={s.show.relisten_url} target="blank">
