@@ -1,5 +1,5 @@
 import React, { useContext, ReactElement } from 'react';
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Link as RouterLink } from 'react-router-dom';
 import { useRouteMatch, useHistory } from 'react-router-dom';
 import { createStyles, makeStyles, Theme, useTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/core/styles';
@@ -26,7 +26,7 @@ import Login from './components/Login';
 import Admin from './components/Admin'
 
 import Toolbar from '@material-ui/core/Toolbar';
-import { ListItem, ListItemIcon, ListItemText, List, IconButton, Button, Typography, Menu, MenuItem, Drawer, AppBar, Hidden, Divider, FormControlLabel, FormGroup, Grid, Box, createMuiTheme } from '@material-ui/core';
+import { Link, ListItem, ListItemIcon, ListItemText, List, IconButton, Button, Typography, Menu, MenuItem, Drawer, AppBar, Hidden, Divider, FormControlLabel, FormGroup, Grid, Box, createMuiTheme } from '@material-ui/core';
 import { QueueMusic, Home, LibraryMusic, Room, AccountCircle, CardTravel, Info, Album, ChevronLeft } from '@material-ui/icons';
 
 interface sideMenuItem {
@@ -162,7 +162,7 @@ const App: React.FC = () => {
     <List>
       {itemList.map((item: sideMenuItem) => {
         return (
-          <ListItemLink key={item.name} href={`/${item.name}`}>
+          <ListItemLink component={RouterLink} key={item.name} to={`/${item.name}`}>
             <ListItemIcon>
               {item.icon}
             </ListItemIcon>
@@ -230,13 +230,13 @@ const App: React.FC = () => {
                             open={open}
                             onClose={handleClose}
                           >
-                            <MenuItem><Link to="/profile">Profile</Link></MenuItem>
-                            {admin && <MenuItem><Link to="/admin/dashboard">Admin</Link></MenuItem>}
+                            <MenuItem><Link component={RouterLink} to="/profile">Profile</Link></MenuItem>
+                            {admin && <MenuItem><Link component={RouterLink} to="/admin/dashboard">Admin</Link></MenuItem>}
                             <MenuItem onClick={logoutUser}>Logout</MenuItem>
                           </Menu>
                         </>
                       ) : (
-                          <Link to="/login">Login</Link>
+                          <Button component={RouterLink} to={'/login'}>Login</Button>
                         )}
 
                     </Grid>
@@ -302,8 +302,8 @@ const App: React.FC = () => {
                 <Box className={classes.footer}>
                   <Typography>
                     <span>BIP 2.0 | </span>
-                    <span><Link to="/about">About</Link> | </span>
-                    <span><Link to="/contact">Contact</Link> </span>
+                    <span><Link component={RouterLink} to="/about">About</Link> | </span>
+                    <span><Link component={RouterLink} to="/contact">Contact</Link> </span>
                   </Typography>
                 </Box>
               </main>

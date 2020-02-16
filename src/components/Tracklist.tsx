@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link as RouterLink } from 'react-router-dom'
 import { Typography, Link } from '@material-ui/core';
 
 export interface ITracklist {
@@ -59,7 +60,7 @@ const Tracklist: React.FC<ITracklist> = ({tracks}) => {
 						{sets[key].map((track: ITrack, index: number) => {
 							return (
 								<>
-									<Link href={`/songs/${track.song_slug}`}>{track.song_title}</Link>
+									<Link component={RouterLink} to={`/songs/${track.song_slug}`}>{track.song_title}</Link>
 									{track.annotations.map((a, i) => {
 										return <sup key={i}> {annLookup[a]}</sup>
 									})}
