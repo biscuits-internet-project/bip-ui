@@ -19,7 +19,7 @@ var setlistStyle = {
 const Setlist: React.FC<ISetlist> = ({date,slug,venue,tracks,notes}) => {
 
 	return (
-		<Paper style={setlistStyle}>
+		<Paper elevation={3} style={setlistStyle}>
 			<Typography>
 				<Link href={`/shows/${slug}`}>
 					<Moment format="MMMM D, YYYY">
@@ -31,7 +31,7 @@ const Setlist: React.FC<ISetlist> = ({date,slug,venue,tracks,notes}) => {
 					{venue.name} - {venue.city}, {venue.state}
 				</Link>
 			</Typography>
-			<Typography dangerouslySetInnerHTML={{__html: notes}} />
+			<Typography variant="body2" dangerouslySetInnerHTML={{__html: notes}} />
 			<Tracklist tracks={tracks}></Tracklist>
 		</Paper>
 	)

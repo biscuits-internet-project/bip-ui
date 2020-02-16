@@ -27,7 +27,7 @@ const postForgotPassword = async (values: IForgotPassword, setError, setSuccess)
         url: 'https://stg-api.discobiscuits.net/api/auth/password/reset',
         data: values,
         headers: {
-            "Content-Type":	"application/json", 
+            "Content-Type":	"application/json",
         }
     });
     setSuccess(true)
@@ -46,8 +46,8 @@ const ForgotPassword: React.FC = () => {
     const [success, setSuccess] = useState(false)
     const [forgot, setForgot] = useState(false)
     return (
-        <div style={{display: 'flex', marginTop: '8px', flexDirection: 'column', alignItems: 'center'}}>
-          <Typography style={{cursor: 'pointer'}} onClick={()=> setForgot(!forgot)} variant="h6">Forgot Password</Typography>
+      <div>
+          <Typography style={{cursor: 'pointer'}} onClick={()=> setForgot(!forgot)}>Forgot Password</Typography>
           {success && <div>Please check your email and click the link to rest your password.</div>}
           {!success && forgot && (
             <Formik
@@ -56,7 +56,7 @@ const ForgotPassword: React.FC = () => {
             validationSchema={ForgotPasswordSchema}
           >
             {(props: FormikProps<IForgotPassword>) => (
-              <Form style={{display: 'flex', flexDirection: 'column', alignItems: 'center', margin: '16px', width: '100%'}}>
+              <Form>
                 {error && <Typography color="error" variant="h6">{error}</Typography>}
                 <TextField name="email" type="email" label="Email"/>
                 <Button variant="contained" color="primary" type="submit">Reset Password</Button>

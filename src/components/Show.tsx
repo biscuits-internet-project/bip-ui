@@ -4,6 +4,8 @@ import axios, { AxiosResponse } from 'axios'
 import Tracklist, {ITrack} from './Tracklist';
 import { Helmet } from "react-helmet"
 import YouTube from 'react-youtube';
+import { Typography } from '@material-ui/core';
+import Moment from 'react-moment';
 
 export interface IShow {
 	slug: string
@@ -46,16 +48,22 @@ const Shows: React.FC = () => {
 				<Helmet>
 					<title>Biscuits Internet Project - Shows - </title>
 				</Helmet>
-				<h1 className="setlist__date">
-					{show.date} - {show.venue.name} {show.venue.city}, {show.venue.state}
+				<h1>
+					<Moment format="MMMM D, YYYY">
+						{show.date}
+					</Moment>
+					<span> at {show.venue.name}</span>
 				</h1>
-				<h3 className="setlist__notes">{show.notes}</h3>
-				<div className="setlist">
+				<h2>
+					{show.venue.city}, {show.venue.state}
+				</h2>
+				<div>
 					<div>{show.likes_count} likes </div>
 					{show.relisten_url &&
 						<div><a href={show.relisten_url}>{show.relisten_url}</a></div>
 					}
 					<br/>
+					<Typography>{show.notes}</Typography>
 					<Tracklist key={show.slug} tracks={show.tracks} />
 				</div>
 

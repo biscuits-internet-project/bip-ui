@@ -61,9 +61,14 @@ const Tracklist: React.FC<ITracklist> = ({tracks}) => {
 								<>
 									<Link href={`/songs/${track.song_slug}`}>{track.song_title}</Link>
 									{track.annotations.map((a, i) => {
-										return <sup key={i}> {annLookup[a]} </sup>
+										return <sup key={i}> {annLookup[a]}</sup>
 									})}
-								<span> {track.segue} </span>
+								{ track.segue &&
+									<span> {track.segue} </span>
+								}
+								{ track.segue === "" && sets[key].length > index + 1 &&
+									<span>, </span>
+								}
 								</>
 							)
 						})}

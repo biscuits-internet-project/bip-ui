@@ -7,6 +7,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import PrivateRoute from './routing/PrivateRoute'
 import { AppContext } from './context/AppProvider'
 import { darkTheme, lightTheme } from './lib/theme'
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import MenuIcon from '@material-ui/icons/Menu';
 import LatestShows from './components/LatestShows';
 import Shows from './components/Shows';
@@ -25,7 +26,7 @@ import Login from './components/Login';
 import Admin from './components/Admin'
 
 import Toolbar from '@material-ui/core/Toolbar';
-import { Switch as MuiSwitch, ListItem, ListItemIcon, ListItemText, List, IconButton, Button, Typography, Menu, MenuItem, Drawer, AppBar, Hidden, Divider, FormControlLabel, FormGroup, Grid, Box } from '@material-ui/core';
+import { ListItem, ListItemIcon, ListItemText, List, IconButton, Button, Typography, Menu, MenuItem, Drawer, AppBar, Hidden, Divider, FormControlLabel, FormGroup, Grid, Box, createMuiTheme } from '@material-ui/core';
 import { QueueMusic, Home, LibraryMusic, Room, AccountCircle, CardTravel, Info, Album, ChevronLeft } from '@material-ui/icons';
 
 interface sideMenuItem {
@@ -110,6 +111,8 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
+
+
 function ListItemLink(props) {
   return <ListItem button component="a" {...props} />;
 }
@@ -121,7 +124,6 @@ const App: React.FC = () => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const { username } = state
   const { roles } = state
-  const theme = useTheme();
   const admin = roles.includes('admin')
   const logoutUser = () => {
     localStorage.removeItem('token')
@@ -131,6 +133,21 @@ const App: React.FC = () => {
     setMobileOpen(!mobileOpen);
   };
 
+  // choose theme based on users's OS or browser preference
+  function getTheme(darkMode) {
+    if (darkMode) {
+      return darkTheme
+    } else {
+      return lightTheme
+    }
+  }
+  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+  const theme = React.useMemo(() =>
+      getTheme(
+        prefersDarkMode
+      ),
+    [prefersDarkMode],
+  );
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -140,12 +157,6 @@ const App: React.FC = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
-
-  const handleChange = (name: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
-
-  };
-
 
   const drawer = (
     <List>
@@ -165,11 +176,9 @@ const App: React.FC = () => {
   return (
     <React.Fragment>
       <Router>
-        <ThemeProvider theme={lightTheme}>
+        <ThemeProvider theme={theme}>
           <Switch>
             <PrivateRoute path="/admin/:adminPage?" component={Admin} roles={roles} />
-            <Route path="/login" component={Login} />
-
             <div className={classes.root}>
               <CssBaseline />
 
@@ -189,22 +198,10 @@ const App: React.FC = () => {
                       >
                         <MenuIcon />
                       </IconButton>
-                      <Typography variant="h4">
+                      <Typography variant="h5">
                         Biscuits Internet Project
                     </Typography>
-
                     </Grid>
-
-                    <Grid item>
-                      <MuiSwitch
-                        checked={true}
-                        onChange={handleChange('checkedB')}
-                        value="checkedB"
-                        color="primary"
-                        inputProps={{ 'aria-label': 'primary checkbox' }}
-                      />
-                    </Grid>
-
                     <Grid item>
 
                       {username ? (
@@ -216,7 +213,7 @@ const App: React.FC = () => {
                             onClick={handleMenu}
                             color="inherit"
                           >
-                            <AccountCircle />
+                            <AccountCircle fontSize="large" />
                           </IconButton>
                           <Menu
                             id="menu-appbar"
@@ -239,7 +236,7 @@ const App: React.FC = () => {
                           </Menu>
                         </>
                       ) : (
-                          <Link component="button" to="/login">Login</Link>
+                          <Link to="/login">Login</Link>
                         )}
 
                     </Grid>
@@ -279,8 +276,8 @@ const App: React.FC = () => {
               </nav>
               <main className={classes.content}>
                 <div className={classes.toolbar} />
-                {/* <div className={classes.toolbar} /> */}
                 <Route path="/" exact component={LatestShows} />
+                <Route path="/login" component={Login} />
                 <Route path="/shows" exact component={Shows} />
                 <Route path="/shows/:id" exact component={Show} />
                 <Route path="/shows/year/:year" exact component={Shows} />
@@ -291,13 +288,14 @@ const App: React.FC = () => {
                 <Route path="/venues" exact component={Venues} />
                 <Route path="/venues/:id" exact component={Venue} />
                 <Route path="/tour" exact component={Tour} />
-                <Route path="/login" exact component={Login} />
                 <Route path="/register" exact component={Register} />
                 <Route path="/resources" exact component={Resources} />
                 <Route path="/about" exact component={About} />
                 <Route path="/contact" exact component={Contact} />
                 <Route path="/register/confirm" exact component={Register} />
                 <Route path="/password/reset/:token" exact component={ResetPassword} />
+
+                <div style={{ height: "30px" }}></div>
 
                 <Divider />
 
