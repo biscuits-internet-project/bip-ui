@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link as RouterLink } from 'react-router-dom'
 import Tracklist, { ITrack } from './Tracklist';
 import Moment from 'react-moment';
 import { Typography, Paper, Link } from '@material-ui/core';
@@ -21,13 +22,13 @@ const Setlist: React.FC<ISetlist> = ({date,slug,venue,tracks,notes}) => {
 	return (
 		<Paper elevation={3} style={setlistStyle}>
 			<Typography>
-				<Link href={`/shows/${slug}`}>
+				<Link component={RouterLink} to={`/shows/${slug}`}>
 					<Moment format="MMMM D, YYYY">
 						{date}
 					</Moment>
 				</Link>
 				<span> - </span>
-				<Link href={`/venues/${venue.slug}`}>
+				<Link component={RouterLink} to={`/venues/${venue.slug}`}>
 					{venue.name} - {venue.city}, {venue.state}
 				</Link>
 			</Typography>

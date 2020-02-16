@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import { Link as RouterLink } from 'react-router-dom'
 import axios, { AxiosResponse } from 'axios'
 import { Helmet } from "react-helmet";
 import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, Link } from '@material-ui/core';
@@ -48,7 +49,7 @@ const Songs: React.FC = () => {
 						{songs.map((song: ISong) => (
 							<TableRow key={song.slug}>
 								<TableCell component="th" scope="row">
-									<Link href={`/songs/${song.slug}`}>
+									<Link component={RouterLink} to={`/songs/${song.slug}`}>
 										{song.title}
 									</Link>
 								</TableCell>

@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import { Link as RouterLink } from 'react-router-dom'
 import axios, { AxiosResponse } from 'axios'
 import { Helmet } from "react-helmet"
 import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, Link } from '@material-ui/core';
@@ -49,7 +50,7 @@ const Venues: React.FC = () => {
 						{venues.map((venue: IVenue) => (
 							<TableRow key={venue.slug}>
 								<TableCell component="th" scope="row">
-									<Link href={`/venues/${venue.slug}`}>
+									<Link component={RouterLink} to={`/venues/${venue.slug}`}>
 										{venue.name}
 									</Link>
 								</TableCell>

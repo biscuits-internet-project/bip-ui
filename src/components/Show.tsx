@@ -4,7 +4,7 @@ import axios, { AxiosResponse } from 'axios'
 import Tracklist, {ITrack} from './Tracklist';
 import { Helmet } from "react-helmet"
 import YouTube from 'react-youtube';
-import { Typography } from '@material-ui/core';
+import { Typography, Link } from '@material-ui/core';
 import Moment from 'react-moment';
 
 export interface IShow {
@@ -60,7 +60,7 @@ const Shows: React.FC = () => {
 				<div>
 					<div>{show.likes_count} likes </div>
 					{show.relisten_url &&
-						<div><a href={show.relisten_url}>{show.relisten_url}</a></div>
+						<div><Link target="blank" href={show.relisten_url}>{show.relisten_url}</Link></div>
 					}
 					<br/>
 					<Typography>{show.notes}</Typography>

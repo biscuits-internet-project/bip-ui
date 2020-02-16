@@ -1,8 +1,10 @@
 import React, {useContext} from 'react'
+import { Link as RouterLink } from 'react-router-dom'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import IconButton from '@material-ui/core/IconButton'
 import Grid from '@material-ui/core/Grid'
+import Link from '@material-ui/core/Link'
 import Typography from '@material-ui/core/Typography'
 import { ExitToApp } from '@material-ui/icons';
 import {AppContext} from '../../context/AppProvider'
@@ -16,7 +18,8 @@ const LeftNavbar = () => {
         alignItems: 'center',
       }}
     >
-      <a href="/"><img alt="logo" style={{ width: '64px', height: '64px' }} src="/logo.svg" /></a>
+      import { Link as RouterLink } from 'react-router-dom'
+      <Link component={RouterLink} to="/"><img alt="logo" style={{ width: '64px', height: '64px' }} src="/logo.svg" /></Link>
       <Typography variant="h6" style={{ marginLeft: '30px' }}>
         BIP Admin
       </Typography>
@@ -45,7 +48,7 @@ const RightNavbar = ({dispatch}) => {
 }
 
 const Navbar = () => {
-  const {dispatch} = useContext(AppContext) 
+  const {dispatch} = useContext(AppContext)
   return (
     <Grid container>
       <AppBar position="static">

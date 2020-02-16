@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link as RouterLink } from 'react-router-dom'
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -42,7 +43,7 @@ const SongList:React.FC<ISongList> = ({songs,handleOpen}) => {
                   <CreateIcon color="secondary" style={{margin: "0px 8px", cursor: "pointer"}} fontSize="small" onClick={()=>handleOpen('form', song.slug, )}/>
                 </Tooltip>
                 <Tooltip title="Tracks" TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} >
-                  <Link href={`/admin/songs/${song.slug}/tracks`} >
+                  <Link component={RouterLink} to={`/admin/songs/${song.slug}/tracks`} >
                     <LibraryMusic color="secondary" style={{margin: "0px 8px", cursor: "pointer"}} fontSize="small" />
                   </Link>
                 </Tooltip>
