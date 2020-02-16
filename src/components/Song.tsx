@@ -106,7 +106,7 @@ const Song: React.FC = () => {
 								</TableRow>
 								<TableRow>
 									<TableCell>
-										Times placyed
+										Times played
 									</TableCell>
 									<TableCell>
 										{song.times_played}
@@ -187,6 +187,22 @@ const Song: React.FC = () => {
 								<ExpansionPanelDetails>
 									<Typography>
 										<div dangerouslySetInnerHTML={{__html: song.history}} />
+									</Typography>
+								</ExpansionPanelDetails>
+							</ExpansionPanel>
+						}
+						{song.tabs &&
+							<ExpansionPanel>
+								<ExpansionPanelSummary
+									expandIcon={<ExpandMoreIcon />}
+									aria-controls="panel1a-content"
+									id="panel1a-header"
+								>
+									<Typography className={classes.heading}>Guitar Tabs</Typography>
+								</ExpansionPanelSummary>
+								<ExpansionPanelDetails>
+									<Typography>
+										<div dangerouslySetInnerHTML={{__html: song.tabs}} />
 									</Typography>
 								</ExpansionPanelDetails>
 							</ExpansionPanel>
