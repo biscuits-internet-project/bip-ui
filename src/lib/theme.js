@@ -2,7 +2,7 @@ import createMuiTheme from '@material-ui/core/styles/createMuiTheme'
 
 const baseTheme = {
   typography: {
-    fontSize: 14,
+    fontSize: 15,
     h1: { margin: 0, padding: 0 },
     h2: { margin: 0, padding: 0 },
     h3: { margin: 0, padding: 0 },
@@ -17,6 +17,18 @@ export const darkTheme = createMuiTheme({
   ...baseTheme,
   palette: {
     type: 'dark',
+  },
+  overrides: {
+    MuiLink: {
+      root: {
+        color: "#FFFFE0"
+      },
+    },
+    MuiToolbar: {
+      root: {
+        backgroundColor: "#424242",
+      },
+    },
   },
 })
 
