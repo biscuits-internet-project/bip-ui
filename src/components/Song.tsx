@@ -3,8 +3,10 @@ import { Link as RouterLink, useParams } from 'react-router-dom';
 import axios, { AxiosResponse } from 'axios'
 import { IVenue } from './Venues';
 import { Helmet } from "react-helmet";
-import { Link, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody } from '@material-ui/core';
+import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
+import { Link, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, ExpansionPanel, ExpansionPanelSummary, Typography, ExpansionPanelDetails } from '@material-ui/core';
 import Moment from 'react-moment';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 interface ISong {
 	id: string,
@@ -40,9 +42,21 @@ interface IShow {
 	venue: IVenue
 	relisten_url?: string
 }
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      width: '100%',
+    },
+    heading: {
+      fontSize: theme.typography.pxToRem(15),
+      fontWeight: theme.typography.fontWeightRegular,
+    },
+  }),
+);
 
 const Song: React.FC = () => {
 
+	const classes = useStyles();
 	const params = useParams();
 	const [loading, setLoading] = useState(false)
 	const [song, setSong] = useState<ISong | undefined>(undefined)
@@ -63,7 +77,6 @@ const Song: React.FC = () => {
 	},[params.id])
 	return (
 		<>
-			{loading && <h3>.....Loading</h3>}
 			{song &&
 				<>
 					<Helmet>
@@ -71,8 +84,16 @@ const Song: React.FC = () => {
 					</Helmet>
 					<div>
 						<h1>{song.title}</h1>
-						<div><em>{song.featured_lyric}</em></div>
+						{song.featured_lyric &&
+							<>
+							<Typography>
+								<em>{song.featured_lyric}</em>
+							</Typography>
+							<div style={{height: 20}}></div>
+							</>
+						}
 
+						{loading && <h3>.....Loading</h3>}
 						<TableContainer component={Paper}>
 							<Table>
 								<TableRow>
@@ -135,19 +156,43 @@ const Song: React.FC = () => {
 							</Table>
 						</TableContainer>
 
-						{song.history &&
-							<>
-								<h3>History</h3>
-								<div dangerouslySetInnerHTML={{__html: song.history}} />
-							</>
-						}
+						<div style={{height: 20}}></div>
+
 						{song.lyrics &&
-							<>
-								<h3>Lyrics</h3>
-								<div dangerouslySetInnerHTML={{__html: song.lyrics}} />
-							</>
+							<ExpansionPanel>
+								<ExpansionPanelSummary
+									expandIcon={<ExpandMoreIcon />}
+									aria-controls="panel1a-content"
+									id="panel1a-header"
+								>
+									<Typography className={classes.heading}>Lyrics</Typography>
+								</ExpansionPanelSummary>
+								<ExpansionPanelDetails>
+									<Typography>
+										<div dangerouslySetInnerHTML={{__html: song.lyrics}} />
+									</Typography>
+								</ExpansionPanelDetails>
+							</ExpansionPanel>
 						}
-						<br/><br/>
+
+						{song.history &&
+							<ExpansionPanel>
+								<ExpansionPanelSummary
+									expandIcon={<ExpandMoreIcon />}
+									aria-controls="panel1a-content"
+									id="panel1a-header"
+								>
+									<Typography className={classes.heading}>History</Typography>
+								</ExpansionPanelSummary>
+								<ExpansionPanelDetails>
+									<Typography>
+										<div dangerouslySetInnerHTML={{__html: song.history}} />
+									</Typography>
+								</ExpansionPanelDetails>
+							</ExpansionPanel>
+						}
+
+						<div style={{height: 20}}></div>
 					</div>
 				</>
 			}
