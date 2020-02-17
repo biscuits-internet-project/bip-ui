@@ -87,6 +87,16 @@ const useStyles = makeStyles((theme: Theme) =>
         width: `calc(100% - ${drawerWidth}px)`,
         marginLeft: drawerWidth,
       },
+      'min-height': '128px',
+      'background-image': 'url("/bkgrnd-navbar.jpg")',
+      'background-position': 'top center',
+      'background-repeat': 'no-repeat',
+      'background-attachment': 'fixed',
+      'background-size': 'contain',
+      'background-color': '#3f51b5',
+      [theme.breakpoints.up('md')]: {
+        'background-position': 'top -110px center',
+      },
     },
     menuButton: {
       marginRight: theme.spacing(2),
@@ -106,6 +116,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     toolbar: {
       ...theme.mixins.toolbar,
+      marginBottom: '64px',
     },
     navHeaderDisplay: {
       fontFamily: '"Saira Stencil One", sans-serif',
@@ -115,6 +126,9 @@ const useStyles = makeStyles((theme: Theme) =>
       '-webkit-text-fill-color': 'transparent',
       [theme.breakpoints.down('sm')]: {
         fontSize: `1.25rem`,
+      },
+      [theme.breakpoints.up('md')]: {
+        fontSize: `2.5rem`,
       },
     }
   }),
