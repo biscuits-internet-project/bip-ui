@@ -19,12 +19,12 @@ export const darkTheme = createMuiTheme({
     type: 'dark',
   },
   overrides: {
-    MuiLink: {
-      root: {
-        color: "#FFFFE0"
-      },
-    },
-  },
+    MuiLink: {
+      root: {
+        color: "#BB86FC"
+      },
+    },
+  },
 })
 
 export const lightTheme = createMuiTheme({
