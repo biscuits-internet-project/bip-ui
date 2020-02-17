@@ -51,6 +51,8 @@ const postLogin = async (values: ILogin, actions: FormikHelpers<ILogin>, dispatc
         roles
       }
     })
+    history.push("/profile")
+    return
   }
   catch (e) {
     setLoading(false)

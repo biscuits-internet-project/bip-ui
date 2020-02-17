@@ -27,6 +27,7 @@ import Admin from './components/Admin'
 import Toolbar from '@material-ui/core/Toolbar';
 import { Link, ListItem, ListItemIcon, ListItemText, List, IconButton, Button, Typography, Menu, MenuItem, Drawer, AppBar, Hidden, Divider, Grid, Box } from '@material-ui/core';
 import { QueueMusic, Home, Room, AccountCircle, CardTravel, Info, Album } from '@material-ui/icons';
+import Profile from './components/Profile';
 
 interface sideMenuItem {
   name: string | undefined,
@@ -87,15 +88,15 @@ const useStyles = makeStyles((theme: Theme) =>
         width: `calc(100% - ${drawerWidth}px)`,
         marginLeft: drawerWidth,
       },
-      'min-height': '128px',
-      'background-image': 'url("/bkgrnd-navbar.jpg")',
-      'background-position': 'top center',
-      'background-repeat': 'no-repeat',
-      'background-attachment': 'fixed',
-      'background-size': 'contain',
-      'background-color': '#3f51b5',
+      minHeight: 100,
+      backgroundImage: 'url("/bkgrnd-navbar.jpg")',
+      backgroundPosition: 'top center',
+      backgroundRepeat: 'no-repeat',
+      backgroundAttachment: 'fixed',
+      backgroundSize: 'contain',
+      backgroundColor:'#3f51b5',
       [theme.breakpoints.up('md')]: {
-        'background-position': 'top -110px center',
+        backgroundPosition: 'top -110px center',
       },
     },
     menuButton: {
@@ -116,7 +117,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     toolbar: {
       ...theme.mixins.toolbar,
-      marginBottom: '64px',
+      marginBottom: 30,
     },
     navHeaderDisplay: {
       fontFamily: '"Saira Stencil One", sans-serif',
@@ -297,6 +298,7 @@ const App: React.FC = () => {
                 <div className={classes.toolbar} />
                 <Route path="/" exact component={LatestShows} />
                 <Route path="/login" component={Login} />
+                <Route path="/profile" component={Profile} />
                 <Route path="/shows" exact component={Shows} />
                 <Route path="/shows/:id" exact component={Show} />
                 <Route path="/shows/year/:year" exact component={Shows} />
