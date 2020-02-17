@@ -4,7 +4,7 @@ import axios, { AxiosResponse } from 'axios'
 import TextField from './shared/TextField'
 import * as Yup from 'yup';
 import ReCaptcha from './shared/ReCaptcha';
-import { Typography } from '@material-ui/core';
+import { Typography, Button } from '@material-ui/core';
 
 const RegisterSchema = Yup.object().shape({
   email: Yup.string()
@@ -46,7 +46,7 @@ const postRegister = async (values: IRegister, setError, setSuccess) => {
         url: 'https://stg-api.discobiscuits.net/api/auth/register',
         data: values,
         headers: {
-            "Content-Type":	"application/json", 
+            "Content-Type":	"application/json",
         }
     });
     setSuccess(true)
@@ -65,6 +65,7 @@ const Register: React.FC = () => {
     const [success, setSuccess] = useState(false)
     return (
         <div>
+          <h1>Register</h1>
           {success ? (
             <div>Please check your email and click the link to confirm and complete your registration.</div>
           ) : (
@@ -83,12 +84,11 @@ const Register: React.FC = () => {
                   <TextField name="password" type="password" label="Password" />
                   <TextField name="password_confirmation" type="password" label="Password Confirmation" />
 
-                  // add image avatar upload to rails here //
                   <input name="avatar" type="file"></input>
 
                   <ReCaptcha></ReCaptcha>
 
-                  <button type="submit">Submit</button>
+                  <Button variant="contained">Submit</Button>
                 </Form>
               )}
             </Formik>)}
@@ -96,4 +96,4 @@ const Register: React.FC = () => {
       );
 }
 
-  export default Register 
+  export default Register
