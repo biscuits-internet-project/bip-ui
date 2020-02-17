@@ -26,7 +26,7 @@ import Admin from './components/Admin'
 
 import Toolbar from '@material-ui/core/Toolbar';
 import { Link, ListItem, ListItemIcon, ListItemText, List, IconButton, Button, Typography, Menu, MenuItem, Drawer, AppBar, Hidden, Divider, Grid, Box } from '@material-ui/core';
-import { QueueMusic, Home, Room, AccountCircle, CardTravel, Info, Album, SentimentSatisfied } from '@material-ui/icons';
+import { QueueMusic, Home, Room, AccountCircle, CardTravel, Info, Album } from '@material-ui/icons';
 
 interface sideMenuItem {
   name: string | undefined,

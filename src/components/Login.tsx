@@ -6,13 +6,9 @@ import { useHistory } from "react-router-dom";
 import { History } from 'history'
 import jwt from 'jwt-decode'
 import { AppContext } from '../context/AppProvider'
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
 import TextField from './shared/TextField'
-//import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import ForgotPassword from './ForgotPassword'
-import { Box } from '@material-ui/core';
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
@@ -79,10 +75,12 @@ const Login: React.FC = () => {
             <div style={{ height: "32px" }}></div>
             <TextField name="password" type="password" label="Password" />
             <div style={{ height: "32px" }}></div>
-            <Button variant="contained" color="primary" type="submit" disabled={loading}>LOG IN</Button>
+            <Button variant="contained" type="submit" disabled={loading}>LOG IN</Button>
           </Form>
         )}
       </Formik>
+
+      <br/>
 
       <ForgotPassword />
     </div>

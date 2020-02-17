@@ -80,7 +80,7 @@ const Venue: React.FC = () => {
 												{venue.first_played_show.date}
 											</Moment>
 										</Link>
-
+										<span> </span>
 										{venue.first_played_show.relisten_url &&
 											<Link href={venue.first_played_show.relisten_url} target="blank">
 												<img src="/relisten.png" alt="relisten" />
@@ -98,6 +98,7 @@ const Venue: React.FC = () => {
 												{venue.last_played_show.date}
 											</Moment>
 										</Link>
+										<span> </span>
 										{venue.last_played_show.relisten_url &&
 											<Link href={venue.last_played_show.relisten_url} target="blank">
 												<img src="/relisten.png" alt="relisten" />

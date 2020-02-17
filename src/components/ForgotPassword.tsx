@@ -59,7 +59,7 @@ const ForgotPassword: React.FC = () => {
               <Form>
                 {error && <Typography color="error" variant="h6">{error}</Typography>}
                 <TextField name="email" type="email" label="Email"/>
-                <Button variant="contained" color="primary" type="submit">Reset Password</Button>
+                <Button variant="contained" type="submit">Reset Password</Button>
               </Form>
             )}
           </Formik>

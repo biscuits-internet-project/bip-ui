@@ -48,6 +48,8 @@ const Register: React.FC = () => {
       <Helmet>
         <title>Biscuits Internet Project - Contact</title>
       </Helmet>
+
+      <h1>Contact</h1>
       <Formik
         initialValues={initialValues}
         onSubmit={(values) => postContact(values)}
