@@ -124,7 +124,8 @@ const Song: React.FC = () => {
 											<span> - </span>
 											{song.first_played_show.venue.name}
 											<span> - </span>
-											{song.first_played_show.venue.city},
+											{song.first_played_show.venue.city}
+											<span>, </span>
 											{song.first_played_show.venue.state}
 											<span> </span>
 										</Link>
@@ -148,7 +149,8 @@ const Song: React.FC = () => {
 											<span> - </span>
 											{song.last_played_show.venue.name}
 											<span> - </span>
-											{song.last_played_show.venue.city},
+											{song.last_played_show.venue.city}
+											<span>, </span>
 											{song.last_played_show.venue.state}
 										</Link>
 									</TableCell>

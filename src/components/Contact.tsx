@@ -6,64 +6,65 @@ import TextField from './shared/TextField'
 import TextAreaField from './shared/TextAreaField'
 import ReCaptcha from './shared/ReCaptcha'
 import * as Yup from 'yup';
+import { Button } from '@material-ui/core';
 
 const ContactSchema = Yup.object().shape({
-	email: Yup.string()
-	  .email('Invalid email')
-	  .required('Email is required'),
-	name: Yup.string()
-	  .required('Name is required'),
-	message: Yup.string()
-	  .required('Message is required'),
-  })
+  email: Yup.string()
+    .email('Invalid email')
+    .required('Email is required'),
+  name: Yup.string()
+    .required('Name is required'),
+  message: Yup.string()
+    .required('Message is required'),
+})
 
 interface IContact {
-	email: string
-    name: string
-    message: string
+  email: string
+  name: string
+  message: string
 }
 
 const initialValues: IContact = {
-    email: "",
-    name: "",
-    message: ""
+  email: "",
+  name: "",
+  message: ""
 }
 
 const postContact = async (values: IContact) => {
-    const contactRequest:AxiosResponse = await axios({
-        method: 'post',
-        url: 'https://stg-api.discobiscuits.net/api/contact',
-        data: values,
-        headers: {
-            "Content-Type":	"application/json", 
-        }
-    });
-    return contactRequest.data
+  const contactRequest: AxiosResponse = await axios({
+    method: 'post',
+    url: 'https://stg-api.discobiscuits.net/api/contact',
+    data: values,
+    headers: {
+      "Content-Type": "application/json",
+    }
+  });
+  return contactRequest.data
 }
 
 const Register: React.FC = () => {
-    return (
-        <div>
-			<Helmet>
-				<title>Biscuits Internet Project - Contact</title>
-			</Helmet>
-          <Formik
-            initialValues={initialValues}
-            onSubmit={(values) => postContact(values)}
-            validationSchema={ContactSchema}
-          >
-            {(props: FormikProps<IContact>) => (
-              <Form>
-                <TextField name="email" type="email" label="Email" />
-                <TextField name="name" type="text" label="Name" />
-                <TextAreaField name="message" label="Message" />
-				<ReCaptcha></ReCaptcha>
-                <button type="submit">Submit</button>
-              </Form>
-            )}
-          </Formik>
-        </div>
-      );
+  return (
+    <div>
+      <Helmet>
+        <title>Biscuits Internet Project - Contact</title>
+      </Helmet>
+      <Formik
+        initialValues={initialValues}
+        onSubmit={(values) => postContact(values)}
+        validationSchema={ContactSchema}
+      >
+        {(props: FormikProps<IContact>) => (
+          <Form>
+            <TextField name="email" type="email" label="Email" />
+            <TextField name="name" type="text" label="Name" />
+            <TextAreaField name="message" label="Message" />
+            <ReCaptcha></ReCaptcha>
+            <Button variant="contained">Submit</Button>
+          </Form>
+        )}
+      </Formik>
+    </div>
+  );
 }
 
-  export default Register 
+export default Register

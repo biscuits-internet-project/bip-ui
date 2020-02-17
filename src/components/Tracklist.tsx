@@ -16,19 +16,6 @@ export interface ITrack {
 	annotations: string[]
 }
 
-var setsStyle = {
-	display: "flex",
-	listStyle: "none",
-	margin: 0,
-	padding: 0,
-};
-
-var setStyle = {
-	marginBottom: 5,
-	marginRight: 15
-};
-
-
 const Tracklist: React.FC<ITracklist> = ({tracks}) => {
 
 	let annLookup = {}
@@ -80,7 +67,7 @@ const Tracklist: React.FC<ITracklist> = ({tracks}) => {
 
 			{annLookup && Object.keys(annLookup).map(function (key) {
 				return (
-					<span key={key}><strong>{annLookup[key]}</strong> {key} </span>
+					<em><span key={key}><strong>{annLookup[key]}</strong> {key} </span></em>
 				)
 			})}
 		</div>

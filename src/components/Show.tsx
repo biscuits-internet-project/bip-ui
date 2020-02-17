@@ -63,7 +63,7 @@ const Shows: React.FC = () => {
 						<div><Link target="blank" href={show.relisten_url}>{show.relisten_url}</Link></div>
 					}
 					<br/>
-					<Typography>{show.notes}</Typography>
+					<Typography variant="body2" dangerouslySetInnerHTML={{__html: show.notes}} />
 					<Tracklist key={show.slug} tracks={show.tracks} />
 				</div>
 

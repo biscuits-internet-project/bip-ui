@@ -1,7 +1,6 @@
 import React, { useContext, ReactElement } from 'react';
 import { BrowserRouter as Router, Route, Switch, Link as RouterLink } from 'react-router-dom';
-import { useRouteMatch, useHistory } from 'react-router-dom';
-import { createStyles, makeStyles, Theme, useTheme } from '@material-ui/core/styles';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import PrivateRoute from './routing/PrivateRoute'
@@ -26,8 +25,8 @@ import Login from './components/Login';
 import Admin from './components/Admin'
 
 import Toolbar from '@material-ui/core/Toolbar';
-import { Link, ListItem, ListItemIcon, ListItemText, List, IconButton, Button, Typography, Menu, MenuItem, Drawer, AppBar, Hidden, Divider, FormControlLabel, FormGroup, Grid, Box, createMuiTheme } from '@material-ui/core';
-import { QueueMusic, Home, LibraryMusic, Room, AccountCircle, CardTravel, Info, Album, ChevronLeft } from '@material-ui/icons';
+import { Link, ListItem, ListItemIcon, ListItemText, List, IconButton, Button, Typography, Menu, MenuItem, Drawer, AppBar, Hidden, Divider, Grid, Box } from '@material-ui/core';
+import { QueueMusic, Home, Room, AccountCircle, CardTravel, Info, Album, SentimentSatisfied } from '@material-ui/icons';
 
 interface sideMenuItem {
   name: string | undefined,
@@ -47,7 +46,7 @@ const itemList: sideMenuItem[] = [
   },
   {
     name: 'tour',
-    label: 'Tour',
+    label: 'Tour Dates',
     icon: <CardTravel />
   },
   {
@@ -111,8 +110,6 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-
-
 function ListItemLink(props) {
   return <ListItem button component="a" {...props} />;
 }
@@ -136,8 +133,10 @@ const App: React.FC = () => {
   // choose theme based on users's OS or browser preference
   function getTheme(darkMode) {
     if (darkMode) {
+      state.theme = 'dark'
       return darkTheme
     } else {
+      state.theme = 'light'
       return lightTheme
     }
   }

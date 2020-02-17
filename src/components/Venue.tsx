@@ -1,8 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link as RouterLink } from 'react-router-dom';
 import axios, { AxiosResponse } from 'axios'
 import { Helmet } from "react-helmet";
 import Setlist, { ISetlist } from './Setlist';
+import { IShow } from './Show';
+import { TableContainer, Paper, Table, TableRow, TableCell, Link } from '@material-ui/core';
+import Moment from 'react-moment';
 
 interface IVenue {
 	id?: string,
@@ -16,8 +19,8 @@ interface IVenue {
 	street?: string,
 	country?: string
 	times_played: number,
-	first_time_played?: Date,
-	last_time_played?: Date
+	first_played_show: IShow
+	last_played_show: IShow
 }
 
 const Venue: React.FC = () => {
@@ -25,7 +28,7 @@ const Venue: React.FC = () => {
 	const [loading, setLoading] = useState(false)
 	const [venue, setVenue] = useState<IVenue | undefined>(undefined)
 	const [shows, setShows] = useState<ISetlist[]>([])
-	
+
 	useEffect(()=> {
 		setLoading(true)
 		const fetchVenue = async () => {
@@ -42,17 +45,71 @@ const Venue: React.FC = () => {
 	return (
 		<>
 			{loading && <h3>.....Loading</h3>}
-			{venue && 
+			{venue &&
 				<>
 					<Helmet>
 						<title>Biscuits Internet Project - {venue.name}</title>
 					</Helmet>
-					<div>
-						<h1>{venue.name}</h1>
-						<div>number of times played: {venue.times_played}</div>
-						<div>first time played: {venue.first_time_played}</div>
-						<div>last time played: {venue.last_time_played}</div>
-					</div>
+					<h1>{venue.name}</h1>
+
+					<TableContainer component={Paper}>
+							<Table>
+								<TableRow>
+									<TableCell>
+									  Location
+									</TableCell>
+									<TableCell>
+										{venue.city}, {venue.state}
+									</TableCell>
+								</TableRow>
+								<TableRow>
+									<TableCell>
+										Times played
+									</TableCell>
+									<TableCell>
+										{venue.times_played}
+									</TableCell>
+								</TableRow>
+								<TableRow>
+									<TableCell>
+										First played
+									</TableCell>
+									<TableCell>
+										<Link component={RouterLink} to={`/shows/${venue.first_played_show.slug}`}>
+											<Moment format="MMMM D, YYYY">
+												{venue.first_played_show.date}
+											</Moment>
+										</Link>
+
+										{venue.first_played_show.relisten_url &&
+											<Link href={venue.first_played_show.relisten_url} target="blank">
+												<img src="/relisten.png" alt="relisten" />
+											</Link>
+										}
+									</TableCell>
+								</TableRow>
+								<TableRow>
+									<TableCell>
+										Last played
+									</TableCell>
+									<TableCell>
+										<Link component={RouterLink} to={`/shows/${venue.last_played_show.slug}`}>
+											<Moment format="MMMM D, YYYY">
+												{venue.last_played_show.date}
+											</Moment>
+										</Link>
+										{venue.last_played_show.relisten_url &&
+											<Link href={venue.last_played_show.relisten_url} target="blank">
+												<img src="/relisten.png" alt="relisten" />
+											</Link>
+										}
+									</TableCell>
+								</TableRow>
+							</Table>
+						</TableContainer>
+
+						<div style={{height: 30}}></div>
+
 
 					{shows && shows.map((show) => {
 						return (

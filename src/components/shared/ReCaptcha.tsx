@@ -4,7 +4,9 @@ import ReCAPTCHA from "react-google-recaptcha";
 const ReCaptcha = () => {
     return (
         <>
-            <ReCAPTCHA sitekey="6Lf1EtUUAAAAAACJOSf1LEVoA6REzhCv3XA2tpo8" />,
+            <div style={{height: 20}}></div>
+            <ReCAPTCHA sitekey="6Lf1EtUUAAAAAACJOSf1LEVoA6REzhCv3XA2tpo8" theme="dark" />
+            <div style={{height: 20}}></div>
         </>
     )
 }

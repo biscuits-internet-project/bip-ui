@@ -13,6 +13,7 @@ export type Action = {
 
 export interface AppState {
   token: Nullable<string> ,
+  theme: string,
   roles: string[],
   username: Nullable<string>,
   ready: boolean
@@ -28,6 +29,7 @@ interface IContextProps {
 
 const initialState:AppState = {
   token: null,
+  theme: "dark",
   username: null,
   roles: [],
   ready: false,
