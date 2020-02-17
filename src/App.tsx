@@ -116,6 +116,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     toolbar: {
       ...theme.mixins.toolbar,
+      marginBottom: '64px',
     },
     navHeaderDisplay: {
       fontFamily: '"Saira Stencil One", sans-serif',
