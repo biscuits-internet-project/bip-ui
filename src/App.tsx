@@ -106,6 +106,16 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     toolbar: {
       ...theme.mixins.toolbar,
+    },
+    navHeaderDisplay: {
+      fontFamily: '"Saira Stencil One", sans-serif',
+      textTransform: 'uppercase',
+      'background-image': 'linear-gradient(#9ccaea, #e94abc)',
+      '-webkit-background-clip': 'text',
+      '-webkit-text-fill-color': 'transparent',
+      [theme.breakpoints.down('sm')]: {
+        fontSize: `1.25rem`,
+      },
     }
   }),
 );
@@ -180,7 +190,6 @@ const App: React.FC = () => {
             <PrivateRoute path="/admin/:adminPage?" component={Admin} roles={roles} />
             <div className={classes.root}>
               <CssBaseline />
-
               <AppBar position="fixed" className={classes.appBar}>
                 <Toolbar>
                   <Grid
@@ -197,12 +206,11 @@ const App: React.FC = () => {
                       >
                         <MenuIcon />
                       </IconButton>
-                      <Typography variant="h5">
+                      <Typography variant="h5" className={classes.navHeaderDisplay}>
                         Biscuits Internet Project
-                    </Typography>
+                      </Typography>
                     </Grid>
                     <Grid item>
-
                       {username ? (
                         <>
                           <IconButton
@@ -236,11 +244,9 @@ const App: React.FC = () => {
                         </>
                       ) : (
                           <Button component={RouterLink} to={'/login'}>Login</Button>
-                        )}
-
+                      )}
                     </Grid>
                   </Grid>
-
                 </Toolbar>
               </AppBar>
               <nav className={classes.drawer} aria-label="mailbox folders">
@@ -294,9 +300,7 @@ const App: React.FC = () => {
                 <Route path="/register/confirm" exact component={Register} />
                 <Route path="/password/reset/:token" exact component={ResetPassword} />
 
-                <div style={{ height: "30px" }}></div>
-
-                <Divider />
+                <Divider style={{ marginTop: "30px" }} />
 
                 <Box className={classes.footer}>
                   <Typography>

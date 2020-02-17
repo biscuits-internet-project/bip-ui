@@ -24,11 +24,6 @@ export const darkTheme = createMuiTheme({
         color: "#FFFFE0"
       },
     },
-    MuiToolbar: {
-      root: {
-        backgroundColor: "#424242",
-      },
-    },
   },
 })
 
