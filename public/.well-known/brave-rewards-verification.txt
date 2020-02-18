@@ -1,0 +1,4 @@
+This is a Brave Rewards publisher verification file.
+
+Domain: discobiscuits.net
+Token: b140e1ee4029afda3ec538e82f8f817ab355b5905c58dc56f402ea8937b1455b
