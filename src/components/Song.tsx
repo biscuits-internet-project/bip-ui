@@ -4,7 +4,7 @@ import axios, { AxiosResponse } from 'axios'
 import { IVenue } from './Venues';
 import { Helmet } from "react-helmet";
 import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
-import { Link, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, ExpansionPanel, ExpansionPanelSummary, Typography, ExpansionPanelDetails } from '@material-ui/core';
+import { Link, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, ExpansionPanel, ExpansionPanelSummary, Typography, ExpansionPanelDetails, LinearProgress } from '@material-ui/core';
 import Moment from 'react-moment';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
@@ -93,7 +93,14 @@ const Song: React.FC = () => {
 							</>
 						}
 
-						{loading && <h3>.....Loading</h3>}
+						{loading &&
+							<>
+								<div style={{height: 30}}></div>
+									<LinearProgress color="primary" />
+								<div style={{height: 30}}></div>
+							</>
+						}
+
 						<TableContainer component={Paper}>
 							<Table>
 								<TableRow>
