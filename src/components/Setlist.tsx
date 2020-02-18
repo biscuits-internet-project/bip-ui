@@ -34,7 +34,6 @@ const Setlist: React.FC<ISetlist> = ({ date, slug, venue, tracks, notes }) => {
 	return (
 		<Card className={classes.root}>
 			<CardHeader
-
 				title = {
 					<Link component={RouterLink} to={`/shows/${slug}`}>
 						<Moment format="MMMM D, YYYY">
@@ -50,7 +49,7 @@ const Setlist: React.FC<ISetlist> = ({ date, slug, venue, tracks, notes }) => {
 					</>
 				}
 			/>
-			<CardContent>
+			<CardContent style={{paddingTop: 0, paddingBottom: 0}}>
 				<Typography variant="body2" dangerouslySetInnerHTML={{ __html: notes }} />
 				<Tracklist tracks={tracks}></Tracklist>
 			</CardContent>
