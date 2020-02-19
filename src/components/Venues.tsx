@@ -3,6 +3,7 @@ import { Link as RouterLink } from 'react-router-dom'
 import axios, { AxiosResponse } from 'axios'
 import { Helmet } from "react-helmet"
 import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, Link } from '@material-ui/core';
+			import MUIDataTable from "mui-datatables";
 
 export interface IVenue {
 	id?: string,
@@ -31,6 +32,59 @@ const Venues: React.FC = () => {
 		}
 		fetchVenues()
 	},[])
+
+	const columns = [
+		{
+			name: "Name",
+			options: {
+				filter: false,
+				sort: true,
+				searchable: true
+			}
+		},
+		{
+			name: "City",
+			options: {
+				filter: true,
+				sort: true,
+				searchable: true
+			},
+		},
+		{
+			name: "State",
+			options: {
+				filter: true,
+				sort: true,
+				searchable: true
+			},
+		},
+			{
+				name: "Times Played",
+				options: {
+					filter: false,
+					sort: true,
+					searchable: true,
+				},
+			},
+			{
+				name: ""
+			},
+		];
+
+	const options = {
+		filterType: 'multiselect',
+		count: 2000,
+		pagination: false,
+		print: false,
+		download: false,
+		selectableRows: "none",
+		selectableRowsHeader: false,
+	};
+
+	const data = venues.map((v: IVenue) => (
+		[ v.name, v.city, v.state, v.times_played, <Link variant="button" component={RouterLink} to={`/venues/${v.slug}`}>view details</Link>]
+	))
+
 	return (
 		<>
 			<Helmet>
@@ -38,32 +92,12 @@ const Venues: React.FC = () => {
 			</Helmet>
 			<h1>Venues</h1>
 			{loading && <h3>.....Loading</h3>}
-			<TableContainer component={Paper}>
-				<Table>
-					<TableHead>
-					<TableRow>
-						<TableCell>Name</TableCell>
-						<TableCell>City</TableCell>
-						<TableCell>State</TableCell>
-						<TableCell>Times Played</TableCell>
-					</TableRow>
-					</TableHead>
-					<TableBody>
-						{venues.map((venue: IVenue) => (
-							<TableRow key={venue.slug}>
-								<TableCell component="th" scope="row">
-									<Link component={RouterLink} to={`/venues/${venue.slug}`}>
-										{venue.name}
-									</Link>
-								</TableCell>
-								<TableCell>{venue.city}</TableCell>
-								<TableCell>{venue.state}</TableCell>
-								<TableCell>{venue.times_played}</TableCell>
-							</TableRow>
-						))}
-					</TableBody>
-				</Table>
-			</TableContainer>
+
+			<MUIDataTable
+				data={data}
+				columns={columns}
+				options={options}
+			/>
 		</>
 	)
 }
