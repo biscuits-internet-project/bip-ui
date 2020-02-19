@@ -29,7 +29,7 @@ const ResourceCard = ({title, content, image, url}) => {
                         title={title}
                     />
                     <CardContent>
-                    <Typography gutterBottom variant="h5" component="h2">
+                    <Typography gutterBottom variant="h2" component="h2">
                         {title}
                     </Typography>
                     <Typography variant="body2" color="textSecondary" component="p">

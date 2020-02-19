@@ -264,6 +264,7 @@ const App: React.FC = () => {
                       ModalProps={{
                         keepMounted: true, // Better open performance on mobile.
                       }}
+                      onClick={handleDrawerToggle}
                     >
                       {drawer}
                     </Drawer>

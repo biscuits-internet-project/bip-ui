@@ -2,7 +2,7 @@ import React from 'react';
 import { Link as RouterLink } from 'react-router-dom'
 import { Helmet } from "react-helmet";
 import PageHeading from '../shared/PageHeading';
-import { Card, CardHeader, CardContent, Typography, List, ListItem, Link } from '@material-ui/core';
+import { Card, CardHeader, CardContent, Typography, Link } from '@material-ui/core';
 
 const Music: React.FC = () => {
 	const divider = (
@@ -13,18 +13,18 @@ const Music: React.FC = () => {
 	return (
 		<>
 			<Helmet>
-				<title>Biscuits Internet Project - Resources - Music</title>
+				<title>Biscuits Internet Project - Resources - Music Terminology</title>
 			</Helmet>
-			<PageHeading text="Music" />
+			<PageHeading text="Music Terminology" />
 
 			<Card>
-				<CardHeader title={"Inverted"} />
+				<CardHeader title={"Inverted"} component="h2" />
 				<CardContent>
 					<Typography variant="body1">
 						Consider that a basic Disco Biscuits song (Song A) has three parts: A beginning composed section, followed by a jam, followed by a composed ending section.</Typography>
 					<Typography variant="body1">An inverted version of a song will almost always happen when they jam out of a different song (Song B), and segue the jam into the ending section of Song A. At the exact point of the ending of Song A, they immediately play the beginning of Song A, then the jam section, which usually segues into a different song (Song C), or the song that proceeded the inverted song (Song B).</Typography>
 
-					<Typography variant="h6">Examples:</Typography>
+					<Typography variant="h3">Examples:</Typography>
 					<Typography variant="body1">Standard Version of a song:</Typography>
 					<Typography variant="body1">
 						Song A (Beg.) -> Jam ->Song A (End)
@@ -32,7 +32,7 @@ const Music: React.FC = () => {
 					<Typography variant="body1">Inverted Version:</Typography>
 					<Typography variant="body1">Song B -> Jam -> Song A (End) -> Song A (Beg.) -> Jam -> Song C</Typography>
 
-					<Typography variant="h6">Shows:</Typography>
+					<Typography variant="h3">Shows:</Typography>
 					<Typography>
 						<Link component={RouterLink} to="/shows/2003-08-31-cervantes-masterpiece-ballroom-denver-co">8/31/03</Link>: Magellan > Inverted Once the Fiddler Paid > Magellan<br/>
 						<Link component={RouterLink} to="//shows/2006-05-28-electric-factory-philadelphia-pa">5/28/06</Link>: Story of the World > Inverted Digital Buddha > Story of the World
@@ -49,10 +49,10 @@ const Music: React.FC = () => {
 						Basically, a song is considered dyslexic if it is broken up, similar to an inverted version, but the song structure is played out of order or not immediately following each other. The band might play the end of a song in the first set, then start off the second set with the beginning. This would be considered a dyslexic version of the song. Dyslexic and Inverted are mutually exclusive.  A song can be one or the other, but not both.
 				</Typography>
 
-					<Typography variant="h6">Examples:</Typography>
+					<Typography variant="h3">Examples:</Typography>
 					<Typography variant="body1">Song A -> Jam -> Song B (End), Song C, Song B (Beg.) -> Song D</Typography>
 
-					<Typography variant="h6">Shows:</Typography>
+					<Typography variant="h3">Shows:</Typography>
 					<Typography variant="body1">
 						<Link component={RouterLink} to="//shows/2006-05-28-electric-factory-philadelphia-pa">1/4/07</Link>: Above the Waves > Dyslexic Svenghali (End) > Paul Revere > Dyslexic Svenghali (Beg.) > Confrontation
 					</Typography>
@@ -61,13 +61,13 @@ const Music: React.FC = () => {
 
 			{divider}
 			<Card>
-				<CardHeader title={"Palindrom"} />
+				<CardHeader title={"Palindrome"} />
 				<CardContent>
 					<Typography variant="body1">
 						A Palindrome is exactly what you think it is – a set or portion of a set 3 songs or longer that reads the same forwards as it does backwards.
 					</Typography>
 
-					<Typography>Shows:</Typography>
+					<Typography variant="h3">Shows:</Typography>
 
 					<Typography variant="body1">
 						<Link component={RouterLink} to="/shows/1999-05-01-wetlands-preserve-new-york-ny">5/1/99</Link>: Overture > Basis for a Day > Vassillios > Basis for a Day > Overture<br/>
@@ -97,7 +97,7 @@ const Music: React.FC = () => {
 						essentially taking what they’ve written and reimagining it in a completely different genre.  It’s very common to see
 						 “Dub Dribble” or “Techno I-Man” on a setlist.
 					</Typography>
-					<Typography variant="h6">
+					<Typography variant="h3">
 						Dub [Song name]
 					</Typography>
 					<Typography variant="body1">
@@ -109,7 +109,7 @@ const Music: React.FC = () => {
 							<span> </span><Link component={RouterLink} to="/shows/2001-05-08-crystal-ballroom-portland-or">5/8/01</Link>,
 							<span> </span><Link component={RouterLink} to="/shows/2003-05-28-the-conduit-trenton-nj">5/28/03</Link>, etc.)
 					</Typography>
-					<Typography variant="h6">
+					<Typography variant="h3">
 						Techno [Song Name]
 					</Typography>
 					<Typography variant="body1">
