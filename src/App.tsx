@@ -113,6 +113,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     drawerPaper: {
       width: drawerWidth,
+      zIndex: 1000
     },
     content: {
       flexGrow: 1,
