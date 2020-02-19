@@ -55,6 +55,9 @@ const Shows: React.FC = () => {
 	}
 
 	const handleSearchClick = () => {
+		if (search === "") {
+			return
+		}
 		setLoading(true)
 		const searchShows = async () => {
 			const data: AxiosResponse = await axios.get(`${process.env.REACT_APP_API_URL}/shows?search=${search}`)
