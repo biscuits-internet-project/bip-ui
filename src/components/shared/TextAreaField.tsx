@@ -12,14 +12,15 @@ const TextAreaField: React.FC<ITextAreaField> = ({label, name, value, rows}) => 
     const [field, meta, /*helpers*/] = useField({name,value})
     const fieldError = !!meta.error && meta.touched
     return (
-        <TextField 
-          id={label} 
-          label={label} 
-          {...field} 
+        <TextField
+          id={label}
+          label={label}
+          {...field}
           fullWidth
+          variant="outlined"
           multiline={true}
           rows={rows || 5}
-          error={fieldError} helperText={fieldError && meta.error} 
+          error={fieldError} helperText={fieldError && meta.error}
         />
     )
   }

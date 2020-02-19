@@ -222,7 +222,7 @@ const App: React.FC = () => {
                         <MenuIcon />
                       </IconButton>
                       <Typography variant="h5" className={classes.navHeaderDisplay}>
-                        Biscuits Internet Project
+                        Biscuits Internet Project 2.0
                       </Typography>
                     </Grid>
                     <Grid item>
