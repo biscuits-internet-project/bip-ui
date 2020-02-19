@@ -66,9 +66,8 @@ const Shows: React.FC = () => {
 	useEffect(() => {
 		setLoading(true)
 		const fetchSetlists = async () => {
-			const data: AxiosResponse = await axios.get(`${process.env.REACT_APP_API_URL}/shows?year=${params.year}`)
+			const data: AxiosResponse = await axios.get(`${process.env.REACT_APP_API_URL}/shows?year=${selectedYear}`)
 			setSetlists(data.data)
-			setSelectedYear(params.year)
 			setLoading(false)
 		}
 		fetchSetlists()
