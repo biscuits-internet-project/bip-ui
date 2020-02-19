@@ -13,7 +13,7 @@ export interface IShow {
 	slug: string
 	notes: string
 	date: string
-	youtube_id: string
+	youtube_ids: string[]
 	relisten_url: string
 	likes_count: number
 	venue: { id: string, slug: string, name: string, city: string, state: string }
@@ -111,52 +111,50 @@ const Shows: React.FC = () => {
 						</CardContent>
 					</Card>
 				</div>
-				<div>
-					{show.youtube_id &&
-
-					<div
-						className="video"
-						style={{
-							position: "relative",
-							paddingBottom: "56.25%" /* 16:9 */,
-							paddingTop: 25,
-							height: 0,
-							marginTop: 30
-						}}
-					>
-					<iframe
-						title={show.date}
-						style={{
-						position: "absolute",
-						top: 0,
-						left: 0,
-						width: "100%",
-						height: "100%"
-						}}
-						src={`https://www.youtube.com/embed/${show.youtube_id}`}
-						frameBorder="0"
-					/>
-					</div>
-
-					}
-				</div>
+				{show.youtube_ids.map((id) => {
+					return (
+						<div
+							className="video"
+							style={{
+								position: "relative",
+								paddingBottom: "56.25%" /* 16:9 */,
+								paddingTop: 25,
+								height: 0,
+								marginTop: 30
+							}}
+						>
+							<iframe
+								title={show.date}
+								style={{
+								position: "absolute",
+								top: 0,
+								left: 0,
+								width: "100%",
+								height: "100%"
+								}}
+								src={`https://www.youtube.com/embed/${id}`}
+								frameBorder="0"
+							/>
+						</div>
+					)
+				})}
 				<div style={{height: 30}}></div>
 				<div>
-				<Gallery photos={photos} onClick={openLightbox} />
-				<ModalGateway>
-					{viewerIsOpen ? (
-					<Modal onClose={closeLightbox}>
-						<Carousel
-						currentIndex={currentImage}
-						views={photos.map(x => ({
-							...x,
-							srcset: x.srcSet,
-							caption: x.title
-						}))}
-						/>
-					</Modal>
-					) : null}
-				</ModalGateway>
+					<Gallery photos={photos} onClick={openLightbox} />
+					<ModalGateway>
+						{viewerIsOpen ? (
+						<Modal onClose={closeLightbox}>
+							<Carousel
+							currentIndex={currentImage}
+							views={photos.map(x => ({
+								...x,
+								srcset: x.srcSet,
+								caption: x.title
+							}))}
+							/>
+						</Modal>
+						) : null}
+					</ModalGateway>
 				</div>
 			</>
 			}
