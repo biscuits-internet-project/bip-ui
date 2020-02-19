@@ -4,7 +4,7 @@ import { Form, Formik, FormikProps} from 'formik'
 import axios, { AxiosResponse } from 'axios'
 import TextField from './shared/TextField'
 import * as Yup from 'yup';
-import { Typography } from '@material-ui/core';
+import { Typography, Button } from '@material-ui/core';
 
 const ResetPasswordSchema = Yup.object().shape({
   password: Yup.string()
@@ -31,7 +31,7 @@ const postResetPassword = async (values: IResetPassword, token: string, setError
         url: `https://stg-api.discobiscuits.net/api/auth/password/update/${token}`,
         data: values,
         headers: {
-            "Content-Type":	"application/json", 
+            "Content-Type":	"application/json",
         }
     });
     setSuccess(true)
@@ -64,7 +64,7 @@ const ResetPassword: React.FC = () => {
                   {error && <Typography color="error" variant="h6">{error}</Typography>}
                   <TextField name="password" type="password" label="Password" />
                   <TextField name="password_confirmation" type="password" label="Password confirm" />
-                  <button type="submit">Submit</button>
+                  <Button variant="contained" type="submit">Submit</Button>
                 </Form>
               )}
             </Formik>

@@ -52,8 +52,9 @@ const Songs: React.FC = () => {
 		{
 			name: "Original",
 			options: {
+				display: false,
 				filter: true,
-				sort: true,
+				sort: false,
 				searchable: false
 			},
 		},

@@ -88,7 +88,7 @@ const Register: React.FC = () => {
 
                   <ReCaptcha></ReCaptcha>
 
-                  <Button variant="contained">Submit</Button>
+                  <Button variant="contained" type="submit">Submit</Button>
                 </Form>
               )}
             </Formik>)}
