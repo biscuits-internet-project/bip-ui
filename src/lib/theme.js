@@ -9,6 +9,9 @@ const baseTheme = {
     h4: { margin: 0, padding: 0 },
     h5: { margin: 0, padding: 0 },
     h6: { margin: 0, padding: 0 },
+    body1: {
+      paddingBottom: 15
+    }
   },
 }
 
