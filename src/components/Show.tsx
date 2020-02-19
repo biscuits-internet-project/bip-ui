@@ -71,7 +71,6 @@ const Shows: React.FC = () => {
 					height: obj.height
 				}
 			});
-			console.log(imgs)
 			setPhotos(imgs)
 		}
 		const fetchShow = async () => {
