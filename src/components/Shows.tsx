@@ -38,14 +38,9 @@ const Shows: React.FC = () => {
 			<Helmet>
 				<title>Biscuits Internet Project - Shows</title>
 			</Helmet>
-			<Grid container>
-				<Grid item xs={8}>
-					<PageHeading text="Shows" />
-				</Grid>
-				<Grid item container xs={4} justify="flex-end">
-					<ShowSearch setSetlists={setSetlists} setLoading={setLoading}></ShowSearch>
-				</Grid>
-			</Grid>
+			<PageHeading text="Shows" />
+			<ShowSearch setSetlists={setSetlists} setLoading={setLoading}></ShowSearch>
+
 			{years.map((year) => {
 				return (
 					<Button key={year} onClick={() => changeYear(year)} style={{display: "inline", marginRight: 6}}>
@@ -53,7 +48,7 @@ const Shows: React.FC = () => {
 					</Button>
 				)
 			})}
-			<div style={{ height: 30 }}></div>
+			<div style={{ height: 20 }}></div>
 
 			{loading &&
 				<>

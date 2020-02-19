@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core';
 const useStyles = makeStyles({
     heading:{
         fontSize: 26,
-        marginBottom: 30,
+        marginBottom: 20,
     }
 });
 

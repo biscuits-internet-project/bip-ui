@@ -14,14 +14,14 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       padding: '2px 4px',
       display: 'flex',
-      height: 40
+      height: 40,
+      marginBottom: 20
     },
     input: {
       marginTop: 13,
       marginLeft: theme.spacing(1),
       fontSize: 15,
       flex: 1,
-      width: 300
     },
     iconButton: {
       padding: 0,
@@ -59,9 +59,10 @@ const ShowSearch: React.FC<ISearch> = ({setSetlists, setLoading}) => {
     <Paper className={classes.root}>
       <InputBase
         className={classes.input}
-        placeholder="Search"
+        placeholder="Search by date, venue, city, state, song, photos, youtube, relisten..."
         onKeyDown={handleSearchKeyDown}
         onChange={handleSearchChange}
+        fullWidth={true}
         inputProps={{ 'aria-label': 'search' }}
       />
       <IconButton onClick={handleSearchClick} className={classes.iconButton} aria-label="search">

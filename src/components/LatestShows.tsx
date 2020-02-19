@@ -3,7 +3,7 @@ import axios, { AxiosResponse } from 'axios'
 import {ISetlist} from './Setlist';
 import Setlist from './Setlist';
 import PageHeading from './shared/PageHeading';
-import { Grid, LinearProgress } from '@material-ui/core';
+import { Grid, LinearProgress, Typography, Link } from '@material-ui/core';
 import ShowSearch from './shared/ShowSearch';
 
 const LatestShows: React.FC = () => {
@@ -19,14 +19,14 @@ const LatestShows: React.FC = () => {
 	},[])
 	return (
 		<div>
-			<Grid container style={{marginBottom: 10}}>
-				<Grid item md={4}>
-					<PageHeading text="Latest Shows"/>
-				</Grid>
-				<Grid item container md={8} justify="flex-end">
-					<ShowSearch setSetlists={setSetlists} setLoading={setLoading}></ShowSearch>
-				</Grid>
-			</Grid>
+			<Typography variant="body1" style={{fontSize: 16 }}>
+				Welcome to the Biscuits Internet Project 2.0 - more content than ever before
+				 in a easily searchable format. Go ahead...search for something!
+				 &nbsp;
+				 This is just the beginning – follow us at <span> </span>
+				<Link href="https://twitter.com/tdbdotnet" target="blank">@tdbdotnet</Link> for updates on new content and features!
+			</Typography>
+			<ShowSearch setSetlists={setSetlists} setLoading={setLoading}></ShowSearch>
 			{loading &&
 				<>
 					<div style={{ height: 30 }}></div>

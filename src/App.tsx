@@ -121,7 +121,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     toolbar: {
       ...theme.mixins.toolbar,
-      marginBottom: 30,
+      marginBottom: 15,
     },
     navHeaderDisplay: {
       fontFamily: '"Orbitron", sans-serif',
