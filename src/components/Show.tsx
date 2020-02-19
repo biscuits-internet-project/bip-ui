@@ -44,13 +44,11 @@ const Shows: React.FC = () => {
 		setViewerIsOpen(false);
 	};
 
-	const [loading, setLoading] = useState(false)
 	const [show, setShow] = useState<IShow | undefined>(undefined)
 	const [photos, setPhotos] = useState<IImage[]>([])
 	const params = useParams();
 
 	useEffect(()=> {
-		setLoading(true)
 		const fetchPhotos = async () => {
 			const data:AxiosResponse = await axios.get(`${process.env.REACT_APP_API_URL}/shows/${params.id}/photos`)
 			const imgs: IImage[] = data.data.map(obj => {
@@ -67,7 +65,6 @@ const Shows: React.FC = () => {
 		const fetchShow = async () => {
 			const data:AxiosResponse = await axios.get(`${process.env.REACT_APP_API_URL}/shows/${params.id}`)
 			setShow(data.data)
-			setLoading(false)
 		}
 		fetchPhotos()
 		fetchShow()
@@ -87,7 +84,6 @@ const Shows: React.FC = () => {
 						<span> at {show.venue.name} - {show.venue.city}, {show.venue.state}</span>
 					</>
 				} />
-				{loading && <h3>.....Loading</h3>}
 				<div>
 					{/* <div>{show.likes_count} likes </div> */}
 					{show.notes &&

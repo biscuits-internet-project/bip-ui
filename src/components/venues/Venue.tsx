@@ -4,7 +4,7 @@ import axios, { AxiosResponse } from 'axios'
 import { Helmet } from "react-helmet";
 import Setlist, { ISetlist } from './../Setlist';
 import { IShow } from './../Show';
-import { TableContainer, Paper, Table, TableRow, TableCell, Link, Dialog, DialogTitle, DialogContent, Grid, Button } from '@material-ui/core';
+import { LinearProgress, TableContainer, Paper, Table, TableRow, TableCell, Link, Dialog, DialogTitle, DialogContent, Grid, Button } from '@material-ui/core';
 import Moment from 'react-moment';
 import PageHeading from './../shared/PageHeading';
 import VenueForm from './VenueForm';
@@ -65,7 +65,6 @@ const Venue: React.FC = () => {
 	}, [params.id])
 	return (
 		<>
-			{loading && <h3>.....Loading</h3>}
 			{venue &&
 				<>
 					<Helmet>
@@ -165,6 +164,14 @@ const Venue: React.FC = () => {
 							<Setlist date={show.date} slug={show.slug} venue={show.venue} tracks={show.tracks} notes={show.notes} />
 						)
 					})}
+
+					{loading &&
+						<>
+							<div style={{ height: 30 }}></div>
+							<LinearProgress />
+							<div style={{ height: 30 }}></div>
+						</>
+					}
 				</>
 			}
 		</>

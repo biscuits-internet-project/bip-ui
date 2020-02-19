@@ -14,11 +14,9 @@ interface ITourDate {
 }
 
 const Tour: React.FC = () => {
-	const [loading, setLoading] = useState(false)
 	const [tourDates, setTourDates] = useState<ITourDate[]>([])
 
 	useEffect(() => {
-		setLoading(true)
 		const fetchTourDates = async () => {
 			const data: AxiosResponse = await axios.get('https://cdn.seated.com/api/tour/261deef5-93c4-4d64-8582-dff697ce4644?include=tour-events')
 			const dates: ITourDate[] = data.data.included.map(obj => {
@@ -35,7 +33,6 @@ const Tour: React.FC = () => {
 
 			dates.sort((a, b) => a.date < b.date ? -1 : a.date > b.date ? 1 : 0)
 			setTourDates(dates)
-			setLoading(false)
 		}
 		fetchTourDates()
 	}, [])
@@ -45,7 +42,6 @@ const Tour: React.FC = () => {
 				<title>Biscuits Internet Project - Tour Dates</title>
 			</Helmet>
 			<PageHeading text="Tour Dates"/>
-			{loading && <h3>.....Loading</h3>}
 			<TableContainer component={Paper}>
 				<Table>
 					<TableHead>
