@@ -34,7 +34,13 @@ const SideProjects: React.FC = () => {
 							<Card style={{display: 'flex', width: "100%"}}>
 								<CardContent>
 									<Typography variant="h3">{sp.name}</Typography>
-									<Typography>{sp.dates}</Typography>
+									<Typography>
+										{sp.dates.split(",").map((item) => {
+											return (
+												<span key={item} style={{paddingRight: 6}}>{item}</span>
+											)
+										})}
+									</Typography>
 									{sp.members.map((mem) => {
 											return <div key={mem}> {mem}</div>
 									})}
