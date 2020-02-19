@@ -17,7 +17,7 @@ import Venues from './components/venues/Venues';
 import Venue from './components/venues/Venue';
 import Register from './components/Register';
 import Tour from './components/Tour';
-import Resources from './components/Resources';
+import Resources from './components/resources/Resources';
 import About from './components/About';
 import Contact from './components/Contact';
 import ResetPassword from './components/ResetPassword';

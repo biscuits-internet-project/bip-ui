@@ -1,8 +1,8 @@
 import React from 'react';
 import { Helmet } from "react-helmet";
 import { Grid } from '@material-ui/core';
-import ResourceCard from './shared/ResourceCard';
-import PageHeading from './shared/PageHeading';
+import ResourceCard from './ResourceCard';
+import PageHeading from '../shared/PageHeading';
 
 const Resources: React.FC = () => {
 	return (
