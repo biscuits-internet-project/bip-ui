@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import { Link as RouterLink } from 'react-router-dom'
 import axios, { AxiosResponse } from 'axios'
 import { Helmet } from "react-helmet";
@@ -7,10 +7,14 @@ import MUIDataTable from "mui-datatables";
 import PageHeading from '../shared/PageHeading';
 import SongForm from './SongForm'
 import { ISong } from './Song'
+import { AppContext } from '../../context/AppProvider'
 
 const Songs: React.FC = () => {
 	const [songs, setSongs] = useState<ISong[]>([])
 	const [formOpen, setFormOpen] = useState(false)
+	const { state } = useContext(AppContext)
+	const { roles } = state
+	const admin = roles.includes('admin')
 
 	useEffect(()=> {
 		const fetchSongs = async () => {
@@ -129,9 +133,11 @@ const Songs: React.FC = () => {
 					<PageHeading text="Songs"/>
 				</Grid>
 				<Grid item>
-					<div style={{alignContent: "right"}}>
-						<Button onClick={() =>handleOpen()}>Add Song</Button>
-					</div>
+					{ admin &&
+						<div style={{alignContent: "right"}}>
+							<Button onClick={() =>handleOpen()}>Add Song</Button>
+						</div>
+					}
 				</Grid>
 			</Grid>
 			<MUIDataTable

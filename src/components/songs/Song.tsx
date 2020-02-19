@@ -70,6 +70,8 @@ const Song: React.FC = () => {
 	const [formOpen, setFormOpen] = useState(false)
 	const { enqueueSnackbar } = useSnackbar()
 	const [songsPlayed, setSongsPlayed] = useState<ISongPlayed[]>([])
+	const { roles } = state
+	const admin = roles.includes('admin')
 
 	const handleOpen = (type: string, id: string) => {
 		setId(id)
@@ -117,6 +119,18 @@ const Song: React.FC = () => {
 					<Helmet>
 						<title>Biscuits Internet Project - {song.title}</title>
 					</Helmet>
+					<Grid container justify="space-between" >
+						<Grid item>
+							<PageHeading text={song.title} />
+						</Grid>
+						<Grid item>
+							{ admin &&
+								<div style={{alignContent: "right"}}>
+									<Button onClick={()=>handleOpen("form", song.id)}>Edit Song</Button>
+								</div>
+							}
+						</Grid>
+					</Grid>
 					<Dialog
 						open={formOpen}
 						onClose={() => handleClose('form')}
@@ -126,16 +140,6 @@ const Song: React.FC = () => {
 							<SongForm setSongs={setSongs} songs={songs} id={song.id} handleClose={() => handleClose('form')} />
 						</DialogContent>
 					</Dialog>
-					<Grid container justify="space-between" >
-						<Grid item>
-							<PageHeading text={song.title} />
-						</Grid>
-						<Grid item>
-							<div style={{alignContent: "right"}}>
-								<Button onClick={()=>handleOpen("form", song.id)}>Edit Song</Button>
-							</div>
-						</Grid>
-					</Grid>
 
 					{song.featured_lyric &&
 						<>

@@ -4,7 +4,7 @@ import axios, { AxiosResponse } from 'axios'
 import { ISetlist } from './Setlist';
 import Setlist from './Setlist';
 import { Helmet } from "react-helmet"
-import { FormControl, InputLabel, Select, MenuItem, Grid } from '@material-ui/core';
+import { FormControl, InputLabel, Select, MenuItem, Grid, Menu, Button, Fade } from '@material-ui/core';
 import PageHeading from './shared/PageHeading';
 
 const Shows: React.FC = () => {
@@ -17,7 +17,17 @@ const Shows: React.FC = () => {
 	const years = Array(currentYear - 1995 + 1).fill(0).map((_, idx) => 1995 + idx)
 	const history = useHistory()
 
+	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+	const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+		setAnchorEl(event.currentTarget);
+	};
+
+	const handleClose = () => {
+		setAnchorEl(null);
+	};
+
 	const changeYear = (e) => {
+		setAnchorEl(null);
 		setSelectedYear(e.target.value)
 		history.push(`/shows?year=${e.target.value}`)
 	}
@@ -43,19 +53,24 @@ const Shows: React.FC = () => {
 					</Grid>
 					<Grid item xs={6}>
 						<FormControl>
-							<InputLabel id="yearLabel">Year</InputLabel>
-							<Select
-								labelId="yearYear"
-								id="year"
-								value={selectedYear}
-								onChange={changeYear}
-							>
+							<Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+								Select Year
+							</Button>
+							<Menu
+									id="simple-menu"
+									anchorEl={anchorEl}
+									keepMounted
+									open={Boolean(anchorEl)}
+									onClose={handleClose}
+									TransitionComponent={Fade}
+								>
+
 								{years.map((year) => {
 									return (
-										<MenuItem value={year} selected={selectedYear === year}>{year}</MenuItem>
+										<MenuItem value={year} onClick={changeYear} selected={selectedYear === year}> {year} </MenuItem>
 									)
 								})}
-							</Select>
+							</Menu>
 						</FormControl>
 					</Grid>
 				</Grid>
