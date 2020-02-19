@@ -61,6 +61,30 @@ const Resources: React.FC = () => {
 					  url="/resources/chemical-warfare-brigade"
 					></ResourceCard>
 				</Grid>
+				<Grid item xs={12} sm={6} md={4} style={{display: 'flex', height: "auto"}}>
+					<ResourceCard
+					  title="Live Improv Film Scores"
+					  content="blurb"
+					  image="/akira.jpg"
+					  url="/resources/films"
+					></ResourceCard>
+				</Grid>
+				<Grid item xs={12} sm={6} md={4} style={{display: 'flex', height: "auto"}}>
+					<ResourceCard
+					  title="Lighting"
+					  content="blurb"
+					  image="/lighting.jpg"
+					  url="/resources/lighting"
+					></ResourceCard>
+				</Grid>
+				<Grid item xs={12} sm={6} md={4} style={{display: 'flex', height: "auto"}}>
+					<ResourceCard
+					  title="Sound"
+					  content="blurb"
+					  image="/board.jpg"
+					  url="/resources/sound"
+					></ResourceCard>
+				</Grid>
 			</Grid>
 
 		</>
