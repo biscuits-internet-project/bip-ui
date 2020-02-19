@@ -18,6 +18,14 @@ const useStyles = makeStyles((theme: Theme) =>
 		root: {
 			marginBottom: 20,
 		},
+		title: {
+			fontSize: 22,
+		},
+		subheader: {
+			fontSize: 18,
+			paddingBottom: 0,
+			marginBottom: 0
+		},
 		media: {
 			height: 0,
 			paddingTop: '56.25%', // 16:9
@@ -31,6 +39,10 @@ const Setlist: React.FC<ISetlist> = ({ date, slug, venue, tracks, notes }) => {
 	return (
 		<Card className={classes.root}>
 			<CardHeader
+				classes={{
+					title: classes.title,
+					subheader: classes.subheader,
+				}}
 				title = {
 					<Link component={RouterLink} to={`/shows/${slug}`}>
 						<Moment format="MMMM D, YYYY">

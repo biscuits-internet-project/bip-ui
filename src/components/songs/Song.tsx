@@ -26,7 +26,8 @@ export interface ISong {
 	first_played_show?: IShow,
 	last_played_show?: IShow,
 	history?: string,
-	featured_lyric?: string
+	featured_lyric?: string,
+	date_last_played?: Date
 }
 
 interface ISongPlayed {

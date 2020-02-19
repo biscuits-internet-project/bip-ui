@@ -224,7 +224,7 @@ const App: React.FC = () => {
   return (
     <React.Fragment>
         <Router>
-          <ThemeProvider theme={theme}>
+          <ThemeProvider theme={darkTheme}>
             <SnackbarProvider
               anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
               maxSnack={3}

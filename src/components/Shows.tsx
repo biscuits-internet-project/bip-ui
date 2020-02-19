@@ -57,14 +57,13 @@ const Shows: React.FC = () => {
 								Select Year
 							</Button>
 							<Menu
-									id="simple-menu"
-									anchorEl={anchorEl}
-									keepMounted
-									open={Boolean(anchorEl)}
-									onClose={handleClose}
-									TransitionComponent={Fade}
-								>
-
+								id="simple-menu"
+								anchorEl={anchorEl}
+								keepMounted
+								open={Boolean(anchorEl)}
+								onClose={handleClose}
+								TransitionComponent={Fade}
+							>
 								{years.map((year) => {
 									return (
 										<MenuItem value={year} onClick={changeYear} selected={selectedYear === year}> {year} </MenuItem>
