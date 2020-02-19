@@ -19,7 +19,7 @@ const LatestShows: React.FC = () => {
 	},[])
 	return (
 		<div>
-			<Typography variant="body1" style={{fontSize: 16 }}>
+			<Typography variant="body1" style={{fontSize: 16, marginBottom: 10 }}>
 				Welcome to the Biscuits Internet Project 2.0 - more content than ever before
 				 in a easily searchable format. Go ahead...search for something!
 				 &nbsp;
