@@ -30,10 +30,11 @@ import { QueueMusic, Home, Room, CardTravel, Info, Album } from '@material-ui/ic
 import Profile from './components/Profile';
 import HotAirBalloon from './components/resources/HotAirBalloon';
 import Gear from './components/resources/Gear';
-import Music from './components/resources/Music';
 import ChemicalWarfareBrigade from './components/resources/ChemcialWarfareBrigade';
 import SideProjects from './components/resources/SideProjects';
 import { SnackbarProvider } from 'notistack';
+import './App.scss';
+import Music from './components/resources/Music';
 
 interface sideMenuItem {
   name: string | undefined,

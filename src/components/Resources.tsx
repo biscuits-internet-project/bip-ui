@@ -23,6 +23,22 @@ const Resources: React.FC = () => {
 				</Grid>
 				<Grid item xs={12} sm={6} md={4} style={{display: 'flex', height: "auto"}}>
 					<ResourceCard
+					  title="Lighting"
+					  content="blurb"
+					  image="/lighting.jpg"
+					  url="/resources/lighting"
+					></ResourceCard>
+				</Grid>
+				<Grid item xs={12} sm={6} md={4} style={{display: 'flex', height: "auto"}}>
+					<ResourceCard
+					  title="Sound"
+					  content="blurb"
+					  image="/sound.png"
+					  url="/resources/sound"
+					></ResourceCard>
+				</Grid>
+				<Grid item xs={12} sm={6} md={4} style={{display: 'flex', height: "auto"}}>
+					<ResourceCard
 					  title="Gear"
 					  content="Ever wondered what brand of delay pedal Aaron uses on his Roland JP8000?  Here is as much as we know about the band’s setup."
 					  image="/gear.jpg"
@@ -47,6 +63,14 @@ const Resources: React.FC = () => {
 				</Grid>
 				<Grid item xs={12} sm={6} md={4} style={{display: 'flex', height: "auto"}}>
 					<ResourceCard
+					  title="Live Improv Film Scores"
+					  content="blurb"
+					  image="/akira.jpg"
+					  url="/resources/films"
+					></ResourceCard>
+				</Grid>
+				<Grid item xs={12} sm={6} md={4} style={{display: 'flex', height: "auto"}}>
+					<ResourceCard
 					  title="The Hot Air Balloon"
 					  content="The band’s first full length rock opera, written by Jon Gutwillig and debuted at the band’s 1998 New Year’s Eve show at Silk City in Philadelphia."
 					  image="/hot-air-balloon.jpg"
@@ -61,6 +85,8 @@ const Resources: React.FC = () => {
 					  url="/resources/chemical-warfare-brigade"
 					></ResourceCard>
 				</Grid>
+
+
 			</Grid>
 
 		</>
