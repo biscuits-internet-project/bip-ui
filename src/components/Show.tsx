@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom';
 import axios, { AxiosResponse } from 'axios'
 import Tracklist, {ITrack} from './Tracklist';
 import { Helmet } from "react-helmet"
-import YouTube from 'react-youtube';
 import { Typography, Link, Card, CardContent } from '@material-ui/core';
 import Moment from 'react-moment';
 import PageHeading from './shared/PageHeading';
@@ -45,18 +44,10 @@ const Shows: React.FC = () => {
 		setViewerIsOpen(false);
 	};
 
-
 	const [loading, setLoading] = useState(false)
 	const [show, setShow] = useState<IShow | undefined>(undefined)
 	const [photos, setPhotos] = useState<IImage[]>([])
 	const params = useParams();
-	const youtubeOpts = {
-		height: '390',
-		width: '640',
-		playerVars: { // https://developers.google.com/youtube/player_parameters
-		  autoplay: 0
-		}
-	  };
 
 	useEffect(()=> {
 		setLoading(true)
@@ -122,10 +113,31 @@ const Shows: React.FC = () => {
 				</div>
 				<div>
 					{show.youtube_id &&
-						<YouTube
-							videoId={show.youtube_id}
-							opts={youtubeOpts}
-						/>
+
+					<div
+						className="video"
+						style={{
+							position: "relative",
+							paddingBottom: "56.25%" /* 16:9 */,
+							paddingTop: 25,
+							height: 0,
+							marginTop: 30
+						}}
+					>
+					<iframe
+						title={show.date}
+						style={{
+						position: "absolute",
+						top: 0,
+						left: 0,
+						width: "100%",
+						height: "100%"
+						}}
+						src={`https://www.youtube.com/embed/${show.youtube_id}`}
+						frameBorder="0"
+					/>
+					</div>
+
 					}
 				</div>
 				<div style={{height: 30}}></div>
