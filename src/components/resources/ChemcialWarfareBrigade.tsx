@@ -3,7 +3,7 @@ import { HashLink } from 'react-router-hash-link';
 import { Helmet } from "react-helmet";
 import PageHeading from '../shared/PageHeading';
 import { Link, Typography, ListItem, createStyles, Theme, makeStyles, Card, CardContent, CardHeader, Grid } from '@material-ui/core';
-import OperaMenuCard from '../shared/OperaMenuCard';
+import OperaMenuCard from './OperaMenuCard';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -422,11 +422,8 @@ const ChemicalWarfareBrigade: React.FC = () => {
 					<>
 						<div id={char.anchor}></div>
 						<Card>
-							<CardHeader title = {
-								<Typography variant="h3" className={classes.subheading}>{char.name}</Typography>
-							}
-							/>
 							<CardContent>
+								<Typography variant="h3" className={classes.subheading}>{char.name}</Typography>
 								<Typography>{char.copy}</Typography>
 							</CardContent>
 						</Card>
@@ -444,11 +441,8 @@ const ChemicalWarfareBrigade: React.FC = () => {
 					<>
 					<div id={act.anchor}></div>
 					<Card>
-						<CardHeader title = {
-							<Typography variant="h3" className={classes.subheading}>{act.name}</Typography>
-						}
-						/>
 						<CardContent>
+							<Typography variant="h3" className={classes.subheading}>{act.name}</Typography>
 							<Typography>{act.setting}</Typography>
 						</CardContent>
 					</Card>
@@ -466,11 +460,8 @@ const ChemicalWarfareBrigade: React.FC = () => {
 					<>
 					<div id={song.anchor}></div>
 					<Card>
-						<CardHeader title = {
-							<Typography variant="h3" className={classes.subheading}>{song.name}</Typography>
-						}
-						/>
 						<CardContent>
+							<Typography variant="h3" className={classes.subheading}>{song.name}</Typography>
 							<Typography className={classes.setting}>{song.setting}</Typography>
 							{song.lyrics && <blockquote><Typography variant="body2" className={classes.lyrics} dangerouslySetInnerHTML={{ __html: song.lyrics }} /></blockquote>}
 						</CardContent>

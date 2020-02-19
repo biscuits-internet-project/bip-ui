@@ -3,7 +3,7 @@ import { HashLink } from 'react-router-hash-link';
 import { Helmet } from "react-helmet";
 import PageHeading from '../shared/PageHeading';
 import { Link, Typography, ListItem, createStyles, Theme, makeStyles, Card, CardContent, CardHeader, Grid } from '@material-ui/core';
-import OperaMenuCard from '../shared/OperaMenuCard';
+import OperaMenuCard from './OperaMenuCard';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -404,11 +404,8 @@ at his last chance to fly
 					<>
 						<div id={char.anchor}></div>
 						<Card>
-							<CardHeader title = {
-								<Typography variant="h3" className={classes.subheading}>{char.name}</Typography>
-							}
-							/>
 							<CardContent>
+								<Typography variant="h3" className={classes.subheading}>{char.name}</Typography>
 								<Typography>{char.copy}</Typography>
 							</CardContent>
 						</Card>
@@ -426,11 +423,8 @@ at his last chance to fly
 					<>
 					<div id={act.anchor}></div>
 					<Card>
-						<CardHeader title = {
-							<Typography variant="h3" className={classes.subheading}>{act.name}</Typography>
-						}
-						/>
 						<CardContent>
+							<Typography variant="h3" className={classes.subheading}>{act.name}</Typography>
 							<Typography>{act.setting}</Typography>
 							{act.lyrics && <blockquote><Typography className={classes.lyrics} dangerouslySetInnerHTML={{ __html: act.lyrics }} /></blockquote>}
 						</CardContent>
@@ -449,11 +443,8 @@ at his last chance to fly
 					<>
 					<div id={act.anchor}></div>
 					<Card>
-						<CardHeader title = {
-							<Typography variant="h3" className={classes.subheading}>{act.name}</Typography>
-						}
-						/>
 						<CardContent>
+							<Typography variant="h3" className={classes.subheading}>{act.name}</Typography>
 							<Typography className={classes.setting}>{act.setting}</Typography>
 							{act.lyrics && <blockquote><Typography variant="body2" className={classes.lyrics} dangerouslySetInnerHTML={{ __html: act.lyrics }} /></blockquote>}
 						</CardContent>
