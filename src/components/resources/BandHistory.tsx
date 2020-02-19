@@ -1,43 +1,53 @@
 import React from 'react';
 import { Helmet } from "react-helmet";
 import PageHeading from '../shared/PageHeading';
-import { Card, CardHeader, Typography, CardContent, ListItem, List } from '@material-ui/core';
+import { Card, CardHeader, Typography, CardContent, ListItem, List, Link } from '@material-ui/core';
 
 const BandHistory: React.FC = () => {
 	const divider = (
 		<>
-			<div style={{height: 30}}></div>
+			<div style={{ height: 30 }}></div>
 		</>
 	)
+
+	const twitter = (url) => {
+		return (
+			<Link href={url} target="blank">
+				<img src="/twitter.png" alt="twitter" style={{ display: "inline-block", marginLeft: 10, paddingTop: 5 }}></img>
+			</Link>
+		)
+	}
+
 	return (
 		<>
 			<Helmet>
 				<title>Biscuits Internet Project - Band History</title>
 			</Helmet>
-			<PageHeading text="Band History"/>
+			<PageHeading text="Band History" />
 
 			<Card>
 				<CardHeader title={"Current Members"}>
 				</CardHeader>
 				<CardContent>
-						<List>
-							<ListItem>
-								Jon Gutwillig (Guitar)
-							</ListItem>
-							<ListItem>
+					<List>
+						<ListItem>
+							Jon Gutwillig (Guitar)
+								{twitter("https://twitter.com/BarberShreds")}
+						</ListItem>
+						<ListItem>
+							Marc Brownstein (Bass)
+								{twitter("https://twitter.com/Marc_Brownstein")}
+						</ListItem>
+						<ListItem>
+							Aron Magner (Keys)
+								{twitter("https://twitter.com/aronmagner")}
+						</ListItem>
+						<ListItem>
+							Allen Aucoin (Drums)
+								{twitter("https://twitter.com/DrFameus")}
+						</ListItem>
 
-						Marc Brownstein (Bass)
-							</ListItem>
-							<ListItem>
-
-						Aron Magner (Keys)
-							</ListItem>
-							<ListItem>
-
-						Allen Aucoin (Drums)
-							</ListItem>
-
-						</List>
+					</List>
 				</CardContent>
 			</Card>
 			{divider}
@@ -59,7 +69,16 @@ const BandHistory: React.FC = () => {
 			</Card>
 			{divider}
 			<Card>
-			<CardHeader title={"2000 – The Disco Triscuits and The Maui Project"} />
+				<CardHeader title={"1999"} />
+				<CardContent>
+					<Typography variant="body1">
+						BGOCK
+					</Typography>
+				</CardContent>
+			</Card>
+			{divider}
+			<Card>
+				<CardHeader title={"2000 – The Disco Triscuits and The Maui Project"} />
 				<CardContent>
 					<Typography variant="body1">
 						In January 2000 Marc announced via an Internet message board post that he had been asked to leave the band. Luckily, this hiatus was short-lived, and he rejoined the band in July of that same year.
@@ -74,7 +93,7 @@ const BandHistory: React.FC = () => {
 			</Card>
 			{divider}
 			<Card>
-			<CardHeader title={"2005 – The Doctor is Out.  Enter Batman."} />
+				<CardHeader title={"2005 – The Doctor is Out.  Enter Batman."} />
 				<CardContent>
 					<Typography variant="body1">
 						In 2005, after more than 10 years, Sam Altman left the band to pursue his dream of becoming a doctor.  His last official shows were 8/26/05 and 8/27/05 at Camp Bisco IV. To find a replacement, the band held a series of auditions culminating in a two-night, sold-out “drum off” at the Borgata in Atlantic City, won by Skydog Gypsy drummer, Allen Aucoin. In December of 2005, Allen was announced as the band’s new drummer.
