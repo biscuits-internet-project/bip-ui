@@ -96,14 +96,10 @@ const useStyles = makeStyles((theme: Theme) =>
       },
       minHeight: 80,
       backgroundImage: 'url("/bkgrnd-navbar.jpg")',
-      backgroundPosition: 'top center',
       backgroundRepeat: 'no-repeat',
-      backgroundAttachment: 'fixed',
-      backgroundSize: 'contain',
-      backgroundColor: '#303030',
-      [theme.breakpoints.up('md')]: {
-        backgroundPosition: 'top -110px center',
-      },
+      backgroundSize: 'container',
+      backgroundColor: '#000000',
+      backgroundPosition: 'top -110px center',
     },
     menuButton: {
       marginRight: theme.spacing(2),
@@ -127,19 +123,17 @@ const useStyles = makeStyles((theme: Theme) =>
       marginBottom: 30,
     },
     navHeaderDisplay: {
-      fontFamily: '"Saira Stencil One", sans-serif',
-      textTransform: 'uppercase',
+      fontFamily: '"Orbitron", sans-serif',
+      textTransform: 'lowercase',
+      fontWeight: "bold",
       'background-image': 'linear-gradient(#9ccaea, #e94abc)',
       '-webkit-background-clip': 'text',
       '-webkit-text-fill-color': 'transparent',
       [theme.breakpoints.down('sm')]: {
-        fontSize: `1.50rem`,
+        fontSize: `1.60rem`,
       },
       [theme.breakpoints.up('md')]: {
-        fontSize: `2.5rem`,
-      },
-      [theme.breakpoints.up('lg')]: {
-        fontSize: `3.5rem`,
+        fontSize: `2.8rem`,
       },
     },
     sidebarText: {
