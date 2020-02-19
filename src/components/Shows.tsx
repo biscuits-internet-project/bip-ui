@@ -19,7 +19,8 @@ const useStyles = makeStyles((theme: Theme) =>
 	  marginTop: 13,
 	  marginLeft: theme.spacing(1),
 	  fontSize: 15,
-      flex: 1,
+	  flex: 1,
+	  width: 300
     },
     iconButton: {
       padding: 0,
@@ -90,8 +91,8 @@ const Shows: React.FC = () => {
 						<InputBase
 							className={classes.input}
 							placeholder="Search"
-							onKeyDown={handleSearchKeyDown}
-							onChange={handleSearchChange}
+							// onKeyDown={handleSearchKeyDown}
+							// onChange={handleSearchChange}
 							inputProps={{ 'aria-label': 'search' }}
 						/>
 						<IconButton onClick={handleSearchClick} className={classes.iconButton} aria-label="search">

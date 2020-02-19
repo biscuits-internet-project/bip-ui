@@ -73,7 +73,7 @@ const itemList: sideMenuItem[] = [
   }
 ]
 
-const drawerWidth = 240;
+const drawerWidth = 190;
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -223,12 +223,12 @@ const App: React.FC = () => {
 
   return (
     <React.Fragment>
-        <Router>
-          <ThemeProvider theme={darkTheme}>
-            <SnackbarProvider
-              anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-              maxSnack={3}
-            >
+      <Router>
+        <ThemeProvider theme={darkTheme}>
+          <SnackbarProvider
+            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+            maxSnack={3}
+          >
             <Switch>
               <PrivateRoute path="/admin/:adminPage?" component={Admin} roles={roles} />
               <div className={classes.root}>
@@ -322,8 +322,8 @@ const App: React.FC = () => {
               </div>
             </Switch>
           </SnackbarProvider>
-          </ThemeProvider>
-        </Router>
+        </ThemeProvider>
+      </Router>
     </React.Fragment>
   )
 }

@@ -19,10 +19,15 @@ export interface IShow {
 	tracks: ITrack[]
 }
 
+interface IShowPhoto {
+  url: string
+}
+
 const Shows: React.FC = () => {
 
 	const [loading, setLoading] = useState(false)
 	const [show, setShow] = useState<IShow | undefined>(undefined)
+	const [photos, setPhotos] = useState<IShowPhoto[]>([])
 	const params = useParams();
 	const youtubeOpts = {
 		height: '390',
@@ -34,16 +39,20 @@ const Shows: React.FC = () => {
 
 	useEffect(()=> {
 		setLoading(true)
-		const fetchSetlist = async () => {
+		const fetchPhotos = async () => {
+			const data:AxiosResponse = await axios.get(`${process.env.REACT_APP_API_URL}/shows/${params.id}/photos`)
+			setPhotos(data.data)
+		}
+		const fetchShow = async () => {
 			const data:AxiosResponse = await axios.get(`${process.env.REACT_APP_API_URL}/shows/${params.id}`)
 			setShow(data.data)
 			setLoading(false)
 		}
-		fetchSetlist()
+		fetchPhotos()
+		fetchShow()
 	}, [params.id])
 	return (
 		<>
-			{loading && <h3>.....Loading</h3>}
 			{show &&
 			<>
 				<Helmet>
@@ -57,6 +66,7 @@ const Shows: React.FC = () => {
 						<span> at {show.venue.name} - {show.venue.city}, {show.venue.state}</span>
 					</>
 				} />
+				{loading && <h3>.....Loading</h3>}
 				<div>
 					{/* <div>{show.likes_count} likes </div> */}
 					{show.notes &&
@@ -87,6 +97,16 @@ const Shows: React.FC = () => {
 							opts={youtubeOpts}
 						/>
 					}
+				</div>
+				<div style={{height: 30}}></div>
+				<div>
+					{photos && photos.map((photo) => {
+						return (
+							<a href={photo.url}>
+								<img src={photo.url} width={100} height={100}/>
+							</a>
+						)
+					})}
 				</div>
 			</>
 			}
