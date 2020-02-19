@@ -2,8 +2,8 @@ import React, {useState, useEffect} from 'react';
 import { Link as RouterLink } from 'react-router-dom'
 import axios, { AxiosResponse } from 'axios'
 import { Helmet } from "react-helmet"
-import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, Link } from '@material-ui/core';
-			import MUIDataTable from "mui-datatables";
+import { Link } from '@material-ui/core';
+import MUIDataTable from "mui-datatables";
 
 export interface IVenue {
 	id?: string,
@@ -67,7 +67,12 @@ const Venues: React.FC = () => {
 				},
 			},
 			{
-				name: ""
+				name: "",
+				options: {
+					filter: false,
+					sort: false,
+					searchable: false,
+				},
 			},
 		];
 

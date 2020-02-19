@@ -2,7 +2,8 @@ import React, {useState, useEffect} from 'react';
 import { Link as RouterLink } from 'react-router-dom'
 import axios, { AxiosResponse } from 'axios'
 import { Helmet } from "react-helmet";
-import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, Link } from '@material-ui/core';
+import { Link } from '@material-ui/core';
+import MUIDataTable from "mui-datatables";
 
 export interface ISong {
 	id?: string,
@@ -31,6 +32,64 @@ const Songs: React.FC = () => {
 		}
 		fetchSongs()
 	},[])
+	const columns = [
+		{
+			name: "Title",
+			options: {
+				filter: false,
+				sort: true,
+				searchable: true
+			}
+		},
+		{
+			name: "Author",
+			options: {
+				filter: true,
+				sort: true,
+				searchable: true
+			},
+		},
+		{
+			name: "Original",
+			options: {
+				filter: true,
+				sort: true,
+				searchable: false
+			},
+		},
+		{
+			name: "Times Played",
+			options: {
+				filter: false,
+				sort: true,
+				searchable: true
+			},
+		},
+			{
+				name: "",
+				options: {
+					filter: false,
+					sort: false,
+					searchable: false,
+				},
+			},
+		];
+
+	const options = {
+		filterType: 'multiselect',
+		count: 2000,
+		pagination: false,
+		print: false,
+		download: false,
+		selectableRows: "none",
+		selectableRowsHeader: false,
+	};
+
+	const data = songs.map((s: ISong) => (
+		[ s.title, s.author_name, String(!s.cover) , s.times_played, <Link variant="button" component={RouterLink} to={`/songs/${s.slug}`}>View Details </Link>]
+	))
+
+
 	return (
 		<>
 			<Helmet>
@@ -38,30 +97,13 @@ const Songs: React.FC = () => {
 			</Helmet>
 			<h1>Songs</h1>
 			{loading && <h3>.....Loading</h3>}
-			<TableContainer component={Paper}>
-				<Table>
-					<TableHead>
-					<TableRow>
-						<TableCell>Title</TableCell>
-						<TableCell>Author</TableCell>
-						<TableCell>Times Played</TableCell>
-					</TableRow>
-					</TableHead>
-					<TableBody>
-						{songs.map((song: ISong) => (
-							<TableRow key={song.slug}>
-								<TableCell component="th" scope="row">
-									<Link component={RouterLink} to={`/songs/${song.slug}`}>
-										{song.title}
-									</Link>
-								</TableCell>
-								<TableCell>{song.author_name}</TableCell>
-								<TableCell>{song.times_played}</TableCell>
-							</TableRow>
-						))}
-					</TableBody>
-				</Table>
-			</TableContainer>
+
+
+			<MUIDataTable
+				data={data}
+				columns={columns}
+				options={options}
+			/>
 		</>
 	)
 }

@@ -20,10 +20,13 @@ const About: React.FC = () => {
 			<Typography>
 				We've rebuilt the entire site from the ground up.  Bigger, better, faster... and pretty much the same stuff as before.
 				Rest assured though, we'll be working hard to add more functionality as things move along.
-				Have suggestions for features?
+			</Typography>
+			<div style={{height: 20}}></div>
+			<Typography>
+				Have suggestions for features?  Find some bugs?
 				<span> </span>
 				<Link component={RouterLink} to="/contact">
-					Drop us a line.
+					Drop us a line!
 				</Link>
 			</Typography>
 
