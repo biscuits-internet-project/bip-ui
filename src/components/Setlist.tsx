@@ -59,7 +59,7 @@ const Setlist: React.FC<ISetlist> = ({ date, slug, venue, tracks, notes }) => {
 				}
 			/>
 			<CardContent style={{paddingTop: 0, paddingBottom: 0}}>
-				<Typography variant="body2" dangerouslySetInnerHTML={{ __html: notes }} />
+				{notes && <Typography variant="body2" dangerouslySetInnerHTML={{ __html: notes }} /> }
 				<Tracklist tracks={tracks}></Tracklist>
 			</CardContent>
 			<CardActions disableSpacing>

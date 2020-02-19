@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom'
 import { Typography, Link } from '@material-ui/core';
+import { v4 as uuidv4 } from 'uuid';
 
 export interface ITracklist {
 	tracks: ITrack[]
@@ -32,7 +33,6 @@ const Tracklist: React.FC<ITracklist> = ({ tracks }) => {
 				}
 			})
 		});
-		console.log(sets)
 		return sets;
 	}
 	let sets = orderTracks(tracks)
@@ -41,34 +41,31 @@ const Tracklist: React.FC<ITracklist> = ({ tracks }) => {
 		<div>
 			{Object.keys(sets).map((key, i) => {
 				return (
-					<Typography>
-						<div>
-							<span>{key} </span>
-							{sets[key].map((track: ITrack, index: number) => {
-								return (
-									<>
-										<Link component={RouterLink} to={`/songs/${track.song_slug}`}>{track.song_title}</Link>
-										{track.annotations.map((a, i) => {
-											return <sup key={i}> {annLookup[a]}</sup>
-										})}
-										{track.segue &&
-											<span> {track.segue} </span>
-										}
-										{track.segue === "" && sets[key].length > index + 1 &&
-											<span>, </span>
-										}
-									</>
-								)
-							})}
-						</div>
-						<div style={{ height: 10 }}></div>
+					<Typography key={uuidv4()}>
+						<span>{key} </span>
+						{sets[key].map((track: ITrack, index: number) => {
+							return (
+								<span key={uuidv4()}>
+									<Link component={RouterLink} to={`/songs/${track.song_slug}`}>{track.song_title}</Link>
+									{track.annotations.map((a, i) => {
+										return <sup key={i}> {annLookup[a]}</sup>
+									})}
+									{track.segue &&
+										<span> {track.segue} </span>
+									}
+									{track.segue === "" && sets[key].length > index + 1 &&
+										<span>, </span>
+									}
+								</span>
+							)
+						})}
 					</Typography>
 				)
 			})}
 
 			{annLookup && Object.keys(annLookup).map(function (key) {
 				return (
-					<em><span key={key}><strong>{annLookup[key]}</strong> {key} </span></em>
+					<em key={key}><span key={key}><strong>{annLookup[key]}</strong> {key} </span></em>
 				)
 			})}
 		</div>
