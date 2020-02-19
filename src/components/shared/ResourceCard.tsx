@@ -11,7 +11,7 @@ const useStyles = makeStyles({
     },
     media: {
       maxHeight: 250,
-      minHeight: 200
+      minHeight: 250
     }
 });
 
