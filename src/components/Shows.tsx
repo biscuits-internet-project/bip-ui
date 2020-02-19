@@ -91,8 +91,8 @@ const Shows: React.FC = () => {
 						<InputBase
 							className={classes.input}
 							placeholder="Search"
-							// onKeyDown={handleSearchKeyDown}
-							// onChange={handleSearchChange}
+							onKeyDown={handleSearchKeyDown}
+							onChange={handleSearchChange}
 							inputProps={{ 'aria-label': 'search' }}
 						/>
 						<IconButton onClick={handleSearchClick} className={classes.iconButton} aria-label="search">
