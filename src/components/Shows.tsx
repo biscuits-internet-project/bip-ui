@@ -42,6 +42,7 @@ const Shows: React.FC = () => {
 		setSetlists([])
 		history.push(`/shows/year/${year}`)
 		setSelectedYear(year)
+		setSearch("");
 	}
 
 	const handleSearchChange = (e) => {
