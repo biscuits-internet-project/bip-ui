@@ -82,7 +82,7 @@ const Music: React.FC = () => {
 				<CardContent>
 					<Typography variant="body1">
 						A song fakeout is when the band builds up the end of a jam exactly like they would for a given song, then instead of playing
-						 the actual song, they stop and start playing a different song all at once. For example, on
+						 the actual song, they stop and start playing a different song all at once. For example, on <span> </span>
 						 <Link component={RouterLink} to="/shows/1999-10-02-cafe-tomo-arcata-ca">10/02/1999</Link>, there is a Basis For a Day fakeout,
 						 with a fast techno jam in the same key as Basis like it was usually played in '99, then the band dropped into Above the Waves at the last second.
 					</Typography>

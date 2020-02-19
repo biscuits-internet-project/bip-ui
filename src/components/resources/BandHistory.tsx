@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 import { Helmet } from "react-helmet";
 import PageHeading from '../shared/PageHeading';
 import { Card, CardHeader, Typography, CardContent, ListItem, List, Link } from '@material-ui/core';
@@ -87,7 +88,9 @@ const BandHistory: React.FC = () => {
 						During this 6-month period, the remaining three members (Jon, Aron, and Sammy) played several shows as a trio, referred to as The Disco Triscuits (or just “Triscuits). Each member would take turns playing the bassline – sometimes Aron on keys, other times Sammy would pick up a bass guitar while friend and local musician DJ Mauricio would take over on edrums.  During this time, they also auditioned/jammed with other bass players at shows including Carol Wade, Clay Belknap, Bill Stites, Anthony Rogers-Wright, Rob Derhak, and Jordan Crisman.  Crisman played multiple shows with the band and was widely believed to be Marc’s replacement for a time.
 					</Typography>
 					<Typography variant="body1">
-						Meanwhile, Marc channeled his energy into writing a ton of new songs, and formed his own band, The Maui Project, which played one show on his birthday – 4/8/2000 – at the Wetlands in New York City. The Maui Project featured Marc on bass, Jamie Shields on keys, Max Delaney on guitar, Dave Hoffman on drums, Paulie Herron on percussion and DJ Stitch on the turntables. Maui Project songs are now staples of the Biscuits current repertoire, and include such fan favorites as Triumph, Home Again, Humuhumunukunukuapua'a, Grass is Green, and Kamaole Sands.
+						Meanwhile, Marc channeled his energy into writing a ton of new songs, and formed his own band, The Maui Project,
+						which played one show on his birthday – <span> </span>
+						<Link href="https://archive.org/details/maui2000-04-08.flac16" target="blank">4/8/2000</Link> – at the Wetlands in New York City. The Maui Project featured Marc on bass, Jamie Shields on keys, Max Delaney on guitar, Dave Hoffman on drums, Paulie Herron on percussion and DJ Stitch on the turntables. Maui Project songs are now staples of the Biscuits current repertoire, and include such fan favorites as Triumph, Home Again, Humuhumunukunukuapua'a, Grass is Green, and Kamaole Sands.
 					</Typography>
 				</CardContent>
 			</Card>
@@ -96,13 +99,29 @@ const BandHistory: React.FC = () => {
 				<CardHeader title={"2005 – The Doctor is Out.  Enter Batman."} />
 				<CardContent>
 					<Typography variant="body1">
-						In 2005, after more than 10 years, Sam Altman left the band to pursue his dream of becoming a doctor.  His last official shows were 8/26/05 and 8/27/05 at Camp Bisco IV. To find a replacement, the band held a series of auditions culminating in a two-night, sold-out “drum off” at the Borgata in Atlantic City, won by Skydog Gypsy drummer, Allen Aucoin. In December of 2005, Allen was announced as the band’s new drummer.
+						In 2005, after more than 10 years, Sam Altman left the band to pursue his dream of becoming a doctor.  His last official shows were
+						<span> </span>
+						<Link component={RouterLink} to="/shows/2005-08-26-skye-top-festival-grounds-van-etten-ny">8/26/05</Link>
+						<span> </span>
+						 and
+						<span> </span>
+						<Link component={RouterLink} to="/shows/2005-08-27-skye-top-festival-grounds-van-etten-ny">8/27/05</Link>
+						<span> </span>
+						  at Camp Bisco IV. To find a replacement, the band held a series of auditions culminating in a two-night, sold-out “drum off” at the Borgata in Atlantic City, won by Skydog Gypsy drummer, Allen Aucoin. In December of 2005, Allen was announced as the band’s new drummer.
 					</Typography>
 					<Typography variant="body1">
 						Allen attended Berklee College of Music in Boston, and began his musical career in education and composition, including teaching and writing for award-winning percussion ensembles.  In 1999 he formed Skydog Gypsy.
 					</Typography>
 					<Typography variant="body1">
 						In December of 2010, Allen was hospitalized after a serious asthma attack and was unable to perform at the first 3 shows of the band’s New Year’s Eve run. In his place, Lotus drummer Mike Greenfield, Pretty Lights drummer Adam Deitch, New Deal drummer Darren Shearer, and even original drummer Sam Altman took turns sitting in.
+					</Typography>
+				</CardContent>
+			</Card>
+			{divider}
+			<Card>
+				<CardHeader title={"2006-2009 Early Allen Years"} />
+				<CardContent>
+					<Typography variant="body1">
 					</Typography>
 				</CardContent>
 			</Card>
