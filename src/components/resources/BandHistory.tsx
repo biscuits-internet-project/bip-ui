@@ -113,7 +113,7 @@ const BandHistory: React.FC = () => {
 						Allen attended Berklee College of Music in Boston, and began his musical career in education and composition, including teaching and writing for award-winning percussion ensembles.  In 1999 he formed Skydog Gypsy.
 					</Typography>
 					<Typography variant="body1">
-						In December of 2010, Allen was hospitalized after a serious asthma attack and was unable to perform at the first 3 shows of the band’s New Year’s Eve run. In his place, Lotus drummer Mike Greenfield, Pretty Lights drummer Adam Deitch, New Deal drummer Darren Shearer, and even original drummer Sam Altman took turns sitting in.
+						In December of 2010, Allen was hospitalized after a serious asthma attack and was unable to perform at the first 3 shows of the band’s New Year’s Eve run. In his place, Lotus drummer Mike Greenfield, Johnny Rabb from BioDiesel, Pretty Lights drummer Adam Deitch, New Deal drummer Darren Shearer, and even original drummer Sam Altman took turns sitting in.
 					</Typography>
 				</CardContent>
 			</Card>

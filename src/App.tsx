@@ -24,6 +24,7 @@ import ResetPassword from './components/ResetPassword';
 import Login from './components/Login';
 import Admin from './components/Admin'
 import BandHistory from './components/resources/BandHistory'
+import MovieScores from './components/resources/MovieScores'
 import Toolbar from '@material-ui/core/Toolbar';
 import { Link, ListItem, ListItemIcon, ListItemText, List, IconButton, Typography, Drawer, AppBar, Hidden, Divider, Box } from '@material-ui/core';
 import { QueueMusic, Home, Room, CardTravel, Info, Album } from '@material-ui/icons';
@@ -133,6 +134,9 @@ const useStyles = makeStyles((theme: Theme) =>
         fontSize: `1.60rem`,
       },
       [theme.breakpoints.up('md')]: {
+        fontSize: `1.80rem`,
+      },
+      [theme.breakpoints.up('lg')]: {
         fontSize: `2.8rem`,
       },
     },
@@ -287,6 +291,7 @@ const App: React.FC = () => {
                   <Route path="/resources/chemical-warfare-brigade" exact component={ChemicalWarfareBrigade} />
                   <Route path="/resources/hot-air-balloon" exact component={HotAirBalloon} />
                   <Route path="/resources/side-projects" exact component={SideProjects} />
+                  <Route path="/resources/movie-scores" exact component={MovieScores} />
                   <Route path="/shows" exact component={Shows} />
                   <Route path="/shows/:id" exact component={Show} />
                   <Route path="/shows/year/:year" exact component={Shows} />

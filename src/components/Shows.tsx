@@ -83,10 +83,10 @@ const Shows: React.FC = () => {
 				<title>Biscuits Internet Project - Shows</title>
 			</Helmet>
 			<Grid container>
-				<Grid item xs={6}>
+				<Grid item xs={8}>
 					<PageHeading text="Shows" />
 				</Grid>
-				<Grid item container xs={6} justify="flex-end">
+				<Grid item container xs={4} justify="flex-end">
 					<Paper className={classes.root}>
 						<InputBase
 							className={classes.input}
