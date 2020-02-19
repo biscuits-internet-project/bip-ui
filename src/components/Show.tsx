@@ -4,10 +4,9 @@ import axios, { AxiosResponse } from 'axios'
 import Tracklist, {ITrack} from './Tracklist';
 import { Helmet } from "react-helmet"
 import YouTube from 'react-youtube';
-import { Typography, Link, Card, CardContent, GridList, GridListTile, makeStyles, Theme, createStyles } from '@material-ui/core';
+import { Typography, Link, Card, CardContent } from '@material-ui/core';
 import Moment from 'react-moment';
 import PageHeading from './shared/PageHeading';
-import ImageGallery from 'react-image-gallery';
 
 export interface IShow {
 	slug: string
@@ -20,36 +19,10 @@ export interface IShow {
 	tracks: ITrack[]
 }
 
-interface IShowPhoto {
-	url: string
-}
-
-interface IImage {
-	original: string
-	thumbnail: string
-}
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      display: 'flex',
-      flexWrap: 'wrap',
-      justifyContent: 'space-around',
-      overflow: 'hidden',
-      backgroundColor: theme.palette.background.paper,
-    },
-    gridList: {
-      width: 500,
-      height: 450,
-    },
-  }),
-);
-
 const Shows: React.FC = () => {
-	const classes = useStyles();
+
 	const [loading, setLoading] = useState(false)
 	const [show, setShow] = useState<IShow | undefined>(undefined)
-	const [images, setImages] = useState<IImage[]>([])
 	const params = useParams();
 	const youtubeOpts = {
 		height: '390',
@@ -61,23 +34,12 @@ const Shows: React.FC = () => {
 
 	useEffect(()=> {
 		setLoading(true)
-		const fetchPhotos = async () => {
-			const data:AxiosResponse = await axios.get(`${process.env.REACT_APP_API_URL}/shows/${params.id}/photos`)
-
-			var images = data.data.map(obj =>{
-				return { thumbnail: obj.url, original: obj.url }
-			 });
-
-			setImages(images)
-			setLoading(false)
-		}
 		const fetchSetlist = async () => {
 			const data:AxiosResponse = await axios.get(`${process.env.REACT_APP_API_URL}/shows/${params.id}`)
 			setShow(data.data)
 			setLoading(false)
 		}
 		fetchSetlist()
-		fetchPhotos()
 	}, [params.id])
 	return (
 		<>
@@ -118,11 +80,6 @@ const Shows: React.FC = () => {
 						</CardContent>
 					</Card>
 				</div>
-
-
-				<Typography>Photos</Typography>
-				<ImageGallery items={images} />;
-
 				<div>
 					{show.youtube_id &&
 						<YouTube
