@@ -15,7 +15,8 @@ export interface ISong {
 	slug?: string,
 	tabs?: string,
 	history?: string,
-	featured_lyric?: string
+	featured_lyric?: string,
+	times_played?: number
 }
 
 const Songs: React.FC = () => {
@@ -43,6 +44,7 @@ const Songs: React.FC = () => {
 					<TableRow>
 						<TableCell>Title</TableCell>
 						<TableCell>Author</TableCell>
+						<TableCell>Times Played</TableCell>
 					</TableRow>
 					</TableHead>
 					<TableBody>
@@ -54,6 +56,7 @@ const Songs: React.FC = () => {
 									</Link>
 								</TableCell>
 								<TableCell>{song.author_name}</TableCell>
+								<TableCell>{song.times_played}</TableCell>
 							</TableRow>
 						))}
 					</TableBody>

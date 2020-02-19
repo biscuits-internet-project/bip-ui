@@ -14,7 +14,8 @@ export interface IVenue {
 	phone?: string,
 	website?: string
 	street?: string,
-	country?: string
+	country?: string,
+	times_played?: number
 }
 
 const Venues: React.FC = () => {
@@ -44,6 +45,7 @@ const Venues: React.FC = () => {
 						<TableCell>Name</TableCell>
 						<TableCell>City</TableCell>
 						<TableCell>State</TableCell>
+						<TableCell>Times Played</TableCell>
 					</TableRow>
 					</TableHead>
 					<TableBody>
@@ -56,6 +58,7 @@ const Venues: React.FC = () => {
 								</TableCell>
 								<TableCell>{venue.city}</TableCell>
 								<TableCell>{venue.state}</TableCell>
+								<TableCell>{venue.times_played}</TableCell>
 							</TableRow>
 						))}
 					</TableBody>
