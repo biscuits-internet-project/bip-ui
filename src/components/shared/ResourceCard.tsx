@@ -7,7 +7,7 @@ import { makeStyles, CardActionArea, CardMedia, Link } from '@material-ui/core';
 
 const useStyles = makeStyles({
 	root: {
-      maxWidth: 450,
+      height: "auto"
     },
     media: {
       maxHeight: 250,
@@ -19,7 +19,7 @@ const ResourceCard = ({title, content, image, url}) => {
     const classes = useStyles()
     return (
         <Link underline="none" component={ResourceLink} to={url}>
-            <Card className={classes.root}>
+            <Card className={classes.root} style={{height: "100%"}}>
                 <CardActionArea>
                     <CardMedia
                         className={classes.media}
