@@ -33,7 +33,7 @@ const initialValues: IContact = {
 const postContact = async (values: IContact) => {
   const contactRequest: AxiosResponse = await axios({
     method: 'post',
-    url: 'https://stg-api.discobiscuits.net/api/contact',
+    url: `${process.env.REACT_APP_API_URL}/contact`,
     data: values,
     headers: {
       "Content-Type": "application/json",

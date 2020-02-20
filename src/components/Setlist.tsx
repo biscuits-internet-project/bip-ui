@@ -3,12 +3,9 @@ import { Link as RouterLink } from 'react-router-dom'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Tracklist, { ITrack } from './Tracklist';
 import Moment from 'react-moment';
-import { Typography, Paper, Link, Card, CardHeader, Avatar, IconButton, CardMedia, CardContent, CardActions, SvgIconProps, SvgIcon, FormControlLabel, Switch, Badge, Tooltip, Checkbox, Grid } from '@material-ui/core';
+import { Typography, Link, Card, CardHeader, IconButton, CardContent, CardActions } from '@material-ui/core';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import HeadsetIcon from '@material-ui/icons/Headset';
-import { red, green } from '@material-ui/core/colors';
-import ThumbUpIcon from '@material-ui/icons/ThumbUp';
-import ConfirmationNumberIcon from '@material-ui/icons/ConfirmationNumber';
 import EmojiTransportationIcon from '@material-ui/icons/EmojiTransportation';
 
 export interface ISetlist {

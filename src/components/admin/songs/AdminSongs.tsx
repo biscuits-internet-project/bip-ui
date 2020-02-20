@@ -33,10 +33,10 @@ const AdminSongs = () => {
 	const [deleteOpen, setDeleteOpen] = useState(false)
 	const [id, setId] = useState('')
 	const { enqueueSnackbar } = useSnackbar()
-	
+
 	useEffect(()=> {
 		const fetchSongs = async () => {
-			const data:AxiosResponse = await axios.get('https://stg-api.discobiscuits.net/api/songs')
+			const data:AxiosResponse = await axios.get(`${process.env.REACT_APP_API_URL}/songs`)
 			setSongs(data.data)
 		}
 		fetchSongs()
@@ -46,7 +46,7 @@ const AdminSongs = () => {
 		if(id) setId(id)
 		type === 'form' ? setFormOpen(true) : setDeleteOpen(true)
 	};
-	
+
 	const handleClose = (type :string) => {
 		type === 'form' ? setFormOpen(false) : setDeleteOpen(false)
 		setTimeout(()=>setId(''), 500)
@@ -55,7 +55,7 @@ const AdminSongs = () => {
 	const handleDelete = useCallback(async () => {
 		await axios({
 			method: 'delete',
-			url: `https://stg-api.discobiscuits.net/api/songs/${id}`,
+			url: `${process.env.REACT_APP_API_URL}/songs/${id}`,
 			headers: {
 				"Content-Type":	"application/json",
 				"Authorization": state.token
@@ -67,7 +67,7 @@ const AdminSongs = () => {
 	},[enqueueSnackbar, id, songs, state.token])
 
     return (
-        <>	
+        <>
 			<Grid container spacing={3} alignItems="center">
 				<Grid item  md={10}>
 					<Typography variant='h4'>Songs</Typography>
@@ -79,14 +79,14 @@ const AdminSongs = () => {
 				</Grid>
 			</Grid>
             <Grid container spacing={3}>
-				
+
                 <Grid item xs={12}>
                     <Card title="Song List">
                         <SongList songs={songs} handleOpen={(type: string, id?: string, )=>handleOpen(type, id)}/>
                     </Card>
                 </Grid>
-				
-			</Grid>   
+
+			</Grid>
 			<Dialog
 				open={formOpen}
 				onClose={() => handleClose('form')}
@@ -96,13 +96,13 @@ const AdminSongs = () => {
 					<SongForm setSongs={setSongs} songs={songs} id={id} handleClose={() => handleClose('form')}/>
 				</DialogContent>
 			</Dialog>
-			<DeleteConfirm 
-				songs={songs} 
-				handleClose={() => handleClose('delete')}  
-				deleteOpen={deleteOpen} id ={id} 
+			<DeleteConfirm
+				songs={songs}
+				handleClose={() => handleClose('delete')}
+				deleteOpen={deleteOpen} id ={id}
 				handleDelete={handleDelete}
 			/>
-		</> 
+		</>
 )
 }
 

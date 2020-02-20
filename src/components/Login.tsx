@@ -34,7 +34,7 @@ const postLogin = async (values: ILogin, actions: FormikHelpers<ILogin>, dispatc
     setLoading(true)
     const loginRequest: AxiosResponse = await axios({
       method: 'post',
-      url: 'https://stg-api.discobiscuits.net/api/auth/login',
+      url: `${process.env.REACT_APP_API_URL}/auth/login`,
       data: values,
       headers: {
         "Content-Type": "application/json",

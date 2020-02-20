@@ -26,7 +26,7 @@ const Venues: React.FC = () => {
 	useEffect(()=> {
 		setLoading(true)
 		const fetchVenues = async () => {
-			const data:AxiosResponse = await axios.get('https://stg-api.discobiscuits.net/api/venues')
+			const data:AxiosResponse = await axios.get(`${process.env.REACT_APP_API_URL}/venues`)
 			setVenues(data.data)
 			setLoading(false)
 		}

@@ -26,7 +26,7 @@ const Songs: React.FC = () => {
 	useEffect(()=> {
 		setLoading(true)
 		const fetchSongs = async () => {
-			const data:AxiosResponse = await axios.get('https://stg-api.discobiscuits.net/api/songs')
+			const data:AxiosResponse = await axios.get(`${process.env.REACT_APP_API_URL}/songs`)
 			setSongs(data.data)
 			setLoading(false)
 		}

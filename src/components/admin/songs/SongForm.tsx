@@ -57,7 +57,7 @@ const SongForm: React.FC<ISongForm> = ({setSongs, songs, id, handleClose}) => {
 
     useEffect(()=> {
       const fetchSong = async () => {
-        const data:AxiosResponse = await axios.get(`https://stg-api.discobiscuits.net/api/songs/${id}?edit=true`)
+        const data:AxiosResponse = await axios.get(`${process.env.REACT_APP_API_URL}/songs/${id}?edit=true`)
         const song:ISong = data.data
         setFormData(song)
         setDataLoaded(true)
@@ -71,7 +71,7 @@ const SongForm: React.FC<ISongForm> = ({setSongs, songs, id, handleClose}) => {
     },[id])
     useEffect(()=> {
       const fetchAuthors = async () => {
-        const data:AxiosResponse = await axios.get('https://stg-api.discobiscuits.net/api/authors')
+        const data:AxiosResponse = await axios.get(`${process.env.REACT_APP_API_URL}/authors`)
         const authors:IAuthorOption[] = data.data.map((author: IAuthor):IAuthorOption =>  {
           return {label: author.name, value: author.id, selected: false, author_id: author.author_id}
         })

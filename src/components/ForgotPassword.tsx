@@ -24,7 +24,7 @@ const postForgotPassword = async (values: IForgotPassword, setError, setSuccess)
     setError(null)
     const forgotPasswordRequest:AxiosResponse = await axios({
         method: 'post',
-        url: 'https://stg-api.discobiscuits.net/api/auth/password/reset',
+        url: `${process.env.REACT_APP_API_URL}/auth/password/reset`,
         data: values,
         headers: {
             "Content-Type":	"application/json",

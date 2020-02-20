@@ -78,7 +78,7 @@ const createData = (data: ISetlistForm) => {
   sets.forEach((set:ISet, setIndex:number) => {
     set.tracks.forEach((track: ITrack,index: number)=> {
       track.position = index + 1
-      track.set = `S${setIndex + 1}` 
+      track.set = `S${setIndex + 1}`
       track.segue = track.segue ? '>' : ''
       tracks = [...tracks, track]
     })
@@ -133,7 +133,7 @@ const AddShow:React.FC = () => {
           song: song
       }
     })
-  },[state.songs]) 
+  },[state.songs])
 
   const venueOptions: ISelectOption[] = useMemo(() => {
     return state.venues.map((venue): ISelectOption => {
@@ -144,7 +144,7 @@ const AddShow:React.FC = () => {
     })
   },[state.venues] )
 
-  
+
 
   const handleActiveSet = (val: number, setFieldValue: (field:string,val:number )=>void) => {
     setFieldValue('activeSet', val);
@@ -153,7 +153,7 @@ const AddShow:React.FC = () => {
     const data = createData(values)
     await axios({
         method: 'post',
-        url: 'https://stg-api.discobiscuits.net/api/shows',
+        url: `${process.env.REACT_APP_API_URL}/shows`,
         data,
         headers: {
             "Content-Type":	"application/json",
@@ -184,28 +184,28 @@ const AddShow:React.FC = () => {
             <Panel title="Show Information">
               <Grid container alignItems="center" spacing={4}>
                 <Grid item xs={2}>
-                  <TextField 
+                  <TextField
                       type="text"
                       name="date"
                       label="Date"
                   />
                 </Grid>
                 <Grid item xs={5}>
-                  <SelectField 
+                  <SelectField
                       options={venueOptions}
                       name="venue_id"
                       label="Venue"
                   />
                 </Grid>
                 <Grid item xs={5}>
-                  <TextField 
+                  <TextField
                       type="text"
                       name="notes"
                       label="Notes"
                   />
                 </Grid>
                 <Grid item xs={2}>
-                  <TextField 
+                  <TextField
                       type="text"
                       name="youtube_id"
                       label="Youtube ID"
@@ -214,7 +214,7 @@ const AddShow:React.FC = () => {
               </Grid>
             </Panel>
             <Panel title="Setlists">
-              
+
                 <FieldArray
                   name="sets"
                   render={(setArrayHelpers)=>(
@@ -224,12 +224,12 @@ const AddShow:React.FC = () => {
                             value={values.activeSet}
                             onChange={(evt,val) => handleActiveSet(val, setFieldValue)}
                             aria-label="nav tabs example"
-                          > 
+                          >
                             {values.sets.map((set, setIndex) => (
                               <Tab key={setIndex} label={`Set ${setIndex + 1 }`}  value={setIndex}/>
                             ))}
-                            
-                            
+
+
                           </Tabs>
                           <div style={{display: 'flex', alignItems: 'center'}}>
                             <Typography variant="h6">Add Set</Typography>
@@ -255,12 +255,12 @@ const AddShow:React.FC = () => {
                                 )}
                               />
                           </div>
-                      
-                      
+
+
                     </div>
                   )}
                 />
-                
+
                 <Button variant="contained" color="primary" type="submit">
                     Submit
                 </Button>

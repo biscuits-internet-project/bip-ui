@@ -17,7 +17,7 @@ const AdminShows = () => {
 	const [shows, setShows] = useState<IShow[]>([])
 	useEffect(()=> {
 		const fetchShows = async () => {
-			const data:AxiosResponse = await axios.get('https://stg-api.discobiscuits.net/api/shows?year=2020')
+			const data:AxiosResponse = await axios.get(`${process.env.REACT_APP_API_URL}/shows?year=2020`)
 			setShows(data.data)
 		}
 		fetchShows()
@@ -34,8 +34,8 @@ const AdminShows = () => {
                         <ShowList shows={shows}/>
                     </Panel>
                 </Grid>
-            </Grid>   
-        </> 
+            </Grid>
+        </>
     )
 }
 

@@ -43,7 +43,7 @@ const postRegister = async (values: IRegister, setError, setSuccess) => {
     setError(null)
     const registerRequest:AxiosResponse = await axios({
         method: 'post',
-        url: 'https://stg-api.discobiscuits.net/api/auth/register',
+        url: `${process.env.REACT_APP_API_URL}/auth/register`,
         data: values,
         headers: {
             "Content-Type":	"application/json",

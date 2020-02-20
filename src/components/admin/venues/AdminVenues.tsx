@@ -35,7 +35,7 @@ const AdminVenues = () => {
 
 	useEffect(()=> {
 		const fetchVenues = async () => {
-			const data:AxiosResponse = await axios.get('https://stg-api.discobiscuits.net/api/venues')
+			const data:AxiosResponse = await axios.get(`${process.env.REACT_APP_API_URL}/venues`)
 			setVenues(data.data)
 		}
 		fetchVenues()
@@ -54,7 +54,7 @@ const AdminVenues = () => {
 	const handleDelete = async (id?: string) => {
 		await axios({
 			method: 'delete',
-			url: `https://stg-api.discobiscuits.net/api/venues/${id}`,
+			url: `${process.env.REACT_APP_API_URL}/venues/${id}`,
 			headers: {
 				"Content-Type":	"application/json",
 				"Authorization": state.token

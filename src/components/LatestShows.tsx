@@ -11,7 +11,7 @@ const LatestShows: React.FC = () => {
 	useEffect(()=> {
 		setLoading(true)
 		const fetchSetlists = async () => {
-			const data:AxiosResponse = await axios.get('https://stg-api.discobiscuits.net/api/shows?last=5')
+			const data:AxiosResponse = await axios.get(`${process.env.REACT_APP_API_URL}/shows?last=5`)
 			setSetlists(data.data)
 			setLoading(false)
 		}

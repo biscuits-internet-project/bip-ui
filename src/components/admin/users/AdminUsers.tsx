@@ -35,7 +35,7 @@ const AdminUsers = () => {
 		const fetchUsers = async () => {
             const data:AxiosResponse = await axios({
                 method: 'get',
-                url: 'https://stg-api.discobiscuits.net/api/users',
+                url: `${process.env.REACT_APP_API_URL}/users`,
                 headers: {
                     "Content-Type":	"application/json",
                     "Authorization": state.token
