@@ -40,8 +40,8 @@ const VenueList:React.FC<IVenueList> = ({venues,handleOpen,handleDelete}) => {
                 {venue.state}
               </TableCell>
               <TableCell align='right'>
-                <CreateIcon color="secondary" style={{margin: "0px 8px", cursor: "pointer"}} fontSize="small" onClick={()=>handleOpen(venue.slug)}/>
-                <DeleteIcon color="secondary" style={{margin: "0px 8px", cursor: "pointer"}} fontSize="small" onClick={()=>handleDelete(venue.slug)}/>
+                <CreateIcon color="primary" style={{margin: "0px 8px", cursor: "pointer"}} fontSize="small" onClick={()=>handleOpen(venue.slug)}/>
+                <DeleteIcon color="primary" style={{margin: "0px 8px", cursor: "pointer"}} fontSize="small" onClick={()=>handleDelete(venue.slug)}/>
               </TableCell>
             </TableRow>
           ))}

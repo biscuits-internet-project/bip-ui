@@ -30,9 +30,9 @@ const DeleteConfirm:React.FC<IDeleteConfirm> = ({deleteOpen, handleClose, songs,
                         <>
                             <Typography>This will delete:</Typography>
                             <div style={{display: 'flex', margin: '8px 0px', alignItems: 'center'}}>
-                                <Typography color="secondary" variant="h6">{song.title}</Typography>
+                                <Typography color="primary" variant="h6">{song.title}</Typography>
                                 <span style={{margin: '0px 8px'}}>by</span>
-                                <Typography color="secondary" variant="h6">{song.author_name}</Typography>
+                                <Typography color="primary" variant="h6">{song.author_name}</Typography>
                             </div>
                         </>
                     )}
@@ -40,7 +40,7 @@ const DeleteConfirm:React.FC<IDeleteConfirm> = ({deleteOpen, handleClose, songs,
                 </>
             </DialogContent>
             <DialogActions>
-                <Button color="secondary" variant="contained" onClick={handleClose}>
+                <Button color="primary" variant="contained" onClick={handleClose}>
                     Cancel
                 </Button>
                 <Button variant="contained" color="primary" onClick={handleDelete}>

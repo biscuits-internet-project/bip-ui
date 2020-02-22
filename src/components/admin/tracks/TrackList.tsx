@@ -46,7 +46,7 @@ const TrackList:React.FC<ITrackList> = ({tracks,handleOpen}) => {
                 {track.note}
               </TableCell>
               <TableCell align='right'>
-                <CreateIcon color="secondary" style={{margin: "0px 8px", cursor: "pointer"}} fontSize="small" onClick={()=>handleOpen('form', track.slug, )}/>
+                <CreateIcon color="primary" style={{margin: "0px 8px", cursor: "pointer"}} fontSize="small" onClick={()=>handleOpen('form', track.slug, )}/>
               </TableCell>
             </TableRow>
           ))}

@@ -44,8 +44,8 @@ const UserList:React.FC<IUserList> = ({users,handleOpen,handleDelete}) => {
                 {user.last_name}
               </TableCell>
               <TableCell align='right'>
-                <CreateIcon color="secondary" style={{margin: "0px 8px", cursor: "pointer"}} fontSize="small" onClick={()=>handleOpen(user.id)}/>
-                <DeleteIcon color="secondary" style={{margin: "0px 8px", cursor: "pointer"}} fontSize="small" onClick={()=>handleDelete(user.id)}/>
+                <CreateIcon color="primary" style={{margin: "0px 8px", cursor: "pointer"}} fontSize="small" onClick={()=>handleOpen(user.id)}/>
+                <DeleteIcon color="primary" style={{margin: "0px 8px", cursor: "pointer"}} fontSize="small" onClick={()=>handleDelete(user.id)}/>
               </TableCell>
             </TableRow>
           ))}

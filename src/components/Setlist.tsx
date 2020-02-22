@@ -54,8 +54,7 @@ const Setlist: React.FC<ISetlist> = ({ date, slug, venue, tracks, notes }) => {
 				<Tracklist tracks={tracks}></Tracklist>
 			</CardContent>
 			<CardActions disableSpacing>
-
-				<IconButton aria-label="Favorite">
+				{/* <IconButton aria-label="Favorite">
 					<FavoriteIcon/>
 				</IconButton>
 
@@ -65,9 +64,7 @@ const Setlist: React.FC<ISetlist> = ({ date, slug, venue, tracks, notes }) => {
 
 				<IconButton aria-label="Relisten">
 					<HeadsetIcon />
-				</IconButton>
-
-
+				</IconButton> */}
 			</CardActions>
 		</Card>
 	)

@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme: Theme) =>
     heading: {
       fontSize: theme.typography.pxToRem(15),
       fontWeight: theme.typography.fontWeightRegular,
-    },
+	},
   }),
 );
 
@@ -186,9 +186,7 @@ const Song: React.FC = () => {
 									<Typography className={classes.heading}>History</Typography>
 								</ExpansionPanelSummary>
 								<ExpansionPanelDetails>
-									<Typography>
-										<div dangerouslySetInnerHTML={{__html: song.history}} />
-									</Typography>
+									<Typography dangerouslySetInnerHTML={{__html: song.history}} />
 								</ExpansionPanelDetails>
 							</ExpansionPanel>
 						}

@@ -40,15 +40,15 @@ const SongList:React.FC<ISongList> = ({songs,handleOpen}) => {
               </TableCell>
               <TableCell align='right'>
                 <Tooltip title="Edit" TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} >
-                  <CreateIcon color="secondary" style={{margin: "0px 8px", cursor: "pointer"}} fontSize="small" onClick={()=>handleOpen('form', song.slug, )}/>
+                  <CreateIcon color="primary" style={{margin: "0px 8px", cursor: "pointer"}} fontSize="small" onClick={()=>handleOpen('form', song.slug, )}/>
                 </Tooltip>
                 <Tooltip title="Tracks" TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} >
                   <Link component={RouterLink} to={`/admin/songs/${song.slug}/tracks`} >
-                    <LibraryMusic color="secondary" style={{margin: "0px 8px", cursor: "pointer"}} fontSize="small" />
+                    <LibraryMusic color="primary" style={{margin: "0px 8px", cursor: "pointer"}} fontSize="small" />
                   </Link>
                 </Tooltip>
                 <Tooltip title="Delete" TransitionComponent={Fade} TransitionProps={{ timeout: 600 }} >
-                  <DeleteIcon color="secondary" style={{margin: "0px 8px", cursor: "pointer"}} fontSize="small" onClick={()=>handleOpen('delete', song.slug, )}/>
+                  <DeleteIcon color="primary" style={{margin: "0px 8px", cursor: "pointer"}} fontSize="small" onClick={()=>handleOpen('delete', song.slug, )}/>
                 </Tooltip>
               </TableCell>
             </TableRow>

@@ -84,6 +84,7 @@ const Songs: React.FC = () => {
 		download: false,
 		selectableRows: "none",
 		selectableRowsHeader: false,
+		searchOpen: true
 	};
 
 	const data = songs.map((s: ISong) => (
