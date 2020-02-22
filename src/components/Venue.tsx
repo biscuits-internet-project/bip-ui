@@ -32,10 +32,10 @@ const Venue: React.FC = () => {
 	useEffect(()=> {
 		setLoading(true)
 		const fetchVenue = async () => {
-			const venue:AxiosResponse = await axios.get(`https://stg-api.discobiscuits.net/api/venues/${params.id}`)
+			const venue:AxiosResponse = await axios.get(`${process.env.REACT_APP_API_URL}/venues/${params.id}`)
 			setVenue(venue.data)
 
-			const shows:AxiosResponse = await axios.get(`https://stg-api.discobiscuits.net/api/shows?venue=${params.id}`)
+			const shows:AxiosResponse = await axios.get(`${process.env.REACT_APP_API_URL}/shows?venue=${params.id}`)
 			setShows(shows.data)
 
 			setLoading(false)

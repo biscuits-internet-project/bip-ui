@@ -28,7 +28,7 @@ const postResetPassword = async (values: IResetPassword, token: string, setError
     setError(null)
     const resetPasswordRequest:AxiosResponse = await axios({
         method: 'put',
-        url: `https://stg-api.discobiscuits.net/api/auth/password/update/${token}`,
+        url: `${process.env.REACT_APP_API_URL}/auth/password/update/${token}`,
         data: values,
         headers: {
             "Content-Type":	"application/json",

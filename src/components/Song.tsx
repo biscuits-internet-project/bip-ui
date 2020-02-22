@@ -65,10 +65,10 @@ const Song: React.FC = () => {
 	useEffect(()=> {
 		setLoading(true)
 		const fetchSong = async () => {
-			const song:AxiosResponse = await axios.get(`https://stg-api.discobiscuits.net/api/songs/${params.id}`)
+			const song:AxiosResponse = await axios.get(`${process.env.REACT_APP_API_URL}/songs/${params.id}`)
 			setSong(song.data)
 
-			const songs:AxiosResponse = await axios.get(`https://stg-api.discobiscuits.net/api/tracks/songs/${params.id}`)
+			const songs:AxiosResponse = await axios.get(`${process.env.REACT_APP_API_URL}/tracks/songs/${params.id}`)
 			setSongsPlayed(songs.data)
 
 			setLoading(false)

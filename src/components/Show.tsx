@@ -34,7 +34,7 @@ const Shows: React.FC = () => {
 	useEffect(()=> {
 		setLoading(true)
 		const fetchSetlist = async () => {
-			const data:AxiosResponse = await axios.get(`https://stg-api.discobiscuits.net/api/shows/${params.id}`)
+			const data:AxiosResponse = await axios.get(`${process.env.REACT_APP_API_URL}/shows/${params.id}`)
 			setShow(data.data)
 			setLoading(false)
 		}

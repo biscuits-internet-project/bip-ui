@@ -33,7 +33,7 @@ const VenueForm: React.FC<IVenueForm> = ({setVenues, venues, id, handleClose}) =
     const { enqueueSnackbar } = useSnackbar()
     useEffect(()=> {
       const fetchVenue = async () => {
-        const data:AxiosResponse = await axios.get(`https://stg-api.discobiscuits.net/api/venues/${id}`)
+        const data:AxiosResponse = await axios.get(`${process.env.REACT_APP_API_URL}/venues/${id}`)
         const venue:IVenue = data.data
         setFormData(venue)
       }
@@ -45,7 +45,7 @@ const VenueForm: React.FC<IVenueForm> = ({setVenues, venues, id, handleClose}) =
     const postVenue = useCallback(async (values: IVenue, actions:FormikHelpers<IVenue>) => {
       const newVenue:AxiosResponse = await axios({
           method: id ? 'put' : 'post',
-          url: `https://stg-api.discobiscuits.net/api/venues/${id ? id : ''}`,
+          url: `${process.env.REACT_APP_API_URL}/venues/${id ? id : ''}`,
           data: values,
           headers: {
               "Content-Type":	"application/json",

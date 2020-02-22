@@ -24,7 +24,7 @@ const Shows: React.FC = () => {
 	useEffect(() => {
 		setLoading(true)
 		const fetchSetlists = async () => {
-			const data: AxiosResponse = await axios.get(`https://stg-api.discobiscuits.net/api/shows?year=${selectedYear}`)
+			const data: AxiosResponse = await axios.get(`${process.env.REACT_APP_API_URL}/shows?year=${selectedYear}`)
 			setSetlists(data.data)
 			setLoading(false)
 		}

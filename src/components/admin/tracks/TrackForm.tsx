@@ -29,7 +29,7 @@ const TrackForm: React.FC<ITrackForm> = ({setTracks, tracks, id, handleClose}) =
 
     useEffect(()=> {
       const fetchTrack = async () => {
-        const data:AxiosResponse = await axios.get(`https://stg-api.discobiscuits.net/api/tracks/${id}?edit=true`)
+        const data:AxiosResponse = await axios.get(`${process.env.REACT_APP_API_URL}/tracks/${id}?edit=true`)
         const track:ITrack = data.data
         setFormData(track)
       }
@@ -41,7 +41,7 @@ const TrackForm: React.FC<ITrackForm> = ({setTracks, tracks, id, handleClose}) =
     const postTrack = useCallback(async (values: ITrack, actions:FormikHelpers<ITrack>) => {
       const newTrack:AxiosResponse = await axios({
           method: 'put',
-          url: `https://stg-api.discobiscuits.net/api/tracks/${id}`,
+          url: `${process.env.REACT_APP_API_URL}/tracks/${id}`,
           data: values,
           headers: {
               "Content-Type":	"application/json",

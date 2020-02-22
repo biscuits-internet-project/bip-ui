@@ -55,7 +55,7 @@ const UserForm: React.FC<IUserForm> = ({setUsers, users, id, handleClose}) => {
       const fetchUser = async () => {
         const data:AxiosResponse = await axios({
           method: 'get',
-          url: `https://stg-api.discobiscuits.net/api/users/${id}`,
+          url: `${process.env.REACT_APP_API_URL}/users/${id}`,
           headers: {
             "Authorization": state.token
             }
@@ -73,7 +73,7 @@ const UserForm: React.FC<IUserForm> = ({setUsers, users, id, handleClose}) => {
         setError(null)
         const newUser:AxiosResponse = await axios({
             method: id ? 'put' : 'post',
-            url: `https://stg-api.discobiscuits.net/api/users/${id ? id : ''}`,
+            url: `${process.env.REACT_APP_API_URL}/users/${id ? id : ''}`,
             data: values,
             headers: {
                 "Content-Type":	"application/json",

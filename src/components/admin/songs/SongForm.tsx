@@ -83,7 +83,7 @@ const SongForm: React.FC<ISongForm> = ({setSongs, songs, id, handleClose}) => {
     const postSong = useCallback(async (values: ISong, actions:FormikHelpers<ISong>) => {
       const newSong:AxiosResponse = await axios({
           method: id ? 'put' : 'post',
-          url: `https://stg-api.discobiscuits.net/api/songs/${id ? id : ''}`,
+          url: `${process.env.REACT_APP_API_URL}/songs/${id ? id : ''}`,
           data: values,
           headers: {
               "Content-Type":	"application/json",

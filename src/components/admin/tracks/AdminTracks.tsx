@@ -31,10 +31,10 @@ const AdminTracks = () => {
 
 	useEffect(()=> {
 		const fetchSong = async () => {
-			const song:AxiosResponse = await axios.get(`https://stg-api.discobiscuits.net/api/songs/${params.id}`)
+			const song:AxiosResponse = await axios.get(`${process.env.REACT_APP_API_URL}/songs/${params.id}`)
 			setSong(song.data)
 
-			const tracks:AxiosResponse = await axios.get(`https://stg-api.discobiscuits.net/api/tracks/songs/${params.id}`)
+			const tracks:AxiosResponse = await axios.get(`${process.env.REACT_APP_API_URL}/tracks/songs/${params.id}`)
 			setTracks(tracks.data)
 		}
 		fetchSong()

@@ -59,7 +59,7 @@ const AdminUsers = () => {
 	const handleDelete = async (id?: string) => {
 		await axios({
 			method: 'delete',
-			url: `https://stg-api.discobiscuits.net/api/users/${id}`,
+			url: `${process.env.REACT_APP_API_URL}/users/${id}`,
 			headers: {
 				"Content-Type":	"application/json",
 				"Authorization": state.token
