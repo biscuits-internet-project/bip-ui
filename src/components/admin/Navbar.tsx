@@ -18,7 +18,6 @@ const LeftNavbar = () => {
         alignItems: 'center',
       }}
     >
-      import { Link as RouterLink } from 'react-router-dom'
       <Link component={RouterLink} to="/"><img alt="logo" style={{ width: '64px', height: '64px' }} src="/logo.svg" /></Link>
       <Typography variant="h6" style={{ marginLeft: '30px' }}>
         BIP Admin
