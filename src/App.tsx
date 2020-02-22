@@ -226,7 +226,7 @@ const App: React.FC = () => {
                       </Typography>
                     </Grid>
                     <Grid item>
-                      {username ? (
+                      {username &&
                         <>
                           <IconButton
                             aria-label="account of current user"
@@ -257,9 +257,7 @@ const App: React.FC = () => {
                             <MenuItem onClick={logoutUser}>Logout</MenuItem>
                           </Menu>
                         </>
-                      ) : (
-                          <Button component={RouterLink} to={'/login'}>Login</Button>
-                      )}
+                      }
                     </Grid>
                   </Grid>
                 </Toolbar>

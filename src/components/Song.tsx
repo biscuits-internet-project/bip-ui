@@ -126,13 +126,15 @@ const Song: React.FC = () => {
 											{song.first_played_show.venue.city}
 											<span>, </span>
 											{song.first_played_show.venue.state}
-											<span> </span>
 										</Link>
 
 										{song.first_played_show.relisten_url &&
+											<>
+											<span>  </span>
 											<Link href={song.first_played_show.relisten_url} target="blank">
 												<img src="/relisten.png" alt="relisten" />
 											</Link>
+											</>
 										}
 									</TableCell>
 								</TableRow>
