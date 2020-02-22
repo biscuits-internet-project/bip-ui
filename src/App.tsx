@@ -28,17 +28,6 @@ import Toolbar from '@material-ui/core/Toolbar';
 import { Link, ListItem, ListItemIcon, ListItemText, List, IconButton, Button, Typography, Menu, MenuItem, Drawer, AppBar, Hidden, Divider, Grid, Box } from '@material-ui/core';
 import { QueueMusic, Home, Room, AccountCircle, CardTravel, Info, Album } from '@material-ui/icons';
 import Profile from './components/Profile';
-import ReactGA from 'react-ga';
-import { createBrowserHistory } from 'history';
-
-const history = createBrowserHistory();
-const trackingId = "UA-10444792-1";
-ReactGA.initialize(trackingId);
-history.listen(location => {
-  ReactGA.set({ page: location.pathname });
-  ReactGA.pageview(location.pathname);
-});
-
 
 interface sideMenuItem {
   name: string | undefined,
@@ -219,7 +208,7 @@ const App: React.FC = () => {
               <AppBar position="fixed" className={classes.appBar}>
                 <Toolbar>
                   <Grid
-                    justify="space-between"
+                    justify="space-between" // Add it here :)
                     container
                   >
                     <Grid item>
@@ -307,25 +296,25 @@ const App: React.FC = () => {
               </nav>
               <main className={classes.content}>
                 <div className={classes.toolbar} />
-                <Route path="/" exact component={LatestShows} history={history} />
-                <Route path="/login" component={Login} history={history} />
-                <Route path="/profile" component={Profile} history={history} />
-                <Route path="/shows" exact component={Shows} history={history} />
-                <Route path="/shows/:id" exact component={Show} history={history} />
-                <Route path="/shows/year/:year" exact component={Shows} history={history} />
-                <Route path="/shows/venue/:venue_id" exact component={Shows} history={history} />
-                <Route path="/shows/state/:state" exact component={Shows} history={history} />
-                <Route path="/songs" exact component={Songs} history={history} />
-                <Route path="/songs/:id" component={Song} history={history} />
-                <Route path="/venues" exact component={Venues} history={history} />
-                <Route path="/venues/:id" exact component={Venue} history={history} />
-                <Route path="/tour" exact component={Tour} history={history} />
-                <Route path="/register" exact component={Register} history={history} />
-                <Route path="/resources" exact component={Resources} history={history} />
-                <Route path="/about" exact component={About} history={history} />
-                <Route path="/contact" exact component={Contact} history={history} />
-                <Route path="/register/confirm" exact component={Register} history={history} />
-                <Route path="/password/reset/:token" exact component={ResetPassword} history={history} />
+                <Route path="/" exact component={LatestShows} />
+                <Route path="/login" component={Login} />
+                <Route path="/profile" component={Profile} />
+                <Route path="/shows" exact component={Shows} />
+                <Route path="/shows/:id" exact component={Show} />
+                <Route path="/shows/year/:year" exact component={Shows} />
+                <Route path="/shows/venue/:venue_id" exact component={Shows} />
+                <Route path="/shows/state/:state" exact component={Shows} />
+                <Route path="/songs" exact component={Songs} />
+                <Route path="/songs/:id" component={Song} />
+                <Route path="/venues" exact component={Venues} />
+                <Route path="/venues/:id" exact component={Venue} />
+                <Route path="/tour" exact component={Tour} />
+                <Route path="/register" exact component={Register} />
+                <Route path="/resources" exact component={Resources} />
+                <Route path="/about" exact component={About} />
+                <Route path="/contact" exact component={Contact} />
+                <Route path="/register/confirm" exact component={Register} />
+                <Route path="/password/reset/:token" exact component={ResetPassword} />
 
                 <Divider style={{ marginTop: "30px" }} />
 
