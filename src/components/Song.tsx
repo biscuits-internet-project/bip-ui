@@ -93,14 +93,6 @@ const Song: React.FC = () => {
 							</>
 						}
 
-						{loading &&
-							<>
-								<div style={{height: 30}}></div>
-									<LinearProgress color="primary" />
-								<div style={{height: 30}}></div>
-							</>
-						}
-
 						<TableContainer component={Paper}>
 							<Table>
 								<TableRow>
@@ -263,6 +255,13 @@ const Song: React.FC = () => {
 					</TableBody>
 				</Table>
 			</TableContainer>
+			{loading &&
+				<>
+					<div style={{height: 30}}></div>
+						<LinearProgress />
+					<div style={{height: 30}}></div>
+				</>
+			}
 		</>
 	)
 }

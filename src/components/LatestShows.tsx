@@ -4,34 +4,24 @@ import {ISetlist} from './Setlist';
 import Setlist from './Setlist';
 
 const LatestShows: React.FC = () => {
-
-	const [loading, setLoading] = useState(false)
 	const [setlists, setSetlists] = useState<ISetlist[]>([])
 
 	useEffect(()=> {
-		setLoading(true)
 		const fetchSetlists = async () => {
 			const data:AxiosResponse = await axios.get(`${process.env.REACT_APP_API_URL}/shows?last=5`)
 			setSetlists(data.data)
-			setLoading(false)
 		}
 		fetchSetlists()
 	},[])
 	return (
-		<>
-			{loading && <h3>.....Loading</h3>}
-			<div>
-				<h2>Latest Shows</h2>
-				<div>
-					{setlists.map((setlist) => {
-						return (
-							<Setlist key={setlist.slug} date={setlist.date} slug={setlist.slug} venue={setlist.venue} tracks={setlist.tracks} notes={setlist.notes} />
-						)
-					})}
-				</div>
-			</div>
-		</>
-
+		<div>
+			<h1>Latest Shows</h1>
+			{setlists.map((setlist) => {
+				return (
+					<Setlist key={setlist.slug} date={setlist.date} slug={setlist.slug} venue={setlist.venue} tracks={setlist.tracks} notes={setlist.notes} />
+				)
+			})}
+		</div>
 	)
 }
 

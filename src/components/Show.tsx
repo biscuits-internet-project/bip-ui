@@ -4,7 +4,7 @@ import axios, { AxiosResponse } from 'axios'
 import Tracklist, {ITrack} from './Tracklist';
 import { Helmet } from "react-helmet"
 import YouTube from 'react-youtube';
-import { Typography, Link } from '@material-ui/core';
+import { Typography, Link, Card, CardContent } from '@material-ui/core';
 import Moment from 'react-moment';
 
 export interface IShow {
@@ -52,21 +52,31 @@ const Shows: React.FC = () => {
 					<Moment format="MMMM D, YYYY">
 						{show.date}
 					</Moment>
-					<span> at {show.venue.name}</span>
+					<span> at {show.venue.name} - {show.venue.city}, {show.venue.state}</span>
 				</h1>
-				<h2>
-					{show.venue.city}, {show.venue.state}
-				</h2>
 				<div>
-					<div>{show.likes_count} likes </div>
-					{show.relisten_url &&
-						<div><Link target="blank" href={show.relisten_url}>{show.relisten_url}</Link></div>
+					{/* <div>{show.likes_count} likes </div> */}
+					{show.notes &&
+						<div>
+							<Typography variant="body2" dangerouslySetInnerHTML={{__html: show.notes}} />
+							<br/>
+						</div>
 					}
-					<br/>
-					<Typography variant="body2" dangerouslySetInnerHTML={{__html: show.notes}} />
-					<Tracklist key={show.slug} tracks={show.tracks} />
-				</div>
 
+					{show.relisten_url &&
+						<div>
+							<Link target="blank" href={show.relisten_url}>{show.relisten_url}</Link>
+							<br/>
+							<br/>
+						</div>
+					}
+
+					<Card>
+						<CardContent>
+							<Tracklist key={show.slug} tracks={show.tracks} />
+						</CardContent>
+					</Card>
+				</div>
 				<div>
 					{show.youtube_id &&
 						<YouTube
