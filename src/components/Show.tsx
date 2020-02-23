@@ -6,6 +6,7 @@ import { Helmet } from "react-helmet"
 import YouTube from 'react-youtube';
 import { Typography, Link, Card, CardContent } from '@material-ui/core';
 import Moment from 'react-moment';
+import PageHeading from './shared/PageHeading';
 
 export interface IShow {
 	slug: string
@@ -46,14 +47,16 @@ const Shows: React.FC = () => {
 			{show &&
 			<>
 				<Helmet>
-					<title>Biscuits Internet Project - Shows - </title>
+					<title>Biscuits Internet Project - Shows - {show.date} at {show.venue.name} - {show.venue.city}, {show.venue.state}</title>
 				</Helmet>
-				<h1>
-					<Moment format="MMMM D, YYYY">
-						{show.date}
-					</Moment>
-					<span> at {show.venue.name} - {show.venue.city}, {show.venue.state}</span>
-				</h1>
+				<PageHeading text={
+					<>
+						<Moment format="MMMM D, YYYY">
+							{show.date}
+						</Moment>
+						<span> at {show.venue.name} - {show.venue.city}, {show.venue.state}</span>
+					</>
+				} />
 				<div>
 					{/* <div>{show.likes_count} likes </div> */}
 					{show.notes &&

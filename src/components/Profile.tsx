@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import PageHeading from './shared/PageHeading'
 
 interface IProfile {
     email: string
@@ -18,7 +19,7 @@ const Profile: React.FC = () => {
     const [error, setError] = useState(null)
     const [success, setSuccess] = useState(false)
     return (
-          <h1>Your Profile</h1>
+          <PageHeading text="Your Profile"/>
       );
 }
 

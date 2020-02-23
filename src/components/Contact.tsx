@@ -7,6 +7,7 @@ import TextAreaField from './shared/TextAreaField'
 import ReCaptcha from './shared/ReCaptcha'
 import * as Yup from 'yup';
 import { Button } from '@material-ui/core';
+import PageHeading from './shared/PageHeading';
 
 const ContactSchema = Yup.object().shape({
   email: Yup.string()
@@ -49,7 +50,7 @@ const Register: React.FC = () => {
         <title>Biscuits Internet Project - Contact</title>
       </Helmet>
 
-      <h1>Contact</h1>
+      <PageHeading text="Contact"/>
       <Formik
         initialValues={initialValues}
         onSubmit={(values) => postContact(values)}

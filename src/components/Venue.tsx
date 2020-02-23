@@ -6,6 +6,7 @@ import Setlist, { ISetlist } from './Setlist';
 import { IShow } from './Show';
 import { TableContainer, Paper, Table, TableRow, TableCell, Link } from '@material-ui/core';
 import Moment from 'react-moment';
+import PageHeading from './shared/PageHeading';
 
 interface IVenue {
 	id?: string,
@@ -50,7 +51,7 @@ const Venue: React.FC = () => {
 					<Helmet>
 						<title>Biscuits Internet Project - {venue.name}</title>
 					</Helmet>
-					<h1>{venue.name}</h1>
+					<PageHeading text={venue.name} />
 
 					<TableContainer component={Paper}>
 							<Table>

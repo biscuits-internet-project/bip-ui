@@ -2,6 +2,7 @@ import React from 'react';
 import { Link as RouterLink } from 'react-router-dom'
 import { Helmet } from "react-helmet";
 import { Typography, Link } from '@material-ui/core';
+import PageHeading from './shared/PageHeading';
 
 const About: React.FC = () => {
 	return (
@@ -9,7 +10,7 @@ const About: React.FC = () => {
 			<Helmet>
 				<title>Biscuits Internet Project - About</title>
 			</Helmet>
-			<h1>About the Biscuits Internet Project</h1>
+			<PageHeading text="About the Biscuits Internet Project"/>
 
 			<Typography>
 				Setbreak is over for the BIP as well.  Welcome to v2.0!

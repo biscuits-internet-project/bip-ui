@@ -5,6 +5,7 @@ import { ISetlist } from './Setlist';
 import Setlist from './Setlist';
 import { Helmet } from "react-helmet"
 import { FormControl, InputLabel, Select, MenuItem, Grid } from '@material-ui/core';
+import PageHeading from './shared/PageHeading';
 
 const Shows: React.FC = () => {
 
@@ -38,7 +39,7 @@ const Shows: React.FC = () => {
 			<div>
 				<Grid container spacing={3}>
 					<Grid item xs={6}>
-						<h1>Shows from {selectedYear}</h1>
+						<PageHeading text={`Shows from ${selectedYear}`} />
 					</Grid>
 					<Grid item xs={6}>
 						<FormControl>

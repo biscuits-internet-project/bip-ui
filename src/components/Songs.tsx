@@ -4,6 +4,7 @@ import axios, { AxiosResponse } from 'axios'
 import { Helmet } from "react-helmet";
 import { Link } from '@material-ui/core';
 import MUIDataTable from "mui-datatables";
+import PageHeading from './shared/PageHeading';
 
 export interface ISong {
 	id?: string,
@@ -100,7 +101,7 @@ const Songs: React.FC = () => {
 			<Helmet>
 				<title>Biscuits Internet Project - Songs</title>
 			</Helmet>
-			<h1>Songs</h1>
+			<PageHeading text="Songs"/>
 			<MUIDataTable
 				data={data}
 				columns={columns}

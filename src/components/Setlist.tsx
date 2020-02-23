@@ -3,10 +3,7 @@ import { Link as RouterLink } from 'react-router-dom'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Tracklist, { ITrack } from './Tracklist';
 import Moment from 'react-moment';
-import { Typography, Link, Card, CardHeader, IconButton, CardContent, CardActions } from '@material-ui/core';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import HeadsetIcon from '@material-ui/icons/Headset';
-import EmojiTransportationIcon from '@material-ui/icons/EmojiTransportation';
+import { Typography, Link, Card, CardHeader, CardContent, CardActions } from '@material-ui/core';
 
 export interface ISetlist {
 	slug: string

@@ -2,8 +2,9 @@ import React, {useState, useEffect} from 'react';
 import { Link as RouterLink } from 'react-router-dom'
 import axios, { AxiosResponse } from 'axios'
 import { Helmet } from "react-helmet"
-import { Link, LinearProgress } from '@material-ui/core';
+import { Link } from '@material-ui/core';
 import MUIDataTable from "mui-datatables";
+import PageHeading from './shared/PageHeading';
 
 export interface IVenue {
 	id?: string,
@@ -99,7 +100,7 @@ const Venues: React.FC = () => {
 			<Helmet>
 				<title>Biscuits Internet Project - Venues</title>
 			</Helmet>
-			<h1>Venues</h1>
+			<PageHeading text="Venues"/>
 
 			<MUIDataTable
 				data={data}

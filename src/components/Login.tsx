@@ -10,6 +10,7 @@ import TextField from './shared/TextField'
 import Button from '@material-ui/core/Button'
 import ForgotPassword from './ForgotPassword'
 import { Typography, Link } from '@material-ui/core';
+import PageHeading from './shared/PageHeading';
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
@@ -66,7 +67,7 @@ const Login: React.FC = () => {
   const history = useHistory();
   return (
     <div style={{ maxWidth: 400 }}>
-      <h1>Login</h1>
+      <PageHeading text="Login"/>
       <Typography>
         Don't have an account?
         <span> </span>

@@ -23,11 +23,17 @@ import Contact from './components/Contact';
 import ResetPassword from './components/ResetPassword';
 import Login from './components/Login';
 import Admin from './components/Admin'
+import BandHistory from './components/resources/BandHistory'
 
 import Toolbar from '@material-ui/core/Toolbar';
-import { Link, ListItem, ListItemIcon, ListItemText, List, IconButton, Button, Typography, Menu, MenuItem, Drawer, AppBar, Hidden, Divider, Grid, Box } from '@material-ui/core';
+import { Link, ListItem, ListItemIcon, ListItemText, List, IconButton, Typography, Menu, MenuItem, Drawer, AppBar, Hidden, Divider, Box } from '@material-ui/core';
 import { QueueMusic, Home, Room, AccountCircle, CardTravel, Info, Album } from '@material-ui/icons';
 import Profile from './components/Profile';
+import HotAirBalloon from './components/resources/HotAirBalloon';
+import Gear from './components/resources/Gear';
+import Music from './components/resources/Music';
+import ChemicalWarfareBrigade from './components/resources/ChemcialWarfareBrigade';
+import SideProjects from './components/resources/SideProjects';
 
 interface sideMenuItem {
   name: string | undefined,
@@ -88,7 +94,7 @@ const useStyles = makeStyles((theme: Theme) =>
         width: `calc(100% - ${drawerWidth}px)`,
         marginLeft: drawerWidth,
       },
-      minHeight: 100,
+      minHeight: 80,
       backgroundImage: 'url("/bkgrnd-navbar.jpg")',
       backgroundPosition: 'top center',
       backgroundRepeat: 'no-repeat',
@@ -126,11 +132,17 @@ const useStyles = makeStyles((theme: Theme) =>
       '-webkit-background-clip': 'text',
       '-webkit-text-fill-color': 'transparent',
       [theme.breakpoints.down('sm')]: {
-        fontSize: `1.25rem`,
+        fontSize: `1.50rem`,
       },
       [theme.breakpoints.up('md')]: {
         fontSize: `2.5rem`,
       },
+      [theme.breakpoints.up('lg')]: {
+        fontSize: `3.5rem`,
+      },
+    },
+    sidebarText: {
+      textTransform: 'lowercase',
     }
   }),
 );
@@ -190,7 +202,7 @@ const App: React.FC = () => {
             <ListItemIcon>
               {item.icon}
             </ListItemIcon>
-            <ListItemText primary={item.label} />
+            <ListItemText className={classes.sidebarText} primary={item.label} />
           </ListItemLink>
         )
       })}
@@ -207,11 +219,6 @@ const App: React.FC = () => {
               <CssBaseline />
               <AppBar position="fixed" className={classes.appBar}>
                 <Toolbar>
-                  <Grid
-                    justify="space-between" // Add it here :)
-                    container
-                  >
-                    <Grid item>
                       <IconButton
                         color="inherit"
                         aria-label="open drawer"
@@ -224,8 +231,6 @@ const App: React.FC = () => {
                       <Typography variant="h5" className={classes.navHeaderDisplay}>
                         Biscuits Internet Project 2.0
                       </Typography>
-                    </Grid>
-                    <Grid item>
                       {username &&
                         <>
                           <IconButton
@@ -258,8 +263,6 @@ const App: React.FC = () => {
                           </Menu>
                         </>
                       }
-                    </Grid>
-                  </Grid>
                 </Toolbar>
               </AppBar>
               <nav className={classes.drawer} aria-label="mailbox folders">
@@ -297,6 +300,12 @@ const App: React.FC = () => {
                 <Route path="/" exact component={LatestShows} />
                 <Route path="/login" component={Login} />
                 <Route path="/profile" component={Profile} />
+                <Route path="/resources/history" exact component={BandHistory} />
+                <Route path="/resources/gear" exact component={Gear} />
+                <Route path="/resources/music" exact component={Music} />
+                <Route path="/resources/chemical-warfare-brigade" exact component={ChemicalWarfareBrigade} />
+                <Route path="/resources/hot-air-balloon" exact component={HotAirBalloon} />
+                <Route path="/resources/side-projects" exact component={SideProjects} />
                 <Route path="/shows" exact component={Shows} />
                 <Route path="/shows/:id" exact component={Show} />
                 <Route path="/shows/year/:year" exact component={Shows} />

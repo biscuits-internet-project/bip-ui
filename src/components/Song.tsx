@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link as RouterLink, useParams } from 'react-router-dom';
 import axios, { AxiosResponse } from 'axios'
 import { IVenue } from './Venues';
@@ -7,6 +7,7 @@ import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
 import { Link, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, ExpansionPanel, ExpansionPanelSummary, Typography, ExpansionPanelDetails, LinearProgress } from '@material-ui/core';
 import Moment from 'react-moment';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import PageHeading from './shared/PageHeading';
 
 interface ISong {
 	id: string,
@@ -43,15 +44,15 @@ interface IShow {
 	relisten_url?: string
 }
 const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      width: '100%',
-    },
-    heading: {
-      fontSize: theme.typography.pxToRem(15),
-      fontWeight: theme.typography.fontWeightRegular,
-	},
-  }),
+	createStyles({
+		root: {
+			width: '100%',
+		},
+		heading: {
+			fontSize: theme.typography.pxToRem(15),
+			fontWeight: theme.typography.fontWeightRegular,
+		},
+	}),
 );
 
 const Song: React.FC = () => {
@@ -62,19 +63,19 @@ const Song: React.FC = () => {
 	const [song, setSong] = useState<ISong | undefined>(undefined)
 	const [songsPlayed, setSongsPlayed] = useState<ISongPlayed[]>([])
 
-	useEffect(()=> {
+	useEffect(() => {
 		setLoading(true)
 		const fetchSong = async () => {
-			const song:AxiosResponse = await axios.get(`${process.env.REACT_APP_API_URL}/songs/${params.id}`)
+			const song: AxiosResponse = await axios.get(`${process.env.REACT_APP_API_URL}/songs/${params.id}`)
 			setSong(song.data)
 
-			const songs:AxiosResponse = await axios.get(`${process.env.REACT_APP_API_URL}/tracks/songs/${params.id}`)
+			const songs: AxiosResponse = await axios.get(`${process.env.REACT_APP_API_URL}/tracks/songs/${params.id}`)
 			setSongsPlayed(songs.data)
 
 			setLoading(false)
 		}
 		fetchSong()
-	},[params.id])
+	}, [params.id])
 	return (
 		<>
 			{song &&
@@ -82,147 +83,145 @@ const Song: React.FC = () => {
 					<Helmet>
 						<title>Biscuits Internet Project - {song.title}</title>
 					</Helmet>
-					<div>
-						<h1>{song.title}</h1>
-						{song.featured_lyric &&
-							<>
+					<PageHeading text={song.title} />
+					{song.featured_lyric &&
+						<>
 							<Typography>
 								<em>{song.featured_lyric}</em>
 							</Typography>
-							<div style={{height: 20}}></div>
-							</>
-						}
+							<div style={{ height: 20 }}></div>
+						</>
+					}
 
-						<TableContainer component={Paper}>
-							<Table>
-								<TableRow>
-									<TableCell>
-										Author
+					<TableContainer component={Paper}>
+						<Table>
+							<TableRow>
+								<TableCell>
+									Author
 									</TableCell>
-									<TableCell>
-										{song.author_name}
+								<TableCell>
+									{song.author_name}
+								</TableCell>
+							</TableRow>
+							<TableRow>
+								<TableCell>
+									Times played
 									</TableCell>
-								</TableRow>
-								<TableRow>
-									<TableCell>
-										Times played
+								<TableCell>
+									{song.times_played}
+								</TableCell>
+							</TableRow>
+							<TableRow>
+								<TableCell>
+									Debut
 									</TableCell>
-									<TableCell>
-										{song.times_played}
-									</TableCell>
-								</TableRow>
-								<TableRow>
-									<TableCell>
-										Debut
-									</TableCell>
-									<TableCell>
-										<Link component={RouterLink} to={`/shows/${song.first_played_show.slug}`}>
-											<Moment format="MMMM D, YYYY">
-												{song.first_played_show.date}
-											</Moment>
-											<span> - </span>
-											{song.first_played_show.venue.name}
-											<span> - </span>
-											{song.first_played_show.venue.city}
-											<span>, </span>
-											{song.first_played_show.venue.state}
-										</Link>
+								<TableCell>
+									<Link component={RouterLink} to={`/shows/${song.first_played_show.slug}`}>
+										<Moment format="MMMM D, YYYY">
+											{song.first_played_show.date}
+										</Moment>
+										<span> - </span>
+										{song.first_played_show.venue.name}
+										<span> - </span>
+										{song.first_played_show.venue.city}
+										<span>, </span>
+										{song.first_played_show.venue.state}
+									</Link>
 
-										{song.first_played_show.relisten_url &&
-											<>
+									{song.first_played_show.relisten_url &&
+										<>
 											<span>  </span>
 											<Link href={song.first_played_show.relisten_url} target="blank">
 												<img src="/relisten.png" alt="relisten" />
 											</Link>
-											</>
-										}
+										</>
+									}
+								</TableCell>
+							</TableRow>
+							<TableRow>
+								<TableCell>
+									Last played
 									</TableCell>
-								</TableRow>
-								<TableRow>
-									<TableCell>
-										Last played
-									</TableCell>
-									<TableCell>
-										<Link component={RouterLink} to={`/shows/${song.last_played_show.slug}`}>
-											<Moment format="MMMM D, YYYY">
-												{song.last_played_show.date}
-											</Moment>
-											<span> - </span>
-											{song.last_played_show.venue.name}
-											<span> - </span>
-											{song.last_played_show.venue.city}
-											<span>, </span>
-											{song.last_played_show.venue.state}
-										</Link>
-									</TableCell>
-								</TableRow>
-							</Table>
-						</TableContainer>
+								<TableCell>
+									<Link component={RouterLink} to={`/shows/${song.last_played_show.slug}`}>
+										<Moment format="MMMM D, YYYY">
+											{song.last_played_show.date}
+										</Moment>
+										<span> - </span>
+										{song.last_played_show.venue.name}
+										<span> - </span>
+										{song.last_played_show.venue.city}
+										<span>, </span>
+										{song.last_played_show.venue.state}
+									</Link>
+								</TableCell>
+							</TableRow>
+						</Table>
+					</TableContainer>
 
-						<div style={{height: 20}}></div>
+					<div style={{ height: 20 }}></div>
 
-						{song.lyrics &&
-							<ExpansionPanel>
-								<ExpansionPanelSummary
-									expandIcon={<ExpandMoreIcon />}
-									aria-controls="panel1a-content"
-									id="panel1a-header"
-								>
-									<Typography className={classes.heading}>Lyrics</Typography>
-								</ExpansionPanelSummary>
-								<ExpansionPanelDetails>
-									<Typography>
-										<div dangerouslySetInnerHTML={{__html: song.lyrics}} />
-									</Typography>
-								</ExpansionPanelDetails>
-							</ExpansionPanel>
-						}
+					{song.lyrics &&
+						<ExpansionPanel>
+							<ExpansionPanelSummary
+								expandIcon={<ExpandMoreIcon />}
+								aria-controls="panel1a-content"
+								id="panel1a-header"
+							>
+								<Typography className={classes.heading}>Lyrics</Typography>
+							</ExpansionPanelSummary>
+							<ExpansionPanelDetails>
+								<Typography>
+									<div dangerouslySetInnerHTML={{ __html: song.lyrics }} />
+								</Typography>
+							</ExpansionPanelDetails>
+						</ExpansionPanel>
+					}
 
-						{song.history &&
-							<ExpansionPanel>
-								<ExpansionPanelSummary
-									expandIcon={<ExpandMoreIcon />}
-									aria-controls="panel1a-content"
-									id="panel1a-header"
-								>
-									<Typography className={classes.heading}>History</Typography>
-								</ExpansionPanelSummary>
-								<ExpansionPanelDetails>
-									<Typography dangerouslySetInnerHTML={{__html: song.history}} />
-								</ExpansionPanelDetails>
-							</ExpansionPanel>
-						}
-						{song.tabs &&
-							<ExpansionPanel>
-								<ExpansionPanelSummary
-									expandIcon={<ExpandMoreIcon />}
-									aria-controls="panel1a-content"
-									id="panel1a-header"
-								>
-									<Typography className={classes.heading}>Guitar Tabs</Typography>
-								</ExpansionPanelSummary>
-								<ExpansionPanelDetails>
-									<Typography>
-										<div dangerouslySetInnerHTML={{__html: song.tabs}} />
-									</Typography>
-								</ExpansionPanelDetails>
-							</ExpansionPanel>
-						}
+					{song.history &&
+						<ExpansionPanel>
+							<ExpansionPanelSummary
+								expandIcon={<ExpandMoreIcon />}
+								aria-controls="panel1a-content"
+								id="panel1a-header"
+							>
+								<Typography className={classes.heading}>History</Typography>
+							</ExpansionPanelSummary>
+							<ExpansionPanelDetails>
+								<Typography dangerouslySetInnerHTML={{ __html: song.history }} />
+							</ExpansionPanelDetails>
+						</ExpansionPanel>
+					}
+					{song.tabs &&
+						<ExpansionPanel>
+							<ExpansionPanelSummary
+								expandIcon={<ExpandMoreIcon />}
+								aria-controls="panel1a-content"
+								id="panel1a-header"
+							>
+								<Typography className={classes.heading}>Guitar Tabs</Typography>
+							</ExpansionPanelSummary>
+							<ExpansionPanelDetails>
+								<Typography>
+									<div dangerouslySetInnerHTML={{ __html: song.tabs }} />
+								</Typography>
+							</ExpansionPanelDetails>
+						</ExpansionPanel>
+					}
 
-						<div style={{height: 20}}></div>
-					</div>
+					<div style={{ height: 20 }}></div>
 				</>
 			}
 
 			<TableContainer component={Paper}>
 				<Table>
 					<TableHead>
-					<TableRow>
-						<TableCell>Date</TableCell>
-						<TableCell>Venue</TableCell>
-						<TableCell>Relisten</TableCell>
-						<TableCell>Notes</TableCell>
-					</TableRow>
+						<TableRow>
+							<TableCell>Date</TableCell>
+							<TableCell>Venue</TableCell>
+							<TableCell>Relisten</TableCell>
+							<TableCell>Notes</TableCell>
+						</TableRow>
 					</TableHead>
 					<TableBody>
 						{songsPlayed.map((s: ISongPlayed) => (
@@ -236,7 +235,7 @@ const Song: React.FC = () => {
 								</TableCell>
 								<TableCell>
 									<Link component={RouterLink} to={`/venues/${s.venue.slug}`}>
-										{s.venue.name}<br/>
+										{s.venue.name}<br />
 										{s.venue.city}
 										<span>, </span>
 										{s.venue.state}
@@ -258,9 +257,9 @@ const Song: React.FC = () => {
 
 			{loading &&
 				<>
-					<div style={{height: 30}}></div>
+					<div style={{ height: 30 }}></div>
 					<LinearProgress />
-					<div style={{height: 30}}></div>
+					<div style={{ height: 30 }}></div>
 				</>
 			}
 		</>

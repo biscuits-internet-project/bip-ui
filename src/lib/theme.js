@@ -12,7 +12,6 @@ const baseTheme = {
   },
 }
 
-
 export const darkTheme = createMuiTheme({
   ...baseTheme,
   palette: {
