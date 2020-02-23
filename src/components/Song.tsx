@@ -255,10 +255,11 @@ const Song: React.FC = () => {
 					</TableBody>
 				</Table>
 			</TableContainer>
+
 			{loading &&
 				<>
 					<div style={{height: 30}}></div>
-						<LinearProgress />
+					<LinearProgress />
 					<div style={{height: 30}}></div>
 				</>
 			}

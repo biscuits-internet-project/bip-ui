@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { Link as RouterLink } from 'react-router-dom'
 import axios, { AxiosResponse } from 'axios'
 import { Helmet } from "react-helmet"
-import { Link } from '@material-ui/core';
+import { Link, LinearProgress } from '@material-ui/core';
 import MUIDataTable from "mui-datatables";
 
 export interface IVenue {
@@ -27,6 +27,7 @@ const Venues: React.FC = () => {
 		setLoading(true)
 		const fetchVenues = async () => {
 			const data:AxiosResponse = await axios.get(`${process.env.REACT_APP_API_URL}/venues`)
+			data.data.sort((a, b) => (b.times_played > a.times_played) ? 1 : -1)
 			setVenues(data.data)
 			setLoading(false)
 		}
@@ -78,13 +79,15 @@ const Venues: React.FC = () => {
 
 	const options = {
 		filterType: 'multiselect',
-		count: 2000,
-		pagination: false,
+		pagination: true,
 		print: false,
 		download: false,
 		selectableRows: "none",
 		selectableRowsHeader: false,
-		searchOpen: true
+		searchOpen: true,
+		viewColumns: false,
+		rowsPerPage: 25,
+		rowsPerPageOptions: [25,50,100]
 	};
 
 	const data = venues.map((v: IVenue) => (
@@ -97,7 +100,6 @@ const Venues: React.FC = () => {
 				<title>Biscuits Internet Project - Venues</title>
 			</Helmet>
 			<h1>Venues</h1>
-			{loading && <h3>.....Loading</h3>}
 
 			<MUIDataTable
 				data={data}

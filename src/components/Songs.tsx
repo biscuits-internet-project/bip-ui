@@ -27,6 +27,7 @@ const Songs: React.FC = () => {
 		setLoading(true)
 		const fetchSongs = async () => {
 			const data:AxiosResponse = await axios.get(`${process.env.REACT_APP_API_URL}/songs`)
+			data.data.sort((a, b) => (b.times_played > a.times_played) ? 1 : -1)
 			setSongs(data.data)
 			setLoading(false)
 		}
@@ -78,17 +79,19 @@ const Songs: React.FC = () => {
 
 	const options = {
 		filterType: 'multiselect',
-		count: 2000,
-		pagination: false,
+		pagination: true,
 		print: false,
 		download: false,
 		selectableRows: "none",
 		selectableRowsHeader: false,
-		searchOpen: true
+		searchOpen: true,
+		viewColumns: false,
+		rowsPerPage: 25,
+		rowsPerPageOptions: [25,50,100]
 	};
 
 	const data = songs.map((s: ISong) => (
-		[ s.title, s.author_name, String(!s.cover) , s.times_played, <Link variant="button" component={RouterLink} to={`/songs/${s.slug}`}>View Details </Link>]
+		[ s.title, s.author_name, s.cover ? "cover" : "original", s.times_played, <Link variant="button" component={RouterLink} to={`/songs/${s.slug}`}>View Details </Link>]
 	))
 
 
@@ -98,9 +101,6 @@ const Songs: React.FC = () => {
 				<title>Biscuits Internet Project - Songs</title>
 			</Helmet>
 			<h1>Songs</h1>
-			{loading && <h3>.....Loading</h3>}
-
-
 			<MUIDataTable
 				data={data}
 				columns={columns}
