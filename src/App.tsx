@@ -195,6 +195,7 @@ const App: React.FC = () => {
   };
 
   const drawer = (
+    <>
     <List>
       {itemList.map((item: sideMenuItem) => {
         return (
@@ -207,6 +208,17 @@ const App: React.FC = () => {
         )
       })}
     </List>
+
+    <Divider></Divider>
+    <div style={{height: 20}}></div>
+    {username &&
+      <div style={{marginLeft: 20}}>
+          {admin && <div><Link component={RouterLink} to="/admin/dashboard">Admin</Link></div>}
+          <div><Link onClick={logoutUser}>Logout</Link></div>
+      </div>
+    }
+</>
+
   )
 
   return (
@@ -231,38 +243,7 @@ const App: React.FC = () => {
                       <Typography variant="h5" className={classes.navHeaderDisplay}>
                         Biscuits Internet Project 2.0
                       </Typography>
-                      {username &&
-                        <>
-                          <IconButton
-                            aria-label="account of current user"
-                            aria-controls="menu-appbar"
-                            aria-haspopup="true"
-                            onClick={handleMenu}
-                            color="inherit"
-                          >
-                            <AccountCircle fontSize="large" />
-                          </IconButton>
-                          <Menu
-                            id="menu-appbar"
-                            anchorEl={anchorEl}
-                            anchorOrigin={{
-                              vertical: 'top',
-                              horizontal: 'right',
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                              vertical: 'top',
-                              horizontal: 'right',
-                            }}
-                            open={open}
-                            onClose={handleClose}
-                          >
-                            <MenuItem><Link component={RouterLink} to="/profile">Profile</Link></MenuItem>
-                            {admin && <MenuItem><Link component={RouterLink} to="/admin/dashboard">Admin</Link></MenuItem>}
-                            <MenuItem onClick={logoutUser}>Logout</MenuItem>
-                          </Menu>
-                        </>
-                      }
+
                 </Toolbar>
               </AppBar>
               <nav className={classes.drawer} aria-label="mailbox folders">
