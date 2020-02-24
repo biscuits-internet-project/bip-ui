@@ -15,11 +15,12 @@ import { IShow } from '../../Show';
 import { ISong } from '../songs/AdminSongs';
 
 export interface ITrack {
-	id: string,
+	id: string
 	slug: string
-	note?: string,
+	note?: string
 	venue?: IVenue
 	show?: IShow
+	all_timer: boolean
 }
 
 const AdminTracks = () => {

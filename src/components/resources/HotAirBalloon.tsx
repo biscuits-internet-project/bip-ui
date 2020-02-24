@@ -2,7 +2,7 @@ import React from 'react';
 import { HashLink } from 'react-router-hash-link';
 import { Helmet } from "react-helmet";
 import PageHeading from '../shared/PageHeading';
-import { Link, Typography, List, ListItem, Divider, createStyles, Theme, makeStyles, Card, CardContent, CardHeader, Grid } from '@material-ui/core';
+import { Link, Typography, ListItem, createStyles, Theme, makeStyles, Card, CardContent, CardHeader, Grid } from '@material-ui/core';
 import OperaMenuCard from '../shared/OperaMenuCard';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -402,6 +402,7 @@ at his last chance to fly
 			{chars.map((char) => {
 				return (
 					<>
+						<div id={char.anchor}></div>
 						<Card>
 							<CardHeader title = {
 								<Typography variant="h3" className={classes.subheading}>{char.name}</Typography>

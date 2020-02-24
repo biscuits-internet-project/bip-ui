@@ -23,6 +23,7 @@ const TrackList:React.FC<ITrackList> = ({tracks,handleOpen}) => {
             <TableCell>Venue</TableCell>
             <TableCell>City</TableCell>
             <TableCell>State</TableCell>
+            <TableCell>All timer</TableCell>
             <TableCell>Note</TableCell>
             <TableCell></TableCell>
           </TableRow>
@@ -41,6 +42,9 @@ const TrackList:React.FC<ITrackList> = ({tracks,handleOpen}) => {
               </TableCell>
               <TableCell>
                 {track.venue && track.venue.state}
+              </TableCell>
+              <TableCell>
+                {track.all_timer && "YES"}
               </TableCell>
               <TableCell>
                 {track.note}

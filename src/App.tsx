@@ -100,7 +100,7 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundRepeat: 'no-repeat',
       backgroundAttachment: 'fixed',
       backgroundSize: 'contain',
-      backgroundColor:'#3f51b5',
+      backgroundColor: '#303030',
       [theme.breakpoints.up('md')]: {
         backgroundPosition: 'top -110px center',
       },

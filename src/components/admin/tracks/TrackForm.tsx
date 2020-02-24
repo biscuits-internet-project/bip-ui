@@ -6,6 +6,7 @@ import {AppContext} from '../../../context/AppProvider'
 import TextAreaField from '../../shared/TextAreaField'
 import Button from '@material-ui/core/Button'
 import {ITrack} from './AdminTracks'
+import CheckboxField from '../../shared/CheckboxField';
 
 interface ITrackForm {
     setTracks: (tracks: ITrack[]) => void
@@ -18,6 +19,7 @@ const initialValues:ITrack = {
   id: "",
   slug: "",
   note: "",
+  all_timer: false,
   show: undefined,
   venue: undefined
 }
@@ -68,6 +70,7 @@ const TrackForm: React.FC<ITrackForm> = ({setTracks, tracks, id, handleClose}) =
             {(props: FormikProps<ITrack>) => (
               <Form>
                 <TextAreaField name="note" label="Note" />
+                <CheckboxField name="all_timer" label="All timer" />
                 <div style={{display: 'flex', justifyContent: 'flex-end', marginTop: '16px'}}>
                   <Button variant="contained" color="primary" type="submit">
                     Submit
