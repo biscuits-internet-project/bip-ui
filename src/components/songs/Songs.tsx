@@ -4,24 +4,10 @@ import axios, { AxiosResponse } from 'axios'
 import { Helmet } from "react-helmet";
 import { Link, Grid, Button, Dialog, DialogTitle, DialogContent } from '@material-ui/core';
 import MUIDataTable from "mui-datatables";
-import PageHeading from './shared/PageHeading';
-import SongForm from './admin/songs/SongForm'
+import PageHeading from '../shared/PageHeading';
+import SongForm from './SongForm'
 import { useSnackbar } from 'notistack'
-
-export interface ISong {
-	id?: string,
-	title?: string
-	author_id?: string,
-	author_name?: string,
-	cover?: boolean,
-	lyrics?: string,
-	notes?: string,
-	slug?: string,
-	tabs?: string,
-	history?: string,
-	featured_lyric?: string,
-	times_played?: number
-}
+import { ISong } from './Song'
 
 const Songs: React.FC = () => {
 	const [loading, setLoading] = useState(false)
@@ -148,16 +134,18 @@ const Songs: React.FC = () => {
 			<Helmet>
 				<title>Biscuits Internet Project - Songs</title>
 			</Helmet>
-			<PageHeading text="Songs"/>
-			{/* <Grid container>
+			<Grid container
+				justify="space-between" // Add it here :)
+			>
 				<Grid item>
+					<PageHeading text="Songs"/>
 				</Grid>
 				<Grid item>
 					<div style={{alignContent: "right"}}>
-						<Button variant="contained" onClick={() =>handleOpen('form')}>Add Song</Button>
+						<Button onClick={() =>handleOpen('form')}>Add Song</Button>
 					</div>
 				</Grid>
-			</Grid> */}
+			</Grid>
 			<MUIDataTable
 				data={data}
 				columns={columns}
@@ -170,7 +158,7 @@ const Songs: React.FC = () => {
 			>
 				<DialogTitle>{id ? "Edit Song" : "Add Song"}</DialogTitle>
 				<DialogContent>
-					<SongForm setSongs={setSongs} songs={songs} id={id} handleClose={() => handleClose('form')}/>
+					<SongForm setSongs={setSongs} songs={songs} id={id} handleClose={() => handleClose('form')} handleOpen={() => handleOpen('')} />
 				</DialogContent>
 			</Dialog>
 		</>

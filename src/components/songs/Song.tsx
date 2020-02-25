@@ -1,29 +1,33 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useContext } from 'react';
 import { Link as RouterLink, useParams } from 'react-router-dom';
 import axios, { AxiosResponse } from 'axios'
-import { IVenue } from './Venues';
+import { IVenue } from '../Venues';
 import { Helmet } from "react-helmet";
 import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
-import { Link, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, ExpansionPanel, ExpansionPanelSummary, Typography, ExpansionPanelDetails, LinearProgress } from '@material-ui/core';
+import { Link, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, ExpansionPanel, ExpansionPanelSummary, Typography, ExpansionPanelDetails, LinearProgress, Button, Grid, Dialog, DialogTitle, DialogContent } from '@material-ui/core';
 import Moment from 'react-moment';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import PageHeading from './shared/PageHeading';
+import PageHeading from '../shared/PageHeading';
+import { useSnackbar } from 'notistack';
+import DeleteConfirm from './DeleteConfirm'
+import { AppContext } from '../../context/AppProvider';
+import SongForm from './SongForm';
 
-interface ISong {
+export interface ISong {
 	id: string,
 	author_id: string,
 	author_name: string,
 	cover: boolean,
-	lyrics: string,
-	notes: string,
+	lyrics?: string,
+	notes?: string,
 	slug: string,
-	tabs: string,
+	tabs?: string,
 	title: string,
 	times_played: number,
-	first_played_show: IShow,
-	last_played_show: IShow,
-	history: string,
-	featured_lyric: string
+	first_played_show?: IShow,
+	last_played_show?: IShow,
+	history?: string,
+	featured_lyric?: string
 }
 
 interface ISongPlayed {
@@ -56,12 +60,43 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const Song: React.FC = () => {
-
+	const {state} = useContext(AppContext)
 	const classes = useStyles();
 	const params = useParams();
 	const [loading, setLoading] = useState(false)
+	const [id, setId] = useState('')
 	const [song, setSong] = useState<ISong | undefined>(undefined)
+	const [songs, setSongs] = useState<ISong[]>([])
+	const [deleteOpen, setDeleteOpen] = useState(false)
+	const [formOpen, setFormOpen] = useState(false)
+	const { enqueueSnackbar } = useSnackbar()
 	const [songsPlayed, setSongsPlayed] = useState<ISongPlayed[]>([])
+
+	const handleOpen = (type: string, id?: string) => {
+		if(id) setId(id)
+		type === 'form' ? setFormOpen(true) : setDeleteOpen(true)
+	};
+
+	const handleClose = (type :string) => {
+		type === 'form' ? setFormOpen(false) : setDeleteOpen(false)
+		setFormOpen(false)
+		setTimeout(()=>setId(''), 500)
+	};
+
+	const handleDelete = useCallback(async () => {
+		if (song) {
+			await axios({
+				method: 'delete',
+				url: `${process.env.REACT_APP_API_URL}/songs/${song.slug}`,
+				headers: {
+					"Content-Type":	"application/json",
+					"Authorization": state.token
+				}
+			});
+			enqueueSnackbar("successfully deleted", { variant: 'success' })
+			handleClose("delete")
+		}
+	},[enqueueSnackbar, song, state.token])
 
 	useEffect(() => {
 		setLoading(true)
@@ -69,8 +104,8 @@ const Song: React.FC = () => {
 			const song: AxiosResponse = await axios.get(`${process.env.REACT_APP_API_URL}/songs/${params.id}`)
 			setSong(song.data)
 
-			const songs: AxiosResponse = await axios.get(`${process.env.REACT_APP_API_URL}/tracks/songs/${params.id}`)
-			setSongsPlayed(songs.data)
+			const tracks: AxiosResponse = await axios.get(`${process.env.REACT_APP_API_URL}/tracks/songs/${params.id}`)
+			setSongsPlayed(tracks.data)
 
 			setLoading(false)
 		}
@@ -83,7 +118,33 @@ const Song: React.FC = () => {
 					<Helmet>
 						<title>Biscuits Internet Project - {song.title}</title>
 					</Helmet>
-					<PageHeading text={song.title} />
+					<DeleteConfirm
+						id={id}
+						songs={songs}
+						handleClose={() => handleClose("delete")}
+						deleteOpen={deleteOpen}
+						handleDelete={handleDelete}
+					/>
+					<Dialog
+						open={formOpen}
+						onClose={() => handleClose('form')}
+					>
+						<DialogTitle>Edit Song</DialogTitle>
+						<DialogContent>
+							<SongForm setSongs={setSongs} songs={songs} id={song.id} handleClose={() => handleClose('form')}  handleOpen={() => handleOpen('delete')}/>
+						</DialogContent>
+					</Dialog>
+					<Grid container justify="space-between" >
+						<Grid item>
+							<PageHeading text={song.title} />
+						</Grid>
+						<Grid item>
+							<div style={{alignContent: "right"}}>
+								<Button onClick={()=>handleOpen("form")}>Edit Song</Button>
+							</div>
+						</Grid>
+					</Grid>
+
 					{song.featured_lyric &&
 						<>
 							<Typography>
@@ -116,19 +177,21 @@ const Song: React.FC = () => {
 									Debut
 									</TableCell>
 								<TableCell>
-									<Link component={RouterLink} to={`/shows/${song.first_played_show.slug}`}>
-										<Moment format="MMMM D, YYYY">
-											{song.first_played_show.date}
-										</Moment>
-										<span> - </span>
-										{song.first_played_show.venue.name}
-										<span> - </span>
-										{song.first_played_show.venue.city}
-										<span>, </span>
-										{song.first_played_show.venue.state}
-									</Link>
+									{song.first_played_show &&
+										<Link component={RouterLink} to={`/shows/${song.first_played_show.slug}`}>
+											<Moment format="MMMM D, YYYY">
+												{song.first_played_show.date}
+											</Moment>
+											<span> - </span>
+											{song.first_played_show.venue.name}
+											<span> - </span>
+											{song.first_played_show.venue.city}
+											<span>, </span>
+											{song.first_played_show.venue.state}
+										</Link>
 
-									{song.first_played_show.relisten_url &&
+									}
+									{song.first_played_show && song.first_played_show.relisten_url &&
 										<>
 											<span>  </span>
 											<Link href={song.first_played_show.relisten_url} target="blank">
@@ -143,17 +206,28 @@ const Song: React.FC = () => {
 									Last played
 									</TableCell>
 								<TableCell>
-									<Link component={RouterLink} to={`/shows/${song.last_played_show.slug}`}>
-										<Moment format="MMMM D, YYYY">
-											{song.last_played_show.date}
-										</Moment>
-										<span> - </span>
-										{song.last_played_show.venue.name}
-										<span> - </span>
-										{song.last_played_show.venue.city}
-										<span>, </span>
-										{song.last_played_show.venue.state}
-									</Link>
+									{song.last_played_show &&
+										<Link component={RouterLink} to={`/shows/${song.last_played_show.slug}`}>
+											<Moment format="MMMM D, YYYY">
+												{song.last_played_show.date}
+											</Moment>
+											<span> - </span>
+											{song.last_played_show.venue.name}
+											<span> - </span>
+											{song.last_played_show.venue.city}
+											<span>, </span>
+											{song.last_played_show.venue.state}
+										</Link>
+									}
+
+									{song.last_played_show && song.last_played_show.relisten_url &&
+										<>
+											<span>  </span>
+											<Link href={song.last_played_show.relisten_url} target="blank">
+												<img src="/relisten.png" alt="relisten" />
+											</Link>
+										</>
+									}
 								</TableCell>
 							</TableRow>
 						</Table>

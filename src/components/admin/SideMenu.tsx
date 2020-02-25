@@ -33,11 +33,6 @@ const itemList: sideMenuItem[] = [
 		icon: <QueueMusic/>
 	},
 	{
-		name: 'songs',
-		label: 'Songs',
-		icon: <LibraryMusic/>
-	},
-	{
 		name: 'venues',
 		label: 'Venues',
 		icon: <Room/>
@@ -66,10 +61,10 @@ const SideMenu = () => {
 					<List component="nav" aria-label="main mailbox folders">
 							{itemList.map((item: sideMenuItem)=> {
 								return (
-									<ListItem  
-										key={item.label} 
-										button 
-										selected={adminPage ? adminPage === item.name : !item.name} 
+									<ListItem
+										key={item.label}
+										button
+										selected={adminPage ? adminPage === item.name : !item.name}
 										onClick={()=> history.push(`/admin/${item.name}`)}
 									>
 										<ListItemIcon>

@@ -18,6 +18,7 @@ const TextAreaField: React.FC<ITextAreaField> = ({label, name, value, rows}) => 
           {...field}
           fullWidth
           variant="outlined"
+          margin="normal"
           multiline={true}
           rows={rows || 5}
           error={fieldError} helperText={fieldError && meta.error}

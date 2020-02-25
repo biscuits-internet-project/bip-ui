@@ -3,7 +3,7 @@ import { Form, Formik, FormikHelpers, FieldArray, validateYupSchema, yupToFormEr
 import * as Yup from 'yup';
 import axios from 'axios'
 import {AppContext} from '../../../context/AppProvider'
-import {ISong} from '../../Songs'
+import {ISong} from './../../songs/Song'
 import SelectField, {ISelectOption} from '../../shared/SelectField'
 import IconButton from '@material-ui/core/IconButton'
 import { AddCircle} from '@material-ui/icons';
