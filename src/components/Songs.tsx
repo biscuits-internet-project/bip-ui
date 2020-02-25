@@ -79,6 +79,7 @@ const Songs: React.FC = () => {
 		];
 
 	const options = {
+		responsive: 'scrollFullHeight',
 		filterType: 'multiselect',
 		pagination: true,
 		print: false,
@@ -92,7 +93,7 @@ const Songs: React.FC = () => {
 	};
 
 	const data = songs.map((s: ISong) => (
-		[ s.title, s.author_name, s.cover ? "cover" : "original", s.times_played, <Link variant="button" component={RouterLink} to={`/songs/${s.slug}`}>View Details </Link>]
+		[<Link component={RouterLink} to={`/songs/${s.slug}`}>{s.title}</Link>, s.author_name, s.cover ? "cover" : "original", s.times_played]
 	))
 
 

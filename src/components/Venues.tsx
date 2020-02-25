@@ -68,17 +68,10 @@ const Venues: React.FC = () => {
 					searchable: true,
 				},
 			},
-			{
-				name: "",
-				options: {
-					filter: false,
-					sort: false,
-					searchable: false,
-				},
-			},
 		];
 
 	const options = {
+		responsive: 'scrollFullHeight',
 		filterType: 'multiselect',
 		pagination: true,
 		print: false,
@@ -92,7 +85,7 @@ const Venues: React.FC = () => {
 	};
 
 	const data = venues.map((v: IVenue) => (
-		[ v.name, v.city, v.state, v.times_played, <Link variant="button" component={RouterLink} to={`/venues/${v.slug}`}>view details</Link>]
+		[<Link component={RouterLink} to={`/venues/${v.slug}`}>{v.name}</Link>, v.city, v.state, v.times_played]
 	))
 
 	return (
