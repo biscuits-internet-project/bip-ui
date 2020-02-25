@@ -134,13 +134,29 @@ const Song: React.FC = () => {
 					<Helmet>
 						<title>Biscuits Internet Project - {song.title}</title>
 					</Helmet>
+					<DeleteConfirm
+						id={id}
+						songs={songs}
+						handleClose={() => handleClose("delete")}
+						deleteOpen={deleteOpen}
+						handleDelete={handleDelete}
+					/>
+					<Dialog
+						open={formOpen}
+						onClose={() => handleClose('form')}
+					>
+						<DialogTitle>Edit Song</DialogTitle>
+						<DialogContent>
+							<SongForm setSongs={setSongs} songs={songs} id={song.id} handleClose={() => handleClose('form')}  handleOpen={() => handleOpen('delete')}/>
+						</DialogContent>
+					</Dialog>
 					<Grid container justify="space-between" >
 						<Grid item>
 							<PageHeading text={song.title} />
 						</Grid>
 						<Grid item>
 							<div style={{alignContent: "right"}}>
-								<Button onClick={()=>handleOpen("form")}>Update Song</Button>
+								<Button onClick={()=>handleOpen("form")}>Edit Song</Button>
 							</div>
 						</Grid>
 					</Grid>

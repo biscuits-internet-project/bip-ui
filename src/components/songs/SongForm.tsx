@@ -170,7 +170,9 @@ const SongForm: React.FC<ISongForm> = ({setSongs, songs, id, handleClose}) => {
                 <div style={{height: 20}}></div>
                 <Grid container justify="space-between" >
                   <Grid item>
+                    {id &&
                       <Button onClick={()=>handleDeleteOpen()}>Delete Song</Button>
+                    }
                   </Grid>
                   <Grid item>
                     <div style={{alignContent: "right"}}>
