@@ -34,6 +34,7 @@ import Gear from './components/resources/Gear';
 import Music from './components/resources/Music';
 import ChemicalWarfareBrigade from './components/resources/ChemcialWarfareBrigade';
 import SideProjects from './components/resources/SideProjects';
+import { SnackbarProvider } from 'notistack';
 
 interface sideMenuItem {
   name: string | undefined,
@@ -179,9 +180,9 @@ const App: React.FC = () => {
   }
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
   const theme = React.useMemo(() =>
-      getTheme(
-        prefersDarkMode
-      ),
+    getTheme(
+      prefersDarkMode
+    ),
     [prefersDarkMode],
   );
 
@@ -196,128 +197,133 @@ const App: React.FC = () => {
 
   const drawer = (
     <>
-    <List>
-      {itemList.map((item: sideMenuItem) => {
-        return (
-          <ListItemLink component={RouterLink} key={item.name} to={`/${item.name}`}>
-            <ListItemIcon>
-              {item.icon}
-            </ListItemIcon>
-            <ListItemText className={classes.sidebarText} primary={item.label} />
-          </ListItemLink>
-        )
-      })}
-    </List>
+      <List>
+        {itemList.map((item: sideMenuItem) => {
+          return (
+            <ListItemLink component={RouterLink} key={item.name} to={`/${item.name}`}>
+              <ListItemIcon>
+                {item.icon}
+              </ListItemIcon>
+              <ListItemText className={classes.sidebarText} primary={item.label} />
+            </ListItemLink>
+          )
+        })}
+      </List>
 
-    <Divider></Divider>
-    <div style={{height: 20}}></div>
-    {username &&
-      <div style={{marginLeft: 20}}>
+      <Divider></Divider>
+      <div style={{ height: 20 }}></div>
+      {username &&
+        <div style={{ marginLeft: 20 }}>
           {admin && <div><Link component={RouterLink} to="/admin/dashboard">Admin</Link></div>}
           <div><Link onClick={logoutUser}>Logout</Link></div>
-      </div>
-    }
-</>
+        </div>
+      }
+    </>
 
   )
 
   return (
     <React.Fragment>
-      <Router>
-        <ThemeProvider theme={theme}>
-          <Switch>
-            <PrivateRoute path="/admin/:adminPage?" component={Admin} roles={roles} />
-            <div className={classes.root}>
-              <CssBaseline />
-              <AppBar position="fixed" className={classes.appBar}>
-                <Toolbar>
-                      <IconButton
-                        color="inherit"
-                        aria-label="open drawer"
-                        edge="start"
-                        onClick={handleDrawerToggle}
-                        className={classes.menuButton}
-                      >
-                        <MenuIcon />
-                      </IconButton>
-                      <Typography variant="h5" className={classes.navHeaderDisplay}>
-                        Biscuits Internet Project 2.0
+      <SnackbarProvider
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        maxSnack={3}
+      >
+        <Router>
+          <ThemeProvider theme={theme}>
+            <Switch>
+              <PrivateRoute path="/admin/:adminPage?" component={Admin} roles={roles} />
+              <div className={classes.root}>
+                <CssBaseline />
+                <AppBar position="fixed" className={classes.appBar}>
+                  <Toolbar>
+                    <IconButton
+                      color="inherit"
+                      aria-label="open drawer"
+                      edge="start"
+                      onClick={handleDrawerToggle}
+                      className={classes.menuButton}
+                    >
+                      <MenuIcon />
+                    </IconButton>
+                    <Typography variant="h5" className={classes.navHeaderDisplay}>
+                      Biscuits Internet Project 2.0
                       </Typography>
 
-                </Toolbar>
-              </AppBar>
-              <nav className={classes.drawer} aria-label="mailbox folders">
-                {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-                <Hidden smUp implementation="css">
-                  <Drawer
-                    variant="temporary"
-                    anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-                    open={mobileOpen}
-                    onClose={handleDrawerToggle}
-                    classes={{
-                      paper: classes.drawerPaper,
-                    }}
-                    ModalProps={{
-                      keepMounted: true, // Better open performance on mobile.
-                    }}
-                  >
-                    {drawer}
-                  </Drawer>
-                </Hidden>
-                <Hidden xsDown implementation="css">
-                  <Drawer
-                    classes={{
-                      paper: classes.drawerPaper,
-                    }}
-                    variant="permanent"
-                    open
-                  >
-                    {drawer}
-                  </Drawer>
-                </Hidden>
-              </nav>
-              <main className={classes.content}>
-                <div className={classes.toolbar} />
-                <Route path="/" exact component={LatestShows} />
-                <Route path="/login" component={Login} />
-                <Route path="/profile" component={Profile} />
-                <Route path="/resources/history" exact component={BandHistory} />
-                <Route path="/resources/gear" exact component={Gear} />
-                <Route path="/resources/music" exact component={Music} />
-                <Route path="/resources/chemical-warfare-brigade" exact component={ChemicalWarfareBrigade} />
-                <Route path="/resources/hot-air-balloon" exact component={HotAirBalloon} />
-                <Route path="/resources/side-projects" exact component={SideProjects} />
-                <Route path="/shows" exact component={Shows} />
-                <Route path="/shows/:id" exact component={Show} />
-                <Route path="/shows/year/:year" exact component={Shows} />
-                <Route path="/shows/venue/:venue_id" exact component={Shows} />
-                <Route path="/shows/state/:state" exact component={Shows} />
-                <Route path="/songs" exact component={Songs} />
-                <Route path="/songs/:id" component={Song} />
-                <Route path="/venues" exact component={Venues} />
-                <Route path="/venues/:id" exact component={Venue} />
-                <Route path="/tour" exact component={Tour} />
-                <Route path="/register" exact component={Register} />
-                <Route path="/resources" exact component={Resources} />
-                <Route path="/about" exact component={About} />
-                <Route path="/contact" exact component={Contact} />
-                <Route path="/register/confirm" exact component={Register} />
-                <Route path="/password/reset/:token" exact component={ResetPassword} />
+                  </Toolbar>
+                </AppBar>
+                <nav className={classes.drawer} aria-label="mailbox folders">
+                  {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
+                  <Hidden smUp implementation="css">
+                    <Drawer
+                      variant="temporary"
+                      anchor={theme.direction === 'rtl' ? 'right' : 'left'}
+                      open={mobileOpen}
+                      onClose={handleDrawerToggle}
+                      classes={{
+                        paper: classes.drawerPaper,
+                      }}
+                      ModalProps={{
+                        keepMounted: true, // Better open performance on mobile.
+                      }}
+                    >
+                      {drawer}
+                    </Drawer>
+                  </Hidden>
+                  <Hidden xsDown implementation="css">
+                    <Drawer
+                      classes={{
+                        paper: classes.drawerPaper,
+                      }}
+                      variant="permanent"
+                      open
+                    >
+                      {drawer}
+                    </Drawer>
+                  </Hidden>
+                </nav>
+                <main className={classes.content}>
+                  <div className={classes.toolbar} />
+                  <Route path="/" exact component={LatestShows} />
+                  <Route path="/login" component={Login} />
+                  <Route path="/profile" component={Profile} />
+                  <Route path="/resources/history" exact component={BandHistory} />
+                  <Route path="/resources/gear" exact component={Gear} />
+                  <Route path="/resources/music" exact component={Music} />
+                  <Route path="/resources/chemical-warfare-brigade" exact component={ChemicalWarfareBrigade} />
+                  <Route path="/resources/hot-air-balloon" exact component={HotAirBalloon} />
+                  <Route path="/resources/side-projects" exact component={SideProjects} />
+                  <Route path="/shows" exact component={Shows} />
+                  <Route path="/shows/:id" exact component={Show} />
+                  <Route path="/shows/year/:year" exact component={Shows} />
+                  <Route path="/shows/venue/:venue_id" exact component={Shows} />
+                  <Route path="/shows/state/:state" exact component={Shows} />
+                  <Route path="/songs" exact component={Songs} />
+                  <Route path="/songs/:id" component={Song} />
+                  <Route path="/venues" exact component={Venues} />
+                  <Route path="/venues/:id" exact component={Venue} />
+                  <Route path="/tour" exact component={Tour} />
+                  <Route path="/register" exact component={Register} />
+                  <Route path="/resources" exact component={Resources} />
+                  <Route path="/about" exact component={About} />
+                  <Route path="/contact" exact component={Contact} />
+                  <Route path="/register/confirm" exact component={Register} />
+                  <Route path="/password/reset/:token" exact component={ResetPassword} />
 
-                <Divider style={{ marginTop: "30px" }} />
+                  <Divider style={{ marginTop: "30px" }} />
 
-                <Box className={classes.footer}>
-                  <Typography>
-                    <span>BIP 2.0 | </span>
-                    <span><Link component={RouterLink} to="/about">About</Link> | </span>
-                    <span><Link component={RouterLink} to="/contact">Contact</Link> </span>
-                  </Typography>
-                </Box>
-              </main>
-            </div>
-          </Switch>
-        </ThemeProvider>
-      </Router>
+                  <Box className={classes.footer}>
+                    <Typography>
+                      <span>BIP 2.0 | </span>
+                      <span><Link component={RouterLink} to="/about">About</Link> | </span>
+                      <span><Link component={RouterLink} to="/contact">Contact</Link> </span>
+                    </Typography>
+                  </Box>
+                </main>
+              </div>
+            </Switch>
+          </ThemeProvider>
+        </Router>
+      </SnackbarProvider>
     </React.Fragment>
   )
 }

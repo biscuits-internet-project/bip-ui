@@ -96,7 +96,6 @@ const SongForm: React.FC<ISongForm> = ({setSongs, songs, id, handleClose}) => {
         setSongs([data, ...songs])
         enqueueSnackbar(`Successfully added ${data.title} by ${data.author_name}`, { variant: 'success' })
         handleClose()
-
       }
 
       else {

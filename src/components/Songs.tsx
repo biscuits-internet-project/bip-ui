@@ -2,9 +2,11 @@ import React, {useState, useEffect} from 'react';
 import { Link as RouterLink } from 'react-router-dom'
 import axios, { AxiosResponse } from 'axios'
 import { Helmet } from "react-helmet";
-import { Link } from '@material-ui/core';
+import { Link, Grid, Button, Dialog, DialogTitle, DialogContent } from '@material-ui/core';
 import MUIDataTable from "mui-datatables";
 import PageHeading from './shared/PageHeading';
+import SongForm from './admin/songs/SongForm'
+import { useSnackbar } from 'notistack'
 
 export interface ISong {
 	id?: string,
@@ -24,6 +26,10 @@ export interface ISong {
 const Songs: React.FC = () => {
 	const [loading, setLoading] = useState(false)
 	const [songs, setSongs] = useState<ISong[]>([])
+	const [formOpen, setFormOpen] = useState(false)
+	const [id, setId] = useState('')
+	const { enqueueSnackbar } = useSnackbar()
+
 	useEffect(()=> {
 		setLoading(true)
 		const fetchSongs = async () => {
@@ -34,13 +40,32 @@ const Songs: React.FC = () => {
 		}
 		fetchSongs()
 	},[])
+
+	const handleOpen = (type: string, id?: string) => {
+		if(id) setId(id)
+		//type === 'form' ? setFormOpen(true) : setDeleteOpen(true)
+		setFormOpen(true)
+	};
+
+	const handleClose = (type :string) => {
+		//type === 'form' ? setFormOpen(false) : setDeleteOpen(false)
+		setFormOpen(false)
+		setTimeout(()=>setId(''), 500)
+	};
+
 	const columns = [
 		{
 			name: "Title",
 			options: {
 				filter: false,
 				sort: true,
-				searchable: true
+				sortDirection: "none",
+				searchable: true,
+				customBodyRender: value => {
+					return (
+					  <Link component={RouterLink} to={`/songs/${value[0]}`}>{value[1]}</Link>
+					);
+				  }
 			}
 		},
 		{
@@ -48,6 +73,7 @@ const Songs: React.FC = () => {
 			options: {
 				filter: true,
 				sort: true,
+				sortDirection: "none",
 				searchable: true
 			},
 		},
@@ -65,6 +91,7 @@ const Songs: React.FC = () => {
 			options: {
 				filter: false,
 				sort: true,
+				sortDirection: "desc",
 				searchable: true
 			},
 		},
@@ -89,13 +116,32 @@ const Songs: React.FC = () => {
 		searchOpen: true,
 		viewColumns: false,
 		rowsPerPage: 25,
-		rowsPerPageOptions: [25,50,100]
+		rowsPerPageOptions: [25,50,100],
+		customSort: (data, colIndex, order) => {
+			return data.sort((a, b) => {
+			  if (colIndex === 0) {
+				return (
+				  (a.data[colIndex][1].toLowerCase() < b.data[colIndex][1].toLowerCase() ? -1 : 1) *
+				  (order === "desc" ? 1 : -1)
+				);
+			  } else if (colIndex === 1) {
+				return (
+				  ((a.data[colIndex] ?? "").toLowerCase() < (b.data[colIndex] ?? "").toLowerCase() ? -1 : 1) *
+				  (order === "desc" ? 1 : -1)
+				);
+			  } else {
+				return (
+				  (a.data[colIndex] < b.data[colIndex] ? -1 : 1) *
+				  (order === "asc" ? 1 : -1)
+				);
+			  }
+			});
+		  }
 	};
 
 	const data = songs.map((s: ISong) => (
-		[<Link component={RouterLink} to={`/songs/${s.slug}`}>{s.title}</Link>, s.author_name, s.cover ? "cover" : "original", s.times_played]
+		[[s.slug, s.title], s.author_name, s.cover ? "cover" : "original", s.times_played]
 	))
-
 
 	return (
 		<>
@@ -103,11 +149,30 @@ const Songs: React.FC = () => {
 				<title>Biscuits Internet Project - Songs</title>
 			</Helmet>
 			<PageHeading text="Songs"/>
+			{/* <Grid container>
+				<Grid item>
+				</Grid>
+				<Grid item>
+					<div style={{alignContent: "right"}}>
+						<Button variant="contained" onClick={() =>handleOpen('form')}>Add Song</Button>
+					</div>
+				</Grid>
+			</Grid> */}
 			<MUIDataTable
 				data={data}
 				columns={columns}
 				options={options}
 			/>
+
+			<Dialog
+				open={formOpen}
+				onClose={() => handleClose('form')}
+			>
+				<DialogTitle>{id ? "Edit Song" : "Add Song"}</DialogTitle>
+				<DialogContent>
+					<SongForm setSongs={setSongs} songs={songs} id={id} handleClose={() => handleClose('form')}/>
+				</DialogContent>
+			</Dialog>
 		</>
 	)
 }

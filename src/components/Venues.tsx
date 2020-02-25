@@ -41,7 +41,13 @@ const Venues: React.FC = () => {
 			options: {
 				filter: false,
 				sort: true,
-				searchable: true
+				sortDirection: "none",
+				searchable: true,
+				customBodyRender: value => {
+					return (
+					  <Link component={RouterLink} to={`/venues/${value[0]}`}>{value[1]}</Link>
+					);
+				}
 			}
 		},
 		{
@@ -49,6 +55,7 @@ const Venues: React.FC = () => {
 			options: {
 				filter: true,
 				sort: true,
+				sortDirection: "none",
 				searchable: true
 			},
 		},
@@ -57,6 +64,7 @@ const Venues: React.FC = () => {
 			options: {
 				filter: true,
 				sort: true,
+				sortDirection: "none",
 				searchable: true
 			},
 		},
@@ -65,6 +73,7 @@ const Venues: React.FC = () => {
 				options: {
 					filter: false,
 					sort: true,
+					sortDirection: "desc",
 					searchable: true,
 				},
 			},
@@ -81,11 +90,31 @@ const Venues: React.FC = () => {
 		searchOpen: true,
 		viewColumns: false,
 		rowsPerPage: 25,
-		rowsPerPageOptions: [25,50,100]
+		rowsPerPageOptions: [25,50,100],
+		customSort: (data, colIndex, order) => {
+			return data.sort((a, b) => {
+			  if (colIndex === 0) {
+				return (
+				  (a.data[colIndex][1].toLowerCase() < b.data[colIndex][1].toLowerCase() ? -1 : 1) *
+				  (order === "desc" ? 1 : -1)
+				);
+			  } else if (colIndex === 1 || colIndex === 2) {
+				return (
+				  ((a.data[colIndex] ?? "").toLowerCase() < (b.data[colIndex] ?? "").toLowerCase() ? -1 : 1) *
+				  (order === "desc" ? 1 : -1)
+				);
+			  } else {
+				return (
+				  (a.data[colIndex] < b.data[colIndex] ? -1 : 1) *
+				  (order === "asc" ? 1 : -1)
+				);
+			  }
+			});
+		  }
 	};
 
 	const data = venues.map((v: IVenue) => (
-		[<Link component={RouterLink} to={`/venues/${v.slug}`}>{v.name}</Link>, v.city, v.state, v.times_played]
+		[[v.slug, v.name], v.city, v.state, v.times_played]
 	))
 
 	return (
