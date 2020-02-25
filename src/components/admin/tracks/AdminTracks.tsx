@@ -12,7 +12,7 @@ import TrackForm from './TrackForm'
 import TrackList from './TrackList'
 import { IVenue } from '../../Venues';
 import { IShow } from '../../Show';
-import { ISong } from '../songs/AdminSongs';
+import { ISong } from '../../songs/Song';
 
 export interface ITrack {
 	id: string

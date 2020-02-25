@@ -3,21 +3,23 @@ import { Form, Formik, FormikProps,FormikHelpers} from 'formik'
 import axios, { AxiosResponse } from 'axios'
 import * as Yup from 'yup';
 import { useSnackbar } from 'notistack'
-import {AppContext} from '../../../context/AppProvider'
-import TextField from '../../shared/TextField'
-import TextAreaField from '../../shared/TextAreaField'
-import CheckboxField from '../../shared/CheckboxField'
-import SelectField, {ISelectOption} from '../../shared/SelectField'
-import TextEditorField from '../../shared/TextEditorField'
+import {AppContext} from '../../context/AppProvider'
+import TextField from '../shared/TextField'
+import TextAreaField from '../shared/TextAreaField'
+import CheckboxField from '../shared/CheckboxField'
+import SelectField, {ISelectOption} from '../shared/SelectField'
+import TextEditorField from '../shared/TextEditorField'
 import Button from '@material-ui/core/Button'
-import {ISong} from '../../Songs'
-
+import {ISong} from './Song'
+import { Grid } from '@material-ui/core';
+import DeleteConfirm from './DeleteConfirm';
 
 interface ISongForm {
     setSongs: (songs: ISong[]) => void
     songs: ISong[],
     id: string | null
-    handleClose: ()=> void
+    handleClose: (string) => void
+    handleOpen: (string) => void
 }
 
 interface IAuthor {
@@ -31,6 +33,8 @@ interface IAuthorOption extends ISelectOption {
 }
 
 const initialValues:ISong = {
+  id: "",
+  slug: "",
   title: "",
 	cover: false,
 	lyrics: "",
@@ -38,7 +42,11 @@ const initialValues:ISong = {
 	history: "",
 	featured_lyric: "",
   tabs: "",
-  author_id: ""
+  author_id: "",
+  times_played: 0,
+  first_played_show: undefined,
+  last_played_show: undefined,
+  author_name: ""
 }
 
 const SongFormSchema = Yup.object().shape({
@@ -51,9 +59,14 @@ const SongFormSchema = Yup.object().shape({
 const SongForm: React.FC<ISongForm> = ({setSongs, songs, id, handleClose}) => {
     const {state} = useContext(AppContext)
     const [dataLoaded, setDataLoaded] = useState(false)
+    const [deleteOpen, setDeleteOpen] = useState(false)
     const [formData, setFormData] = useState(initialValues)
     const [authors, setAuthors] = useState<IAuthorOption[]>([])
     const { enqueueSnackbar } = useSnackbar()
+
+    const handleDeleteOpen = () => {
+      setDeleteOpen(true)
+    };
 
     useEffect(()=> {
       const fetchSong = async () => {
@@ -80,6 +93,21 @@ const SongForm: React.FC<ISongForm> = ({setSongs, songs, id, handleClose}) => {
       fetchAuthors()
     },[])
 
+    const deleteSong = useCallback(async () => {
+      if (id) {
+        await axios({
+          method: 'delete',
+          url: `${process.env.REACT_APP_API_URL}/songs/${id}`,
+          headers: {
+            "Content-Type":	"application/json",
+            "Authorization": state.token
+          }
+        });
+        enqueueSnackbar("Successfully deleted song", { variant: 'success' })
+        handleClose("delete")
+      }
+    },[enqueueSnackbar, id, state.token])
+
     const postSong = useCallback(async (values: ISong, actions:FormikHelpers<ISong>) => {
       const newSong:AxiosResponse = await axios({
           method: id ? 'put' : 'post',
@@ -95,21 +123,27 @@ const SongForm: React.FC<ISongForm> = ({setSongs, songs, id, handleClose}) => {
       if(!id){
         setSongs([data, ...songs])
         enqueueSnackbar(`Successfully added ${data.title} by ${data.author_name}`, { variant: 'success' })
-        handleClose()
-      }
-
-      else {
+        handleClose("form")
+      } else {
         const index = songs.findIndex(song => song.slug === id)
         const newSongs = [...songs]
         newSongs[index] = data
         setSongs(newSongs)
         enqueueSnackbar(`Successfully edited ${data.title} by ${data.author_name}`, { variant: 'success' })
-        handleClose()
+        handleClose("form")
       }
     }, [enqueueSnackbar, handleClose, id, setSongs, songs, state.token])
-    if(!dataLoaded) return <div style={{width: '480px', height: '500px'}}></div>
+    if(!dataLoaded) return <div style={{width: '600px', height: '500px'}}></div>
     return (
         <div>
+          {id &&
+            <DeleteConfirm
+              songs={songs}
+              handleClose={() => handleClose('delete')}
+              deleteOpen={deleteOpen} id={id}
+              handleDelete={deleteSong}
+            />
+          }
           <Formik
             enableReinitialize
             initialValues={formData}
@@ -130,13 +164,23 @@ const SongForm: React.FC<ISongForm> = ({setSongs, songs, id, handleClose}) => {
                 <TextEditorField name="history" label="History" />
                 <TextAreaField name="featured_lyric" label="Featured Lyric" />
                 <TextAreaField name="notes" label="Notes" />
-                <TextAreaField name="lyrics" label="Lyrics" />
-                <TextAreaField name="tabs" label="Tabs" />
-                <div style={{display: 'flex', justifyContent: 'flex-end', marginTop: '16px'}}>
-                  <Button variant="contained" color="primary" type="submit">
-                    Submit
-                  </Button>
-                </div>
+                <TextEditorField name="lyrics" label="Lyrics" />
+                <TextEditorField name="tabs" label="Tabs" />
+
+                <div style={{height: 20}}></div>
+                <Grid container justify="space-between" >
+                  <Grid item>
+                      <Button onClick={()=>handleDeleteOpen()}>Delete Song</Button>
+                  </Grid>
+                  <Grid item>
+                    <div style={{alignContent: "right"}}>
+                      <Button variant="contained" type="submit">
+                        Submit
+                      </Button>
+                    </div>
+                  </Grid>
+                </Grid>
+                <div style={{height: 20}}></div>
               </Form>
             )}
           </Formik>

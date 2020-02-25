@@ -4,8 +4,7 @@ import { SnackbarProvider } from 'notistack';
 import Dashboard from './admin/Dashboard'
 import Navbar from './admin/Navbar'
 import SideMenu from './admin/SideMenu'
-import Song from './Song';
-import AdminSongs from './admin/songs/AdminSongs';
+import Song from './songs/Song';
 import AdminUsers from './admin/users/AdminUsers';
 import AdminShows from './admin/shows/AdminShows';
 import AdminVenues from './admin/venues/AdminVenues';
@@ -21,12 +20,11 @@ const Admin: React.FC = () => {
 			<Navbar/>
 			<div style={{ display: 'flex' }}>
 				<SideMenu />
-				
+
 				<div style={{ width: 'calc(100vw - 170px)', marginLeft: '170px', padding: '16px'}}>
-					
+
 					<Switch>
 						<Route path="/admin/shows" exact component={AdminShows} />
-						<Route path="/admin/songs" exact component={AdminSongs} />
 						<Route path="/admin/songs/:id/tracks" component={AdminTracks} />
 						<Route path="/admin/songs/:id" component={Song} />
 						<Route path="/admin/venues" exact component={AdminVenues}/>
