@@ -11,8 +11,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 import LatestShows from './components/LatestShows';
 import Shows from './components/Shows';
 import Show from './components/Show';
-import Songs from './components/Songs';
-import Song from './components/Song';
+import Songs from './components/songs/Songs';
+import Song from './components/songs/Song';
 import Venues from './components/Venues';
 import Venue from './components/Venue';
 import Register from './components/Register';
@@ -224,12 +224,12 @@ const App: React.FC = () => {
 
   return (
     <React.Fragment>
-      <SnackbarProvider
-        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-        maxSnack={3}
-      >
         <Router>
           <ThemeProvider theme={theme}>
+            <SnackbarProvider
+              anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+              maxSnack={3}
+            >
             <Switch>
               <PrivateRoute path="/admin/:adminPage?" component={Admin} roles={roles} />
               <div className={classes.root}>
@@ -321,9 +321,9 @@ const App: React.FC = () => {
                 </main>
               </div>
             </Switch>
+          </SnackbarProvider>
           </ThemeProvider>
         </Router>
-      </SnackbarProvider>
     </React.Fragment>
   )
 }

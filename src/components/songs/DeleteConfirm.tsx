@@ -5,7 +5,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
-import {ISong} from '../../Songs'
+import {ISong} from './Song'
 
 export interface IDeleteConfirm {
 	id: string
@@ -40,10 +40,10 @@ const DeleteConfirm:React.FC<IDeleteConfirm> = ({deleteOpen, handleClose, songs,
                 </>
             </DialogContent>
             <DialogActions>
-                <Button color="primary" variant="contained" onClick={handleClose}>
+                <Button variant="contained" onClick={handleClose}>
                     Cancel
                 </Button>
-                <Button variant="contained" color="primary" onClick={handleDelete}>
+                <Button variant="contained" onClick={handleDelete}>
                     Confirm
                 </Button>
             </DialogActions>
