@@ -13,8 +13,8 @@ import Shows from './components/Shows';
 import Show from './components/Show';
 import Songs from './components/songs/Songs';
 import Song from './components/songs/Song';
-import Venues from './components/Venues';
-import Venue from './components/Venue';
+import Venues from './components/venues/Venues';
+import Venue from './components/venues/Venue';
 import Register from './components/Register';
 import Tour from './components/Tour';
 import Resources from './components/Resources';
@@ -24,10 +24,9 @@ import ResetPassword from './components/ResetPassword';
 import Login from './components/Login';
 import Admin from './components/Admin'
 import BandHistory from './components/resources/BandHistory'
-
 import Toolbar from '@material-ui/core/Toolbar';
-import { Link, ListItem, ListItemIcon, ListItemText, List, IconButton, Typography, Menu, MenuItem, Drawer, AppBar, Hidden, Divider, Box } from '@material-ui/core';
-import { QueueMusic, Home, Room, AccountCircle, CardTravel, Info, Album } from '@material-ui/icons';
+import { Link, ListItem, ListItemIcon, ListItemText, List, IconButton, Typography, Drawer, AppBar, Hidden, Divider, Box } from '@material-ui/core';
+import { QueueMusic, Home, Room, CardTravel, Info, Album } from '@material-ui/icons';
 import Profile from './components/Profile';
 import HotAirBalloon from './components/resources/HotAirBalloon';
 import Gear from './components/resources/Gear';

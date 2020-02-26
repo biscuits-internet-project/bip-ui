@@ -6,37 +6,27 @@ import { Link, Grid, Button, Dialog, DialogTitle, DialogContent } from '@materia
 import MUIDataTable from "mui-datatables";
 import PageHeading from '../shared/PageHeading';
 import SongForm from './SongForm'
-import { useSnackbar } from 'notistack'
 import { ISong } from './Song'
 
 const Songs: React.FC = () => {
-	const [loading, setLoading] = useState(false)
 	const [songs, setSongs] = useState<ISong[]>([])
 	const [formOpen, setFormOpen] = useState(false)
-	const [id, setId] = useState('')
-	const { enqueueSnackbar } = useSnackbar()
 
 	useEffect(()=> {
-		setLoading(true)
 		const fetchSongs = async () => {
 			const data:AxiosResponse = await axios.get(`${process.env.REACT_APP_API_URL}/songs`)
 			data.data.sort((a, b) => (b.times_played > a.times_played) ? 1 : -1)
 			setSongs(data.data)
-			setLoading(false)
 		}
 		fetchSongs()
 	},[])
 
-	const handleOpen = (type: string, id?: string) => {
-		if(id) setId(id)
-		//type === 'form' ? setFormOpen(true) : setDeleteOpen(true)
+	const handleOpen = () => {
 		setFormOpen(true)
 	};
 
-	const handleClose = (type :string) => {
-		//type === 'form' ? setFormOpen(false) : setDeleteOpen(false)
+	const handleClose = () => {
 		setFormOpen(false)
-		setTimeout(()=>setId(''), 500)
 	};
 
 	const columns = [
@@ -134,15 +124,13 @@ const Songs: React.FC = () => {
 			<Helmet>
 				<title>Biscuits Internet Project - Songs</title>
 			</Helmet>
-			<Grid container
-				justify="space-between" // Add it here :)
-			>
+			<Grid container justify="space-between" >
 				<Grid item>
 					<PageHeading text="Songs"/>
 				</Grid>
 				<Grid item>
 					<div style={{alignContent: "right"}}>
-						<Button onClick={() =>handleOpen('form')}>Add Song</Button>
+						<Button onClick={() =>handleOpen()}>Add Song</Button>
 					</div>
 				</Grid>
 			</Grid>
@@ -154,11 +142,11 @@ const Songs: React.FC = () => {
 
 			<Dialog
 				open={formOpen}
-				onClose={() => handleClose('form')}
+				onClose={() => handleClose()}
 			>
-				<DialogTitle>{id ? "Edit Song" : "Add Song"}</DialogTitle>
+				<DialogTitle>Add Song</DialogTitle>
 				<DialogContent>
-					<SongForm setSongs={setSongs} songs={songs} id={id} handleClose={() => handleClose('form')} handleOpen={() => handleOpen('')} />
+					<SongForm setSongs={setSongs} songs={songs} id="" handleClose={() => handleClose()} />
 				</DialogContent>
 			</Dialog>
 		</>

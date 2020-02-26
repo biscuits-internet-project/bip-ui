@@ -1,18 +1,19 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link as RouterLink } from 'react-router-dom';
 import axios, { AxiosResponse } from 'axios'
 import { Helmet } from "react-helmet";
 import Setlist, { ISetlist } from './../Setlist';
 import { IShow } from './../Show';
-import { TableContainer, Paper, Table, TableRow, TableCell, Link } from '@material-ui/core';
+import { TableContainer, Paper, Table, TableRow, TableCell, Link, Dialog, DialogTitle, DialogContent, Grid, Button } from '@material-ui/core';
 import Moment from 'react-moment';
 import PageHeading from './../shared/PageHeading';
+import VenueForm from './VenueForm';
 
 export interface IVenue {
-	id?: string,
+	id: string,
 	city?: string,
 	postal_code?: string,
-	name?: string,
+	name: string,
 	slug?: string,
 	state?: string,
 	phone?: string,
@@ -29,20 +30,35 @@ const Venue: React.FC = () => {
 	const [loading, setLoading] = useState(false)
 	const [venue, setVenue] = useState<IVenue | undefined>(undefined)
 	const [shows, setShows] = useState<ISetlist[]>([])
+	const [id, setId] = useState('')
+	const [deleteOpen, setDeleteOpen] = useState(false)
+	const [venues, setVenues] = useState<IVenue[]>([])
+	const [formOpen, setFormOpen] = useState(false)
 
-	useEffect(()=> {
+	const handleOpen = (type: string, id: string) => {
+		setId(id)
+		type === 'form' ? setFormOpen(true) : setDeleteOpen(true)
+	};
+
+	const handleClose = (type: string) => {
+		type === 'form' ? setFormOpen(false) : setDeleteOpen(false)
+		setFormOpen(false)
+		setTimeout(() => setId(''), 500)
+	};
+
+	useEffect(() => {
 		setLoading(true)
 		const fetchVenue = async () => {
-			const venue:AxiosResponse = await axios.get(`${process.env.REACT_APP_API_URL}/venues/${params.id}`)
+			const venue: AxiosResponse = await axios.get(`${process.env.REACT_APP_API_URL}/venues/${params.id}`)
 			setVenue(venue.data)
 
-			const shows:AxiosResponse = await axios.get(`${process.env.REACT_APP_API_URL}/shows?venue=${params.id}`)
+			const shows: AxiosResponse = await axios.get(`${process.env.REACT_APP_API_URL}/shows?venue=${params.id}`)
 			setShows(shows.data)
 
 			setLoading(false)
 		}
 		fetchVenue()
-	},[params.id])
+	}, [params.id])
 	return (
 		<>
 			{loading && <h3>.....Loading</h3>}
@@ -51,75 +67,92 @@ const Venue: React.FC = () => {
 					<Helmet>
 						<title>Biscuits Internet Project - {venue.name}</title>
 					</Helmet>
-					<PageHeading text={venue.name} />
+					<Grid container justify="space-between" >
+						<Grid item>
+							<PageHeading text={venue.name} />
+						</Grid>
+						<Grid item>
+							<div style={{alignContent: "right"}}>
+								<Button onClick={()=>handleOpen("form", venue.id)}>Edit Venue</Button>
+							</div>
+						</Grid>
+					</Grid>
+					<Dialog
+						open={formOpen}
+						onClose={() => handleClose('form')}
+					>
+						<DialogTitle>Edit Venue</DialogTitle>
+						<DialogContent>
+							<VenueForm setVenues={setVenues} setVenue={setVenue} venues={venues} id={venue.id} handleClose={() => handleClose('form')} />
+						</DialogContent>
+					</Dialog>
 
 					<TableContainer component={Paper}>
-							<Table>
-								<TableRow>
-									<TableCell>
-									  Location
+						<Table>
+							<TableRow>
+								<TableCell>
+									Location
 									</TableCell>
-									<TableCell>
-										{venue.city}, {venue.state}
+								<TableCell>
+									{venue.city}, {venue.state}
+								</TableCell>
+							</TableRow>
+							<TableRow>
+								<TableCell>
+									Times played
 									</TableCell>
-								</TableRow>
-								<TableRow>
-									<TableCell>
-										Times played
+								<TableCell>
+									{venue.times_played}
+								</TableCell>
+							</TableRow>
+							<TableRow>
+								<TableCell>
+									First played
 									</TableCell>
-									<TableCell>
-										{venue.times_played}
-									</TableCell>
-								</TableRow>
-								<TableRow>
-									<TableCell>
-										First played
-									</TableCell>
-									<TableCell>
-										{venue.first_played_show &&
-											<Link component={RouterLink} to={`/shows/${venue.first_played_show.slug}`}>
-												<Moment format="MMMM D, YYYY">
-													{venue.first_played_show.date}
-												</Moment>
+								<TableCell>
+									{venue.first_played_show &&
+										<Link component={RouterLink} to={`/shows/${venue.first_played_show.slug}`}>
+											<Moment format="MMMM D, YYYY">
+												{venue.first_played_show.date}
+											</Moment>
+										</Link>
+									}
+									{venue.first_played_show && venue.first_played_show.relisten_url &&
+										<>
+											<span> </span>
+											<Link href={venue.first_played_show.relisten_url} target="blank">
+												<img src="/relisten.png" alt="relisten" />
 											</Link>
-										}
-										{venue.first_played_show && venue.first_played_show.relisten_url &&
-											<>
-												<span> </span>
-												<Link href={venue.first_played_show.relisten_url} target="blank">
-													<img src="/relisten.png" alt="relisten" />
-												</Link>
-											</>
-										}
+										</>
+									}
+								</TableCell>
+							</TableRow>
+							<TableRow>
+								<TableCell>
+									Last played
 									</TableCell>
-								</TableRow>
-								<TableRow>
-									<TableCell>
-										Last played
-									</TableCell>
-									<TableCell>
-										{venue.last_played_show &&
-											<Link component={RouterLink} to={`/shows/${venue.last_played_show.slug}`}>
-												<Moment format="MMMM D, YYYY">
-													{venue.last_played_show.date}
-												</Moment>
+								<TableCell>
+									{venue.last_played_show &&
+										<Link component={RouterLink} to={`/shows/${venue.last_played_show.slug}`}>
+											<Moment format="MMMM D, YYYY">
+												{venue.last_played_show.date}
+											</Moment>
+										</Link>
+									}
+									{venue.last_played_show && venue.last_played_show.relisten_url &&
+										<>
+											<span> </span>
+											<Link href={venue.last_played_show.relisten_url} target="blank">
+												<img src="/relisten.png" alt="relisten" />
 											</Link>
-										}
-										{venue.last_played_show && venue.last_played_show.relisten_url &&
-											<>
-												<span> </span>
-												<Link href={venue.last_played_show.relisten_url} target="blank">
-													<img src="/relisten.png" alt="relisten" />
-												</Link>
-											</>
-										}
-									</TableCell>
-								</TableRow>
-							</Table>
-						</TableContainer>
+										</>
+									}
+								</TableCell>
+							</TableRow>
+						</Table>
+					</TableContainer>
 
-						<div style={{height: 30}}></div>
-
+					<div style={{ height: 30 }}></div>
 
 					{shows && shows.map((show) => {
 						return (

@@ -6,15 +6,19 @@ import {AppContext} from '../../context/AppProvider'
 import TextField from '../shared/TextField'
 import Button from '@material-ui/core/Button'
 import {IVenue} from './Venue'
+import { Grid } from '@material-ui/core';
+import DeleteConfirm from '../shared/DeleteConfirm';
 
 interface IVenueForm {
     setVenues: (venues: IVenue[]) => void
+    setVenue: (venue: IVenue) => void
     venues: IVenue[],
     id: string | null
-    handleClose: ()=> void
+    handleClose: (string) => void
 }
 
 const initialValues:IVenue = {
+  id: "",
 	city: "",
 	postal_code: "",
 	name: "",
@@ -29,10 +33,10 @@ const initialValues:IVenue = {
 	last_played_show: undefined
 }
 
-
 const VenueForm: React.FC<IVenueForm> = ({setVenues, venues, id, handleClose}) => {
     const {state} = useContext(AppContext)
     const [formData, setFormData] = useState(initialValues)
+    const [deleteOpen, setDeleteOpen] = useState(false)
     const { enqueueSnackbar } = useSnackbar()
     useEffect(()=> {
       const fetchVenue = async () => {
@@ -44,6 +48,25 @@ const VenueForm: React.FC<IVenueForm> = ({setVenues, venues, id, handleClose}) =
         fetchVenue()
       }
     },[id])
+
+    const handleDeleteOpen = () => {
+      setDeleteOpen(true)
+    };
+
+    const deleteVenue = useCallback(async () => {
+      if (id) {
+        await axios({
+          method: 'delete',
+          url: `${process.env.REACT_APP_API_URL}/venues/${id}`,
+          headers: {
+            "Content-Type":	"application/json",
+            "Authorization": state.token
+          }
+        });
+        enqueueSnackbar("Successfully deleted venue", { variant: 'success' })
+        handleClose("delete")
+      }
+    },[enqueueSnackbar, id, state.token])
 
     const postVenue = useCallback(async (values: IVenue, actions:FormikHelpers<IVenue>) => {
       const newVenue:AxiosResponse = await axios({
@@ -60,8 +83,7 @@ const VenueForm: React.FC<IVenueForm> = ({setVenues, venues, id, handleClose}) =
       if(!id){
         setVenues([data, ...venues])
         enqueueSnackbar(`Successfully added ${data.name}`, { variant: 'success' })
-        handleClose()
-
+        handleClose("form")
       }
 
       else {
@@ -70,12 +92,21 @@ const VenueForm: React.FC<IVenueForm> = ({setVenues, venues, id, handleClose}) =
         newVenues[index] = data
         setVenues(newVenues)
         enqueueSnackbar(`Successfully edited ${data.name}`, { variant: 'success' })
-        handleClose()
+        handleClose("form")
       }
     }, [enqueueSnackbar, handleClose, id, setVenues, venues, state.token])
 
     return (
         <div>
+          {id &&
+            <DeleteConfirm
+              handleClose={() => handleClose('delete')}
+              deleteOpen={deleteOpen}
+              handleDelete={deleteVenue}
+            >
+              Venue
+              </DeleteConfirm>
+          }
           <Formik
             enableReinitialize
             initialValues={formData}
@@ -91,11 +122,22 @@ const VenueForm: React.FC<IVenueForm> = ({setVenues, venues, id, handleClose}) =
                 <TextField name="postal_code" type="text" label="Postal Code" />
                 <TextField name="phone" type="text" label="Phone" />
                 <TextField name="website" type="text" label="Website" />
-                <div style={{display: 'flex', justifyContent: 'flex-end', marginTop: '16px'}}>
-                  <Button variant="contained" color="primary" type="submit">
-                    Submit
-                  </Button>
-                </div>
+                <div style={{height: 20}}></div>
+                <Grid container justify="space-between" >
+                  <Grid item>
+                    {id &&
+                      <Button onClick={()=>handleDeleteOpen()}>Delete Venue</Button>
+                    }
+                  </Grid>
+                  <Grid item>
+                    <div style={{alignContent: "right"}}>
+                      <Button variant="contained" type="submit">
+                        Submit
+                      </Button>
+                    </div>
+                  </Grid>
+                </Grid>
+                <div style={{height: 20}}></div>
               </Form>
             )}
           </Formik>
