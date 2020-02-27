@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useContext } from 'react';
 import { Link as RouterLink, useParams } from 'react-router-dom';
 import axios, { AxiosResponse } from 'axios'
-import { IVenue } from '../Venues';
+import { IVenue } from '../venues/Venue';
 import { Helmet } from "react-helmet";
 import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
 import { Link, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, ExpansionPanel, ExpansionPanelSummary, Typography, ExpansionPanelDetails, LinearProgress, Button, Grid, Dialog, DialogTitle, DialogContent } from '@material-ui/core';
@@ -9,7 +9,6 @@ import Moment from 'react-moment';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import PageHeading from '../shared/PageHeading';
 import { useSnackbar } from 'notistack';
-import DeleteConfirm from './DeleteConfirm'
 import { AppContext } from '../../context/AppProvider';
 import SongForm from './SongForm';
 
@@ -72,8 +71,8 @@ const Song: React.FC = () => {
 	const { enqueueSnackbar } = useSnackbar()
 	const [songsPlayed, setSongsPlayed] = useState<ISongPlayed[]>([])
 
-	const handleOpen = (type: string, id?: string) => {
-		if(id) setId(id)
+	const handleOpen = (type: string, id: string) => {
+		setId(id)
 		type === 'form' ? setFormOpen(true) : setDeleteOpen(true)
 	};
 
@@ -115,32 +114,25 @@ const Song: React.FC = () => {
 		<>
 			{song &&
 				<>
-					<DeleteConfirm
-						id={id}
-						songs={songs}
-						handleClose={() => handleClose("delete")}
-						deleteOpen={deleteOpen}
-						handleDelete={handleDelete}
-					/>
+					<Helmet>
+						<title>Biscuits Internet Project - {song.title}</title>
+					</Helmet>
 					<Dialog
 						open={formOpen}
 						onClose={() => handleClose('form')}
 					>
 						<DialogTitle>Edit Song</DialogTitle>
 						<DialogContent>
-							<SongForm setSongs={setSongs} songs={songs} id={song.id} handleClose={() => handleClose('form')}  handleOpen={() => handleOpen('delete')}/>
+							<SongForm setSongs={setSongs} songs={songs} id={song.id} handleClose={() => handleClose('form')} />
 						</DialogContent>
 					</Dialog>
-					<Helmet>
-						<title>Biscuits Internet Project - {song.title}</title>
-					</Helmet>
 					<Grid container justify="space-between" >
 						<Grid item>
 							<PageHeading text={song.title} />
 						</Grid>
 						<Grid item>
 							<div style={{alignContent: "right"}}>
-								<Button onClick={()=>handleOpen("form")}>Update Song</Button>
+								<Button onClick={()=>handleOpen("form", song.id)}>Edit Song</Button>
 							</div>
 						</Grid>
 					</Grid>

@@ -10,7 +10,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Grid from '@material-ui/core/Grid';
 import TrackForm from './TrackForm'
 import TrackList from './TrackList'
-import { IVenue } from '../../Venues';
+import { IVenue } from '../../venues/Venue';
 import { IShow } from '../../Show';
 import { ISong } from '../../songs/Song';
 

@@ -12,14 +12,13 @@ import TextEditorField from '../shared/TextEditorField'
 import Button from '@material-ui/core/Button'
 import {ISong} from './Song'
 import { Grid } from '@material-ui/core';
-import DeleteConfirm from './DeleteConfirm';
+import DeleteConfirm from '../shared/DeleteConfirm';
 
 interface ISongForm {
     setSongs: (songs: ISong[]) => void
     songs: ISong[],
     id: string | null
     handleClose: (string) => void
-    handleOpen: (string) => void
 }
 
 interface IAuthor {
@@ -138,9 +137,8 @@ const SongForm: React.FC<ISongForm> = ({setSongs, songs, id, handleClose}) => {
         <div>
           {id &&
             <DeleteConfirm
-              songs={songs}
               handleClose={() => handleClose('delete')}
-              deleteOpen={deleteOpen} id={id}
+              deleteOpen={deleteOpen}
               handleDelete={deleteSong}
             />
           }
@@ -170,7 +168,9 @@ const SongForm: React.FC<ISongForm> = ({setSongs, songs, id, handleClose}) => {
                 <div style={{height: 20}}></div>
                 <Grid container justify="space-between" >
                   <Grid item>
+                    {id &&
                       <Button onClick={()=>handleDeleteOpen()}>Delete Song</Button>
+                    }
                   </Grid>
                   <Grid item>
                     <div style={{alignContent: "right"}}>

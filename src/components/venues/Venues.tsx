@@ -2,38 +2,33 @@ import React, {useState, useEffect} from 'react';
 import { Link as RouterLink } from 'react-router-dom'
 import axios, { AxiosResponse } from 'axios'
 import { Helmet } from "react-helmet"
-import { Link } from '@material-ui/core';
+import { Link, Dialog, DialogTitle, DialogContent, Grid, Button } from '@material-ui/core';
 import MUIDataTable from "mui-datatables";
-import PageHeading from './shared/PageHeading';
-
-export interface IVenue {
-	id?: string,
-	city?: string,
-	postal_code?: string,
-	name?: string,
-	slug?: string,
-	state?: string,
-	phone?: string,
-	website?: string
-	street?: string,
-	country?: string,
-	times_played?: number
-}
+import PageHeading from './../shared/PageHeading';
+import { IVenue } from './Venue'
+import VenueForm from './VenueForm';
 
 const Venues: React.FC = () => {
-	const [loading, setLoading] = useState(false)
 	const [venues, setVenues] = useState<IVenue[]>([])
+	const [venue, setVenue] = useState<IVenue | undefined>(undefined)
+	const [formOpen, setFormOpen] = useState(false)
 
 	useEffect(()=> {
-		setLoading(true)
 		const fetchVenues = async () => {
 			const data:AxiosResponse = await axios.get(`${process.env.REACT_APP_API_URL}/venues`)
 			data.data.sort((a, b) => (b.times_played > a.times_played) ? 1 : -1)
 			setVenues(data.data)
-			setLoading(false)
 		}
 		fetchVenues()
 	},[])
+
+	const handleOpen = () => {
+		setFormOpen(true)
+	};
+
+	const handleClose = () => {
+		setFormOpen(false)
+	};
 
 	const columns = [
 		{
@@ -122,13 +117,31 @@ const Venues: React.FC = () => {
 			<Helmet>
 				<title>Biscuits Internet Project - Venues</title>
 			</Helmet>
-			<PageHeading text="Venues"/>
+			<Grid container justify="space-between" >
+				<Grid item>
+					<PageHeading text="Venues"/>
+				</Grid>
+				<Grid item>
+					<div style={{alignContent: "right"}}>
+						<Button onClick={() =>handleOpen()}>Add Venue</Button>
+					</div>
+				</Grid>
+			</Grid>
 
 			<MUIDataTable
 				data={data}
 				columns={columns}
 				options={options}
 			/>
+			<Dialog
+				open={formOpen}
+				onClose={() => handleClose()}
+			>
+				<DialogTitle>Add Song</DialogTitle>
+				<DialogContent>
+					<VenueForm setVenues={setVenues} setVenue={setVenue} venues={venues} id="" handleClose={() => handleClose()} />
+				</DialogContent>
+			</Dialog>
 		</>
 	)
 }
