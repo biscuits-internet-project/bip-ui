@@ -90,21 +90,20 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     appBar: {
-      [theme.breakpoints.up('sm')]: {
-        width: `calc(100% - ${drawerWidth}px)`,
-        marginLeft: drawerWidth,
-      },
-      minHeight: 80,
-      backgroundImage: 'url("/bkgrnd-navbar.jpg")',
-      backgroundPosition: 'top center',
-      backgroundRepeat: 'no-repeat',
-      backgroundAttachment: 'fixed',
-      backgroundSize: 'contain',
-      backgroundColor: '#303030',
-      [theme.breakpoints.up('md')]: {
-        backgroundPosition: 'top -110px center',
-      },
-    },
+      [theme.breakpoints.up('sm')]: {
+        width: `calc(100% - ${drawerWidth}px)`,
+        marginLeft: drawerWidth,
+      },
+      minHeight: 80,
+      backgroundColor: '#27a649',
+      backgroundImage: 'url("/bkgrnd-grn-navbar.png")',
+      backgroundRepeat: 'no-repeat',
+      backgroundSize: 'cover',
+      backgroundPosition: 'center center',
+      [theme.breakpoints.up('md')]: {
+        backgroundPosition: 'center center',
+      },
+    },
     menuButton: {
       marginRight: theme.spacing(2),
       [theme.breakpoints.up('sm')]: {
@@ -132,7 +131,7 @@ const useStyles = makeStyles((theme: Theme) =>
       '-webkit-background-clip': 'text',
       '-webkit-text-fill-color': 'transparent',
       [theme.breakpoints.down('sm')]: {
-        fontSize: `1.50rem`,
+        fontSize: `1.8rem`,
       },
       [theme.breakpoints.up('md')]: {
         fontSize: `2.5rem`,
