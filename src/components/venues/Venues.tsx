@@ -137,7 +137,7 @@ const Venues: React.FC = () => {
 				open={formOpen}
 				onClose={() => handleClose()}
 			>
-				<DialogTitle>Add Song</DialogTitle>
+				<DialogTitle>Add Venue</DialogTitle>
 				<DialogContent>
 					<VenueForm setVenues={setVenues} setVenue={setVenue} venues={venues} id="" handleClose={() => handleClose()} />
 				</DialogContent>

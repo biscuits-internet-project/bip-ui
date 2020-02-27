@@ -33,11 +33,6 @@ const itemList: sideMenuItem[] = [
 		icon: <QueueMusic/>
 	},
 	{
-		name: 'venues',
-		label: 'Venues',
-		icon: <Room/>
-	},
-	{
 		name: 'users',
 		label: 'Users',
 		icon: <AccountCircle/>
