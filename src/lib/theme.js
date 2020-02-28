@@ -20,7 +20,7 @@ export const darkTheme = createMuiTheme({
   overrides: {
     MuiLink: {
       root: {
-        color: "#BB86FC"
+        color: "lime"
       },
     },
   },

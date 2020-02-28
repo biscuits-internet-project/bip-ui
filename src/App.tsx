@@ -95,7 +95,7 @@ const useStyles = makeStyles((theme: Theme) =>
         marginLeft: drawerWidth,
       },
       minHeight: 80,
-      backgroundColor: '#27a649',
+      backgroundColor: '#000000',
       backgroundImage: 'url("/bkgrnd-grn-navbar.png")',
       backgroundRepeat: 'no-repeat',
       backgroundSize: 'cover',
@@ -127,18 +127,19 @@ const useStyles = makeStyles((theme: Theme) =>
     navHeaderDisplay: {
       fontFamily: '"Saira Stencil One", sans-serif',
       textTransform: 'uppercase',
-      'background-image': 'linear-gradient(#9ccaea, #e94abc)',
+      'text-stroke': '.5px purple',
+      'background-image': 'linear-gradient(white, lime, gold)',
       '-webkit-background-clip': 'text',
       '-webkit-text-fill-color': 'transparent',
       [theme.breakpoints.down('sm')]: {
-        fontSize: `1.8rem`,
+        fontSize: '1.8rem',
       },
       [theme.breakpoints.up('md')]: {
-        fontSize: `2.5rem`,
+        fontSize: '2.5rem',
       },
       [theme.breakpoints.up('lg')]: {
-        fontSize: `3.5rem`,
-      },
+        fontSize: '3.5rem',
+      }
     },
     sidebarText: {
       textTransform: 'lowercase',
@@ -245,8 +246,7 @@ const App: React.FC = () => {
                     </IconButton>
                     <Typography variant="h5" className={classes.navHeaderDisplay}>
                       Biscuits Internet Project 2.0
-                      </Typography>
-
+                    </Typography>
                   </Toolbar>
                 </AppBar>
                 <nav className={classes.drawer} aria-label="mailbox folders">
