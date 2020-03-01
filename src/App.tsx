@@ -127,18 +127,18 @@ const useStyles = makeStyles((theme: Theme) =>
     navHeaderDisplay: {
       fontFamily: '"Saira Stencil One", sans-serif',
       textTransform: 'uppercase',
-      'text-stroke': '.5px purple',
-      'background-image': 'linear-gradient(white, lime, gold)',
+      'text-stroke': '.5px #C5C3F8',
+      'background-image': 'linear-gradient(yellow, gold, white)',
       '-webkit-background-clip': 'text',
       '-webkit-text-fill-color': 'transparent',
       [theme.breakpoints.down('sm')]: {
-        fontSize: '1.8rem',
+        fontSize: '1.9rem',
       },
       [theme.breakpoints.up('md')]: {
-        fontSize: '2.5rem',
+        fontSize: '2.7rem',
       },
       [theme.breakpoints.up('lg')]: {
-        fontSize: '3.5rem',
+        fontSize: '3.8rem',
       }
     },
     sidebarText: {
