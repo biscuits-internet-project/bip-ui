@@ -1,8 +1,8 @@
 import React from 'react';
 import { Helmet } from "react-helmet";
 import { Grid } from '@material-ui/core';
-import ResourceCard from './shared/ResourceCard';
-import PageHeading from './shared/PageHeading';
+import ResourceCard from './ResourceCard';
+import PageHeading from '../shared/PageHeading';
 
 const Resources: React.FC = () => {
 	return (
@@ -21,14 +21,14 @@ const Resources: React.FC = () => {
 					  url="/resources/history"
 					></ResourceCard>
 				</Grid>
-				<Grid item xs={12} sm={6} md={4} style={{display: 'flex', height: "auto"}}>
+				{/* <Grid item xs={12} sm={6} md={4} style={{display: 'flex', height: "auto"}}>
 					<ResourceCard
 					  title="Gear"
 					  content="Ever wondered what brand of delay pedal Aaron uses on his Roland JP8000?  Here is as much as we know about the band’s setup."
 					  image="/gear.jpg"
 					  url="/resources/gear"
 					></ResourceCard>
-				</Grid>
+				</Grid> */}
 				<Grid item xs={12} sm={6} md={4} style={{display: 'flex', height: "auto"}}>
 					<ResourceCard
 					  title="Musical Terminology"
@@ -61,28 +61,28 @@ const Resources: React.FC = () => {
 					  url="/resources/chemical-warfare-brigade"
 					></ResourceCard>
 				</Grid>
-				<Grid item xs={12} sm={6} md={4} style={{display: 'flex', height: "auto"}}>
+				{/* <Grid item xs={12} sm={6} md={4} style={{display: 'flex', height: "auto"}}>
 					<ResourceCard
 					  title="Live Improv Film Scores"
 					  content="blurb"
 					  image="/akira.jpg"
 					  url="/resources/films"
 					></ResourceCard>
-				</Grid>
+				</Grid> */}
 				<Grid item xs={12} sm={6} md={4} style={{display: 'flex', height: "auto"}}>
 					<ResourceCard
-					  title="Lighting"
+					  title="The Perfume"
 					  content="blurb"
 					  image="/lighting.jpg"
-					  url="/resources/lighting"
+					  url="/resources/the-perfume"
 					></ResourceCard>
 				</Grid>
 				<Grid item xs={12} sm={6} md={4} style={{display: 'flex', height: "auto"}}>
 					<ResourceCard
-					  title="Sound"
+					  title="Tractorbeam"
 					  content="blurb"
-					  image="/board.jpg"
-					  url="/resources/sound"
+					  image="/tractorbeam.jpg"
+					  url="/resources/tractorbeam"
 					></ResourceCard>
 				</Grid>
 			</Grid>

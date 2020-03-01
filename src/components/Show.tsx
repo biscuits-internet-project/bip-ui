@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useCallback} from 'react'
 import { useParams } from 'react-router-dom';
 import axios, { AxiosResponse } from 'axios'
 import Tracklist, {ITrack} from './Tracklist';
@@ -7,6 +7,8 @@ import YouTube from 'react-youtube';
 import { Typography, Link, Card, CardContent } from '@material-ui/core';
 import Moment from 'react-moment';
 import PageHeading from './shared/PageHeading';
+import Gallery from "react-photo-gallery";
+import Carousel, { Modal, ModalGateway } from "react-images";
 
 export interface IShow {
 	slug: string
@@ -19,10 +21,34 @@ export interface IShow {
 	tracks: ITrack[]
 }
 
+interface IImage {
+  src: string
+  srcSet?: string[]
+  height: number
+  width: number
+  title: string
+  sizes: string[]
+}
+
 const Shows: React.FC = () => {
+
+	const [currentImage, setCurrentImage] = useState(0);
+	const [viewerIsOpen, setViewerIsOpen] = useState(false);
+
+	const openLightbox = useCallback((event, { photo, index }) => {
+		setCurrentImage(index);
+		setViewerIsOpen(true);
+	}, []);
+
+	const closeLightbox = () => {
+		setCurrentImage(0);
+		setViewerIsOpen(false);
+	};
+
 
 	const [loading, setLoading] = useState(false)
 	const [show, setShow] = useState<IShow | undefined>(undefined)
+	const [photos, setPhotos] = useState<IImage[]>([])
 	const params = useParams();
 	const youtubeOpts = {
 		height: '390',
@@ -34,16 +60,30 @@ const Shows: React.FC = () => {
 
 	useEffect(()=> {
 		setLoading(true)
-		const fetchSetlist = async () => {
+		const fetchPhotos = async () => {
+			const data:AxiosResponse = await axios.get(`${process.env.REACT_APP_API_URL}/shows/${params.id}/photos`)
+			const imgs: IImage[] = data.data.map(obj => {
+				return {
+					src: obj.url,
+					srcSet: obj.src_set,
+					sizes: ["(min-width: 480px) 50vw,(min-width: 1024px) 33.3vw,100vw"],
+					width: obj.width,
+					height: obj.height
+				}
+			});
+			console.log(imgs)
+			setPhotos(imgs)
+		}
+		const fetchShow = async () => {
 			const data:AxiosResponse = await axios.get(`${process.env.REACT_APP_API_URL}/shows/${params.id}`)
 			setShow(data.data)
 			setLoading(false)
 		}
-		fetchSetlist()
+		fetchPhotos()
+		fetchShow()
 	}, [params.id])
 	return (
 		<>
-			{loading && <h3>.....Loading</h3>}
 			{show &&
 			<>
 				<Helmet>
@@ -57,6 +97,7 @@ const Shows: React.FC = () => {
 						<span> at {show.venue.name} - {show.venue.city}, {show.venue.state}</span>
 					</>
 				} />
+				{loading && <h3>.....Loading</h3>}
 				<div>
 					{/* <div>{show.likes_count} likes </div> */}
 					{show.notes &&
@@ -87,6 +128,24 @@ const Shows: React.FC = () => {
 							opts={youtubeOpts}
 						/>
 					}
+				</div>
+				<div style={{height: 30}}></div>
+				<div>
+				<Gallery photos={photos} onClick={openLightbox} />
+				<ModalGateway>
+					{viewerIsOpen ? (
+					<Modal onClose={closeLightbox}>
+						<Carousel
+						currentIndex={currentImage}
+						views={photos.map(x => ({
+							...x,
+							srcset: x.srcSet,
+							caption: x.title
+						}))}
+						/>
+					</Modal>
+					) : null}
+				</ModalGateway>
 				</div>
 			</>
 			}

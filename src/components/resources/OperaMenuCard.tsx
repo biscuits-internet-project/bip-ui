@@ -11,7 +11,7 @@ const useStyles = makeStyles({
 const OperaMenuCard = ({title, children}) => {
     const classes = useStyles()
     return (
-        <Card>
+        <Card style={{height: "100%"}}>
             <CardHeader title={title}/>
             <CardContent>
                 <List>
