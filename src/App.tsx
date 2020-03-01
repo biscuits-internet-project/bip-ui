@@ -94,9 +94,8 @@ const useStyles = makeStyles((theme: Theme) =>
         width: `calc(100% - ${drawerWidth}px)`,
         marginLeft: drawerWidth,
       },
-      minHeight: 80,
       backgroundColor: '#000000',
-      backgroundImage: 'url("/bkgrnd-grn-navbar.png")',
+      backgroundImage: 'url("/bkgrnd-prpl-navbar.jpg")',
       backgroundRepeat: 'no-repeat',
       backgroundSize: 'cover',
       backgroundPosition: 'center center',
@@ -122,9 +121,14 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     toolbar: {
       ...theme.mixins.toolbar,
-      marginBottom: 30,
+        marginTop: 120,
+    },
+    customToolbar: {
+      minHeight: 180,
     },
     navHeaderDisplay: {
+      position: 'absolute',
+      top: '58%',
       fontFamily: '"Saira Stencil One", sans-serif',
       textTransform: 'uppercase',
       'text-stroke': '.5px #C5C3F8',
@@ -234,7 +238,7 @@ const App: React.FC = () => {
               <div className={classes.root}>
                 <CssBaseline />
                 <AppBar position="fixed" className={classes.appBar}>
-                  <Toolbar>
+                  <Toolbar className={classes.customToolbar}>
                     <IconButton
                       color="inherit"
                       aria-label="open drawer"
