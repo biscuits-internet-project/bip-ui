@@ -224,7 +224,7 @@ const App: React.FC = () => {
   return (
     <React.Fragment>
         <Router>
-          <ThemeProvider theme={theme}>
+          <ThemeProvider theme={darkTheme}>
             <SnackbarProvider
               anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
               maxSnack={3}
@@ -263,6 +263,7 @@ const App: React.FC = () => {
                       ModalProps={{
                         keepMounted: true, // Better open performance on mobile.
                       }}
+                      onClick={handleDrawerToggle}
                     >
                       {drawer}
                     </Drawer>

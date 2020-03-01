@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useParams, Link as RouterLink } from 'react-router-dom';
 import axios, { AxiosResponse } from 'axios'
 import { Helmet } from "react-helmet";
@@ -8,6 +8,7 @@ import { TableContainer, Paper, Table, TableRow, TableCell, Link, Dialog, Dialog
 import Moment from 'react-moment';
 import PageHeading from './../shared/PageHeading';
 import VenueForm from './VenueForm';
+import { AppContext } from '../../context/AppProvider';
 
 export interface IVenue {
 	id: string,
@@ -34,6 +35,9 @@ const Venue: React.FC = () => {
 	const [deleteOpen, setDeleteOpen] = useState(false)
 	const [venues, setVenues] = useState<IVenue[]>([])
 	const [formOpen, setFormOpen] = useState(false)
+	const { state } = useContext(AppContext)
+	const { roles } = state
+	const admin = roles.includes('admin')
 
 	const handleOpen = (type: string, id: string) => {
 		setId(id)
@@ -72,9 +76,11 @@ const Venue: React.FC = () => {
 							<PageHeading text={venue.name} />
 						</Grid>
 						<Grid item>
-							<div style={{alignContent: "right"}}>
-								<Button onClick={()=>handleOpen("form", venue.id)}>Edit Venue</Button>
-							</div>
+							{ admin &&
+								<div style={{alignContent: "right"}}>
+									<Button onClick={()=>handleOpen("form", venue.id)}>Edit Venue</Button>
+								</div>
+							}
 						</Grid>
 					</Grid>
 					<Dialog

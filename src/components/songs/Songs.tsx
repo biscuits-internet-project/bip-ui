@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import { Link as RouterLink } from 'react-router-dom'
 import axios, { AxiosResponse } from 'axios'
 import { Helmet } from "react-helmet";
@@ -7,10 +7,15 @@ import MUIDataTable from "mui-datatables";
 import PageHeading from '../shared/PageHeading';
 import SongForm from './SongForm'
 import { ISong } from './Song'
+import { AppContext } from '../../context/AppProvider'
+import Moment from 'react-moment';
 
 const Songs: React.FC = () => {
 	const [songs, setSongs] = useState<ISong[]>([])
 	const [formOpen, setFormOpen] = useState(false)
+	const { state } = useContext(AppContext)
+	const { roles } = state
+	const admin = roles.includes('admin')
 
 	useEffect(()=> {
 		const fetchSongs = async () => {
@@ -72,11 +77,18 @@ const Songs: React.FC = () => {
 			},
 		},
 			{
-				name: "",
+				name: "Last Played",
 				options: {
 					filter: false,
-					sort: false,
+					sort: true,
 					searchable: false,
+					customBodyRender: value => {
+						return (
+							<Moment format="MM/DD/YYYY">
+								{value}
+							</Moment>
+						);
+					  }
 				},
 			},
 		];
@@ -105,6 +117,10 @@ const Songs: React.FC = () => {
 				  ((a.data[colIndex] ?? "").toLowerCase() < (b.data[colIndex] ?? "").toLowerCase() ? -1 : 1) *
 				  (order === "desc" ? 1 : -1)
 				);
+			  } else if (colIndex === 4) {
+				return (
+				  ((new Date(a.data[colIndex])) < (new Date(b.data[colIndex])) ? -1 : 1) * (order === "desc" ? 1 : -1)
+				);
 			  } else {
 				return (
 				  (a.data[colIndex] < b.data[colIndex] ? -1 : 1) *
@@ -116,7 +132,7 @@ const Songs: React.FC = () => {
 	};
 
 	const data = songs.map((s: ISong) => (
-		[[s.slug, s.title], s.author_name, s.cover ? "cover" : "original", s.times_played]
+		[[s.slug, s.title], s.author_name, s.cover ? "cover" : "original", s.times_played, s.date_last_played]
 	))
 
 	return (
@@ -129,9 +145,11 @@ const Songs: React.FC = () => {
 					<PageHeading text="Songs"/>
 				</Grid>
 				<Grid item>
-					<div style={{alignContent: "right"}}>
-						<Button onClick={() =>handleOpen()}>Add Song</Button>
-					</div>
+					{ admin &&
+						<div style={{alignContent: "right"}}>
+							<Button onClick={() =>handleOpen()}>Add Song</Button>
+						</div>
+					}
 				</Grid>
 			</Grid>
 			<MUIDataTable
