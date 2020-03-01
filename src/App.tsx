@@ -90,21 +90,19 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     appBar: {
-      [theme.breakpoints.up('sm')]: {
-        width: `calc(100% - ${drawerWidth}px)`,
-        marginLeft: drawerWidth,
-      },
-      minHeight: 80,
-      backgroundImage: 'url("/bkgrnd-navbar.jpg")',
-      backgroundPosition: 'top center',
-      backgroundRepeat: 'no-repeat',
-      backgroundAttachment: 'fixed',
-      backgroundSize: 'contain',
-      backgroundColor: '#303030',
-      [theme.breakpoints.up('md')]: {
-        backgroundPosition: 'top -110px center',
-      },
-    },
+      [theme.breakpoints.up('sm')]: {
+        width: `calc(100% - ${drawerWidth}px)`,
+        marginLeft: drawerWidth,
+      },
+      backgroundColor: '#000000',
+      backgroundImage: 'url("/bkgrnd-prpl-navbar.jpg")',
+      backgroundRepeat: 'no-repeat',
+      backgroundSize: 'cover',
+      backgroundPosition: 'center center',
+      [theme.breakpoints.up('md')]: {
+        backgroundPosition: 'center center',
+      },
+    },
     menuButton: {
       marginRight: theme.spacing(2),
       [theme.breakpoints.up('sm')]: {
@@ -123,23 +121,29 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     toolbar: {
       ...theme.mixins.toolbar,
-      marginBottom: 30,
+        marginTop: 120,
+    },
+    customToolbar: {
+      minHeight: 180,
     },
     navHeaderDisplay: {
+      position: 'absolute',
+      top: '58%',
       fontFamily: '"Saira Stencil One", sans-serif',
       textTransform: 'uppercase',
-      'background-image': 'linear-gradient(#9ccaea, #e94abc)',
+      'text-stroke': '.5px #C5C3F8',
+      'background-image': 'linear-gradient(yellow, gold, white)',
       '-webkit-background-clip': 'text',
       '-webkit-text-fill-color': 'transparent',
       [theme.breakpoints.down('sm')]: {
-        fontSize: `1.50rem`,
+        fontSize: '1.9rem',
       },
       [theme.breakpoints.up('md')]: {
-        fontSize: `2.5rem`,
+        fontSize: '2.7rem',
       },
       [theme.breakpoints.up('lg')]: {
-        fontSize: `3.5rem`,
-      },
+        fontSize: '3.8rem',
+      }
     },
     sidebarText: {
       textTransform: 'lowercase',
@@ -234,7 +238,7 @@ const App: React.FC = () => {
               <div className={classes.root}>
                 <CssBaseline />
                 <AppBar position="fixed" className={classes.appBar}>
-                  <Toolbar>
+                  <Toolbar className={classes.customToolbar}>
                     <IconButton
                       color="inherit"
                       aria-label="open drawer"
@@ -246,8 +250,7 @@ const App: React.FC = () => {
                     </IconButton>
                     <Typography variant="h5" className={classes.navHeaderDisplay}>
                       Biscuits Internet Project 2.0
-                      </Typography>
-
+                    </Typography>
                   </Toolbar>
                 </AppBar>
                 <nav className={classes.drawer} aria-label="mailbox folders">
