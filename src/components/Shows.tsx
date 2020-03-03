@@ -3,6 +3,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import axios, { AxiosResponse } from 'axios'
 import { ISetlist } from './Setlist';
 import Setlist from './Setlist';
+import ListShows  from './ListShows'
 import { Helmet } from "react-helmet"
 import { Grid, LinearProgress, Button } from '@material-ui/core';
 import PageHeading from './shared/PageHeading';
@@ -61,12 +62,7 @@ const Shows: React.FC = () => {
 					<div style={{ height: 30 }}></div>
 				</>
 			}
-
-			{setlists.map((setlist, id) => {
-				return (
-					<Setlist key={id} date={setlist.date} slug={setlist.slug} venue={setlist.venue} tracks={setlist.tracks} notes={setlist.notes} />
-				)
-			})}
+			<ListShows setlists={setlists}/>
 		</>
 
 	)
