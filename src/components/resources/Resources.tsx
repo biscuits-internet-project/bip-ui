@@ -69,11 +69,11 @@ const Resources: React.FC = () => {
 					  url="/resources/movie-scores"
 					></ResourceCard>
 				</Grid>
-				{/* <Grid item xs={12} sm={6} md={6} lg={4} xl={3} style={{display: 'flex', height: "auto"}}>
+				<Grid item xs={12} sm={6} md={6} lg={4} xl={3} style={{display: 'flex', height: "auto"}}>
 					<ResourceCard
 					  title="The Perfume"
 					  content="blurb"
-					  image="/lighting.jpg"
+					  image="/drops.jpg"
 					  url="/resources/the-perfume"
 					></ResourceCard>
 				</Grid>
@@ -84,7 +84,7 @@ const Resources: React.FC = () => {
 					  image="/tractorbeam.jpg"
 					  url="/resources/tractorbeam"
 					></ResourceCard>
-				</Grid> */}
+				</Grid>
 			</Grid>
 
 		</>

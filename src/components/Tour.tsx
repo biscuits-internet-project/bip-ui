@@ -49,7 +49,6 @@ const Tour: React.FC = () => {
 							<TableCell>Date</TableCell>
 							<TableCell>Venue</TableCell>
 							<TableCell>Address</TableCell>
-							<TableCell>Details</TableCell>
 						</TableRow>
 					</TableHead>
 					<TableBody>
@@ -65,7 +64,6 @@ const Tour: React.FC = () => {
 								</TableCell>
 								<TableCell>{td.venue_name}</TableCell>
 								<TableCell>{td.address}</TableCell>
-								<TableCell>{td.details}</TableCell>
 							</TableRow>
 						))}
 					</TableBody>

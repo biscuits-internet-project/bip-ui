@@ -131,10 +131,10 @@ const useStyles = makeStyles((theme: Theme) =>
       '-webkit-background-clip': 'text',
       '-webkit-text-fill-color': 'transparent',
       [theme.breakpoints.down('sm')]: {
-        fontSize: `1.60rem`,
+        fontSize: `1.80rem`,
       },
       [theme.breakpoints.up('md')]: {
-        fontSize: `1.80rem`,
+        fontSize: `2.20rem`,
       },
       [theme.breakpoints.up('lg')]: {
         fontSize: `2.8rem`,
@@ -315,7 +315,8 @@ const App: React.FC = () => {
                     <Typography>
                       <span>BIP 2.0 | </span>
                       <span><Link component={RouterLink} to="/about">About</Link> | </span>
-                      <span><Link component={RouterLink} to="/contact">Contact</Link> </span>
+                      <span><Link component={RouterLink} to="/contact">Contact</Link> | </span>
+                      <span><Link href="https://twitter.com/tdbdotnet" target="blank">@tdbdotnet</Link></span>
                     </Typography>
                   </Box>
                 </main>
