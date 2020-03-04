@@ -1,5 +1,5 @@
-import React, { useContext, ReactElement } from 'react';
-import { BrowserRouter as Router, Route, Switch, Link as RouterLink } from 'react-router-dom';
+import React, { useContext, ReactElement, useEffect } from 'react';
+import {Route, Switch, Link as RouterLink, useHistory } from 'react-router-dom';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -153,6 +153,7 @@ function ListItemLink(props) {
 }
 
 const App: React.FC = () => {
+  const history = useHistory()
   const classes = useStyles();
   const { dispatch } = useContext(AppContext)
   const { state } = useContext(AppContext)
@@ -167,7 +168,13 @@ const App: React.FC = () => {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-
+  useEffect(()=>{
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
+  },[history.location.pathname])
   // choose theme based on users's OS or browser preference
   function getTheme(darkMode) {
     if (darkMode) {
@@ -183,7 +190,7 @@ const App: React.FC = () => {
     getTheme(
       prefersDarkMode
     ),
-    [prefersDarkMode],
+    [getTheme, prefersDarkMode],
   );
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -224,7 +231,6 @@ const App: React.FC = () => {
 
   return (
     <React.Fragment>
-      <Router>
         <ThemeProvider theme={darkTheme}>
           <SnackbarProvider
             anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
@@ -328,7 +334,6 @@ const App: React.FC = () => {
             </Switch>
           </SnackbarProvider>
         </ThemeProvider>
-      </Router>
     </React.Fragment>
   )
 }
