@@ -54,15 +54,12 @@ const Gear: React.FC = () => {
 					<Typography variant="h3">Fall 2001 Movie Jams</Typography>
 					<Typography>
 						In the spirit of Halloween, and on the heels of the much-ballyhooed Akira Jam, the band played a series of improvised scores during a special mini-run in the Pacific Northwest. Though the full Alice in Wonderland jam was marred by DVD playback issues (and as such, no sync is possible), each score offers its own unique session of lengthy improv. Run Lola Run featured the first segment of the film. Clips of Koyaanisqatsi were played throughout a unique opening jam that started out of DJ Mauricio's set. And the Linus and Lucy/"Great Pumpkin Jam" featured a sped-up version of the Peanuts classic.
-					</Typography>
-					<Typography>
-						Shows:
-					</Typography>
-					<Typography>
-						Walt Disney's Alice in Wonderland - 10/31/01 Woodmen of the World Hall, Eugene, OR<br />
-						It's The Great Pumpkin, Charlie Brown - 11/01/01 The Wett Bar, Vancouver, BC <br />
-						Koyaanisqatsi - 11/02/01 Crystal Ballroom, Portland, OR<br />
-						Run Lola Run - 11/03/01 King Cat Theatre, Seattle, WA
+						<ul>
+							<li>Disney's Alice in Wonderland - <Link component={RouterLink} to="/shows/2001-10-31-woodmen-of-the-world-hall-eugene-or">10/31/01 Woodmen of the World Hall, Eugene, OR</Link></li>
+							<li>It's The Great Pumpkin, Charlie Brown - <Link component={RouterLink} to="/shows/2001-11-01-wett-bar-vancouver-bc">11/01/01 The Wett Bar, Vancouver, BC</Link></li>
+							<li>Koyaanisqatsi - <Link component={RouterLink} to="/shows/2001-11-02-crystal-ballroom-portland-or">11/02/01 Crystal Ballroom, Portland, OR</Link></li>
+							<li>Run Lola Run - <Link component={RouterLink} to="/shows/2001-11-03-king-cat-theatre-seattle-wa">11/03/01 King Cat Theatre, Seattle, WA</Link></li>
+						</ul>
 					</Typography>
 				</CardContent>
 			</Card>

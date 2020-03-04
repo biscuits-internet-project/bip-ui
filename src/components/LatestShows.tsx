@@ -21,7 +21,7 @@ const LatestShows: React.FC = () => {
 		<div>
 			<Typography variant="body1" style={{fontSize: 16, marginBottom: 10 }}>
 				Welcome to the Biscuits Internet Project 2.0 - more content than ever before
-				 in a easily searchable format. Go ahead...search for something!
+				 in an easily searchable format. Go ahead...search for something!
 				 &nbsp;
 				 This is just the beginning – follow us at <span> </span>
 				<Link href="https://twitter.com/tdbdotnet" target="blank">@tdbdotnet</Link> for updates on new content and features!

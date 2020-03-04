@@ -25,6 +25,8 @@ import Login from './components/Login';
 import Admin from './components/Admin'
 import BandHistory from './components/resources/BandHistory'
 import MovieScores from './components/resources/MovieScores'
+import Tractorbeam from './components/resources/Tractorbeam'
+import Perfume from './components/resources/Perfume'
 import Toolbar from '@material-ui/core/Toolbar';
 import { Link, ListItem, ListItemIcon, ListItemText, List, IconButton, Typography, Drawer, AppBar, Hidden, Divider, Box } from '@material-ui/core';
 import { QueueMusic, Home, Room, CardTravel, Info, Album } from '@material-ui/icons';
@@ -292,6 +294,8 @@ const App: React.FC = () => {
                   <Route path="/resources/hot-air-balloon" exact component={HotAirBalloon} />
                   <Route path="/resources/side-projects" exact component={SideProjects} />
                   <Route path="/resources/movie-scores" exact component={MovieScores} />
+                  <Route path="/resources/the-perfume" exact component={Perfume} />
+                  <Route path="/resources/tractorbeam" exact component={Tractorbeam} />
                   <Route path="/shows" exact component={Shows} />
                   <Route path="/shows/:id" exact component={Show} />
                   <Route path="/shows/year/:year" exact component={Shows} />
