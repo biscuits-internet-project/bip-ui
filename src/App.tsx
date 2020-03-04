@@ -152,7 +152,6 @@ function ListItemLink(props) {
 
 const App: React.FC = () => {
   const history = useHistory()
-  console.log('fdshjfghsdgfjhdgsh', history)
   const classes = useStyles();
   const { dispatch } = useContext(AppContext)
   const { state } = useContext(AppContext)
