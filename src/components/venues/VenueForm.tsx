@@ -10,9 +10,6 @@ import { Grid } from '@material-ui/core';
 import DeleteConfirm from '../shared/DeleteConfirm';
 
 interface IVenueForm {
-    setVenues: (venues: IVenue[]) => void
-    setVenue: (venue: IVenue) => void
-    venues: IVenue[],
     id: string | null
     handleClose: (string) => void
 }
@@ -33,7 +30,7 @@ const initialValues:IVenue = {
 	last_played_show: undefined
 }
 
-const VenueForm: React.FC<IVenueForm> = ({setVenues, venues, id, handleClose}) => {
+const VenueForm: React.FC<IVenueForm> = ({id, handleClose}) => {
     const {state} = useContext(AppContext)
     const [formData, setFormData] = useState(initialValues)
     const [deleteOpen, setDeleteOpen] = useState(false)
@@ -81,20 +78,13 @@ const VenueForm: React.FC<IVenueForm> = ({setVenues, venues, id, handleClose}) =
       const {data} = newVenue
 
       if(!id){
-        setVenues([data, ...venues])
         enqueueSnackbar(`Successfully added ${data.name}`, { variant: 'success' })
         handleClose("form")
-      }
-
-      else {
-        const index = venues.findIndex(venue => venue.slug === id)
-        const newVenues = [...venues]
-        newVenues[index] = data
-        setVenues(newVenues)
+      } else {
         enqueueSnackbar(`Successfully edited ${data.name}`, { variant: 'success' })
         handleClose("form")
       }
-    }, [enqueueSnackbar, handleClose, id, setVenues, venues, state.token])
+    }, [enqueueSnackbar, handleClose, id, state.token])
 
     return (
         <div>

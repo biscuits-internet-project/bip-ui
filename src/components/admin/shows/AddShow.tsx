@@ -24,7 +24,7 @@ export interface IShow {
   youtube_id: string
 }
 
-export interface ISetlistForm {
+export interface IShowForm {
   sets: ISet[]
   activeSet: number
   notes: string
@@ -61,7 +61,7 @@ const emptySet: ISet = {
   tracks: [emptyTrack],
 }
 
-const initialData: ISetlistForm = {
+const initialData: IShowForm = {
   sets: [
     emptySet
   ],
@@ -72,7 +72,7 @@ const initialData: ISetlistForm = {
   activeSet: 0
 }
 
-const createData = (data: ISetlistForm) => {
+const createData = (data: IShowForm) => {
   const {notes,youtube_id,date,venue_id, sets} = data
   let tracks:ITrack[] = []
   sets.forEach((set:ISet, setIndex:number) => {
@@ -144,12 +144,10 @@ const AddShow:React.FC = () => {
     })
   },[state.venues] )
 
-
-
   const handleActiveSet = (val: number, setFieldValue: (field:string,val:number )=>void) => {
     setFieldValue('activeSet', val);
   };
-  const handleSubmit = async (values: ISetlistForm, actions:FormikHelpers<ISetlistForm>, token: string | null) => {
+  const handleSubmit = async (values: IShowForm, actions:FormikHelpers<IShowForm>, token: string | null) => {
     const data = createData(values)
     await axios({
         method: 'post',
@@ -165,7 +163,6 @@ const AddShow:React.FC = () => {
 
   return (
     <div style={{marginTop: '32px', width: '100%'}}>
-      {/* <Typography variant="h4">Add Show</Typography> */}
       <Formik
         enableReinitialize
         initialValues={initialData}

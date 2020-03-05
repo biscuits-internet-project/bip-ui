@@ -1,6 +1,5 @@
 import React, {useState, useEffect, useContext} from 'react';
 import { Link as RouterLink } from 'react-router-dom'
-import axios, { AxiosResponse } from 'axios'
 import { Helmet } from "react-helmet";
 import { Link, Grid, Button, Dialog, DialogTitle, DialogContent } from '@material-ui/core';
 import MUIDataTable from "mui-datatables";
@@ -11,20 +10,17 @@ import { AppContext } from '../../context/AppProvider'
 import Moment from 'react-moment';
 
 const Songs: React.FC = () => {
-	const [songs, setSongs] = useState<ISong[]>([])
 	const [formOpen, setFormOpen] = useState(false)
-	const { state } = useContext(AppContext)
+	const {state, asyncActions} = useContext(AppContext)
 	const { roles } = state
 	const admin = roles.includes('admin')
 
-	useEffect(()=> {
-		const fetchSongs = async () => {
-			const data:AxiosResponse = await axios.get(`${process.env.REACT_APP_API_URL}/songs`)
-			data.data.sort((a, b) => (b.times_played > a.times_played) ? 1 : -1)
-			setSongs(data.data)
+	useEffect(
+		()=> {
+		  !state.songs.length && asyncActions.getSongs()
 		}
-		fetchSongs()
-	},[])
+		,[state.songs.length, asyncActions]
+	)
 
 	const handleOpen = () => {
 		setFormOpen(true)
@@ -131,7 +127,7 @@ const Songs: React.FC = () => {
 		  }
 	};
 
-	const data = songs.map((s: ISong) => (
+	const data = state.songs.map((s: ISong) => (
 		[[s.slug, s.title], s.author_name, s.cover ? "cover" : "original", s.times_played, s.date_last_played]
 	))
 
@@ -164,7 +160,7 @@ const Songs: React.FC = () => {
 			>
 				<DialogTitle>Add Song</DialogTitle>
 				<DialogContent>
-					<SongForm setSongs={setSongs} songs={songs} id="" handleClose={() => handleClose()} />
+					<SongForm id="" handleClose={() => handleClose()} />
 				</DialogContent>
 			</Dialog>
 		</>

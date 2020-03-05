@@ -12,12 +12,14 @@ import Carousel, { Modal, ModalGateway } from "react-images";
 export interface IShow {
 	slug: string
 	notes: string
-	date: string
+	date: Date
+	venue_id: string
 	youtube_ids: string[]
 	relisten_url: string
 	likes_count: number
 	venue: { id: string, slug: string, name: string, city: string, state: string }
 	tracks: ITrack[]
+	year: number
 }
 
 interface IImage {
@@ -120,7 +122,7 @@ const Shows: React.FC = () => {
 							}}
 						>
 							<iframe
-								title={show.date}
+								title={show.date.toDateString()}
 								style={{
 								position: "absolute",
 								top: 0,

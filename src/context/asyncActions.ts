@@ -18,8 +18,12 @@ const asyncActions = (dispatch: Dispatch<Action>) => {
             const venues:AxiosResponse = await axios.get(`${process.env.REACT_APP_API_URL}/venues`)
             dispatch({type: "GET_VENUES", payload: venues.data})
         },
+        //SHOWS
+        getShows: async () => {
+            const shows:AxiosResponse = await axios.get(`${process.env.REACT_APP_API_URL}/shows`)
+            dispatch({type: "GET_SHOWS", payload: shows.data})
+        },
     }
-
 }
 
 export default asyncActions

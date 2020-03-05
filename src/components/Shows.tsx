@@ -1,25 +1,27 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { useHistory, useParams } from 'react-router-dom';
+import { AppContext } from '../context/AppProvider'
 import axios, { AxiosResponse } from 'axios'
-import { ISetlist } from './Setlist';
-import Setlist from './Setlist';
+import { IShow } from './Show';
 import ListShows  from './ListShows'
 import { Helmet } from "react-helmet"
-import { Grid, LinearProgress, Button } from '@material-ui/core';
+import { LinearProgress, Button } from '@material-ui/core';
 import PageHeading from './shared/PageHeading';
 import ShowSearch from './shared/ShowSearch';
+import { ContactSupportOutlined } from '@material-ui/icons';
 
 const Shows: React.FC = () => {
+	const {state} = useContext(AppContext)
 	const params = useParams();
 	const [loading, setLoading] = useState(false)
 	const currentYear = new Date().getFullYear()
 	const [selectedYear, setSelectedYear] = useState(params.year || currentYear)
-	const [setlists, setSetlists] = useState<ISetlist[]>([])
+	const [shows, setShows] = useState<IShow[]>([])
 	const years = Array(currentYear - 1995 + 1).fill(0).map((_, idx) => 1995 + idx)
 	const history = useHistory()
 
 	const changeYear = (year) => {
-		setSetlists([])
+		setShows([])
 		history.push(`/shows/year/${year}`)
 		setSelectedYear(year)
 	}
@@ -28,7 +30,7 @@ const Shows: React.FC = () => {
 		setLoading(true)
 		const fetchSetlists = async () => {
 			const data: AxiosResponse = await axios.get(`${process.env.REACT_APP_API_URL}/shows?year=${selectedYear}`)
-			setSetlists(data.data)
+			setShows(data.data)
 			setLoading(false)
 		}
 		fetchSetlists()
@@ -39,7 +41,7 @@ const Shows: React.FC = () => {
 				<title>Biscuits Internet Project - Shows</title>
 			</Helmet>
 			<PageHeading text="Shows" />
-			<ShowSearch setSetlists={setSetlists} setLoading={setLoading}></ShowSearch>
+			<ShowSearch setShows={setShows} setLoading={setLoading}></ShowSearch>
 
 			{years.map((year) => {
 				return (
@@ -57,7 +59,7 @@ const Shows: React.FC = () => {
 					<div style={{ height: 30 }}></div>
 				</>
 			}
-			<ListShows setlists={setlists}/>
+			<ListShows shows ={shows}/>
 		</>
 
 	)
