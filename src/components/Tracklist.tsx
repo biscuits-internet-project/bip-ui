@@ -42,7 +42,7 @@ const Tracklist: React.FC<ITracklist> = ({ tracks }) => {
 			{Object.keys(sets).map((key, i) => {
 				return (
 					<Typography key={uuidv4()}>
-						<span>{key} </span>
+						<span style={{paddingRight: 6}}>{key} </span>
 						{sets[key].map((track: ITrack, index: number) => {
 							return (
 								<span key={uuidv4()}>
@@ -51,10 +51,10 @@ const Tracklist: React.FC<ITracklist> = ({ tracks }) => {
 										return <sup key={i}> {annLookup[a]}</sup>
 									})}
 									{track.segue &&
-										<span> {track.segue} </span>
+										<span style={{paddingRight: 4, paddingLeft: 4}}> {track.segue} </span>
 									}
 									{track.segue === "" && sets[key].length > index + 1 &&
-										<span>, </span>
+										<span style={{paddingRight: 8}}>, </span>
 									}
 								</span>
 							)
