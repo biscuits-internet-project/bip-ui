@@ -72,7 +72,7 @@ const Resources: React.FC = () => {
 				<Grid item xs={12} sm={6} md={6} lg={4} xl={3} style={{display: 'flex', height: "auto"}}>
 					<ResourceCard
 					  title="The Perfume"
-					  content="blurb"
+					  content="Don’t miss these Disco Biscuits doppelgangers if you have the chance. Performing alternate versions of songs like Devo Frog Legs and surf punk Kitchen Mitts, catching a Perfume set is a rare treat for fans."
 					  image="/drops.jpg"
 					  url="/resources/the-perfume"
 					></ResourceCard>
@@ -80,7 +80,7 @@ const Resources: React.FC = () => {
 				<Grid item xs={12} sm={6} md={6} lg={4} xl={3} style={{display: 'flex', height: "auto"}}>
 					<ResourceCard
 					  title="Tractorbeam"
-					  content="blurb"
+					  content="All things serve the Beam. Debuted in 2007, this Disco Biscuits alter-ego played instrumental versions of tdb originals and covers until reinventing themselves in 2019."
 					  image="/tractorbeam.jpg"
 					  url="/resources/tractorbeam"
 					></ResourceCard>
