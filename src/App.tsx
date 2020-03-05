@@ -5,8 +5,7 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import PrivateRoute from './routing/PrivateRoute'
 import { AppContext } from './context/AppProvider'
-import { darkTheme, lightTheme } from './lib/theme'
-import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { darkTheme } from './lib/theme'
 import MenuIcon from '@material-ui/icons/Menu';
 import LatestShows from './components/LatestShows';
 import Shows from './components/Shows';
@@ -156,7 +155,7 @@ const App: React.FC = () => {
   const history = useHistory()
   const classes = useStyles();
   const { dispatch } = useContext(AppContext)
-  const { state } = useContext(AppContext)
+  const {state, asyncActions} = useContext(AppContext)
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const { username } = state
   const { roles } = state
@@ -168,6 +167,13 @@ const App: React.FC = () => {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+  useEffect(
+		()=> {
+		  !state.venues.length && asyncActions.getVenues()
+		  !state.songs.length && asyncActions.getSongs()
+		}
+		,[state.shows.length, state.venues.length, state.songs.length, asyncActions]
+	)
   useEffect(()=>{
     window.scrollTo({
       top: 0,
@@ -175,32 +181,6 @@ const App: React.FC = () => {
       behavior: 'smooth'
     });
   },[history.location.pathname])
-  // choose theme based on users's OS or browser preference
-  function getTheme(darkMode) {
-    if (darkMode) {
-      state.theme = 'dark'
-      return darkTheme
-    } else {
-      state.theme = 'light'
-      return lightTheme
-    }
-  }
-  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
-  const theme = React.useMemo(() =>
-    getTheme(
-      prefersDarkMode
-    ),
-    [getTheme, prefersDarkMode],
-  );
-
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
-  const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
 
   const drawer = (
     <>
@@ -226,7 +206,6 @@ const App: React.FC = () => {
         </div>
       }
     </>
-
   )
 
   return (
@@ -262,7 +241,7 @@ const App: React.FC = () => {
                   <Hidden smUp implementation="css">
                     <Drawer
                       variant="temporary"
-                      anchor={theme.direction === 'rtl' ? 'right' : 'left'}
+                      anchor="left"
                       open={mobileOpen}
                       onClose={handleDrawerToggle}
                       classes={{

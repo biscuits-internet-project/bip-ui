@@ -10,21 +10,17 @@ import VenueForm from './VenueForm';
 import { AppContext } from '../../context/AppProvider';
 
 const Venues: React.FC = () => {
-	const [venues, setVenues] = useState<IVenue[]>([])
-	const [venue, setVenue] = useState<IVenue | undefined>(undefined)
 	const [formOpen, setFormOpen] = useState(false)
-	const { state } = useContext(AppContext)
+	const {state, asyncActions} = useContext(AppContext)
 	const { roles } = state
 	const admin = roles.includes('admin')
 
-	useEffect(()=> {
-		const fetchVenues = async () => {
-			const data:AxiosResponse = await axios.get(`${process.env.REACT_APP_API_URL}/venues`)
-			data.data.sort((a, b) => (b.times_played > a.times_played) ? 1 : -1)
-			setVenues(data.data)
+	useEffect(
+		()=> {
+		  !state.venues.length && asyncActions.getVenues()
 		}
-		fetchVenues()
-	},[])
+		,[state.venues.length, asyncActions]
+	)
 
 	const handleOpen = () => {
 		setFormOpen(true)
@@ -112,7 +108,7 @@ const Venues: React.FC = () => {
 		  }
 	};
 
-	const data = venues.map((v: IVenue) => (
+	const data = state.venues.map((v: IVenue) => (
 		[[v.slug, v.name], v.city, v.state, v.times_played]
 	))
 
@@ -145,7 +141,7 @@ const Venues: React.FC = () => {
 			>
 				<DialogTitle>Add Venue</DialogTitle>
 				<DialogContent>
-					<VenueForm setVenues={setVenues} setVenue={setVenue} venues={venues} id="" handleClose={() => handleClose()} />
+					<VenueForm id="" handleClose={() => handleClose()} />
 				</DialogContent>
 			</Dialog>
 		</>

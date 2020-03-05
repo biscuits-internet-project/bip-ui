@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 import { makeStyles, Theme, createStyles, Paper, InputBase, IconButton } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import axios, { AxiosResponse } from 'axios'
-import { ISetlist } from '../Setlist';
+import { IShow } from '../Show';
 
 interface ISearch {
-  setSetlists: (setlists: ISetlist[]) => void
+  setShows: (setlists: IShow[]) => void
   setLoading: (boolean) => void
 }
 
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const ShowSearch: React.FC<ISearch> = ({setSetlists, setLoading}) => {
+const ShowSearch: React.FC<ISearch> = ({setShows, setLoading}) => {
   const [search, setSearch] = useState("")
   const classes = useStyles();
 
@@ -48,9 +48,9 @@ const ShowSearch: React.FC<ISearch> = ({setSetlists, setLoading}) => {
     }
     setLoading(true)
     const searchShows = async () => {
-      setSetlists([])
+      setShows([])
       const data: AxiosResponse = await axios.get(`${process.env.REACT_APP_API_URL}/shows?search=${search}`)
-      setSetlists(data.data)
+      setShows(data.data)
       setLoading(false)
     }
     searchShows()

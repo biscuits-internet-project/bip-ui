@@ -2,15 +2,12 @@ import React from 'react';
 import { Link as RouterLink } from 'react-router-dom'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Tracklist, { ITrack } from './Tracklist';
+import {IShow} from './Show'
 import Moment from 'react-moment';
 import { Typography, Link, Card, CardHeader, CardContent, CardActions } from '@material-ui/core';
 
 export interface ISetlist {
-	slug: string
-	notes: string
-	date: string
-	venue: { id: string, slug: string, name: string, city: string, state: string }
-	tracks: ITrack[]
+	show: IShow
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -33,8 +30,7 @@ const useStyles = makeStyles((theme: Theme) =>
 	}),
 );
 
-
-const Setlist: React.FC<ISetlist> = ({ date, slug, venue, tracks, notes }) => {
+const Setlist: React.FC<ISetlist> = ({ show }) => {
 	const classes = useStyles();
 	return (
 		<Card className={classes.root}>
@@ -44,23 +40,23 @@ const Setlist: React.FC<ISetlist> = ({ date, slug, venue, tracks, notes }) => {
 					subheader: classes.subheader,
 				}}
 				title = {
-					<Link component={RouterLink} to={`/shows/${slug}`}>
+					<Link component={RouterLink} to={`/shows/${show.slug}`}>
 						<Moment format="MMMM D, YYYY">
-							{date}
+							{show.date}
 						</Moment>
 					</Link>
 				}
-				subheader = {venue &&
+				subheader = {show.venue &&
 					<>
-						<Link component={RouterLink} to={`/venues/${venue.slug}`}>
-							{venue.name} - {venue.city}, {venue.state}
+						<Link component={RouterLink} to={`/venues/${show.venue.slug}`}>
+							{show.venue.name} - {show.venue.city}, {show.venue.state}
 						</Link>
 					</>
 				}
 			/>
 			<CardContent style={{paddingTop: 0, paddingBottom: 0}}>
-				{notes && <Typography variant="body2" dangerouslySetInnerHTML={{ __html: notes }} /> }
-				<Tracklist tracks={tracks}></Tracklist>
+				{show.notes && <Typography variant="body2" dangerouslySetInnerHTML={{ __html: show.notes }} /> }
+				<Tracklist tracks={show.tracks}></Tracklist>
 			</CardContent>
 			<CardActions disableSpacing>
 				{/* <IconButton aria-label="Favorite">

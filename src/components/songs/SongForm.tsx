@@ -15,8 +15,6 @@ import { Grid } from '@material-ui/core';
 import DeleteConfirm from '../shared/DeleteConfirm';
 
 interface ISongForm {
-    setSongs: (songs: ISong[]) => void
-    songs: ISong[],
     id: string | null
     handleClose: (string) => void
 }
@@ -55,7 +53,7 @@ const SongFormSchema = Yup.object().shape({
     .required('Author is required')
 });
 
-const SongForm: React.FC<ISongForm> = ({setSongs, songs, id, handleClose}) => {
+const SongForm: React.FC<ISongForm> = ({id, handleClose}) => {
     const {state} = useContext(AppContext)
     const [dataLoaded, setDataLoaded] = useState(false)
     const [deleteOpen, setDeleteOpen] = useState(false)
@@ -120,18 +118,13 @@ const SongForm: React.FC<ISongForm> = ({setSongs, songs, id, handleClose}) => {
       const {data} = newSong
 
       if(!id){
-        setSongs([data, ...songs])
         enqueueSnackbar(`Successfully added ${data.title} by ${data.author_name}`, { variant: 'success' })
         handleClose("form")
       } else {
-        const index = songs.findIndex(song => song.slug === id)
-        const newSongs = [...songs]
-        newSongs[index] = data
-        setSongs(newSongs)
         enqueueSnackbar(`Successfully edited ${data.title} by ${data.author_name}`, { variant: 'success' })
         handleClose("form")
       }
-    }, [enqueueSnackbar, handleClose, id, setSongs, songs, state.token])
+    }, [enqueueSnackbar, handleClose, id, state.token])
     if(!dataLoaded) return <div style={{width: '600px', height: '500px'}}></div>
     return (
         <div>

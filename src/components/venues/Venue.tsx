@@ -2,13 +2,14 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useParams, Link as RouterLink } from 'react-router-dom';
 import axios, { AxiosResponse } from 'axios'
 import { Helmet } from "react-helmet";
-import Setlist, { ISetlist } from './../Setlist';
+import Setlist from './../Setlist';
 import { IShow } from './../Show';
 import { LinearProgress, TableContainer, Paper, Table, TableRow, TableCell, Link, Dialog, DialogTitle, DialogContent, Grid, Button } from '@material-ui/core';
 import Moment from 'react-moment';
 import PageHeading from './../shared/PageHeading';
 import VenueForm from './VenueForm';
 import { AppContext } from '../../context/AppProvider';
+import ListShows from '../ListShows';
 
 export interface IVenue {
 	id: string,
@@ -30,7 +31,7 @@ const Venue: React.FC = () => {
 	const params = useParams();
 	const [loading, setLoading] = useState(false)
 	const [venue, setVenue] = useState<IVenue | undefined>(undefined)
-	const [shows, setShows] = useState<ISetlist[]>([])
+	const [shows, setShows] = useState<IShow[]>([])
 	const [id, setId] = useState('')
 	const [deleteOpen, setDeleteOpen] = useState(false)
 	const [venues, setVenues] = useState<IVenue[]>([])
@@ -53,8 +54,10 @@ const Venue: React.FC = () => {
 	useEffect(() => {
 		setLoading(true)
 		const fetchVenue = async () => {
-			const venue: AxiosResponse = await axios.get(`${process.env.REACT_APP_API_URL}/venues/${params.id}`)
-			setVenue(venue.data)
+			const venue : IVenue = state.venues.filter((venue) => {
+				return venue.slug === params.id
+			})[0]
+			setVenue(venue)
 
 			const shows: AxiosResponse = await axios.get(`${process.env.REACT_APP_API_URL}/shows?venue=${params.id}`)
 			setShows(shows.data)
@@ -62,7 +65,7 @@ const Venue: React.FC = () => {
 			setLoading(false)
 		}
 		fetchVenue()
-	}, [params.id])
+	}, [params.id, state.venues])
 	return (
 		<>
 			{venue &&
@@ -88,7 +91,7 @@ const Venue: React.FC = () => {
 					>
 						<DialogTitle>Edit Venue</DialogTitle>
 						<DialogContent>
-							<VenueForm setVenues={setVenues} setVenue={setVenue} venues={venues} id={venue.id} handleClose={() => handleClose('form')} />
+							<VenueForm id={venue.id} handleClose={() => handleClose('form')} />
 						</DialogContent>
 					</Dialog>
 
@@ -159,11 +162,7 @@ const Venue: React.FC = () => {
 
 					<div style={{ height: 30 }}></div>
 
-					{shows && shows.map((show) => {
-						return (
-							<Setlist date={show.date} slug={show.slug} venue={show.venue} tracks={show.tracks} notes={show.notes} />
-						)
-					})}
+					<ListShows shows={shows}/>
 
 					{loading &&
 						<>

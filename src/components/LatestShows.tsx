@@ -1,21 +1,20 @@
 import React, {useState, useEffect} from 'react'
 import axios, { AxiosResponse } from 'axios'
-import {ISetlist} from './Setlist';
+import {IShow} from './Show';
 import Setlist from './Setlist';
-import PageHeading from './shared/PageHeading';
-import { Grid, LinearProgress, Typography, Link } from '@material-ui/core';
+import { LinearProgress, Typography, Link } from '@material-ui/core';
 import ShowSearch from './shared/ShowSearch';
 
 const LatestShows: React.FC = () => {
-	const [setlists, setSetlists] = useState<ISetlist[]>([])
+	const [shows, setShows] = useState<IShow[]>([])
 	const [loading, setLoading] = useState(false)
 
 	useEffect(()=> {
-		const fetchSetlists = async () => {
+		const fetchShows = async () => {
 			const data:AxiosResponse = await axios.get(`${process.env.REACT_APP_API_URL}/shows?last=5`)
-			setSetlists(data.data)
+			setShows(data.data)
 		}
-		fetchSetlists()
+		fetchShows()
 	},[])
 	return (
 		<div>
@@ -26,7 +25,7 @@ const LatestShows: React.FC = () => {
 				 This is just the beginning – follow us at <span> </span>
 				<Link href="https://twitter.com/tdbdotnet" target="blank">@tdbdotnet</Link> for updates on new content and features!
 			</Typography>
-			<ShowSearch setSetlists={setSetlists} setLoading={setLoading}></ShowSearch>
+			<ShowSearch setShows={setShows} setLoading={setLoading}></ShowSearch>
 			{loading &&
 				<>
 					<div style={{ height: 30 }}></div>
@@ -34,9 +33,9 @@ const LatestShows: React.FC = () => {
 					<div style={{ height: 30 }}></div>
 				</>
 			}
-			{setlists.map((setlist) => {
+			{shows.map((show) => {
 				return (
-					<Setlist key={setlist.slug} date={setlist.date} slug={setlist.slug} venue={setlist.venue} tracks={setlist.tracks} notes={setlist.notes} />
+					<Setlist key={show.slug} show={show} />
 				)
 			})}
 		</div>

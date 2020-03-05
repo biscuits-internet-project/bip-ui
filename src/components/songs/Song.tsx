@@ -66,7 +66,6 @@ const Song: React.FC = () => {
 	const [loading, setLoading] = useState(false)
 	const [id, setId] = useState('')
 	const [song, setSong] = useState<ISong | undefined>(undefined)
-	const [songs, setSongs] = useState<ISong[]>([])
 	const [deleteOpen, setDeleteOpen] = useState(false)
 	const [formOpen, setFormOpen] = useState(false)
 	const { enqueueSnackbar } = useSnackbar()
@@ -138,7 +137,7 @@ const Song: React.FC = () => {
 					>
 						<DialogTitle>Edit Song</DialogTitle>
 						<DialogContent>
-							<SongForm setSongs={setSongs} songs={songs} id={song.id} handleClose={() => handleClose('form')} />
+							<SongForm id={song.id} handleClose={() => handleClose('form')} />
 						</DialogContent>
 					</Dialog>
 
