@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Helmet } from "react-helmet";
 import PageHeading from '../shared/PageHeading';
 import axios, { AxiosResponse } from 'axios'
-import { Card, CardHeader, Typography, CardContent, Grid } from '@material-ui/core';
+import { Card, Typography, CardContent, Grid } from '@material-ui/core';
 
 interface ISideProject {
 	notes?: string,

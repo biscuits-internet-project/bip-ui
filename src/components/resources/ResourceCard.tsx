@@ -20,23 +20,21 @@ const ResourceCard = ({title, content, image, url}) => {
     return (
         <Link underline="none" component={ResourceLink} to={url}>
             <Card className={classes.root} style={{height: "100%"}}>
-                <CardActionArea>
-                    <CardMedia
-                        className={classes.media}
-                        component="img"
-                        alt={title}
-                        image={image}
-                        title={title}
-                    />
-                    <CardContent>
+                <CardMedia
+                    className={classes.media}
+                    component="img"
+                    alt={title}
+                    image={image}
+                    title={title}
+                />
+                <CardContent>
                     <Typography gutterBottom variant="h2" component="h2">
                         {title}
                     </Typography>
                     <Typography variant="body2" color="textSecondary" component="p">
                         {content}
                     </Typography>
-                    </CardContent>
-                </CardActionArea>
+                </CardContent>
             </Card>
         </Link>
     )

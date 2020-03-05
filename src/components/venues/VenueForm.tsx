@@ -63,7 +63,7 @@ const VenueForm: React.FC<IVenueForm> = ({id, handleClose}) => {
         enqueueSnackbar("Successfully deleted venue", { variant: 'success' })
         handleClose("delete")
       }
-    },[enqueueSnackbar, id, state.token])
+    },[enqueueSnackbar, id, state.token, handleClose])
 
     const postVenue = useCallback(async (values: IVenue, actions:FormikHelpers<IVenue>) => {
       const newVenue:AxiosResponse = await axios({

@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useParams, Link as RouterLink } from 'react-router-dom';
 import axios, { AxiosResponse } from 'axios'
 import { Helmet } from "react-helmet";
-import Setlist from './../Setlist';
 import { IShow } from './../Show';
 import { LinearProgress, TableContainer, Paper, Table, TableRow, TableCell, Link, Dialog, DialogTitle, DialogContent, Grid, Button } from '@material-ui/core';
 import Moment from 'react-moment';
@@ -32,21 +31,19 @@ const Venue: React.FC = () => {
 	const [loading, setLoading] = useState(false)
 	const [venue, setVenue] = useState<IVenue | undefined>(undefined)
 	const [shows, setShows] = useState<IShow[]>([])
-	const [id, setId] = useState('')
-	const [deleteOpen, setDeleteOpen] = useState(false)
-	const [venues, setVenues] = useState<IVenue[]>([])
 	const [formOpen, setFormOpen] = useState(false)
+	const [id, setId] = useState("")
+
 	const { state } = useContext(AppContext)
 	const { roles } = state
 	const admin = roles.includes('admin')
 
 	const handleOpen = (type: string, id: string) => {
 		setId(id)
-		type === 'form' ? setFormOpen(true) : setDeleteOpen(true)
+		setFormOpen(true)
 	};
 
 	const handleClose = (type: string) => {
-		type === 'form' ? setFormOpen(false) : setDeleteOpen(false)
 		setFormOpen(false)
 		setTimeout(() => setId(''), 500)
 	};
@@ -91,7 +88,7 @@ const Venue: React.FC = () => {
 					>
 						<DialogTitle>Edit Venue</DialogTitle>
 						<DialogContent>
-							<VenueForm id={venue.id} handleClose={() => handleClose('form')} />
+							<VenueForm id={id} handleClose={() => handleClose('form')} />
 						</DialogContent>
 					</Dialog>
 

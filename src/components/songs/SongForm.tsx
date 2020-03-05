@@ -103,7 +103,7 @@ const SongForm: React.FC<ISongForm> = ({id, handleClose}) => {
         enqueueSnackbar("Successfully deleted song", { variant: 'success' })
         handleClose("delete")
       }
-    },[enqueueSnackbar, id, state.token])
+    },[enqueueSnackbar, id, state.token, handleClose])
 
     const postSong = useCallback(async (values: ISong, actions:FormikHelpers<ISong>) => {
       const newSong:AxiosResponse = await axios({

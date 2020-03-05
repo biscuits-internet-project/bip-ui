@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link as RouterLink, useParams } from 'react-router-dom';
 import axios, { AxiosResponse } from 'axios'
 import { IVenue } from '../venues/Venue';
@@ -8,7 +8,6 @@ import { Link, TableContainer, Paper, Table, TableHead, TableRow, TableCell, Tab
 import Moment from 'react-moment';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import PageHeading from '../shared/PageHeading';
-import { useSnackbar } from 'notistack';
 import { AppContext } from '../../context/AppProvider';
 import SongForm from './SongForm';
 
@@ -64,11 +63,9 @@ const Song: React.FC = () => {
 	const classes = useStyles();
 	const params = useParams();
 	const [loading, setLoading] = useState(false)
-	const [id, setId] = useState('')
 	const [song, setSong] = useState<ISong | undefined>(undefined)
-	const [deleteOpen, setDeleteOpen] = useState(false)
 	const [formOpen, setFormOpen] = useState(false)
-	const { enqueueSnackbar } = useSnackbar()
+	const [id, setId] = useState("")
 	const [songsPlayed, setSongsPlayed] = useState<ISongPlayed[]>([])
 	const { roles } = state
 	const admin = roles.includes('admin')
@@ -84,20 +81,11 @@ const Song: React.FC = () => {
 		setTimeout(()=>setId(''), 500)
 	};
 
-	const handleDelete = useCallback(async () => {
-		if (song) {
-			await axios({
-				method: 'delete',
-				url: `${process.env.REACT_APP_API_URL}/songs/${song.slug}`,
-				headers: {
-					"Content-Type":	"application/json",
-					"Authorization": state.token
-				}
-			});
-			enqueueSnackbar("successfully deleted", { variant: 'success' })
-			handleClose("delete")
-		}
-	},[enqueueSnackbar, song, state.token])
+	const setDeleteOpen = ((type) => {
+		type === 'form' ? setFormOpen(false) : setDeleteOpen(false)
+		setFormOpen(false)
+		setTimeout(()=>setId(''), 500)
+	});
 
 	useEffect(() => {
 		setLoading(true)
@@ -137,7 +125,7 @@ const Song: React.FC = () => {
 					>
 						<DialogTitle>Edit Song</DialogTitle>
 						<DialogContent>
-							<SongForm id={song.id} handleClose={() => handleClose('form')} />
+							<SongForm id={id} handleClose={() => handleClose('form')} />
 						</DialogContent>
 					</Dialog>
 

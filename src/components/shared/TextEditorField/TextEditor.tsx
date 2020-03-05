@@ -29,16 +29,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const editorStyle = {
-  //width: 'calc(100% -30px)',
-  minHeight: '150px',
-  padding: '1em',
-  border: '1px solid #ccc',
-  fontFamily: "Quicksand",
-  display: 'block',
-  borderRadius: '4px'
-  //marginBottom: '16px',
-}
 
 const TextEditor = ({ onChange, value }) => {
   const [editorValue, setEditorValue] = useState(serializer.deserialize(value))

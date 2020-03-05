@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useHistory, useParams } from 'react-router-dom';
-import { AppContext } from '../context/AppProvider'
 import axios, { AxiosResponse } from 'axios'
 import { IShow } from './Show';
 import ListShows  from './ListShows'
@@ -8,10 +7,8 @@ import { Helmet } from "react-helmet"
 import { LinearProgress, Button } from '@material-ui/core';
 import PageHeading from './shared/PageHeading';
 import ShowSearch from './shared/ShowSearch';
-import { ContactSupportOutlined } from '@material-ui/icons';
 
 const Shows: React.FC = () => {
-	const {state} = useContext(AppContext)
 	const params = useParams();
 	const [loading, setLoading] = useState(false)
 	const currentYear = new Date().getFullYear()

@@ -2,7 +2,7 @@ import React from 'react';
 import { HashLink } from 'react-router-hash-link';
 import { Helmet } from "react-helmet";
 import PageHeading from '../shared/PageHeading';
-import { Link, Typography, ListItem, createStyles, Theme, makeStyles, Card, CardContent, CardHeader, Grid } from '@material-ui/core';
+import { Link, Typography, ListItem, createStyles, Theme, makeStyles, Card, CardContent, Grid } from '@material-ui/core';
 import OperaMenuCard from './OperaMenuCard';
 
 const useStyles = makeStyles((theme: Theme) =>

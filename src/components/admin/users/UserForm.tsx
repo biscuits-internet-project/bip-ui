@@ -66,7 +66,7 @@ const UserForm: React.FC<IUserForm> = ({setUsers, users, id, handleClose}) => {
       if(id){
         fetchUser()
       }
-    },[id])
+    },[id, state.token])
 
     const postUser = useCallback(async (values: IUser, actions:FormikHelpers<IUser>) => {
       try {

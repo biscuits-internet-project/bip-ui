@@ -1,5 +1,5 @@
 import React from 'react'
-import { getIn, useField} from 'formik'
+import { useField} from 'formik'
 import TextEditor from './TextEditor'
 import { Typography } from '@material-ui/core'
 
@@ -10,9 +10,8 @@ interface IRichTextField {
 
 const TextEditorField:React.FC<IRichTextField> = ({ label, name }) => {
   const [field, meta, helpers] = useField({name})
-  console.log(field.value)
-  return ((
 
+  return ((
     <>
       <Typography>{label}</Typography>
       <div style={{position: 'relative', border: '1px solid #ccc', fontFamily: 'Quicksand',padding: '8px', borderRadius: '4px', marginTop: 15}}>

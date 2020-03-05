@@ -8,16 +8,16 @@ interface IProfile {
     last_name: string
 }
 
-const initialValues: IProfile = {
-    email: "",
-    username: "",
-    first_name: "",
-    last_name: "",
-}
+// const initialValues: IProfile = {
+//     email: "",
+//     username: "",
+//     first_name: "",
+//     last_name: "",
+// }
 
 const Profile: React.FC = () => {
-    const [error, setError] = useState(null)
-    const [success, setSuccess] = useState(false)
+    // const [error, setError] = useState(null)
+    // const [success, setSuccess] = useState(false)
     return (
           <PageHeading text="Your Profile"/>
       );

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import Tracklist, { ITrack } from './Tracklist';
+import Tracklist from './Tracklist';
 import {IShow} from './Show'
 import Moment from 'react-moment';
 import { Typography, Link, Card, CardHeader, CardContent, CardActions } from '@material-ui/core';
