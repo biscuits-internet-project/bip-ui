@@ -5,6 +5,7 @@ import { useSnackbar } from 'notistack'
 import {AppContext} from '../../../context/AppProvider'
 import TextField from '../../shared/TextField'
 import Button from '@material-ui/core/Button'
+import Uploader from '../../shared/Uploader'
 import { Typography } from '@material-ui/core';
 import * as Yup from 'yup';
 import {IUser} from './AdminUsers'
@@ -69,14 +70,17 @@ const UserForm: React.FC<IUserForm> = ({setUsers, users, id, handleClose}) => {
     },[id, state.token])
 
     const postUser = useCallback(async (values: IUser, actions:FormikHelpers<IUser>) => {
+      console.log(values.avatar)
       try {
         setError(null)
+        const formData = new FormData();
+        Object.keys(values).forEach(key => formData.append(key, values[key]))
         const newUser:AxiosResponse = await axios({
             method: id ? 'put' : 'post',
             url: `${process.env.REACT_APP_API_URL}/users/${id ? id : ''}`,
-            data: values,
+            data: formData,
             headers: {
-                "Content-Type":	"application/json",
+                "Content-Type":	"multipart/form-data",
                 "Authorization": state.token
             }
         });
@@ -124,9 +128,7 @@ const UserForm: React.FC<IUserForm> = ({setUsers, users, id, handleClose}) => {
                 <TextField name="last_name" type="text" label="Last Name" />
                 <TextField name="password" type="password" label="Password" />
                 <TextField name="password_confirmation" type="password" label="Password Confirmation" />
-
-                <p>add image avatar upload to rails here</p>
-                <input name="avatar" type="file"></input>
+                <Uploader {...props}/>
                 {error && <Typography color="error" variant="h6">{error}</Typography>}
                 <div style={{display: 'flex', justifyContent: 'flex-end', marginTop: '16px'}}>
                   <Button variant="contained" color="primary" type="submit">
