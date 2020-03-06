@@ -177,10 +177,11 @@ const Song: React.FC = () => {
 									}
 									{song.first_played_show && song.first_played_show.relisten_url &&
 										<>
-											<span>  </span>
-											<Link href={song.first_played_show.relisten_url} target="blank">
-												<img src="/relisten.png" alt="relisten" />
-											</Link>
+											<span style={{paddingLeft: 12, verticalAlign: "middle"}}>
+												<Link href={song.first_played_show.relisten_url} target="blank">
+													<img src="/relisten.png" alt="relisten" />
+												</Link>
+											</span>
 										</>
 									}
 								</TableCell>
@@ -206,14 +207,25 @@ const Song: React.FC = () => {
 
 									{song.last_played_show && song.last_played_show.relisten_url &&
 										<>
-											<span>  </span>
-											<Link href={song.last_played_show.relisten_url} target="blank">
-												<img src="/relisten.png" alt="relisten" />
-											</Link>
+											<span style={{paddingLeft: 12, verticalAlign: "middle"}}>
+												<Link href={song.last_played_show.relisten_url} target="blank">
+													<img src="/relisten.png" alt="relisten" />
+												</Link>
+											</span>
 										</>
 									}
 								</TableCell>
 							</TableRow>
+							{song.notes &&
+								<TableRow>
+									<TableCell>
+										Notes
+									</TableCell>
+									<TableCell>
+										{song.notes}
+									</TableCell>
+								</TableRow>
+							}
 						</Table>
 					</TableContainer>
 
