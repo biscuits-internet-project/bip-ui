@@ -38,7 +38,7 @@ const Gear: React.FC = () => {
 				<CardContent>
 					<Typography variant="h3">Tron
 						<span>&nbsp; - &nbsp;</span>
-						<Link component={RouterLink} to="/shows/1999-12-31-theater-of-the-living-arts-philadelphia-pa">
+						<Link component={RouterLink} to="/shows/2015-12-31-playstation-theater-new-york-ny">
 							December 31, 2015 at Playstation Theater - New York, NY
 						</Link>
 					</Typography>
