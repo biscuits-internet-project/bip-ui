@@ -122,7 +122,7 @@ const Shows: React.FC = () => {
 							}}
 						>
 							<iframe
-								title={show.date.toDateString()}
+								title={id}
 								style={{
 								position: "absolute",
 								top: 0,
