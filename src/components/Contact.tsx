@@ -62,7 +62,7 @@ const Register: React.FC = () => {
             <TextField name="name" type="text" label="Name" />
             <TextAreaField name="message" label="Message" />
             <ReCaptcha></ReCaptcha>
-            <Button variant="contained">Submit</Button>
+            <Button variant="contained" type="submit">Submit</Button>
           </Form>
         )}
       </Formik>
