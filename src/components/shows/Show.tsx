@@ -5,7 +5,7 @@ import Tracklist, {ITrack} from './Tracklist';
 import { Helmet } from "react-helmet"
 import { Typography, Link, Card, CardContent } from '@material-ui/core';
 import Moment from 'react-moment';
-import PageHeading from './shared/PageHeading';
+import PageHeading from '../shared/PageHeading';
 import Gallery from "react-photo-gallery";
 import Carousel, { Modal, ModalGateway } from "react-images";
 

@@ -5,8 +5,8 @@ import { IShow } from './Show';
 import ListShows  from './ListShows'
 import { Helmet } from "react-helmet"
 import { LinearProgress, Button } from '@material-ui/core';
-import PageHeading from './shared/PageHeading';
-import ShowSearch from './shared/ShowSearch';
+import PageHeading from '../shared/PageHeading';
+import ShowSearch from '../shared/ShowSearch';
 
 const Shows: React.FC = () => {
 	const params = useParams();

@@ -7,9 +7,9 @@ import PrivateRoute from './routing/PrivateRoute'
 import { AppContext } from './context/AppProvider'
 import { darkTheme } from './lib/theme'
 import MenuIcon from '@material-ui/icons/Menu';
-import LatestShows from './components/LatestShows';
-import Shows from './components/Shows';
-import Show from './components/Show';
+import LatestShows from './components/shows/LatestShows';
+import Shows from './components/shows/Shows';
+import Show from './components/shows/Show';
 import Songs from './components/songs/Songs';
 import Song from './components/songs/Song';
 import Venues from './components/venues/Venues';

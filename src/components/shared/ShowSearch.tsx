@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { makeStyles, Theme, createStyles, Paper, InputBase, IconButton } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import axios, { AxiosResponse } from 'axios'
-import { IShow } from '../Show';
+import { IShow } from '../shows/Show';
 
 interface ISearch {
   setShows: (setlists: IShow[]) => void

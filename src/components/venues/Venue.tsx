@@ -2,13 +2,13 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useParams, Link as RouterLink } from 'react-router-dom';
 import axios, { AxiosResponse } from 'axios'
 import { Helmet } from "react-helmet";
-import { IShow } from './../Show';
+import { IShow } from '../shows/Show';
 import { LinearProgress, TableContainer, Paper, Table, TableRow, TableCell, Link, Dialog, DialogTitle, DialogContent, Grid, Button } from '@material-ui/core';
 import Moment from 'react-moment';
 import PageHeading from './../shared/PageHeading';
 import VenueForm from './VenueForm';
 import { AppContext } from '../../context/AppProvider';
-import ListShows from '../ListShows';
+import ListShows from '../shows/ListShows';
 
 export interface IVenue {
 	id: string,
