@@ -14,7 +14,7 @@ import moment from 'moment';
 import { IShow } from './Show';
 
 export interface IShowForm {
-    id: string
+    show?: IShow
 }
 
 interface IShowValues {
@@ -40,34 +40,27 @@ const validationSchema = Yup.object().shape({
         .required('Venue is required'),
 });
 
-const ShowForm: React.FC<IShowForm> = ({id}) => {
+const ShowForm: React.FC<IShowForm> = ({show}) => {
     const { state, asyncActions } = useContext(AppContext)
     const [formData, setFormData] = useState(initialValues)
     const { enqueueSnackbar } = useSnackbar()
-    const [selectedDate, setSelectedDate] = useState((id) ? null : new Date())
+    const [selectedDate, setSelectedDate] = useState((show) ? null : new Date())
 
     const handleDateChange = (date: Date | null) => {
         setSelectedDate(date);
     };
 
     useEffect(()=> {
-        const fetchShow = async () => {
-          const data:AxiosResponse = await axios.get(`${process.env.REACT_APP_API_URL}/shows/${id}`)
-          const show:IShow = data.data
-          setFormData(show)
-
-          const date = new Date(moment(show.date).format("YYYY/MM/DD"))
-          setSelectedDate(date)
+        if (show) {
+            setFormData(show)
+            setSelectedDate(show.date)
         }
-        if (id) {
-          fetchShow()
-        }
-      },[id])
+    },[show])
 
     const handleSubmit = useCallback(async (values: IShowValues, actions:FormikHelpers<IShowValues>) => {
-        const show:AxiosResponse = await axios({
-            method: id ? 'put' : 'post',
-            url: `${process.env.REACT_APP_API_URL}/shows/${id ? id : ''}`,
+        const resp:AxiosResponse = await axios({
+            method: show ? 'put' : 'post',
+            url: `${process.env.REACT_APP_API_URL}/shows/${show ? show.id : ''}`,
             data: {
                 date: values.date,
                 venue_id: values.venue_id,
@@ -79,14 +72,14 @@ const ShowForm: React.FC<IShowForm> = ({id}) => {
                 "Authorization": state.token
             }
         });
-        const {data} = show
+        const {data} = resp
 
-        if (!id) {
+        if (!show) {
             enqueueSnackbar(`Successfully added ${data.date}`, { variant: 'success' })
         } else {
             enqueueSnackbar(`Successfully edited ${data.date}`, { variant: 'success' })
         }
-    }, [enqueueSnackbar, id, state.token])
+    }, [enqueueSnackbar, show, state.token])
 
     const venueOptions: ISelectOption[] = useMemo(() => {
         return state.venues.map((venue): ISelectOption => {
