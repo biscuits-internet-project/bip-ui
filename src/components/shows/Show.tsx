@@ -133,6 +133,7 @@ const Show: React.FC = () => {
 				{show.youtube_ids.map((id) => {
 					return (
 						<div
+							key={id}
 							className="video"
 							style={{
 								position: "relative",
