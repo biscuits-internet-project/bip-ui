@@ -2,11 +2,11 @@ import React, {useState, useEffect, useContext, useCallback} from 'react';
 import { Form, Formik, FormikProps,FormikHelpers} from 'formik'
 import axios, { AxiosResponse } from 'axios'
 import { useSnackbar } from 'notistack'
-import {AppContext} from '../../../context/AppProvider'
-import TextAreaField from '../../shared/TextAreaField'
+import {AppContext} from '../../context/AppProvider'
+import TextAreaField from '../shared/TextAreaField'
 import Button from '@material-ui/core/Button'
-import {ITrack} from './AdminTracks'
-import CheckboxField from '../../shared/CheckboxField';
+import CheckboxField from '../shared/CheckboxField';
+import { ITrack } from './Tracklist';
 
 interface ITrackForm {
     setTracks: (tracks: ITrack[]) => void
@@ -20,8 +20,13 @@ const initialValues:ITrack = {
   slug: "",
   note: "",
   all_timer: false,
-  show: undefined,
-  venue: undefined
+	song_title: "",
+	song_slug: "",
+	song_id: "",
+	segue: "",
+	position: 0,
+	set: "",
+	annotations: []
 }
 
 const TrackForm: React.FC<ITrackForm> = ({setTracks, tracks, id, handleClose}) => {

@@ -18,7 +18,6 @@ const useStyles = makeStyles((theme: Theme) =>
       marginBottom: 20
     },
     input: {
-      marginTop: 13,
       marginLeft: theme.spacing(1),
       fontSize: 15,
       flex: 1,

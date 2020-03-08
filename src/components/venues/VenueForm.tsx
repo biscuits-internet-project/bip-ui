@@ -3,7 +3,7 @@ import { Form, Formik, FormikProps,FormikHelpers} from 'formik'
 import axios, { AxiosResponse } from 'axios'
 import { useSnackbar } from 'notistack'
 import {AppContext} from '../../context/AppProvider'
-import TextField from '../shared/TextField'
+import TextField from '../shared/TextFieldContainer'
 import Button from '@material-ui/core/Button'
 import {IVenue} from './Venue'
 import { Grid } from '@material-ui/core';

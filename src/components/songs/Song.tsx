@@ -131,7 +131,7 @@ const Song: React.FC = () => {
 
 					{song.featured_lyric &&
 						<>
-							<Typography>
+							<Typography variant="body2">
 								<em>{song.featured_lyric}</em>
 							</Typography>
 							<div style={{ height: 20 }}></div>
@@ -241,7 +241,7 @@ const Song: React.FC = () => {
 								<Typography className={classes.heading}>Lyrics</Typography>
 							</ExpansionPanelSummary>
 							<ExpansionPanelDetails>
-								<Typography>
+								<Typography variant="body2">
 									<div dangerouslySetInnerHTML={{ __html: song.lyrics }} />
 								</Typography>
 							</ExpansionPanelDetails>
@@ -272,7 +272,7 @@ const Song: React.FC = () => {
 								<Typography className={classes.heading}>Guitar Tabs</Typography>
 							</ExpansionPanelSummary>
 							<ExpansionPanelDetails>
-								<Typography>
+								<Typography variant="body2">
 									<div dangerouslySetInnerHTML={{ __html: song.tabs }} />
 								</Typography>
 							</ExpansionPanelDetails>

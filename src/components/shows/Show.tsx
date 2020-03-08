@@ -1,15 +1,17 @@
-import React, {useState, useEffect, useCallback} from 'react'
-import { useParams } from 'react-router-dom';
+import React, {useState, useEffect, useCallback, useContext} from 'react'
+import { useParams, Link as RouterLink } from 'react-router-dom';
 import axios, { AxiosResponse } from 'axios'
 import Tracklist, {ITrack} from './Tracklist';
 import { Helmet } from "react-helmet"
-import { Typography, Link, Card, CardContent } from '@material-ui/core';
+import { Typography, Link, Card, CardContent, Grid, Button } from '@material-ui/core';
 import Moment from 'react-moment';
 import PageHeading from '../shared/PageHeading';
 import Gallery from "react-photo-gallery";
 import Carousel, { Modal, ModalGateway } from "react-images";
+import { AppContext } from '../../context/AppProvider';
 
 export interface IShow {
+	id: string
 	slug: string
 	notes: string
 	date: Date
@@ -31,8 +33,10 @@ interface IImage {
   sizes: string[]
 }
 
-const Shows: React.FC = () => {
-
+const Show: React.FC = () => {
+	const { state } = useContext(AppContext)
+	const { roles } = state
+	const admin = roles.includes('admin')
 	const [currentImage, setCurrentImage] = useState(0);
 	const [viewerIsOpen, setViewerIsOpen] = useState(false);
 
@@ -78,14 +82,27 @@ const Shows: React.FC = () => {
 				<Helmet>
 					<title>Biscuits Internet Project - Shows - {show.date} at {show.venue.name} - {show.venue.city}, {show.venue.state}</title>
 				</Helmet>
-				<PageHeading text={
-					<>
-						<Moment format="MMMM D, YYYY">
-							{show.date}
-						</Moment>
-						<span> at {show.venue.name} - {show.venue.city}, {show.venue.state}</span>
-					</>
-				} />
+				<Grid container justify="space-between" >
+					<Grid item>
+						<PageHeading text={
+							<>
+								<Moment format="MMMM D, YYYY">
+									{show.date}
+								</Moment>
+								<span> at {show.venue.name} - {show.venue.city}, {show.venue.state}</span>
+							</>
+						} />
+					</Grid>
+					<Grid item>
+						{ admin &&
+							<div style={{alignContent: "right"}}>
+								<Link component={RouterLink} to={`/admin/shows/edit/${show.slug}`}>
+									<Button>Edit Show</Button>
+								</Link>
+							</div>
+						}
+					</Grid>
+				</Grid>
 				<div>
 					{/* <div>{show.likes_count} likes </div> */}
 					{show.notes &&
@@ -161,4 +178,4 @@ const Shows: React.FC = () => {
 	)
 }
 
-export default Shows;
+export default Show;

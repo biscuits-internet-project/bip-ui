@@ -7,20 +7,21 @@ const baseTheme = {
     h1: { margin: 0, padding: 0, fontSize: 26 },
     h2: { margin: 0, padding: 0, fontSize: 22 },
     h3: { margin: 0, padding: 0, fontSize: 20, paddingBottom: 15 },
-    h4: { margin: 0, padding: 0 },
+    h4: { margin: 0, padding: 0, fontSize: 18, paddingBottom: 15 },
     h5: { margin: 0, padding: 0 },
     h6: { margin: 0, padding: 0 },
     body1: {
-      paddingBottom: 15,
-      fontSize: 15
     },
     body2: {
       paddingBottom: 15,
-      fontSize: 14
+      fontSize: 15
     },
     overrides: {
       MuiCardHeader: {
         fontSize: 18
+      },
+      MuiTextField: {
+        marginBottom: 10
       }
     }
   },

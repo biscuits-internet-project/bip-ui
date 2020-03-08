@@ -3,7 +3,6 @@ import {Route, Switch, Link as RouterLink, useHistory } from 'react-router-dom';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import PrivateRoute from './routing/PrivateRoute'
 import { AppContext } from './context/AppProvider'
 import { darkTheme } from './lib/theme'
 import MenuIcon from '@material-ui/icons/Menu';
@@ -21,7 +20,6 @@ import About from './components/About';
 import Contact from './components/Contact';
 import ResetPassword from './components/ResetPassword';
 import Login from './components/Login';
-import Admin from './components/Admin'
 import BandHistory from './components/resources/BandHistory'
 import MovieScores from './components/resources/MovieScores'
 import Tractorbeam from './components/resources/Tractorbeam'
@@ -36,6 +34,9 @@ import Music from './components/resources/Music';
 import ChemicalWarfareBrigade from './components/resources/ChemcialWarfareBrigade';
 import SideProjects from './components/resources/SideProjects';
 import { SnackbarProvider } from 'notistack';
+import AddShow from './components/shows/AddShow';
+import EditShow from './components/shows/EditShow';
+import PrivateRoute from './routing/PrivateRoute';
 
 interface sideMenuItem {
   name: string | undefined,
@@ -216,7 +217,6 @@ const App: React.FC = () => {
             maxSnack={3}
           >
             <Switch>
-              <PrivateRoute path="/admin/:adminPage?" component={Admin} roles={roles} />
               <div className={classes.root}>
                 <CssBaseline />
                 <AppBar position="fixed" className={classes.appBar}>
@@ -282,6 +282,9 @@ const App: React.FC = () => {
                   <Route path="/resources/the-perfume" exact component={Perfume} />
                   <Route path="/resources/tractorbeam" exact component={Tractorbeam} />
                   <Route path="/shows" exact component={Shows} />
+                  <PrivateRoute path="/admin/shows/create" exact component={AddShow} roles={roles} />
+                  <PrivateRoute path="/admin/shows/edit/:id" exact component={EditShow} roles={roles} />
+                  <Route path="/shows/add" exact component={AddShow} />
                   <Route path="/shows/:id" exact component={Show} />
                   <Route path="/shows/year/:year" exact component={Shows} />
                   <Route path="/shows/venue/:venue_id" exact component={Shows} />

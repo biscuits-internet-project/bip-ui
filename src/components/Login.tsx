@@ -6,7 +6,7 @@ import { useHistory, Link as RouterLink } from "react-router-dom";
 import { History } from 'history'
 import jwt from 'jwt-decode'
 import { AppContext } from '../context/AppProvider'
-import TextField from './shared/TextField'
+import TextField from './shared/TextFieldContainer'
 import Button from '@material-ui/core/Button'
 import ForgotPassword from './ForgotPassword'
 import { Typography, Link } from '@material-ui/core';
@@ -68,7 +68,7 @@ const Login: React.FC = () => {
   return (
     <div style={{ maxWidth: 400 }}>
       <PageHeading text="Login"/>
-      <Typography>
+      <Typography variant="body2">
         Don't have an account?
         <span> </span>
         <Link component={RouterLink} to="/register">

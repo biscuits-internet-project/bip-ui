@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react'
-import { useHistory, useParams } from 'react-router-dom';
+import React, { useState, useEffect, useContext } from 'react'
+import { useHistory, useParams, Link as RouterLink } from 'react-router-dom';
 import axios, { AxiosResponse } from 'axios'
 import { IShow } from './Show';
 import ListShows  from './ListShows'
 import { Helmet } from "react-helmet"
-import { LinearProgress, Button } from '@material-ui/core';
+import { LinearProgress, Button, Grid, Link } from '@material-ui/core';
 import PageHeading from '../shared/PageHeading';
 import ShowSearch from '../shared/ShowSearch';
+import { AppContext } from '../../context/AppProvider';
 
 const Shows: React.FC = () => {
 	const params = useParams();
@@ -16,6 +17,9 @@ const Shows: React.FC = () => {
 	const [shows, setShows] = useState<IShow[]>([])
 	const years = Array(currentYear - 1995 + 1).fill(0).map((_, idx) => 1995 + idx)
 	const history = useHistory()
+	const { state } = useContext(AppContext)
+	const { roles } = state
+	const admin = roles.includes('admin')
 
 	const changeYear = (year) => {
 		setShows([])
@@ -37,7 +41,20 @@ const Shows: React.FC = () => {
 			<Helmet>
 				<title>Biscuits Internet Project - Shows</title>
 			</Helmet>
-			<PageHeading text="Shows" />
+			<Grid container justify="space-between" >
+				<Grid item>
+					<PageHeading text="Shows" />
+				</Grid>
+				<Grid item>
+					{ admin &&
+						<div style={{alignContent: "right"}}>
+							<Link component={RouterLink} to="/admin/shows/create">
+								<Button>Add Show</Button>
+							</Link>
+						</div>
+                    }
+				</Grid>
+			</Grid>
 			<ShowSearch setShows={setShows} setLoading={setLoading}></ShowSearch>
 
 			{years.map((year) => {

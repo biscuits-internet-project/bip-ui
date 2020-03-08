@@ -8,6 +8,10 @@ export interface ITracklist {
 }
 
 export interface ITrack {
+	id: string
+	slug: string
+	note: "",
+	all_timer: false,
 	song_title: string
 	song_slug: string
 	song_id: string

@@ -123,7 +123,7 @@ const Venues: React.FC = () => {
 				<Grid item>
 					{ admin &&
 						<div style={{alignContent: "right"}}>
-							<Button onClick={() =>handleOpen()}>Add Venue</Button>
+							<Button onClick={() => handleOpen()}>Add Venue</Button>
 						</div>
                     }
 				</Grid>

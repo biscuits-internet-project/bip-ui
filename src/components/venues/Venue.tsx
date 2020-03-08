@@ -33,7 +33,6 @@ const Venue: React.FC = () => {
 	const [shows, setShows] = useState<IShow[]>([])
 	const [formOpen, setFormOpen] = useState(false)
 	const [id, setId] = useState("")
-
 	const { state } = useContext(AppContext)
 	const { roles } = state
 	const admin = roles.includes('admin')

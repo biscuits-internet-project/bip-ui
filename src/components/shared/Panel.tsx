@@ -26,8 +26,7 @@ const Panel = ({children, title, width = '100%'}) => {
     return (
         <>
         <div className={classes.container}>
-            <FolderOutlined color="primary" className={classes.icon}/>
-            <Typography variant='h6'>{title}</Typography>
+            <Typography variant='h3'>{title}</Typography>
         </div>
         <Card style={{width, marginBottom: '16px'}}>
             <CardContent>
