@@ -66,7 +66,7 @@ const JamChartHoverLink: React.FC<Props> = ({ track }) => {
                     horizontal: 'center',
                 }}
                 transformOrigin={{
-                    vertical: 'bottom',
+                    vertical: 'top',
                     horizontal: 'center',
                 }}
                 onClose={handlePopoverClose}
