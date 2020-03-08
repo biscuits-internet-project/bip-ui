@@ -54,7 +54,7 @@ const Login: React.FC = () => {
       const roles = jwt(token).roles
       localStorage.setItem('token', token);
 
-      asyncActions.getAttendances(token)
+      asyncActions.getUserAttendances(token)
       asyncActions.getFavorites(token)
       asyncActions.getRatings(token)
 

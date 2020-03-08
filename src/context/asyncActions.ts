@@ -24,7 +24,7 @@ const asyncActions = (dispatch: Dispatch<Action>) => {
             dispatch({type: "GET_SHOWS", payload: shows.data})
         },
         //ATTENDANCES
-        getAttendances: async (token) => {
+        getUserAttendances: async (token) => {
             const attendances: AxiosResponse = await axios({
                 method: 'get',
                 url: `${process.env.REACT_APP_API_URL}/attendances`,
@@ -33,7 +33,22 @@ const asyncActions = (dispatch: Dispatch<Action>) => {
                     "Authorization": token
                 }
             })
-            dispatch({type: "GET_ATTENDANCES", payload: attendances.data})
+            dispatch({type: "GET_USER_ATTENDANCES", payload: attendances.data})
+        },
+        postAttendance: async (token: string, showId: string, value: boolean) => {
+            await axios({
+                method: 'post',
+                url: `${process.env.REACT_APP_API_URL}/shows/${showId}/${value ? "attend" : "unattend"}`,
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": token
+                }})
+
+            if (value) {
+                dispatch({type: "ADD_USER_ATTENDANCE", payload: showId})
+            } else {
+                dispatch({type: "REMOVE_USER_ATTENDANCE", payload: showId})
+            }
         },
         //FAVORITES
         getFavorites: async (token) => {

@@ -76,10 +76,24 @@ const appReducer = (state: AppState, action: Action): AppState => {
         ...state,
         shows: action.payload
       };
-    case "GET_ATTENDANCES":
+    case "GET_USER_ATTENDANCES":
       return {
         ...state,
         attendances: action.payload
+      };
+    case "ADD_USER_ATTENDANCE":
+      state.attendances = [...state.attendances, action.payload]
+      return {
+        ...state,
+        attendances: state.attendances
+      };
+    case "REMOVE_USER_ATTENDANCE":
+      state.attendances = state.attendances.filter((showId) => {
+        return showId !== action.payload
+      })
+      return {
+        ...state,
+        attendances: state.attendances
       };
     case "GET_FAVORITES":
       return {
