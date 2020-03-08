@@ -1,4 +1,4 @@
-import React, { memo, useContext } from 'react';
+import React, { memo, useContext, useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom'
 import Setlist from './Setlist'
 import { IShow } from './Show';
@@ -8,6 +8,7 @@ import { AppContext } from '../../context/AppProvider';
 import SawItSwitch from './SawItSwitch';
 import ShowRating from './ShowRating';
 import FavoriteSwitch from './FavoriteSwitch';
+import moment from 'moment';
 
 const ListShows = ({ shows }) => {
     const { state, dispatch } = useContext(AppContext)
@@ -33,7 +34,10 @@ const ListShows = ({ shows }) => {
                 <>
                     {shows.map((show: IShow) => {
                         return (
-                            <Setlist key={show.id} show={show} />
+                            <>
+                                <div id={moment(show.date).format("MMM")}></div>
+                                <Setlist key={show.id} show={show} />
+                            </>
                         )
                     })}
                 </>
@@ -47,9 +51,7 @@ const ListShows = ({ shows }) => {
                                     <TableCell>Relisten</TableCell>
                                     {currentUser &&
                                         <>
-                                            <TableCell>Saw it
-
-                                            </TableCell>
+                                            <TableCell>Saw it</TableCell>
                                             <TableCell>Rating</TableCell>
                                             <TableCell>Favorite</TableCell>
                                         </>
