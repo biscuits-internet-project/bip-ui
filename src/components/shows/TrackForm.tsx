@@ -1,91 +1,123 @@
-import React, {useState, useEffect, useContext, useCallback} from 'react';
-import { Form, Formik, FormikProps,FormikHelpers} from 'formik'
+import React, { useState, useEffect, useContext, useCallback, useMemo } from 'react';
+import { Form, Formik, FormikProps, FormikHelpers } from 'formik'
 import axios, { AxiosResponse } from 'axios'
 import { useSnackbar } from 'notistack'
-import {AppContext} from '../../context/AppProvider'
-import TextAreaField from '../shared/TextAreaField'
-import Button from '@material-ui/core/Button'
+import { AppContext } from '../../context/AppProvider'
+import TextField from '../shared/TextFieldContainer'
+import { Paper, Button, Grid } from '@material-ui/core'
 import CheckboxField from '../shared/CheckboxField';
 import { ITrack } from './Tracklist';
+import SelectField, { ISelectOption } from '../shared/SelectField';
 
 interface ITrackForm {
-    setTracks: (tracks: ITrack[]) => void
-    tracks: ITrack[],
-    id: string | null
-    handleClose: ()=> void
+  track: ITrack
 }
 
-const initialValues:ITrack = {
+const initialValues: ITrack = {
   id: "",
   slug: "",
   note: "",
   all_timer: false,
-	song_title: "",
-	song_slug: "",
-	song_id: "",
-	segue: "",
-	position: 0,
-	set: "",
-	annotations: []
+  song_title: "",
+  song_slug: "",
+  song_id: "",
+  segue: "",
+  position: 0,
+  set: "",
+  annotations: []
 }
 
-const TrackForm: React.FC<ITrackForm> = ({setTracks, tracks, id, handleClose}) => {
-    const {state} = useContext(AppContext)
-    const [formData, setFormData] = useState(initialValues)
-    const { enqueueSnackbar } = useSnackbar()
+const TrackForm: React.FC<ITrackForm> = ({ track }) => {
+  const { state } = useContext(AppContext)
+  const [formData, setFormData] = useState(initialValues)
+  const { enqueueSnackbar } = useSnackbar()
 
-    useEffect(()=> {
-      const fetchTrack = async () => {
-        const data:AxiosResponse = await axios.get(`${process.env.REACT_APP_API_URL}/tracks/${id}?edit=true`)
-        const track:ITrack = data.data
-        setFormData(track)
+  useEffect(() => {
+    if (track) {
+      setFormData(track)
+    }
+  }, [track])
+
+  const setOptions: ISelectOption[] = useMemo(() => {
+    return ["S1", "S2", "S3", "S4", "E1", "E2"].map((set): ISelectOption => {
+      return {
+        value: set,
+        label: set
       }
-      if(id){
-        fetchTrack()
+    })
+  }, [])
+
+
+  const songOptions: ISelectOption[] = useMemo(() => {
+    return state.songs.map((song): ISelectOption => {
+      return {
+        value: song.id,
+        label: song.title
       }
-    },[id])
+    })
+  }, [state.songs])
 
-    const postTrack = useCallback(async (values: ITrack, actions:FormikHelpers<ITrack>) => {
-      const newTrack:AxiosResponse = await axios({
-          method: 'put',
-          url: `${process.env.REACT_APP_API_URL}/tracks/${id}`,
-          data: values,
-          headers: {
-              "Content-Type":	"application/json",
-              "Authorization": state.token
-          }
-      });
-      const {data} = newTrack
+  const postTrack = useCallback(async (values: ITrack, actions: FormikHelpers<ITrack>) => {
+    const resp:AxiosResponse = await axios({
+      method: track ? 'put' : 'post',
+      url: `${process.env.REACT_APP_API_URL}/tracks/${track ? track.id : ''}`,
+      data: values,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": state.token
+      }
+    });
 
-      const index = tracks.findIndex(track => track.slug === id)
-      const newTracks = [...tracks]
-      newTracks[index] = data
-      setTracks(newTracks)
-      enqueueSnackbar(`Successfully edited ${data.title} by ${data.author_name}`, { variant: 'success' })
-      handleClose()
-    }, [enqueueSnackbar, handleClose, id, setTracks, tracks, state.token])
+    const {data} = resp
+    enqueueSnackbar("Success", { variant: 'success' })
+  }, [enqueueSnackbar, track, state.token])
 
-    return (
-        <div>
-          <Formik
-            enableReinitialize
-            initialValues={formData}
-            onSubmit={(values, actions) => postTrack(values, actions)}
-          >
-            {(props: FormikProps<ITrack>) => (
-              <Form>
-                <TextAreaField name="note" label="Note" />
+  return (
+    <Paper style={{ marginBottom: 20, padding: 20 }}>
+      <Formik
+        enableReinitialize
+        initialValues={formData}
+        onSubmit={(values, actions) => postTrack(values, actions)}
+      >
+        {(props: FormikProps<ITrack>) => (
+          <Form>
+            <Grid container spacing={2}>
+              <Grid item xs={1}>
+                <SelectField
+                  options={setOptions}
+                  name="set"
+                  label="Set"
+                />
+              </Grid>
+              <Grid item xs={1}>
+                <TextField name="position" label="Position" type="number" />
+              </Grid>
+              <Grid item xs={6}>
+                <SelectField
+                  options={songOptions}
+                  name="song_id"
+                  label="Song"
+                />
+              </Grid>
+              <Grid item xs={1}>
+                <TextField name="segue" label="Segue" type="text" />
+              </Grid>
+              <Grid item xs={2}>
                 <CheckboxField name="all_timer" label="All timer" />
-                <div style={{display: 'flex', justifyContent: 'flex-end', marginTop: '16px'}}>
-                  <Button variant="contained" color="primary" type="submit">
-                    Submit
-                  </Button>
-                </div>
-              </Form>
-            )}
-          </Formik>
-        </div>
-      );
+              </Grid>
+            </Grid>
+
+            <TextField name="note" label="Jam Chart" type="text" />
+            <div style={{ height: 10 }}></div>
+
+            <Button variant="contained" type="submit">
+              Submit
+                </Button>
+          </Form>
+        )}
+      </Formik>
+    </Paper>
+  );
 }
 
-  export default TrackForm
+export default TrackForm

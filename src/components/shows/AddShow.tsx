@@ -14,7 +14,7 @@ const AddShow: React.FC = () => {
       </Helmet>
       <PageHeading text="Add Show" />
 
-      <ShowForm id=""></ShowForm>
+      <ShowForm show={undefined}></ShowForm>
     </>
   );
 }
