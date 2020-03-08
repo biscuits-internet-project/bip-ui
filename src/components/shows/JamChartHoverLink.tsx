@@ -16,6 +16,10 @@ const useStyles = makeStyles((theme: Theme) =>
         popover: {
             pointerEvents: 'none',
         },
+        jamchartContainer: {
+            backgroundColor: "#333333", //purple[700],
+            padding: 4,
+        }
     }),
 );
 
@@ -25,21 +29,17 @@ const JamChartHoverLink: React.FC<Props> = ({ track }) => {
     const classes = useStyles();
 
     const handlePopoverOpen = (event, trackSlug) => {
-        // this anchor el doesn't seem like it's getting set properly and
-        // the popover is showing up in the upper left corner of the screen
-        // instead of at the Link element from this event
         setAnchorEl(event.currentTarget)
         setOpenedPopoverId(trackSlug)
     }
 
     const handlePopoverClose = () => {
-        console.log(anchorEl)
         setAnchorEl(null)
         setOpenedPopoverId(null)
     };
 
     return (
-        <>
+        <span className={track.note ? classes.jamchartContainer : ""}>
             <Link
                 on
                 component={RouterLink}
@@ -74,7 +74,7 @@ const JamChartHoverLink: React.FC<Props> = ({ track }) => {
             >
                 <Typography>{track.note}</Typography>
             </Popover>
-        </>
+        </span>
 
     );
 }
