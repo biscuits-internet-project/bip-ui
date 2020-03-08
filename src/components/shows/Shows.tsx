@@ -8,6 +8,7 @@ import { LinearProgress, Button, Grid, Link } from '@material-ui/core';
 import PageHeading from '../shared/PageHeading';
 import ShowSearch from '../shared/ShowSearch';
 import { AppContext } from '../../context/AppProvider';
+import LinkButton from '../shared/LinkButton';
 
 const Shows: React.FC = () => {
 	const params = useParams();
@@ -48,9 +49,7 @@ const Shows: React.FC = () => {
 				<Grid item>
 					{ admin &&
 						<div style={{alignContent: "right"}}>
-							<Link component={RouterLink} to="/admin/shows/create">
-								<Button>Add Show</Button>
-							</Link>
+							<LinkButton text="Add Show" to="/admin/shows/create" />
 						</div>
                     }
 				</Grid>
