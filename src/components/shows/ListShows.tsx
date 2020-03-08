@@ -60,7 +60,7 @@ const ListShows = ({ shows }) => {
                             </TableHead>
                             <TableBody>
                                 {shows.map((show: IShow) => (
-                                    <TableRow key={show.slug}>
+                                    <TableRow key={show.slug} id={moment(show.date).format("MMM")}>
                                         <TableCell>
                                             <Link component={RouterLink} to={`/shows/${show.slug}`} >
                                                 <Moment format="M/DD/YYYY">

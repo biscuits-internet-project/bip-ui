@@ -32,7 +32,8 @@ const Shows: React.FC = () => {
 		setSelectedYear(year)
 	}
 
-	const scrollWithOffset = (el, offset) => {
+	const scrollWithOffset = (el) => {
+		const offset = (state.viewSetlists) ? 100 : -300
 		const elementPosition = el.offsetTop - offset;
 		window.scroll({
 		  top: elementPosition,
@@ -91,7 +92,7 @@ const Shows: React.FC = () => {
 						return (
 							<Button
 								key={month}
-								scroll={el => scrollWithOffset(el, 100)}
+								scroll={el => scrollWithOffset(el)}
 								component={HashLink}
 								to={`#${month}`}
 								style={{ display: "inline", marginRight: 6 }}
