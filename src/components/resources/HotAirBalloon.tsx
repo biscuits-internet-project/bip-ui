@@ -1,5 +1,6 @@
 import React from 'react';
 import { HashLink } from 'react-router-hash-link';
+import { Link as RouterLink } from 'react-router-dom'
 import { Helmet } from "react-helmet";
 import PageHeading from '../shared/PageHeading';
 import { Link, Typography, ListItem, createStyles, Theme, makeStyles, Card, CardContent, Grid } from '@material-ui/core';
@@ -356,6 +357,43 @@ at his last chance to fly
 				<title>Biscuits Internet Project - The Hot Air Balloon</title>
 			</Helmet>
 			<PageHeading text="The Hot Air Balloon" />
+
+			<Card>
+				<CardContent>
+					<Typography variant="body2">
+						Hot Air Balloon, Jon Gutwillig’s rock opera, was first performed in full on December 31,
+						1998 at the Silk City Lounge in Philadelphia. Surprised by the unannounced debut performance, fans were given a
+						pamphlet as they arrived containing accompanying stories for each of the songs. While this was the first full
+						performance, all of the songs except for the title track had already been debuted over the course of the fall
+						and the previous two shows.
+					</Typography>
+
+					<Typography variant="body2">
+						The opera has been performed in its entirety nine times. On 02/03/99 and 02/13/99 the band performed Act 2 only. On 5/11/99 HAB was performed written as 2 palindromes, with one reversed and overlaid on top of each other. It was also performed on April 1, 2002, but with Aquatic Ape replacing the title song, as an April Fool's joke. However, Hot Air Balloon lyrics were sung during parts of Aquatic Ape.
+					</Typography>
+
+					<Typography variant="body2">
+						On 12/31/18 at The Fillmore in Philadelphia, the Hot Air Balloon was performed for the first time in more than 11 years, celebrating the 20th anniversary of its debut. The stage was decorated for the occasion with prison doors and a hot air balloon replica hanging above the stage. In addition, projections were played on a large water screen at various points in the show. Jon was dressed as Corrinado in his prison pajamas and Marc and Aron wore steampunk garb. Fans dressed up as street performers (from the lyrics of Bazaar Escape) were on stage before the performance began. Holly Bowling appeared as Leora and sat in on piano for The Very Moon.
+					</Typography>
+
+					<ul>
+						<li><Link component={RouterLink} to="/shows/1998-12-31-silk-city-diner-philadelphia-pa">12/31/98</Link> - Silk City Diner - Philadelphia, PA</li>
+						<li><Link component={RouterLink} to="/shows/1999-01-24-center-for-the-arts-natick-ma">01/24/99</Link> -  Center for the Arts - Natick, MA</li>
+						<li><Link component={RouterLink} to="/shows/1999-02-03-the-brewery-raleigh-nc">02/03/99</Link> -  The Brewery - Raleigh, NC (Act 2 Only)</li>
+						<li><Link component={RouterLink} to="/shows/1999-02-13-home-bar-dallas-tx">02/13/99</Link> -  Home Bar - Dallas, TX (Act 2 Only)</li>
+						<li><Link component={RouterLink} to="/shows/1999-03-04-the-tractor-seattle-wa">03/04/99</Link> -  The Tractor - Seattle, WA</li>
+						<li><Link component={RouterLink} to="/shows/1999-05-11-blue-terrapin-elizabethtown-pa">05/11/99</Link> -  Blue Terrapin - Elizabethtown, PA (Written as 2 palindromes, with one reversed and overlaid on top of the other)</li>
+						<li><Link component={RouterLink} to="/shows/1999-06-12-music-farm-charleston-sc">06/12/99</Link> -  Music Farm - Charleston, SC</li>
+						<li><Link component={RouterLink} to="/shows/1999-10-23-ziggy-s-winston-salem-nc">10/23/99</Link> -  Ziggy’s - Winston-Salem, NC</li>
+						<li><Link component={RouterLink} to="/shows/2002-04-01-bogart-s-cincinnati-oh">04/01/02</Link> -  Bogart’s - Cincinnatii, OH (Aquatic Ape replaced Hot Air Balloon as an April Fools' joke)</li>
+						<li><Link component={RouterLink} to="/shows/2004-01-17-culture-room-fort-lauderdale-fl">01/17/04</Link> -  Culture Room - Fort Lauderdale, FL (Mike Greenfield on drums)</li>
+						<li><Link component={RouterLink} to="/shows/2007-10-31-orpheum-theater-boston-ma">10/31/07</Link> -  Orpheum Theater - Boston, MA</li>
+						<li><Link component={RouterLink} to="/shows/2018-12-31-the-fillmore-philadelphia-pa">12/31/18</Link> -  The Fillmore - Philadelphia, PA</li>
+					</ul>
+				</CardContent>
+			</Card>
+
+			{divider}
 
 			<Grid container spacing={3}>
 				<Grid item xs={12} sm={6} md={4}>
