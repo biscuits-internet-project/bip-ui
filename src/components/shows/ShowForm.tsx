@@ -65,7 +65,6 @@ const ShowForm: React.FC<IShowForm> = ({id}) => {
       },[id])
 
     const handleSubmit = useCallback(async (values: IShowValues, actions:FormikHelpers<IShowValues>) => {
-        //values.date = selectedDate || new Date()).format('YYYY-MM-DD')
         const show:AxiosResponse = await axios({
             method: id ? 'put' : 'post',
             url: `${process.env.REACT_APP_API_URL}/shows/${id ? id : ''}`,
@@ -87,7 +86,7 @@ const ShowForm: React.FC<IShowForm> = ({id}) => {
         } else {
             enqueueSnackbar(`Successfully edited ${data.date}`, { variant: 'success' })
         }
-    }, [enqueueSnackbar, id, selectedDate, state.token])
+    }, [enqueueSnackbar, id, state.token])
 
     const venueOptions: ISelectOption[] = useMemo(() => {
         return state.venues.map((venue): ISelectOption => {

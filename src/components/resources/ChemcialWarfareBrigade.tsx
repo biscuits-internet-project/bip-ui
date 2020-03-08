@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link as RouterLink } from 'react-router-dom'
 import { HashLink } from 'react-router-hash-link';
 import { Helmet } from "react-helmet";
 import PageHeading from '../shared/PageHeading';
@@ -374,6 +375,32 @@ const ChemicalWarfareBrigade: React.FC = () => {
 				<title>Biscuits Internet Project - The Chemical Warfare Brigade</title>
 			</Helmet>
 			<PageHeading text="The Chemical Warfare Brigade" />
+
+			<Card>
+				<CardContent>
+					<Typography variant="body2">
+						Chemical Warfare Brigade, Marc Brownstein’s rock opera, was first debuted by his side project Electron on 08/18/00 and then by The Disco Biscuits on 12/30/00. While a number of the songs were written during Marc’s departure from the band in 2000, Plan B (10/16/98), Three Wishes (12/03/98), Little Lai (04/21/99), and Chemical Warfare Brigade (08/21/99) were all written and debuted prior to that.
+					</Typography>
+
+					<Typography variant="body2">
+						Performed in full six times by TDB, the most recent occurrence was on 12/31/13 at the Theater at Madison Square Garden in New York. After the opening tracks of Plan B and Little Lai, the opera was played out of order with songs like Hot Air Balloon, House Dog Party Favor and Helicopters interwoven into the setlist.
+					</Typography>
+
+					<Typography variant="body2">
+						Electron also played CWB in full on 5/11/08, 05/11/13, 04/21/17, and 03/26/17.
+					</Typography>
+					<ul>
+						<li><Link component={RouterLink} to="/shows/2000-12-30-the-vanderbilt-plainview-ny">12/30/00</Link> - The Vanderbilt, Plainview, NY</li>
+						<li><Link component={RouterLink} to="/shows/2001-04-26-the-roxy-atlanta-ga">04/26/01</Link> - The Roxy - Atlanta, GA</li>
+						<li><Link component={RouterLink} to="/shows/2002-11-06-the-odeon-cleveland-oh">11/06/02</Link> - The Odeon - Cleveland, OH</li>
+						<li><Link component={RouterLink} to="/shows/2003-11-28-webster-theater-hartford-ct">11/28/03</Link> - The Webster Theater - Hartford, CT</li>
+						<li><Link component={RouterLink} to="/shows/2009-06-03-lupo-s-heartbreak-hotel-providence-ri">06/03/09</Link> - Lupo’s Heartbreak Hotel - Providence, RI</li>
+						<li><Link component={RouterLink} to="/shows/2013-12-31-the-theater-at-madison-square-garden-new-york-ny">12/31/13</Link> - The Theater at Madison Square Garden, New York, NY (played out of order)</li>
+					</ul>
+				</CardContent>
+			</Card>
+
+			{divider}
 
 			<Grid container spacing={3}>
 				<Grid item xs={12} sm={6} md={4}>
