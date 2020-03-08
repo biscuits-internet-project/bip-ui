@@ -1,4 +1,4 @@
-import React, { memo, useContext, useState } from 'react';
+import React, { memo, useContext } from 'react';
 import { Link as RouterLink } from 'react-router-dom'
 import Setlist from './Setlist'
 import { IShow } from './Show';
