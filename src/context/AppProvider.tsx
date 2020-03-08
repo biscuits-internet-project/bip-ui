@@ -23,6 +23,7 @@ export interface AppState {
   attendances: string[]
   favorites: string[]
   ratings: IRating[]
+  viewSetlists: boolean
 }
 
 interface IContextProps {
@@ -40,7 +41,8 @@ const initialState: AppState = {
   shows: [],
   attendances: [],
   favorites: [],
-  ratings: []
+  ratings: [],
+  viewSetlists: true
 }
 
 const appReducer = (state: AppState, action: Action): AppState => {
@@ -61,6 +63,11 @@ const appReducer = (state: AppState, action: Action): AppState => {
         ...state,
         currentUser: null
       };
+    case "TOGGLE_VIEW_SETLISTS":
+      return {
+        ...state,
+        viewSetlists: action.payload
+      }
     case "GET_VENUES":
       return {
         ...state,
@@ -100,10 +107,38 @@ const appReducer = (state: AppState, action: Action): AppState => {
         ...state,
         favorites: action.payload
       };
+    case "ADD_FAVORITE":
+      state.favorites = [...state.favorites, action.payload]
+      return {
+        ...state,
+        favorites: state.favorites
+      };
+    case "REMOVE_FAVORITE":
+      state.favorites = state.favorites.filter((showId) => {
+        return showId !== action.payload
+      })
+      return {
+        ...state,
+        favorites: state.favorites
+      };
     case "GET_RATINGS":
       return {
         ...state,
         ratings: action.payload
+      };
+    case "UPDATE_RATING":
+      let ratings = state.ratings
+      const i = ratings.findIndex(r => r.show_id === action.payload.show_id);
+      if (i > -1) {
+        ratings[i] = action.payload
+      } else {
+        ratings.push(action.payload)
+      }
+      console.log(ratings)
+      console.log(action.payload)
+      return {
+        ...state,
+        ratings: ratings
       };
     default:
       return state;

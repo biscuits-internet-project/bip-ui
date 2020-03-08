@@ -1,4 +1,4 @@
-import React, { memo, useState, useContext } from 'react';
+import React, { memo, useContext } from 'react';
 import { Link as RouterLink } from 'react-router-dom'
 import Setlist from './Setlist'
 import { IShow } from './Show';
@@ -10,28 +10,26 @@ import ShowRating from './ShowRating';
 import FavoriteSwitch from './FavoriteSwitch';
 
 const ListShows = ({ shows }) => {
-	const { state } = useContext(AppContext)
+    const { state, dispatch } = useContext(AppContext)
     const { currentUser } = state
-	const [viewSetlists, setViewSetlists] = useState(true)
-    const [toggleViewText, setToggleViewText] = useState("View Compact List")
 
-	const toggleView = () => {
-        if (viewSetlists) {
-            setViewSetlists(false)
-            setToggleViewText("View Setlists")
-        } else {
-            setViewSetlists(true)
-            setToggleViewText("View Compact List")
-        }
+	const toggleView = (viewSetlists) => {
+        dispatch({type: 'TOGGLE_VIEW_SETLISTS', payload: viewSetlists})
     }
 
     return (
         <>
 			<Box style={{marginTop: 10, marginBottom: 10, textAlign: "right"}}>
-				<Button onClick={() => toggleView()}>{toggleViewText}</Button>
+                <Button onClick={() => toggleView(!state.viewSetlists)}>
+                    {state.viewSetlists ? (
+                        "View Compact List"
+                    ) : (
+                        "View Setlists"
+                    )}
+                </Button>
 			</Box>
 
-            {viewSetlists ? (
+            {state.viewSetlists ? (
                 <>
                     {shows.map((show: IShow) => {
                         return (

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import { IUser } from '../users/Users';
 import { Switch } from '@material-ui/core';
 import { AppContext } from '../../context/AppProvider';
