@@ -9,10 +9,8 @@ import OperaMenuCard from './OperaMenuCard';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
 	  heading: {
-		  fontSize: 28,
 	  },
 	  subheading: {
-		  fontSize: 24,
 	  },
 	  lyrics: {
 		  fontStyle: "italic"
