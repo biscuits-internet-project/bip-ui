@@ -23,16 +23,6 @@ interface sideMenuItem {
 }
 const itemList: sideMenuItem[] = [
 	{
-		name: undefined,
-		label: 'Dashboard',
-		icon: <Home/>
-	},
-	{
-		name: 'shows',
-		label: 'Shows',
-		icon: <QueueMusic/>
-	},
-	{
 		name: 'users',
 		label: 'Users',
 		icon: <AccountCircle/>

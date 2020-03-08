@@ -9,10 +9,9 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 import Grid from '@material-ui/core/Grid';
 import TrackForm from './TrackForm'
-import TrackList from './TrackList'
-import { IVenue } from '../../venues/Venue';
-import { IShow } from '../../Show';
-import { ISong } from '../../songs/Song';
+import { IVenue } from '../venues/Venue';
+import { IShow } from './Show';
+import { ISong } from '../songs/Song';
 
 export interface ITrack {
 	id: string
@@ -62,7 +61,7 @@ const AdminTracks = () => {
 
                 <Grid item xs={12}>
                     <Card title="Track List">
-                        <TrackList tracks={tracks} handleOpen={(type: string, id: string, )=>handleOpen(type, id)}/>
+                        {/* <TrackList tracks={tracks} handleOpen={(type: string, id: string, )=>handleOpen(type, id)}/> */}
                     </Card>
                 </Grid>
 
@@ -73,7 +72,7 @@ const AdminTracks = () => {
 			>
 				<DialogTitle>Edit Track</DialogTitle>
 				<DialogContent>
-					<TrackForm setTracks={setTracks} tracks={tracks} id={id} handleClose={() => handleClose('form')}/>
+					{/* <TrackForm setTracks={setTracks} tracks={tracks} id={id} handleClose={() => handleClose('form')}/> */}
 				</DialogContent>
 			</Dialog>
 		</>

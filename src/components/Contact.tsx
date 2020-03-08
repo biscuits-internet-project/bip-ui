@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Helmet } from "react-helmet";
 import axios, { AxiosResponse } from 'axios';
 import { Formik, Form, FormikProps } from 'formik';
-import TextField from './shared/TextField'
+import TextField from './shared/TextFieldContainer'
 import TextAreaField from './shared/TextAreaField'
 import ReCaptcha from './shared/ReCaptcha'
 import * as Yup from 'yup';
@@ -54,7 +54,7 @@ const Register: React.FC = () => {
 
       <PageHeading text="Contact"/>
       {confirmation ? (
-        <Typography>
+        <Typography variant="body2">
           Thanks - we'll get back to you as soon as we can!
         </Typography>
       ) : (

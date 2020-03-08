@@ -11,18 +11,18 @@ const Tractorbeam: React.FC = () => {
 				<title>Biscuits Internet Project - Tractorbeam</title>
 			</Helmet>
 			<PageHeading text="Tractor Beam" />
-			<Typography>
+			<Typography variant="body2">
 				Tractorbeam, like <Link component={RouterLink} to="/resources/the-perfume">The Perfume</Link>, is a pseudonym the Disco Biscuits perform under.
 				Debuted on <Link component={RouterLink} to="/shows/2018-07-14-the-pavilion-at-montage-mountain-scranton-pa">April 20th, 2007</Link> at Ontourage in Chicago,
 				e IL Tractorbeam played instrumental versions of Disco Biscuits originals and covers until switching up their format in 2019.
 			</Typography>
-			<Typography>
+			<Typography variant="body2">
 				It was evident that this project served as a creative spark for the band, as they played three memorable shows in 2007,
 				following their Chicago debut. <Link component={RouterLink} to="/shows/2007-04-20-ontourage-chicago-il">April, 27th 2007</Link> at the Gramercy in New York and two shows at the Chameleon Club in Lancaster,
 				 PA (<Link component={RouterLink} to="/shows/2007-06-26-chameleon-club-lancaster-pa">06/26</Link> and <Link component={RouterLink} to="/shows/2007-08-30-chameleon-club-lancaster-pa">08/30</Link>) featured creative setlists and dynamic
 				 jamming that often leaned heavy, dark, and electronic.
 			</Typography>
-			<Typography>
+			<Typography variant="body2">
 				After appearing four times in 2007, Tractorbeam performances became somewhat rare as they played only nine times over the next eleven years:
 				<ul>
 					<li><Link component={RouterLink} to="/shows/2008-10-25-state-theater-falls-church-va">10/25/08 State Theater Falls - Church, VA</Link></li>
@@ -45,7 +45,7 @@ const Tractorbeam: React.FC = () => {
 				band members use laptops and are synced up through Ableton Live. Tractorbeam also played a
 				late night show on 12/27/19 at Sony Music Hall in New York, NY.
 			</Typography>
-			<Typography>
+			<Typography variant="body2">
 				In addition to the TB standalone shows, every Disco Biscuits show since 11/14/19 has included a Tractorbeam segment mid-second or third set.
 			</Typography>
 		</>

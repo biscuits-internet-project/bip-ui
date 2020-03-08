@@ -13,7 +13,7 @@ const TextEditorField:React.FC<IRichTextField> = ({ label, name }) => {
 
   return ((
     <>
-      <Typography>{label}</Typography>
+      <Typography variant="body2">{label}</Typography>
       <div style={{position: 'relative', border: '1px solid #ccc', fontFamily: 'Quicksand',padding: '8px', borderRadius: '4px', marginTop: 15}}>
         <TextEditor
           onChange={(value) => {

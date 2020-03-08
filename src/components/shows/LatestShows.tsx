@@ -3,7 +3,7 @@ import axios, { AxiosResponse } from 'axios'
 import {IShow} from './Show';
 import Setlist from './Setlist';
 import { LinearProgress, Typography, Link } from '@material-ui/core';
-import ShowSearch from './shared/ShowSearch';
+import ShowSearch from '../shared/ShowSearch';
 
 const LatestShows: React.FC = () => {
 	const [shows, setShows] = useState<IShow[]>([])

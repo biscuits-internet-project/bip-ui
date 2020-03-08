@@ -22,11 +22,11 @@ const DeleteConfirm:React.FC<IDeleteConfirm> = ({children, deleteOpen, handleClo
             <DialogTitle style={{padding: '8px 24px'}}>Delete Venue?</DialogTitle>
             <DialogContent style={{marginBottom: '16px'}}>
                 <>
-                    <Typography>This will delete:</Typography>
+                    <Typography variant="body2">This will delete:</Typography>
                     <div style={{display: 'flex', margin: '8px 0px', alignItems: 'center'}}>
                         {children}
                     </div>
-                    <Typography>Are you sure you want to do this?</Typography>
+                    <Typography variant="body2">Are you sure you want to do this?</Typography>
                 </>
             </DialogContent>
             <DialogActions>

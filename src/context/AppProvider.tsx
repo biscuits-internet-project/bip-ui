@@ -3,7 +3,7 @@ import jwt from 'jwt-decode'
 import asyncActions from './asyncActions'
 import {IVenue} from '../components/venues/Venue'
 import {ISong} from '../components/songs/Song'
-import {IShow} from '../components/Show'
+import {IShow} from '../components/shows/Show'
 
 type Nullable<T> = T | null;
 

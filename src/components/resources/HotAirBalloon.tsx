@@ -406,7 +406,7 @@ at his last chance to fly
 						<Card>
 							<CardContent>
 								<Typography variant="h3" className={classes.subheading}>{char.name}</Typography>
-								<Typography>{char.copy}</Typography>
+								<Typography variant="body2">{char.copy}</Typography>
 							</CardContent>
 						</Card>
 						<div style={{height: 30}}></div>
@@ -425,7 +425,7 @@ at his last chance to fly
 					<Card>
 						<CardContent>
 							<Typography variant="h3" className={classes.subheading}>{act.name}</Typography>
-							<Typography>{act.setting}</Typography>
+							<Typography variant="body2">{act.setting}</Typography>
 							{act.lyrics && <blockquote><Typography className={classes.lyrics} dangerouslySetInnerHTML={{ __html: act.lyrics }} /></blockquote>}
 						</CardContent>
 					</Card>
