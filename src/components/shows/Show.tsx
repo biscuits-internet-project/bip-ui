@@ -9,6 +9,7 @@ import PageHeading from '../shared/PageHeading';
 import Gallery from "react-photo-gallery";
 import Carousel, { Modal, ModalGateway } from "react-images";
 import { AppContext } from '../../context/AppProvider';
+import LinkButton from '../shared/LinkButton';
 
 export interface IShow {
 	id: string
@@ -82,7 +83,7 @@ const Show: React.FC = () => {
 				<Helmet>
 					<title>Biscuits Internet Project - Shows - {show.date} at {show.venue.name} - {show.venue.city}, {show.venue.state}</title>
 				</Helmet>
-				<Grid container justify="space-between" >
+				<Grid container justify="space-between">
 					<Grid item>
 						<PageHeading text={
 							<>
@@ -96,9 +97,7 @@ const Show: React.FC = () => {
 					<Grid item>
 						{ admin &&
 							<div style={{alignContent: "right"}}>
-								<Link component={RouterLink} to={`/admin/shows/edit/${show.slug}`}>
-									<Button>Edit Show</Button>
-								</Link>
+								<LinkButton text="Edit Show" to={`/admin/shows/edit/${show.slug}`} />
 							</div>
 						}
 					</Grid>
