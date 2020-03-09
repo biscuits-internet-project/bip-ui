@@ -39,6 +39,14 @@ const Resources: React.FC = () => {
 				</Grid>
 				<Grid item xs={12} sm={6} md={6} lg={4} xl={3} style={{display: 'flex', height: "auto"}}>
 					<ResourceCard
+					  title="Touchdowns All Day Podcast"
+					  content="Step inside the mind of Jon Gutwillig as he breaks down jams, interviews guests, and discusses all things Disco Biscuits on Touchdowns All Day w/ Jon Barber."
+					  image="/tdad.jpg"
+					  url="/resources/touchdowns-all-day"
+					></ResourceCard>
+				</Grid>
+				<Grid item xs={12} sm={6} md={6} lg={4} xl={3} style={{display: 'flex', height: "auto"}}>
+					<ResourceCard
 					  title="Side Projects"
 					  content="From Barber and the Laid Back Band to Younger Brother Live and everything in between. And we mean EVERYTHING."
 					  image="/electron.jpg"
@@ -83,6 +91,14 @@ const Resources: React.FC = () => {
 					  content="All things serve the Beam. Debuted in 2007, this Disco Biscuits alter-ego played instrumental versions of tdb originals and covers until reinventing themselves in 2019."
 					  image="/tractorbeam.jpg"
 					  url="/resources/tractorbeam"
+					></ResourceCard>
+				</Grid>
+				<Grid item xs={12} sm={6} md={6} lg={4} xl={3} style={{display: 'flex', height: "auto"}}>
+					<ResourceCard
+					  title="News from Nowhere"
+					  content="From jambands.com to Rolling Stone, here you'll find all of your favorite Disco Biscuits articles and interviews in one place."
+					  image="/news.jpg"
+					  url="/resources/media"
 					></ResourceCard>
 				</Grid>
 			</Grid>

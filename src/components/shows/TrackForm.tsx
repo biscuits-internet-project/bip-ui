@@ -92,7 +92,7 @@ const TrackForm: React.FC<ITrackForm> = ({ track }) => {
               <Grid item xs={1}>
                 <TextField name="position" label="Position" type="number" />
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={7}>
                 <SelectField
                   options={songOptions}
                   name="song_id"
