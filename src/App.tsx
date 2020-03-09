@@ -23,6 +23,8 @@ import Login from './components/Login';
 import BandHistory from './components/resources/BandHistory'
 import MovieScores from './components/resources/MovieScores'
 import Tractorbeam from './components/resources/Tractorbeam'
+import Media from './components/resources/Media'
+import Touchdowns from './components/resources/Touchdowns'
 import Perfume from './components/resources/Perfume'
 import Toolbar from '@material-ui/core/Toolbar';
 import { Link, ListItem, ListItemIcon, ListItemText, List, IconButton, Typography, Drawer, AppBar, Hidden, Divider, Box } from '@material-ui/core';
@@ -281,6 +283,8 @@ const App: React.FC = () => {
                   <Route path="/resources/movie-scores" exact component={MovieScores} />
                   <Route path="/resources/the-perfume" exact component={Perfume} />
                   <Route path="/resources/tractorbeam" exact component={Tractorbeam} />
+                  <Route path="/resources/media" exact component={Media} />
+                  <Route path="/resources/touchdowns-all-day" exact component={Touchdowns} />
                   <Route path="/shows" exact component={Shows} />
                   <PrivateRoute path="/admin/shows/create" exact component={AddShow} roles={roles} />
                   <PrivateRoute path="/admin/shows/edit/:id" exact component={EditShow} roles={roles} />
