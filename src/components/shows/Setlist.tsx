@@ -41,7 +41,7 @@ const Setlist: React.FC<ISetlist> = ({ show }) => {
 				}}
 				title = {
 					<Link component={RouterLink} to={`/shows/${show.slug}`}>
-						<Moment format="MMMM D, YYYY">
+						<Moment format="M/DD/YYYY">
 							{show.date}
 						</Moment>
 					</Link>

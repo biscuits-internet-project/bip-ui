@@ -50,10 +50,8 @@ const Venue: React.FC = () => {
 	useEffect(() => {
 		setLoading(true)
 		const fetchVenue = async () => {
-			const venue : IVenue = state.venues.filter((venue) => {
-				return venue.slug === params.id
-			})[0]
-			setVenue(venue)
+			const venue: AxiosResponse = await axios.get(`${process.env.REACT_APP_API_URL}/venues/${params.id}`)
+			setVenue(venue.data)
 
 			const shows: AxiosResponse = await axios.get(`${process.env.REACT_APP_API_URL}/shows?venue=${params.id}`)
 			setShows(shows.data)
@@ -116,7 +114,7 @@ const Venue: React.FC = () => {
 								<TableCell>
 									{venue.first_played_show &&
 										<Link component={RouterLink} to={`/shows/${venue.first_played_show.slug}`}>
-											<Moment format="MMMM D, YYYY">
+											<Moment format="M/DD/YYYY">
 												{venue.first_played_show.date}
 											</Moment>
 										</Link>
@@ -138,7 +136,7 @@ const Venue: React.FC = () => {
 								<TableCell>
 									{venue.last_played_show &&
 										<Link component={RouterLink} to={`/shows/${venue.last_played_show.slug}`}>
-											<Moment format="MMMM D, YYYY">
+											<Moment format="M/DD/YYYY">
 												{venue.last_played_show.date}
 											</Moment>
 										</Link>
