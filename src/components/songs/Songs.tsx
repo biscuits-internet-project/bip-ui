@@ -80,7 +80,7 @@ const Songs: React.FC = () => {
 					searchable: false,
 					customBodyRender: value => {
 						return (
-							<Moment format="MM/DD/YYYY">
+							<Moment format="M/DD/YYYY">
 								{value}
 							</Moment>
 						);
@@ -99,8 +99,8 @@ const Songs: React.FC = () => {
 		selectableRowsHeader: false,
 		searchOpen: true,
 		viewColumns: false,
-		rowsPerPage: 25,
-		rowsPerPageOptions: [25,50,100],
+		rowsPerPage: 150,
+		rowsPerPageOptions: [150, 300, 600],
 		customSort: (data, colIndex, order) => {
 			return data.sort((a, b) => {
 			  if (colIndex === 0) {

@@ -218,9 +218,8 @@ const App: React.FC = () => {
             anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
             maxSnack={3}
           >
-            <Switch>
+            <CssBaseline />
               <div className={classes.root}>
-                <CssBaseline />
                 <AppBar position="fixed" className={classes.appBar}>
                   <Toolbar>
                     <IconButton
@@ -271,40 +270,42 @@ const App: React.FC = () => {
                 </nav>
                 <main className={classes.content}>
                   <div className={classes.toolbar} />
-                  <Route path="/" exact component={LatestShows} />
-                  <Route path="/login" component={Login} />
-                  <Route path="/profile" component={Profile} />
-                  <Route path="/resources/history" exact component={BandHistory} />
-                  <Route path="/resources/gear" exact component={Gear} />
-                  <Route path="/resources/music" exact component={Music} />
-                  <Route path="/resources/chemical-warfare-brigade" exact component={ChemicalWarfareBrigade} />
-                  <Route path="/resources/hot-air-balloon" exact component={HotAirBalloon} />
-                  <Route path="/resources/side-projects" exact component={SideProjects} />
-                  <Route path="/resources/movie-scores" exact component={MovieScores} />
-                  <Route path="/resources/the-perfume" exact component={Perfume} />
-                  <Route path="/resources/tractorbeam" exact component={Tractorbeam} />
-                  <Route path="/resources/media" exact component={Media} />
-                  <Route path="/resources/touchdowns-all-day" exact component={Touchdowns} />
-                  <Route path="/shows" exact component={Shows} />
-                  <PrivateRoute path="/admin/shows/create" exact component={AddShow} roles={roles} />
-                  <PrivateRoute path="/admin/shows/edit/:id" exact component={EditShow} roles={roles} />
-                  <Route path="/shows/add" exact component={AddShow} />
-                  <Route path="/shows/:id" exact component={Show} />
-                  <Route path="/shows/year/:year" exact component={Shows} />
-                  <Route path="/shows/venue/:venue_id" exact component={Shows} />
-                  <Route path="/shows/state/:state" exact component={Shows} />
-                  <Route path="/songs" exact component={Songs} />
-                  <Route path="/songs/:id" component={Song} />
-                  <Route path="/venues" exact component={Venues} />
-                  <Route path="/venues/:id" exact component={Venue} />
-                  <Route path="/tour" exact component={Tour} />
-                  <Route path="/register" exact component={Register} />
-                  <Route path="/resources" exact component={Resources} />
-                  <Route path="/about" exact component={About} />
-                  <Route path="/contact" exact component={Contact} />
-                  <Route path="/register/confirm" exact component={Register} />
-                  <Route path="/password/reset/:token" exact component={ResetPassword} />
+                  <Switch>
+                    <Route path="/" exact component={LatestShows} />
+                    <Route path="/login" component={Login} />
+                    <Route path="/profile" component={Profile} />
+                    <Route path="/resources/history" exact component={BandHistory} />
+                    <Route path="/resources/gear" exact component={Gear} />
+                    <Route path="/resources/music" exact component={Music} />
+                    <Route path="/resources/chemical-warfare-brigade" exact component={ChemicalWarfareBrigade} />
+                    <Route path="/resources/hot-air-balloon" exact component={HotAirBalloon} />
+                    <Route path="/resources/side-projects" exact component={SideProjects} />
+                    <Route path="/resources/movie-scores" exact component={MovieScores} />
+                    <Route path="/resources/the-perfume" exact component={Perfume} />
+                    <Route path="/resources/tractorbeam" exact component={Tractorbeam} />
+                    <Route path="/resources/media" exact component={Media} />
+                    <Route path="/resources/touchdowns-all-day" exact component={Touchdowns} />
+                    <Route path="/shows" exact component={Shows} />
+                    <PrivateRoute path="/admin/shows/create" exact component={AddShow} roles={roles} />
+                    <PrivateRoute path="/admin/shows/edit/:id" exact component={EditShow} roles={roles} />
+                    <Route path="/shows/add" exact component={AddShow} />
+                    <Route path="/shows/:id" exact component={Show} />
+                    <Route path="/shows/year/:year" exact component={Shows} />
+                    <Route path="/shows/venue/:venue_id" exact component={Shows} />
+                    <Route path="/shows/state/:state" exact component={Shows} />
+                    <Route path="/songs" exact component={Songs} />
+                    <Route path="/songs/:id" component={Song} />
+                    <Route path="/venues" exact component={Venues} />
+                    <Route path="/venues/:id" exact component={Venue} />
+                    <Route path="/tour" exact component={Tour} />
+                    <Route path="/register" exact component={Register} />
+                    <Route path="/resources" exact component={Resources} />
+                    <Route path="/about" exact component={About} />
+                    <Route path="/contact" exact component={Contact} />
+                    <Route path="/register/confirm" exact component={Register} />
+                    <Route path="/password/reset/:token" exact component={ResetPassword} />
 
+                  </Switch>
                   <Divider style={{ marginTop: "30px" }} />
 
                   <Box className={classes.footer}>
@@ -317,7 +318,6 @@ const App: React.FC = () => {
                   </Box>
                 </main>
               </div>
-            </Switch>
           </SnackbarProvider>
         </ThemeProvider>
     </React.Fragment>
