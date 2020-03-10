@@ -40,7 +40,7 @@ const Resources: React.FC = () => {
 				<Grid item xs={12} sm={6} md={6} lg={4} xl={3} style={{display: 'flex', height: "auto"}}>
 					<ResourceCard
 					  title="Touchdowns All Day Podcast"
-					  content="Step inside the mind of Jon Gutwillig as he breaks down jams, interviews guests, and discusses all things Disco Biscuits on Touchdowns All Day w/ Jon Barber."
+					  content="Step inside the mind of Jon Barber as he breaks down jams, interviews guests, and discusses all things Disco Biscuits on Touchdowns All Day w/ Jon Barber."
 					  image="/tdad.jpg"
 					  url="/resources/touchdowns-all-day"
 					></ResourceCard>
