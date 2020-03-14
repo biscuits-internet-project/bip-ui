@@ -9,7 +9,7 @@ import { AppContext } from '../context/AppProvider'
 import TextField from './shared/TextFieldContainer'
 import Button from '@material-ui/core/Button'
 import ForgotPassword from './ForgotPassword'
-import { Link } from '@material-ui/core';
+import { Link, Paper, Grid, Fade, Box } from '@material-ui/core';
 import PageHeading from './shared/PageHeading';
 import Paragraph from './shared/Paragraph';
 
@@ -64,33 +64,65 @@ const postLogin = async (values: ILogin, actions: FormikHelpers<ILogin>, dispatc
 
 const Login: React.FC = () => {
   const [loading, setLoading] = useState(false)
+  const [forgotPasswordOpen, setForgotPasswordOpen] = useState(false)
+  const [loginOpen, setLoginOpen] = useState(true)
   const { dispatch } = useContext(AppContext)
   const history = useHistory();
+
+  const handleOpenForgotPassword = () => {
+    setForgotPasswordOpen(true)
+    setLoginOpen(false)
+  };
+
+  const handleCloseForgotPassword = () => {
+    setForgotPasswordOpen(false)
+    setLoginOpen(true)
+  }
+
   return (
-    <div style={{ maxWidth: 400 }}>
-      <PageHeading text="Login"/>
-      <Paragraph>
-        Don't have an account? <Link component={RouterLink} to="/register"> Click here to register. </Link>
-      </Paragraph>
+    <div>
+      <PageHeading text="Sign In" />
+
       <div style={{ height: "20px" }}></div>
-      <Formik
-        initialValues={initialValues}
-        onSubmit={(values, actions) => postLogin(values, actions, dispatch, history, setLoading)}
-        validationSchema={LoginSchema}
-      >
-        {(props: FormikProps<ILogin>) => (
-          <Form>
-            <TextField name="email" type="email" label="Email" />
-            <TextField name="password" type="password" label="Password" />
-            <div style={{ height: "20px" }}></div>
-            <Button variant="contained" type="submit" disabled={loading}>LOG IN</Button>
-          </Form>
-        )}
-      </Formik>
 
-      <br/>
+      <Paper style={{ padding: 20, maxWidth: 500 }}>
+        {loginOpen &&
+          <Fade in={loginOpen} timeout={1000}>
+            <Box>
+            <Formik
+              initialValues={initialValues}
+              onSubmit={(values, actions) => postLogin(values, actions, dispatch, history, setLoading)}
+              validationSchema={LoginSchema}
+            >
+              {(props: FormikProps<ILogin>) => (
+                <Form>
+                  <TextField name="email" type="email" label="Email" />
+                  <TextField name="password" type="password" label="Password" />
+                  <div style={{ height: "20px" }}></div>
+                  <Button variant="contained" type="submit" disabled={loading} fullWidth>LOG IN</Button>
+                </Form>
+              )}
+            </Formik>
 
-      <ForgotPassword />
+            <div style={{height: 40}}></div>
+
+            <Grid container justify="space-between">
+              <Grid item>
+                <Link style={{ cursor: 'pointer' }} onClick={() => handleOpenForgotPassword()}>Forgot Password</Link>
+              </Grid>
+              <Grid item>
+                <Link component={RouterLink} to="/register">Don't have an account? Sign up</Link>
+              </Grid>
+            </Grid>
+            </Box>
+            </Fade>
+        }
+
+        {forgotPasswordOpen &&
+          <ForgotPassword handleCloseForgotPassword={() => handleCloseForgotPassword() } />
+        }
+
+      </Paper>
     </div>
   );
 }
