@@ -1,8 +1,9 @@
 import React, { useState, useContext, useMemo, useCallback, useEffect } from 'react'
 import { Form, Formik, FormikProps, validateYupSchema, yupToFormErrors, FormikHelpers } from 'formik'
+import { useHistory } from 'react-router-dom';
 import axios, { AxiosResponse } from 'axios'
 import * as Yup from 'yup';
-import { Typography, Button, Grid } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import { AppContext } from '../../context/AppProvider';
@@ -10,7 +11,6 @@ import SelectField, { ISelectOption } from '../shared/SelectField';
 import TextField from '../shared/TextFieldContainer';
 import { useSnackbar } from 'notistack';
 import TextAreaField from '../shared/TextAreaField';
-import moment from 'moment';
 import { IShow } from './Show';
 
 export interface IShowForm {
@@ -42,6 +42,7 @@ const validationSchema = Yup.object().shape({
 
 const ShowForm: React.FC<IShowForm> = ({show}) => {
     const { state, asyncActions } = useContext(AppContext)
+    const history = useHistory()
     const [formData, setFormData] = useState(initialValues)
     const { enqueueSnackbar } = useSnackbar()
     const [selectedDate, setSelectedDate] = useState((show) ? null : new Date())
@@ -76,10 +77,11 @@ const ShowForm: React.FC<IShowForm> = ({show}) => {
 
         if (!show) {
             enqueueSnackbar(`Successfully added ${data.date}`, { variant: 'success' })
+            history.push(`/admin/shows/edit/${data.slug}`)
         } else {
             enqueueSnackbar(`Successfully edited ${data.date}`, { variant: 'success' })
         }
-    }, [enqueueSnackbar, show, state.token])
+    }, [enqueueSnackbar, show, state.token, history])
 
     const venueOptions: ISelectOption[] = useMemo(() => {
         return state.venues.map((venue): ISelectOption => {
@@ -135,6 +137,7 @@ const ShowForm: React.FC<IShowForm> = ({show}) => {
                     <TextAreaField
                         name="notes"
                         label="Notes"
+                        rows={3}
                     />
                     <div style={{height: 20}}></div>
                     <Button variant="contained" type="submit">

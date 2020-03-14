@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet";
 import PageHeading from '../shared/PageHeading';
 import axios, { AxiosResponse } from 'axios'
 import { Card, Typography, CardContent, Grid } from '@material-ui/core';
+import Paragraph from '../shared/Paragraph';
 
 interface ISideProject {
 	notes?: string,
@@ -34,13 +35,13 @@ const SideProjects: React.FC = () => {
 							<Card style={{display: 'flex', width: "100%"}}>
 								<CardContent>
 									<Typography variant="h3">{sp.name}</Typography>
-									<Typography variant="body2">
+									<Paragraph>
 										{sp.dates.split(",").map((item) => {
 											return (
 												<span key={item} style={{paddingRight: 6}}>{item}</span>
 											)
 										})}
-									</Typography>
+									</Paragraph>
 									{sp.members.map((mem) => {
 											return <div key={mem}> {mem}</div>
 									})}

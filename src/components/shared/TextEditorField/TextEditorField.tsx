@@ -1,7 +1,7 @@
 import React from 'react'
 import { useField} from 'formik'
 import TextEditor from './TextEditor'
-import { Typography } from '@material-ui/core'
+import Paragraph from '../Paragraph'
 
 interface IRichTextField {
   label: string
@@ -13,7 +13,7 @@ const TextEditorField:React.FC<IRichTextField> = ({ label, name }) => {
 
   return ((
     <>
-      <Typography variant="body2">{label}</Typography>
+      <Paragraph>{label}</Paragraph>
       <div style={{position: 'relative', border: '1px solid #ccc', fontFamily: 'Quicksand',padding: '8px', borderRadius: '4px', marginTop: 15}}>
         <TextEditor
           onChange={(value) => {

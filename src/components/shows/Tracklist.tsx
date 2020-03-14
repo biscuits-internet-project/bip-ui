@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom'
-import { Typography, Link } from '@material-ui/core';
+import { Typography, Link, makeStyles, Theme, createStyles, Box } from '@material-ui/core';
 import { v4 as uuidv4 } from 'uuid';
 
 export interface ITracklist {
@@ -19,10 +19,23 @@ export interface ITrack {
 	position: number
 	set: string
 	annotations: string[]
+	annotations_with_newlines: string
 }
 
-const Tracklist: React.FC<ITracklist> = ({ tracks }) => {
+const useStyles = makeStyles((theme: Theme) =>
+	createStyles({
+		annotations: {
+			fontStyle: "italic",
+			marginTop: 8
+		},
+		set: {
+			marginTop: 8
+		}
+	}),
+);
 
+const Tracklist: React.FC<ITracklist> = ({ tracks }) => {
+	const classes = useStyles();
 	let annLookup = {}
 
 	const orderTracks = (tracks) => {
@@ -45,7 +58,7 @@ const Tracklist: React.FC<ITracklist> = ({ tracks }) => {
 		<div>
 			{Object.keys(sets).map((key, i) => {
 				return (
-					<Typography key={uuidv4()}>
+					<Typography key={uuidv4()} className={classes.set}>
 						<span style={{paddingRight: 6}}>{key} </span>
 						{sets[key].map((track: ITrack, index: number) => {
 							return (
@@ -69,7 +82,9 @@ const Tracklist: React.FC<ITracklist> = ({ tracks }) => {
 
 			{annLookup && Object.keys(annLookup).map(function (key) {
 				return (
-					<em key={key}><span key={key}><strong>{annLookup[key]}</strong> {key} </span></em>
+					<Box key={key} className={classes.annotations}>
+						<strong>{annLookup[key]}</strong> {key}
+					</Box>
 				)
 			})}
 		</div>

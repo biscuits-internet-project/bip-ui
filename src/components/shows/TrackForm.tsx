@@ -8,9 +8,13 @@ import { Paper, Button, Grid } from '@material-ui/core'
 import CheckboxField from '../shared/CheckboxField';
 import { ITrack } from './Tracklist';
 import SelectField, { ISelectOption } from '../shared/SelectField';
+import { IShow } from './Show';
+import TextAreaField from '../shared/TextAreaField';
 
-interface ITrackForm {
-  track: ITrack
+interface Props {
+  track?: ITrack
+  show: IShow
+  handleClose: () => void
 }
 
 const initialValues: ITrack = {
@@ -24,10 +28,11 @@ const initialValues: ITrack = {
   segue: "",
   position: 0,
   set: "",
-  annotations: []
+  annotations: [],
+  annotations_with_newlines: ""
 }
 
-const TrackForm: React.FC<ITrackForm> = ({ track }) => {
+const TrackForm: React.FC<Props> = ({ track, show, handleClose }) => {
   const { state } = useContext(AppContext)
   const [formData, setFormData] = useState(initialValues)
   const { enqueueSnackbar } = useSnackbar()
@@ -47,7 +52,6 @@ const TrackForm: React.FC<ITrackForm> = ({ track }) => {
     })
   }, [])
 
-
   const songOptions: ISelectOption[] = useMemo(() => {
     return state.songs.map((song): ISelectOption => {
       return {
@@ -58,9 +62,12 @@ const TrackForm: React.FC<ITrackForm> = ({ track }) => {
   }, [state.songs])
 
   const postTrack = useCallback(async (values: ITrack, actions: FormikHelpers<ITrack>) => {
-    const resp:AxiosResponse = await axios({
+    values.annotations = values.annotations_with_newlines.split("\n")
+
+    console.log(values.annotations)
+    const resp: AxiosResponse = await axios({
       method: track ? 'put' : 'post',
-      url: `${process.env.REACT_APP_API_URL}/tracks/${track ? track.id : ''}`,
+      url: `${process.env.REACT_APP_API_URL}/${track ? `tracks/${track.id}` : `shows/${show.id}/tracks`}`,
       data: values,
       headers: {
         "Content-Type": "application/json",
@@ -68,55 +75,68 @@ const TrackForm: React.FC<ITrackForm> = ({ track }) => {
       }
     });
 
-    const {data} = resp
-    enqueueSnackbar("Success", { variant: 'success' })
-  }, [enqueueSnackbar, track, state.token])
+    if (track) {
+      if (resp.status !== 200) {
+          enqueueSnackbar("Error updating track.", { variant: "error" });
+          return;
+      } else {
+          enqueueSnackbar("Track updated.", { variant: "success" });
+      }
+    } else {
+      if (resp.status !== 201) {
+          enqueueSnackbar("Error creating track.", { variant: "error" });
+          return;
+      } else {
+          enqueueSnackbar("Track created.", { variant: "success" });
+      }
+    }
+    handleClose()
+  }, [enqueueSnackbar, track, state.token, show.id, handleClose])
 
   return (
-    <Paper style={{ marginBottom: 20, padding: 20 }}>
-      <Formik
-        enableReinitialize
-        initialValues={formData}
-        onSubmit={(values, actions) => postTrack(values, actions)}
-      >
-        {(props: FormikProps<ITrack>) => (
-          <Form>
-            <Grid container spacing={2}>
-              <Grid item xs={1}>
-                <SelectField
-                  options={setOptions}
-                  name="set"
-                  label="Set"
-                />
-              </Grid>
-              <Grid item xs={1}>
-                <TextField name="position" label="Position" type="number" />
-              </Grid>
-              <Grid item xs={7}>
-                <SelectField
-                  options={songOptions}
-                  name="song_id"
-                  label="Song"
-                />
-              </Grid>
-              <Grid item xs={1}>
-                <TextField name="segue" label="Segue" type="text" />
-              </Grid>
-              <Grid item xs={2}>
-                <CheckboxField name="all_timer" label="All timer" />
-              </Grid>
+    <Formik
+      enableReinitialize
+      initialValues={formData}
+      onSubmit={(values, actions) => postTrack(values, actions)}
+    >
+      {(props: FormikProps<ITrack>) => (
+        <Form>
+          <Grid container spacing={1}>
+            <Grid item xs>
+              <SelectField
+                options={setOptions}
+                name="set"
+                label="Set"
+              />
             </Grid>
+            <Grid item xs>
+              <TextField name="position" label="Position" type="number" />
+            </Grid>
+          </Grid>
+          <Grid container spacing={1}>
+            <Grid item xs={9}>
+              <SelectField
+                options={songOptions}
+                name="song_id"
+                label="Song"
+              />
+            </Grid>
+            <Grid item xs={3}>
+              <TextField name="segue" label="Segue" type="text" />
+            </Grid>
+          </Grid>
+          <TextAreaField name="annotations_with_newlines" label="Annotations" rows={3} helperText="each annotation needs a new line" />
+          <CheckboxField name="all_timer" label="All timer" />
+          <TextAreaField name="note" label="Jam Chart" />
+          <TextField name="show_id" label="Show" type="hidden" />
 
-            <TextField name="note" label="Jam Chart" type="text" />
-            <div style={{ height: 10 }}></div>
-
-            <Button variant="contained" type="submit">
-              Submit
-                </Button>
-          </Form>
-        )}
-      </Formik>
-    </Paper>
+          <Button variant="contained" type="submit">
+            Submit
+          </Button>
+          <div style={{ height: 10 }}></div>
+        </Form>
+      )}
+    </Formik>
   );
 }
 

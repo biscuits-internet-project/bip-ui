@@ -10,6 +10,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import PageHeading from '../shared/PageHeading';
 import { AppContext } from '../../context/AppProvider';
 import SongForm from './SongForm';
+import Paragraph from '../shared/Paragraph';
 
 export interface ISong {
 	id: string,
@@ -131,9 +132,9 @@ const Song: React.FC = () => {
 
 					{song.featured_lyric &&
 						<>
-							<Typography variant="body2">
+							<Paragraph>
 								<em>{song.featured_lyric}</em>
-							</Typography>
+							</Paragraph>
 							<div style={{ height: 20 }}></div>
 						</>
 					}
@@ -241,9 +242,9 @@ const Song: React.FC = () => {
 								<Typography className={classes.heading}>Lyrics</Typography>
 							</ExpansionPanelSummary>
 							<ExpansionPanelDetails>
-								<Typography variant="body2">
+								<Paragraph>
 									<div dangerouslySetInnerHTML={{ __html: song.lyrics }} />
-								</Typography>
+								</Paragraph>
 							</ExpansionPanelDetails>
 						</ExpansionPanel>
 					}
@@ -272,9 +273,9 @@ const Song: React.FC = () => {
 								<Typography className={classes.heading}>Guitar Tabs</Typography>
 							</ExpansionPanelSummary>
 							<ExpansionPanelDetails>
-								<Typography variant="body2">
+								<Paragraph>
 									<div dangerouslySetInnerHTML={{ __html: song.tabs }} />
-								</Typography>
+								</Paragraph>
 							</ExpansionPanelDetails>
 						</ExpansionPanel>
 					}

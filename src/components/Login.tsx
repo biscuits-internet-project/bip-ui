@@ -9,8 +9,9 @@ import { AppContext } from '../context/AppProvider'
 import TextField from './shared/TextFieldContainer'
 import Button from '@material-ui/core/Button'
 import ForgotPassword from './ForgotPassword'
-import { Typography, Link } from '@material-ui/core';
+import { Link } from '@material-ui/core';
 import PageHeading from './shared/PageHeading';
+import Paragraph from './shared/Paragraph';
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
@@ -68,13 +69,9 @@ const Login: React.FC = () => {
   return (
     <div style={{ maxWidth: 400 }}>
       <PageHeading text="Login"/>
-      <Typography variant="body2">
-        Don't have an account?
-        <span> </span>
-        <Link component={RouterLink} to="/register">
-          Click here to register.
-        </Link>
-      </Typography>
+      <Paragraph>
+        Don't have an account? <Link component={RouterLink} to="/register"> Click here to register. </Link>
+      </Paragraph>
       <div style={{ height: "20px" }}></div>
       <Formik
         initialValues={initialValues}
