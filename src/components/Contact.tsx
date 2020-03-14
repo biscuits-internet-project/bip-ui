@@ -34,8 +34,17 @@ const initialValues: IContact = {
 
 const Register: React.FC = () => {
   const [confirmation, setConfirmation] = useState(false)
+  const [recaptcha, setRecaptcha] = useState(false)
+
+  const recaptchaCallback = function () {
+    setRecaptcha(true)
+  };
 
   const postContact = async (values: IContact) => {
+    if (!recaptcha) {
+      alert("Are you a robot?")
+      return
+    }
     const contactRequest: AxiosResponse = await axios({
       method: 'post',
       url: `${process.env.REACT_APP_API_URL}/contact`,
@@ -69,7 +78,7 @@ const Register: React.FC = () => {
               <TextField name="email" type="email" label="Email" />
               <TextField name="name" type="text" label="Name" />
               <TextAreaField name="message" label="Message" />
-              <ReCaptcha></ReCaptcha>
+              <ReCaptcha callback={() => recaptchaCallback() }></ReCaptcha>
               <Button variant="contained" type="submit">Submit</Button>
             </Form>
           )}

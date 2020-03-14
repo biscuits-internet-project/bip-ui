@@ -1,11 +1,11 @@
 import React from 'react'
-import ReCAPTCHA from "react-google-recaptcha";
+import Reaptcha from 'reaptcha';
 
-const ReCaptcha = () => {
+const ReCaptcha = ({callback}) => {
     return (
         <>
             <div style={{height: 20}}></div>
-            <ReCAPTCHA sitekey="6Lf1EtUUAAAAAACJOSf1LEVoA6REzhCv3XA2tpo8" theme="dark" />
+            <Reaptcha sitekey="6Lf1EtUUAAAAAACJOSf1LEVoA6REzhCv3XA2tpo8" theme="dark" onVerify={callback} />
             <div style={{height: 20}}></div>
         </>
     )
