@@ -164,7 +164,7 @@ const Song: React.FC = () => {
 								<TableCell>
 									{song.first_played_show &&
 										<Link component={RouterLink} to={`/shows/${song.first_played_show.slug}`}>
-											<Moment format="MMMM D, YYYY">
+											<Moment format="M/DD/YYYY">
 												{song.first_played_show.date}
 											</Moment>
 											<span> - </span>
@@ -194,7 +194,7 @@ const Song: React.FC = () => {
 								<TableCell>
 									{song.last_played_show &&
 										<Link component={RouterLink} to={`/shows/${song.last_played_show.slug}`}>
-											<Moment format="MMMM D, YYYY">
+											<Moment format="M/DD/YYYY">
 												{song.last_played_show.date}
 											</Moment>
 											<span> - </span>
@@ -299,7 +299,7 @@ const Song: React.FC = () => {
 							<TableRow>
 								<TableCell component="th" scope="row">
 									<Link component={RouterLink} to={`/shows/${s.show.slug}`} >
-										<Moment format="MMMM D, YYYY">
+										<Moment format="M/DD/YYYY">
 											{s.show.date}
 										</Moment>
 									</Link>

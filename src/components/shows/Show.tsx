@@ -87,7 +87,7 @@ const Show: React.FC = () => {
 					<Grid item>
 						<PageHeading text={
 							<>
-								<Moment format="MMMM D, YYYY">
+								<Moment format="M/DD/YYYY">
 									{show.date}
 								</Moment>
 								<span> at {show.venue.name} - {show.venue.city}, {show.venue.state}</span>
