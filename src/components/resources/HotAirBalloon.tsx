@@ -5,6 +5,7 @@ import { Helmet } from "react-helmet";
 import PageHeading from '../shared/PageHeading';
 import { Link, Typography, ListItem, createStyles, Theme, makeStyles, Card, CardContent, Grid } from '@material-ui/core';
 import OperaMenuCard from './OperaMenuCard';
+import Paragraph from '../shared/Paragraph';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -358,21 +359,21 @@ at his last chance to fly
 
 			<Card>
 				<CardContent>
-					<Typography variant="body2">
+					<Paragraph>
 						Hot Air Balloon, Jon Gutwillig’s rock opera, was first performed in full on December 31,
 						1998 at the Silk City Lounge in Philadelphia. Surprised by the unannounced debut performance, fans were given a
 						pamphlet as they arrived containing accompanying stories for each of the songs. While this was the first full
 						performance, all of the songs except for the title track had already been debuted over the course of the fall
 						and the previous two shows.
-					</Typography>
+					</Paragraph>
 
-					<Typography variant="body2">
+					<Paragraph>
 						The opera has been performed in its entirety nine times. On 02/03/99 and 02/13/99 the band performed Act 2 only. On 5/11/99 HAB was performed written as 2 palindromes, with one reversed and overlaid on top of each other. It was also performed on April 1, 2002, but with Aquatic Ape replacing the title song, as an April Fool's joke. However, Hot Air Balloon lyrics were sung during parts of Aquatic Ape.
-					</Typography>
+					</Paragraph>
 
-					<Typography variant="body2">
+					<Paragraph>
 						On 12/31/18 at The Fillmore in Philadelphia, the Hot Air Balloon was performed for the first time in more than 11 years, celebrating the 20th anniversary of its debut. The stage was decorated for the occasion with prison doors and a hot air balloon replica hanging above the stage. In addition, projections were played on a large water screen at various points in the show. Jon was dressed as Corrinado in his prison pajamas and Marc and Aron wore steampunk garb. Fans dressed up as street performers (from the lyrics of Bazaar Escape) were on stage before the performance began. Holly Bowling appeared as Leora and sat in on piano for The Very Moon.
-					</Typography>
+					</Paragraph>
 
 					<ul>
 						<li><Link component={RouterLink} to="/shows/1998-12-31-silk-city-diner-philadelphia-pa">12/31/98</Link> - Silk City Diner - Philadelphia, PA</li>
@@ -442,7 +443,7 @@ at his last chance to fly
 						<Card>
 							<CardContent>
 								<Typography variant="h3" className={classes.subheading}>{char.name}</Typography>
-								<Typography variant="body2">{char.copy}</Typography>
+								<Paragraph>{char.copy}</Paragraph>
 							</CardContent>
 						</Card>
 						<div style={{height: 30}}></div>
@@ -461,7 +462,7 @@ at his last chance to fly
 					<Card>
 						<CardContent>
 							<Typography variant="h3" className={classes.subheading}>{act.name}</Typography>
-							<Typography variant="body2">{act.setting}</Typography>
+							<Paragraph>{act.setting}</Paragraph>
 							{act.lyrics && <blockquote><Typography className={classes.lyrics} dangerouslySetInnerHTML={{ __html: act.lyrics }} /></blockquote>}
 						</CardContent>
 					</Card>

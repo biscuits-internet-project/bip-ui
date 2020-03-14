@@ -6,8 +6,9 @@ import TextField from './shared/TextFieldContainer'
 import TextAreaField from './shared/TextAreaField'
 import ReCaptcha from './shared/ReCaptcha'
 import * as Yup from 'yup';
-import { Button, Typography } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import PageHeading from './shared/PageHeading';
+import Paragraph from './shared/Paragraph';
 
 const ContactSchema = Yup.object().shape({
   email: Yup.string()
@@ -54,9 +55,9 @@ const Register: React.FC = () => {
 
       <PageHeading text="Contact"/>
       {confirmation ? (
-        <Typography variant="body2">
+        <Paragraph>
           Thanks - we'll get back to you as soon as we can!
-        </Typography>
+        </Paragraph>
       ) : (
         <Formik
           initialValues={initialValues}

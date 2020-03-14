@@ -5,6 +5,7 @@ import { Helmet } from "react-helmet";
 import PageHeading from '../shared/PageHeading';
 import { Link, Typography, ListItem, createStyles, Theme, makeStyles, Card, CardContent, Grid } from '@material-ui/core';
 import OperaMenuCard from './OperaMenuCard';
+import Paragraph from '../shared/Paragraph';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -376,17 +377,17 @@ const ChemicalWarfareBrigade: React.FC = () => {
 
 			<Card>
 				<CardContent>
-					<Typography variant="body2">
+					<Paragraph>
 						Chemical Warfare Brigade, Marc Brownstein’s rock opera, was first debuted by his side project Electron on 08/18/00 and then by The Disco Biscuits on 12/30/00. While a number of the songs were written during Marc’s departure from the band in 2000, Plan B (10/16/98), Three Wishes (12/03/98), Little Lai (04/21/99), and Chemical Warfare Brigade (08/21/99) were all written and debuted prior to that.
-					</Typography>
+					</Paragraph>
 
-					<Typography variant="body2">
+					<Paragraph>
 						Performed in full six times by TDB, the most recent occurrence was on 12/31/13 at the Theater at Madison Square Garden in New York. After the opening tracks of Plan B and Little Lai, the opera was played out of order with songs like Hot Air Balloon, House Dog Party Favor and Helicopters interwoven into the setlist.
-					</Typography>
+					</Paragraph>
 
-					<Typography variant="body2">
+					<Paragraph>
 						Electron also played CWB in full on 5/11/08, 05/11/13, 04/21/17, and 03/26/17.
-					</Typography>
+					</Paragraph>
 					<ul>
 						<li><Link component={RouterLink} to="/shows/2000-12-30-the-vanderbilt-plainview-ny">12/30/00</Link> - The Vanderbilt, Plainview, NY</li>
 						<li><Link component={RouterLink} to="/shows/2001-04-26-the-roxy-atlanta-ga">04/26/01</Link> - The Roxy - Atlanta, GA</li>
@@ -449,7 +450,7 @@ const ChemicalWarfareBrigade: React.FC = () => {
 						<Card>
 							<CardContent>
 								<Typography variant="h3" className={classes.subheading}>{char.name}</Typography>
-								<Typography variant="body2">{char.copy}</Typography>
+								<Paragraph>{char.copy}</Paragraph>
 							</CardContent>
 						</Card>
 						<div style={{height: 30}}></div>
@@ -468,7 +469,7 @@ const ChemicalWarfareBrigade: React.FC = () => {
 					<Card>
 						<CardContent>
 							<Typography variant="h3" className={classes.subheading}>{act.name}</Typography>
-							<Typography variant="body2">{act.setting}</Typography>
+							<Paragraph>{act.setting}</Paragraph>
 						</CardContent>
 					</Card>
 					<div style={{height: 30}}></div>
