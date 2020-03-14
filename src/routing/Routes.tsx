@@ -22,6 +22,7 @@ import Media from '../components/resources/Media'
 import Touchdowns from '../components/resources/Touchdowns'
 import Perfume from '../components/resources/Perfume'
 import Profile from '../components/Profile';
+import Privacy from '../components/Privacy';
 import HotAirBalloon from '../components/resources/HotAirBalloon';
 import Gear from '../components/resources/Gear';
 import Music from '../components/resources/Music';
@@ -44,6 +45,7 @@ const Routes: React.FC<Props> = ({roles}) => {
 
 			<Route path="/" exact component={LatestShows} />
 			<Route path="/login" component={Login} />
+			<Route path="/privacy" component={Privacy} />
 			<Route path="/profile" component={Profile} />
 			<Route path="/resources/history" exact component={BandHistory} />
 			<Route path="/resources/gear" exact component={Gear} />

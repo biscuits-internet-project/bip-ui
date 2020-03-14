@@ -14,24 +14,31 @@ const Uploader = (props: any) => {
       setSrc(evt.target.result)
       setLoading(false)
     };
-    reader.readAsDataURL(acceptedFiles[0]);
-    props.setFieldValue('avatar', acceptedFiles[0])
+
+    if (!props.multiple) {
+      reader.readAsDataURL(acceptedFiles[0]);
+      props.setFieldValue(props.name, acceptedFiles[0])
+    }
   }, [props])
 
   const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
 
   return (
     <>
-      <Typography style={{color: 'rgba(255, 255, 255, 0.7)', lineHeight: 1, marginTop: '16px'}}>Upload</Typography>
-      <div {...getRootProps()} style={{width: '100%', height: '300px', border: "1px dashed rgba(255, 255, 255, 0.23)", display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column'}}>
+      <Typography style={{color: 'rgba(255, 255, 255, 0.7)', lineHeight: 1, marginTop: '18px', marginBottom: '5px'}}>{props.label}</Typography>
+      <div {...getRootProps()} style={{width: '100%', height: '200px', border: "1px dashed rgba(255, 255, 255, 0.23)", display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column'}}>
         <input {...getInputProps()} />
-        {src ? <img src={src} alt="avatar" style={{width: '100%', height: '100%', objectFit: 'contain', objectPosition: '50% 50%'}}/> : (
+        {src ? <img src={src} alt={props.name} style={{width: '100%', height: '100%', objectFit: 'contain', objectPosition: '50% 50%'}}/> : (
           <>
           <CloudUploadIcon style={{fontSize: '50px', color: 'rgba(255, 255, 255, 0.7)'}}/>
             {
-              isDragActive ?
-                <Typography style={{color: 'rgba(255, 255, 255, 0.7)', lineHeight: 1, marginTop: '16px'}}>Drop the files here ...</Typography> :
-                <Typography style={{color: 'rgba(255, 255, 255, 0.7)', lineHeight: 1, marginTop: '16px'}}>Drag 'n' drop some files here, or click to select files</Typography>
+              <Typography style={{color: 'rgba(255, 255, 255, 0.7)', lineHeight: 1, marginTop: '16px'}}>
+                {isDragActive ? (
+                  "Click to select file(s)"
+                ) : (
+                  "Drag and drop or click to select file(s)"
+                )}
+              </Typography>
             }
           </>
         )}

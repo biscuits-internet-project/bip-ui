@@ -252,6 +252,7 @@ const App: React.FC = () => {
                       <span>BIP 2.0 | </span>
                       <span><Link component={RouterLink} to="/about">About</Link> | </span>
                       <span><Link component={RouterLink} to="/contact">Contact</Link> | </span>
+                      <span><Link component={RouterLink} to="/privacy">Privacy</Link> | </span>
                       <span><Link href="https://twitter.com/tdbdotnet" target="blank">@tdbdotnet</Link></span>
                     </Typography>
                   </Box>
