@@ -7,13 +7,10 @@ import axios, { AxiosResponse } from 'axios';
 import { IShow } from './Show';
 import moment from 'moment';
 import TrackForm from './TrackForm';
-import { Typography, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, Link, Button, Grid, Dialog, DialogTitle, DialogContent, IconButton } from '@material-ui/core';
+import { Typography, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, Button, Grid, Dialog, DialogTitle, DialogContent } from '@material-ui/core';
 import { ITrack } from './Tracklist';
 import { AppContext } from '../../context/AppProvider';
 import { useSnackbar } from 'notistack';
-import DeleteIcon from '@material-ui/icons/Delete';
-import AddIcon from '@material-ui/icons/Add';
-import EditIcon from '@material-ui/icons/Edit';
 
 
 const EditShow: React.FC = () => {

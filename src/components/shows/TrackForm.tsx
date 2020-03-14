@@ -4,7 +4,7 @@ import axios, { AxiosResponse } from 'axios'
 import { useSnackbar } from 'notistack'
 import { AppContext } from '../../context/AppProvider'
 import TextField from '../shared/TextFieldContainer'
-import { Paper, Button, Grid } from '@material-ui/core'
+import { Button, Grid } from '@material-ui/core'
 import CheckboxField from '../shared/CheckboxField';
 import { ITrack } from './Tracklist';
 import SelectField, { ISelectOption } from '../shared/SelectField';
