@@ -25,7 +25,10 @@ const EditShow: React.FC = () => {
   const { enqueueSnackbar } = useSnackbar()
 
   const handleOpenTrackForm = (track) => {
-    track.annotations_with_newlines = track.annotations.join("\n")
+    if (track) {
+      track.annotations_with_newlines = track.annotations.join("\n")
+    }
+
     setTrackFormOpen(true)
     setTrack(track)
   }
@@ -98,6 +101,8 @@ const EditShow: React.FC = () => {
           <Dialog
             open={trackFormOpen}
             onClose={() => handleCloseTrackForm()}
+            maxWidth="md"
+            fullWidth={true}
           >
             <DialogTitle>
               {track === undefined ? "Add" : "Edit"} Track</DialogTitle>
