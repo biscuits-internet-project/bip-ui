@@ -156,7 +156,7 @@ const Venue: React.FC = () => {
 
 					<div style={{ height: 30 }}></div>
 
-					<ListShows shows={shows}/>
+					<ListShows shows={shows} />
 
 					{loading &&
 						<>

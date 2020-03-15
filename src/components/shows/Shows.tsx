@@ -4,7 +4,7 @@ import axios, { AxiosResponse } from 'axios'
 import { IShow } from './Show';
 import ListShows  from './ListShows'
 import { Helmet } from "react-helmet"
-import { LinearProgress, Button, Grid } from '@material-ui/core';
+import { LinearProgress, Button, Grid, Box } from '@material-ui/core';
 import PageHeading from '../shared/PageHeading';
 import ShowSearch from '../shared/ShowSearch';
 import { AppContext } from '../../context/AppProvider';
@@ -63,7 +63,6 @@ const Shows: React.FC = () => {
 					</Button>
 				)
 			})}
-			<div style={{ height: 20 }}></div>
 
 			{loading &&
 				<>
@@ -72,7 +71,8 @@ const Shows: React.FC = () => {
 					<div style={{ height: 30 }}></div>
 				</>
 			}
-			<ListShows shows ={shows}/>
+
+			<ListShows shows={shows} />
 		</>
 
 	)
