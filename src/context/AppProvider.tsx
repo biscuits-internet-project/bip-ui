@@ -4,6 +4,7 @@ import asyncActions from './asyncActions'
 import {IVenue} from '../components/venues/Venue'
 import {ISong} from '../components/songs/Song'
 import {IShow} from '../components/shows/Show'
+import { IUser } from '../components/users/Users';
 
 type Nullable<T> = T | null;
 
@@ -13,10 +14,8 @@ export type Action = {
 }
 
 export interface AppState {
-  token: Nullable<string> ,
-  theme: string,
-  roles: string[],
-  username: Nullable<string>,
+  currentUser?: Nullable<IUser>
+  theme: string
   ready: boolean
   venues: IVenue[]
   songs: ISong[]
@@ -30,10 +29,8 @@ interface IContextProps {
 }
 
 const initialState:AppState = {
-  token: null,
+  currentUser: null,
   theme: "dark",
-  username: null,
-  roles: [],
   ready: false,
   venues: [],
   songs: [],
@@ -45,24 +42,18 @@ const appReducer = (state: AppState, action:Action): AppState => {
       case "INITIATE":
         return {
           ...state,
-          token: action.payload.token,
-          username: action.payload.username,
-          roles: action.payload.roles,
+          currentUser: action.payload.currentUser,
           ready: true
         };
       case "LOGIN":
         return {
           ...state,
-          token: action.payload.token,
-          username: action.payload.username,
-          roles: action.payload.roles,
+          currentUser: action.payload.currentUser
         };
       case "LOGOUT":
         return {
           ...state,
-          token: null,
-          username: null,
-          roles: []
+          currentUser: null
         };
       case "GET_VENUES":
         return {
@@ -91,19 +82,23 @@ const AppProvider:React.FC = ({children}) => {
 
     useEffect(() => {
       const token:Nullable<string> = localStorage.getItem('token')
-      let roles: string[] = []
-      let username: Nullable<string> = null
+      let currentUser: Nullable<IUser> = null
 
       if (typeof token === 'string') {
-        roles = jwt(token).roles
-        username = jwt(token).username
+        currentUser = {
+          token: token,
+          roles: jwt(token).roles,
+          username: jwt(token).username,
+          avatar_url: jwt(token).avatar_url,
+          first_name: jwt(token).first_name,
+          last_name: jwt(token).last_name,
+          email: jwt(token).email
+        }
       }
         dispatch({
           type: 'INITIATE',
           payload: {
-            token,
-            username,
-            roles
+            currentUser,
           }
         })
     }, [])
@@ -113,7 +108,7 @@ const AppProvider:React.FC = ({children}) => {
           value={{
             state,
             dispatch,
-            asyncActions: asyncActions(dispatch)
+            asyncActions: asyncActions(dispatch),
           }}
         >
           {state.ready ? children : null}

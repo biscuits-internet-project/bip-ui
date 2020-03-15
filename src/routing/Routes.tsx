@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Route } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
 import LatestShows from '../components/shows/LatestShows';
@@ -32,21 +32,17 @@ import AddShow from '../components/shows/AddShow';
 import EditShow from '../components/shows/EditShow';
 import Users from '../components/users/Users';
 
-interface Props {
-	roles: string[]
-}
-
-const Routes: React.FC<Props> = ({roles}) => {
+const Routes: React.FC = () => {
 	return (
 		<React.Fragment>
-			<PrivateRoute path="/admin/shows/create" exact component={AddShow} roles={roles} />
-			<PrivateRoute path="/admin/shows/edit/:id" exact component={EditShow} roles={roles} />
-			<PrivateRoute path="/admin/users" exact component={Users} roles={roles} />
+			<PrivateRoute path="/admin/shows/create" exact component={AddShow} adminOnly />
+			<PrivateRoute path="/admin/shows/edit/:id" exact component={EditShow} adminOnly />
+			<PrivateRoute path="/admin/users" exact component={Users} adminOnly />
+			<PrivateRoute path="/profile" exact component={Profile} />
 
 			<Route path="/" exact component={LatestShows} />
 			<Route path="/login" component={Login} />
 			<Route path="/privacy" component={Privacy} />
-			<Route path="/profile" component={Profile} />
 			<Route path="/resources/history" exact component={BandHistory} />
 			<Route path="/resources/gear" exact component={Gear} />
 			<Route path="/resources/music" exact component={Music} />

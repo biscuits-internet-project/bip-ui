@@ -11,8 +11,8 @@ import { AppContext } from '../../context/AppProvider';
 const Venues: React.FC = () => {
 	const [formOpen, setFormOpen] = useState(false)
 	const {state, asyncActions} = useContext(AppContext)
-	const { roles } = state
-	const admin = roles.includes('admin')
+	const { currentUser } = state
+	const admin = currentUser && currentUser.roles.includes('admin')
 
 	useEffect(
 		()=> {

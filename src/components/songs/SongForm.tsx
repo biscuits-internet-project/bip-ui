@@ -60,6 +60,7 @@ const SongForm: React.FC<ISongForm> = ({id, handleClose}) => {
     const [formData, setFormData] = useState(initialValues)
     const [authors, setAuthors] = useState<IAuthorOption[]>([])
     const { enqueueSnackbar } = useSnackbar()
+    const { currentUser } = state
 
     const handleDeleteOpen = () => {
       setDeleteOpen(true)
@@ -97,13 +98,13 @@ const SongForm: React.FC<ISongForm> = ({id, handleClose}) => {
           url: `${process.env.REACT_APP_API_URL}/songs/${id}`,
           headers: {
             "Content-Type":	"application/json",
-            "Authorization": state.token
+            "Authorization": currentUser?.token
           }
         });
         enqueueSnackbar("Successfully deleted song", { variant: 'success' })
         handleClose("delete")
       }
-    },[enqueueSnackbar, id, state.token, handleClose])
+    },[enqueueSnackbar, id, currentUser, handleClose])
 
     const postSong = useCallback(async (values: ISong, actions:FormikHelpers<ISong>) => {
       const newSong:AxiosResponse = await axios({
@@ -112,7 +113,7 @@ const SongForm: React.FC<ISongForm> = ({id, handleClose}) => {
           data: values,
           headers: {
               "Content-Type":	"application/json",
-              "Authorization": state.token
+              "Authorization": currentUser?.token
           }
       });
       const {data} = newSong
@@ -124,7 +125,7 @@ const SongForm: React.FC<ISongForm> = ({id, handleClose}) => {
         enqueueSnackbar(`Successfully edited ${data.title} by ${data.author_name}`, { variant: 'success' })
         handleClose("form")
       }
-    }, [enqueueSnackbar, handleClose, id, state.token])
+    }, [enqueueSnackbar, handleClose, id, currentUser])
     if(!dataLoaded) return <div style={{width: '600px', height: '500px'}}></div>
     return (
         <div>

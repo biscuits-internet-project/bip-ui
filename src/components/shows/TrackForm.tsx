@@ -36,6 +36,7 @@ const TrackForm: React.FC<Props> = ({ track, show, handleClose }) => {
   const { state } = useContext(AppContext)
   const [formData, setFormData] = useState(initialValues)
   const { enqueueSnackbar } = useSnackbar()
+  const { currentUser } = state
 
   useEffect(() => {
     if (track) {
@@ -71,7 +72,7 @@ const TrackForm: React.FC<Props> = ({ track, show, handleClose }) => {
       data: values,
       headers: {
         "Content-Type": "application/json",
-        "Authorization": state.token
+        "Authorization": currentUser?.token
       }
     });
 
@@ -91,7 +92,7 @@ const TrackForm: React.FC<Props> = ({ track, show, handleClose }) => {
       }
     }
     handleClose()
-  }, [enqueueSnackbar, track, state.token, show.id, handleClose])
+  }, [enqueueSnackbar, track, currentUser, show.id, handleClose])
 
   return (
     <Formik

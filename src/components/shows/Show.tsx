@@ -1,9 +1,9 @@
 import React, {useState, useEffect, useCallback, useContext} from 'react'
-import { useParams, Link as RouterLink } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import axios, { AxiosResponse } from 'axios'
 import Tracklist, {ITrack} from './Tracklist';
 import { Helmet } from "react-helmet"
-import { Typography, Link, Card, CardContent, Grid, Button } from '@material-ui/core';
+import { Typography, Link, Card, CardContent, Grid } from '@material-ui/core';
 import Moment from 'react-moment';
 import PageHeading from '../shared/PageHeading';
 import Gallery from "react-photo-gallery";
@@ -36,8 +36,8 @@ interface IImage {
 
 const Show: React.FC = () => {
 	const { state } = useContext(AppContext)
-	const { roles } = state
-	const admin = roles.includes('admin')
+	const { currentUser } = state
+	const admin = currentUser?.roles.includes('admin')
 	const [currentImage, setCurrentImage] = useState(0);
 	const [viewerIsOpen, setViewerIsOpen] = useState(false);
 

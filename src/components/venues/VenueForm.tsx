@@ -35,6 +35,8 @@ const VenueForm: React.FC<IVenueForm> = ({id, handleClose}) => {
     const [formData, setFormData] = useState(initialValues)
     const [deleteOpen, setDeleteOpen] = useState(false)
     const { enqueueSnackbar } = useSnackbar()
+    const { currentUser } = state
+
     useEffect(()=> {
       const fetchVenue = async () => {
         const data:AxiosResponse = await axios.get(`${process.env.REACT_APP_API_URL}/venues/${id}`)
@@ -57,13 +59,13 @@ const VenueForm: React.FC<IVenueForm> = ({id, handleClose}) => {
           url: `${process.env.REACT_APP_API_URL}/venues/${id}`,
           headers: {
             "Content-Type":	"application/json",
-            "Authorization": state.token
+            "Authorization": currentUser?.token
           }
         });
         enqueueSnackbar("Successfully deleted venue", { variant: 'success' })
         handleClose("delete")
       }
-    },[enqueueSnackbar, id, state.token, handleClose])
+    },[enqueueSnackbar, id, currentUser, handleClose])
 
     const postVenue = useCallback(async (values: IVenue, actions:FormikHelpers<IVenue>) => {
       const newVenue:AxiosResponse = await axios({
@@ -72,7 +74,7 @@ const VenueForm: React.FC<IVenueForm> = ({id, handleClose}) => {
           data: values,
           headers: {
               "Content-Type":	"application/json",
-              "Authorization": state.token
+              "Authorization": currentUser?.token
           }
       });
       const {data} = newVenue
@@ -84,7 +86,7 @@ const VenueForm: React.FC<IVenueForm> = ({id, handleClose}) => {
         enqueueSnackbar(`Successfully edited ${data.name}`, { variant: 'success' })
         handleClose("form")
       }
-    }, [enqueueSnackbar, handleClose, id, state.token])
+    }, [enqueueSnackbar, handleClose, id, currentUser])
 
     return (
         <div>

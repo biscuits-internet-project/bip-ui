@@ -1,25 +1,19 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import PageHeading from './shared/PageHeading'
-
-interface IProfile {
-    email: string
-    username: string
-    first_name: string
-    last_name: string
-}
-
-// const initialValues: IProfile = {
-//     email: "",
-//     username: "",
-//     first_name: "",
-//     last_name: "",
-// }
+import { AppContext } from '../context/AppProvider';
+import UserForm from './users/UserForm';
 
 const Profile: React.FC = () => {
-    // const [error, setError] = useState(null)
-    // const [success, setSuccess] = useState(false)
+    const { state } = useContext(AppContext)
+	const { currentUser } = state
+
     return (
+        <>
           <PageHeading text="Your Profile"/>
+          {currentUser &&
+            <UserForm user={currentUser} handleClose={() => {}} />
+          }
+        </>
       );
 }
 

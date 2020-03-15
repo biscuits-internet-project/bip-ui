@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext, useCallback } from 'react';
 import { Form, Formik, FormikProps, FormikHelpers } from 'formik'
-import axios, { AxiosResponse } from 'axios'
+import axios from 'axios'
 import { useSnackbar } from 'notistack'
 import { AppContext } from '../../context/AppProvider'
 import TextField from '../shared/TextFieldContainer'
@@ -19,12 +19,12 @@ const initialValues: IUser = {
   id: "",
   email: "",
   username: "",
-  password: "",
-  password_confirmation: "",
   first_name: "",
   last_name: "",
   avatar: "",
-  avatar_url: ""
+  avatar_url: "",
+  token: "",
+  roles: []
 }
 
 const validationSchema = Yup.object().shape({
@@ -44,6 +44,7 @@ const UserForm: React.FC<Props> = ({ user, handleClose }) => {
   const [error, setError] = useState(null)
   const [formData, setFormData] = useState(initialValues)
   const { enqueueSnackbar } = useSnackbar()
+  const { currentUser } = state
 
   useEffect(() => {
     if (user) {
@@ -52,7 +53,6 @@ const UserForm: React.FC<Props> = ({ user, handleClose }) => {
   }, [user])
 
   const postUser = useCallback(async (values: IUser, actions: FormikHelpers<IUser>) => {
-    console.log(values)
     try {
       setError(null)
       const formData = new FormData();
@@ -63,7 +63,7 @@ const UserForm: React.FC<Props> = ({ user, handleClose }) => {
         data: formData,
         headers: {
           "Content-Type": "multipart/form-data",
-          "Authorization": state.token
+          "Authorization": currentUser?.token
         }
       });
 
@@ -83,7 +83,7 @@ const UserForm: React.FC<Props> = ({ user, handleClose }) => {
         setError(response.statusText)
       }
     }
-  }, [enqueueSnackbar, handleClose, user, state.token])
+  }, [enqueueSnackbar, handleClose, user, currentUser])
 
   return (
     <Formik
@@ -98,7 +98,7 @@ const UserForm: React.FC<Props> = ({ user, handleClose }) => {
           <TextField name="username" type="text" label="Username" />
           <TextField name="first_name" type="text" label="First Name" />
           <TextField name="last_name" type="text" label="Last Name" />
-          <Uploader {...props} />
+          <Uploader {...props} label="Avatar" name="avatar" multiple={false} />
           {error && <Typography color="error" variant="h6">{error}</Typography>}
           <div style={{ height: 20 }}></div>
           <Button variant="contained" type="submit">

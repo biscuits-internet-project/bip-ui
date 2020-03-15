@@ -34,8 +34,8 @@ const Venue: React.FC = () => {
 	const [formOpen, setFormOpen] = useState(false)
 	const [id, setId] = useState("")
 	const { state } = useContext(AppContext)
-	const { roles } = state
-	const admin = roles.includes('admin')
+	const { currentUser } = state
+	const admin = currentUser?.roles.includes('admin')
 
 	const handleOpen = (type: string, id: string) => {
 		setId(id)
