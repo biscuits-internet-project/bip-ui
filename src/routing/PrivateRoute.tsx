@@ -1,16 +1,24 @@
-import React, { ReactNode } from 'react'
+import React, { ReactNode, useContext } from 'react'
 import {Route, Redirect, RouteComponentProps} from 'react-router-dom'
+import { AppContext } from '../context/AppProvider'
 
 interface IPrivateRoute {
     component: ReactNode
-    roles: string[]
+    adminOnly?: boolean
     [x: string]: any
 }
 
-const PrivateRoute = ({component: Component, roles, ...rest}) => (
-    <Route {...rest} render={(props:RouteComponentProps<any>): React.ReactNode => {
-        return roles.includes('admin') ? <Component {...props}/> : <Redirect to='/login'  />
-    }}/>
-)
+const PrivateRoute = ({component: Component, adminOnly = false, ...rest}) => {
+    const { state } = useContext(AppContext)
+	const { currentUser } = state
+    const isAdmin = currentUser?.roles.includes("admin")
+    const permitted = (adminOnly && isAdmin) || (!adminOnly && currentUser)
+
+    return (
+        <Route {...rest} render={(props:RouteComponentProps<any>): React.ReactNode => {
+            return permitted ? <Component {...props}/> : <Redirect to='/login'  />
+        }}/>
+    )
+}
 
 export default PrivateRoute

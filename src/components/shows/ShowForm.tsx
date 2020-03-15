@@ -41,11 +41,12 @@ const validationSchema = Yup.object().shape({
 });
 
 const ShowForm: React.FC<IShowForm> = ({show}) => {
-    const { state, asyncActions } = useContext(AppContext)
+    const { state } = useContext(AppContext)
     const history = useHistory()
     const [formData, setFormData] = useState(initialValues)
     const { enqueueSnackbar } = useSnackbar()
     const [selectedDate, setSelectedDate] = useState((show) ? null : new Date())
+    const { currentUser } = state
 
     const handleDateChange = (date: Date | null) => {
         setSelectedDate(date);
@@ -70,7 +71,7 @@ const ShowForm: React.FC<IShowForm> = ({show}) => {
             },
             headers: {
                 "Content-Type":	"application/json",
-                "Authorization": state.token
+                "Authorization": currentUser?.token
             }
         });
         const {data} = resp
@@ -81,7 +82,7 @@ const ShowForm: React.FC<IShowForm> = ({show}) => {
         } else {
             enqueueSnackbar(`Successfully edited ${data.date}`, { variant: 'success' })
         }
-    }, [enqueueSnackbar, show, state.token, history])
+    }, [enqueueSnackbar, show, currentUser, history])
 
     const venueOptions: ISelectOption[] = useMemo(() => {
         return state.venues.map((venue): ISelectOption => {

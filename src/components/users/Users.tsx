@@ -13,10 +13,10 @@ export interface IUser {
   username?: string
   first_name?: string
   last_name?: string
-  password?: string
-  password_confirmation?: string
   avatar?: string
   avatar_url?: string
+  token: string
+  roles: string[]
 }
 
 const Users: React.FC = () => {
@@ -25,6 +25,7 @@ const Users: React.FC = () => {
   const [user, setUser] = useState<IUser | undefined>(undefined)
   const { enqueueSnackbar } = useSnackbar()
   const [users, setUsers] = useState<IUser[]>([])
+  const { currentUser } = state
 
   const initUsers = useCallback(async () => {
     const fetchUsers = async () => {
@@ -33,13 +34,13 @@ const Users: React.FC = () => {
         url: `${process.env.REACT_APP_API_URL}/users`,
         headers: {
           "Content-Type": "application/json",
-          "Authorization": state.token
+          "Authorization": currentUser?.token
         }
       });
       setUsers(data.data)
     }
     fetchUsers()
-  }, [state.token])
+  }, [currentUser])
 
   useEffect(() => {
     initUsers()
@@ -62,7 +63,7 @@ const Users: React.FC = () => {
       url: `${process.env.REACT_APP_API_URL}/users/${id}`,
       headers: {
         "Content-Type": "application/json",
-        "Authorization": state.token
+        "Authorization": currentUser?.token
       }
     });
     enqueueSnackbar("Successfully deleted", { variant: 'success' })

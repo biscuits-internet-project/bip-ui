@@ -11,6 +11,7 @@ import { Link, ListItem, ListItemIcon, ListItemText, List, IconButton, Typograph
 import { QueueMusic, Home, Room, CardTravel, Info, Album } from '@material-ui/icons';
 import { SnackbarProvider } from 'notistack';
 import Routes from './routing/Routes';
+import UserSidebar from './UserSidebar';
 
 interface sideMenuItem {
   name: string | undefined,
@@ -129,16 +130,8 @@ function ListItemLink(props) {
 const App: React.FC = () => {
   const history = useHistory()
   const classes = useStyles();
-  const { dispatch } = useContext(AppContext)
   const {state, asyncActions} = useContext(AppContext)
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const { username } = state
-  const { roles } = state
-  const admin = roles.includes('admin')
-  const logoutUser = () => {
-    localStorage.removeItem('token')
-    dispatch({ type: "LOGOUT" })
-  }
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -174,12 +167,8 @@ const App: React.FC = () => {
 
       <Divider></Divider>
       <div style={{ height: 20 }}></div>
-      {username &&
-        <div style={{ marginLeft: 20 }}>
-          {admin && <div><Link component={RouterLink} to="/admin/users">Users</Link></div>}
-          <div><Link onClick={logoutUser}>Logout</Link></div>
-        </div>
-      }
+
+      <UserSidebar />
     </>
   )
 
@@ -243,7 +232,7 @@ const App: React.FC = () => {
                 <main className={classes.content}>
                   <div className={classes.toolbar} />
                   <Switch>
-                    <Routes roles={roles} />
+                    <Routes />
                   </Switch>
                   <Divider style={{ marginTop: "30px" }} />
 

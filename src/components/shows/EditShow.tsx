@@ -20,6 +20,7 @@ const EditShow: React.FC = () => {
   const [track, setTrack] = useState<ITrack | undefined>(undefined);
   const [trackFormOpen, setTrackFormOpen] = useState(false);
   const { enqueueSnackbar } = useSnackbar()
+  const { currentUser } = state
 
   const handleOpenTrackForm = (track) => {
     if (track) {
@@ -56,7 +57,7 @@ const EditShow: React.FC = () => {
       url: `${process.env.REACT_APP_API_URL}/tracks/${track.id}`,
       headers: {
         "Content-Type": "application/json",
-        "Authorization": state.token
+        "Authorization": currentUser?.token
       }
     })
 
@@ -67,7 +68,7 @@ const EditShow: React.FC = () => {
       enqueueSnackbar("Track deleted.", { variant: "success" })
     }
     initShow()
-  }, [enqueueSnackbar, state.token, initShow])
+  }, [enqueueSnackbar, currentUser, initShow])
 
   return (
     <>

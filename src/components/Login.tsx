@@ -11,7 +11,6 @@ import Button from '@material-ui/core/Button'
 import ForgotPassword from './ForgotPassword'
 import { Link, Paper, Grid, Fade, Box } from '@material-ui/core';
 import PageHeading from './shared/PageHeading';
-import Paragraph from './shared/Paragraph';
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
@@ -53,7 +52,7 @@ const postLogin = async (values: ILogin, actions: FormikHelpers<ILogin>, dispatc
         roles
       }
     })
-    history.push("/profile")
+    history.push("/")
     return
   }
   catch (e) {
