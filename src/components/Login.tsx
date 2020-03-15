@@ -30,43 +30,47 @@ const initialValues: ILogin = {
   password: ""
 }
 
-const postLogin = async (values: ILogin, actions: FormikHelpers<ILogin>, dispatch: ({ type: string, payload: any }) => void, history: History, setLoading) => {
-  try {
-    setLoading(true)
-    const loginRequest: AxiosResponse = await axios({
-      method: 'post',
-      url: `${process.env.REACT_APP_API_URL}/auth/login`,
-      data: values,
-      headers: {
-        "Content-Type": "application/json",
-      }
-    });
-    const { data } = loginRequest
-    const { token } = data
-    const roles = jwt(token).roles
-    localStorage.setItem('token', token);
-    dispatch({
-      type: 'LOGIN',
-      payload: {
-        token,
-        roles
-      }
-    })
-    history.push("/")
-    return
-  }
-  catch (e) {
-    setLoading(false)
-    actions.setFieldError('password', 'Incorrect login Details')
-  }
-}
-
 const Login: React.FC = () => {
   const [loading, setLoading] = useState(false)
   const [forgotPasswordOpen, setForgotPasswordOpen] = useState(false)
   const [loginOpen, setLoginOpen] = useState(true)
   const { dispatch } = useContext(AppContext)
+  const {asyncActions} = useContext(AppContext)
   const history = useHistory();
+
+  const postLogin = async (values: ILogin, actions: FormikHelpers<ILogin>, dispatch: ({ type: string, payload: any }) => void, history: History, setLoading) => {
+    try {
+      setLoading(true)
+      const loginRequest: AxiosResponse = await axios({
+        method: 'post',
+        url: `${process.env.REACT_APP_API_URL}/auth/login`,
+        data: values,
+        headers: {
+          "Content-Type": "application/json",
+        }
+      });
+      const { data } = loginRequest
+      const { token } = data
+      const roles = jwt(token).roles
+      localStorage.setItem('token', token);
+
+      asyncActions.getAttendances(token)
+
+      dispatch({
+        type: 'LOGIN',
+        payload: {
+          token,
+          roles
+        }
+      })
+      history.push("/")
+      return
+    }
+    catch (e) {
+      setLoading(false)
+      actions.setFieldError('password', 'Incorrect login Details')
+    }
+  }
 
   const handleOpenForgotPassword = () => {
     setForgotPasswordOpen(true)
@@ -88,37 +92,37 @@ const Login: React.FC = () => {
         {loginOpen &&
           <Fade in={loginOpen} timeout={1000}>
             <Box>
-            <Formik
-              initialValues={initialValues}
-              onSubmit={(values, actions) => postLogin(values, actions, dispatch, history, setLoading)}
-              validationSchema={LoginSchema}
-            >
-              {(props: FormikProps<ILogin>) => (
-                <Form>
-                  <TextField name="email" type="email" label="Email" />
-                  <TextField name="password" type="password" label="Password" />
-                  <div style={{ height: "20px" }}></div>
-                  <Button variant="contained" type="submit" disabled={loading} fullWidth>LOG IN</Button>
-                </Form>
-              )}
-            </Formik>
+              <Formik
+                initialValues={initialValues}
+                onSubmit={(values, actions) => postLogin(values, actions, dispatch, history, setLoading)}
+                validationSchema={LoginSchema}
+              >
+                {(props: FormikProps<ILogin>) => (
+                  <Form>
+                    <TextField name="email" type="email" label="Email" />
+                    <TextField name="password" type="password" label="Password" />
+                    <div style={{ height: "20px" }}></div>
+                    <Button variant="contained" type="submit" disabled={loading} fullWidth>LOG IN</Button>
+                  </Form>
+                )}
+              </Formik>
 
-            <div style={{height: 40}}></div>
+              <div style={{ height: 40 }}></div>
 
-            <Grid container justify="space-between">
-              <Grid item>
-                <Link style={{ cursor: 'pointer' }} onClick={() => handleOpenForgotPassword()}>Forgot Password</Link>
+              <Grid container justify="space-between">
+                <Grid item>
+                  <Link style={{ cursor: 'pointer' }} onClick={() => handleOpenForgotPassword()}>Forgot Password</Link>
+                </Grid>
+                <Grid item>
+                  <Link component={RouterLink} to="/register">Don't have an account? Sign up</Link>
+                </Grid>
               </Grid>
-              <Grid item>
-                <Link component={RouterLink} to="/register">Don't have an account? Sign up</Link>
-              </Grid>
-            </Grid>
             </Box>
-            </Fade>
+          </Fade>
         }
 
         {forgotPasswordOpen &&
-          <ForgotPassword handleCloseForgotPassword={() => handleCloseForgotPassword() } />
+          <ForgotPassword handleCloseForgotPassword={() => handleCloseForgotPassword()} />
         }
 
       </Paper>

@@ -138,9 +138,10 @@ const App: React.FC = () => {
   useEffect(
 		()=> {
 		  !state.venues.length && asyncActions.getVenues()
-		  !state.songs.length && asyncActions.getSongs()
+      !state.songs.length && asyncActions.getSongs()
+      !state.attendances.length && state.currentUser && asyncActions.getAttendances(state.currentUser.token)
 		}
-		,[state.shows.length, state.venues.length, state.songs.length, asyncActions]
+		,[state.shows.length, state.venues.length, state.songs.length, state.currentUser, asyncActions, state.attendances.length]
 	)
   useEffect(()=>{
     window.scrollTo({
