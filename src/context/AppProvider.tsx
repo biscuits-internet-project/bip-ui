@@ -1,4 +1,4 @@
-import React, {useReducer, createContext, useEffect} from 'react';
+import React, {useReducer, createContext, useEffect, useState} from 'react';
 import jwt from 'jwt-decode'
 import asyncActions from './asyncActions'
 import {IVenue} from '../components/venues/Venue'
@@ -26,6 +26,7 @@ interface IContextProps {
   state: AppState;
   dispatch: ({type,payload}:Action) => void;
   asyncActions: any
+  currentUser?: Nullable<IUser>
 }
 
 const initialState:AppState = {
@@ -76,9 +77,11 @@ const appReducer = (state: AppState, action:Action): AppState => {
   };
 
 export const AppContext = createContext({} as IContextProps )
+export const CurrentUserContext = createContext({});
 
 const AppProvider:React.FC = ({children}) => {
     const [state, dispatch] = useReducer(appReducer, initialState)
+    const [currentUser, setCurrentUser] = useState<IUser | undefined>(undefined)
 
     useEffect(() => {
       const token:Nullable<string> = localStorage.getItem('token')
@@ -94,6 +97,7 @@ const AppProvider:React.FC = ({children}) => {
           last_name: jwt(token).last_name,
           email: jwt(token).email
         }
+        setCurrentUser(currentUser)
       }
         dispatch({
           type: 'INITIATE',
@@ -109,6 +113,7 @@ const AppProvider:React.FC = ({children}) => {
             state,
             dispatch,
             asyncActions: asyncActions(dispatch),
+            currentUser: currentUser
           }}
         >
           {state.ready ? children : null}

@@ -25,48 +25,51 @@ const UserSidebar: React.FC = () => {
 	}
 
 	return (
-		<>
-			{currentUser &&
-				<Grid
-					container
-					spacing={3}
-					direction="row"
-					alignItems="center"
-					justify="center"
-					style={{ margin: 3 }}
-				>
+		<AppContext.Consumer>
+			{({ currentUser }) => (
+				<>
+					{currentUser &&
+						<Grid
+							container
+							spacing={3}
+							direction="row"
+							alignItems="center"
+							justify="center"
+							style={{ margin: 3 }}
+						>
 
-					<Grid item xs={3}>
-						<Avatar src={currentUser.avatar_url}  />
-					</Grid>
-					<Grid item>
-						<Typography style={{ marginTop: 4 }}>{currentUser.username}</Typography>
-					</Grid>
-					<Grid item>
-						<div style={{ textAlign: "right" }}>
-							<IconButton
-								onClick={handleOpen}
-							>
-								<MoreVertIcon />
-							</IconButton>
-							<Menu
-								anchorEl={anchorEl}
-								keepMounted
-								open={Boolean(anchorEl)}
-								onClose={handleClose}
-							>
-								<MenuItem onClick={handleClose} component={RouterLink} to="/profile">Profile</MenuItem>
-								<MenuItem onClick={handleClose}>My Account</MenuItem>
-								<MenuItem onClick={handleLogout}>Logout</MenuItem>
-								{admin && <Divider></Divider> }
-								{admin && <MenuItem onClick={handleClose} component={RouterLink} to="/admin/users">User Admin</MenuItem> }
-							</Menu>
-						</div>
-					</Grid>
-				</Grid>
-			}
-
-		</>
+							<Grid item xs={3}>
+								<Avatar src={currentUser.avatar_url} />
+							</Grid>
+							<Grid item>
+								<Typography style={{ marginTop: 4 }}>{currentUser.username}</Typography>
+							</Grid>
+							<Grid item>
+								<div style={{ textAlign: "right" }}>
+									<IconButton
+										onClick={handleOpen}
+									>
+										<MoreVertIcon />
+									</IconButton>
+									<Menu
+										anchorEl={anchorEl}
+										keepMounted
+										open={Boolean(anchorEl)}
+										onClose={handleClose}
+									>
+										<MenuItem onClick={handleClose} component={RouterLink} to="/profile">Profile</MenuItem>
+										<MenuItem onClick={handleClose}>My Account</MenuItem>
+										<MenuItem onClick={handleLogout}>Logout</MenuItem>
+										{admin && <Divider></Divider>}
+										{admin && <MenuItem onClick={handleClose} component={RouterLink} to="/admin/users">User Admin</MenuItem>}
+									</Menu>
+								</div>
+							</Grid>
+						</Grid>
+					}
+				</>
+			)}
+		</AppContext.Consumer>
 	)
 }
 
