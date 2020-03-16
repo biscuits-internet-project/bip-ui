@@ -25,6 +25,11 @@ export interface IShow {
 	year: number
 }
 
+export interface IRating {
+	show_id: string
+	value: number
+}
+
 interface IImage {
   src: string
   srcSet?: string[]

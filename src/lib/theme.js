@@ -26,7 +26,7 @@ export const darkTheme = createMuiTheme({
   palette: {
     type: 'dark',
     primary: { light: purple[300], main: purple[500], dark: purple[700] },
-    secondary: { light: purple[300], main: purple[900], dark: purple[700] },
+    secondary: { light: purple[100], main: purple[300], dark: purple[500] },
   },
   overrides: {
     MuiLink: {

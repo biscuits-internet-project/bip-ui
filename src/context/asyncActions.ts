@@ -23,6 +23,43 @@ const asyncActions = (dispatch: Dispatch<Action>) => {
             const shows:AxiosResponse = await axios.get(`${process.env.REACT_APP_API_URL}/shows`)
             dispatch({type: "GET_SHOWS", payload: shows.data})
         },
+        //ATTENDANCES
+        getAttendances: async (token) => {
+            const attendances: AxiosResponse = await axios({
+                method: 'get',
+                url: `${process.env.REACT_APP_API_URL}/attendances`,
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": token
+                }
+            })
+            dispatch({type: "GET_ATTENDANCES", payload: attendances.data})
+        },
+        //FAVORITES
+        getFavorites: async (token) => {
+            const favorites: AxiosResponse = await axios({
+                method: 'get',
+                url: `${process.env.REACT_APP_API_URL}/favorites`,
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": token
+                }
+            })
+            dispatch({type: "GET_FAVORITES", payload: favorites.data})
+        },
+        //RATINGS
+        getRatings: async (token) => {
+            const ratings: AxiosResponse = await axios({
+                method: 'get',
+                url: `${process.env.REACT_APP_API_URL}/ratings`,
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": token
+                }
+            })
+            console.log(ratings)
+            dispatch({type: "GET_RATINGS", payload: ratings.data})
+        },
     }
 }
 

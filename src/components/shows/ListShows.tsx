@@ -1,12 +1,17 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useState, useContext } from 'react';
 import { Link as RouterLink } from 'react-router-dom'
 import Setlist from './Setlist'
 import { IShow } from './Show';
 import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, Link, Box, Button } from '@material-ui/core';
 import Moment from 'react-moment';
+import { AppContext } from '../../context/AppProvider';
+import SawItSwitch from './SawItSwitch';
+import ShowRating from './ShowRating';
+import FavoriteSwitch from './FavoriteSwitch';
 
 const ListShows = ({ shows }) => {
-
+	const { state } = useContext(AppContext)
+    const { currentUser } = state
 	const [viewSetlists, setViewSetlists] = useState(true)
     const [toggleViewText, setToggleViewText] = useState("View Compact List")
 
@@ -18,7 +23,7 @@ const ListShows = ({ shows }) => {
             setViewSetlists(true)
             setToggleViewText("View Compact List")
         }
-	}
+    }
 
     return (
         <>
@@ -42,7 +47,15 @@ const ListShows = ({ shows }) => {
                                     <TableCell>Date</TableCell>
                                     <TableCell>Venue</TableCell>
                                     <TableCell>Relisten</TableCell>
-                                    <TableCell></TableCell>
+                                    {currentUser &&
+                                        <>
+                                            <TableCell>Saw it
+
+                                            </TableCell>
+                                            <TableCell>Rating</TableCell>
+                                            <TableCell>Favorite</TableCell>
+                                        </>
+                                    }
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -70,6 +83,19 @@ const ListShows = ({ shows }) => {
                                                 </Link>
                                             }
                                         </TableCell>
+                                        {currentUser &&
+                                            <>
+                                                <TableCell>
+                                                    <SawItSwitch showId={show.id} currentUser={currentUser} />
+                                                </TableCell>
+                                                <TableCell>
+                                                    <ShowRating showId={show.id} currentUser={currentUser} />
+                                                </TableCell>
+                                                <TableCell>
+                                                   <FavoriteSwitch showId={show.id} currentUser={currentUser} />
+                                                </TableCell>
+                                            </>
+                                        }
                                     </TableRow>
                                 ))}
                             </TableBody>
