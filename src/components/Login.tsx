@@ -55,6 +55,8 @@ const Login: React.FC = () => {
       localStorage.setItem('token', token);
 
       asyncActions.getAttendances(token)
+      asyncActions.getFavorites(token)
+      asyncActions.getRatings(token)
 
       dispatch({
         type: 'LOGIN',

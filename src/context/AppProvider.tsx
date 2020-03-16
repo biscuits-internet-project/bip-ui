@@ -3,7 +3,7 @@ import jwt from 'jwt-decode'
 import asyncActions from './asyncActions'
 import { IVenue } from '../components/venues/Venue'
 import { ISong } from '../components/songs/Song'
-import { IShow } from '../components/shows/Show'
+import { IShow, IRating } from '../components/shows/Show'
 import { IUser } from '../components/users/Users';
 
 type Nullable<T> = T | null;
@@ -21,6 +21,8 @@ export interface AppState {
   songs: ISong[]
   shows: IShow[]
   attendances: string[]
+  favorites: string[]
+  ratings: IRating[]
 }
 
 interface IContextProps {
@@ -36,7 +38,9 @@ const initialState: AppState = {
   venues: [],
   songs: [],
   shows: [],
-  attendances: []
+  attendances: [],
+  favorites: [],
+  ratings: []
 }
 
 const appReducer = (state: AppState, action: Action): AppState => {
@@ -76,6 +80,16 @@ const appReducer = (state: AppState, action: Action): AppState => {
       return {
         ...state,
         attendances: action.payload
+      };
+    case "GET_FAVORITES":
+      return {
+        ...state,
+        favorites: action.payload
+      };
+    case "GET_RATINGS":
+      return {
+        ...state,
+        ratings: action.payload
       };
     default:
       return state;

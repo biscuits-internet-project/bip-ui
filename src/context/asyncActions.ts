@@ -35,6 +35,31 @@ const asyncActions = (dispatch: Dispatch<Action>) => {
             })
             dispatch({type: "GET_ATTENDANCES", payload: attendances.data})
         },
+        //FAVORITES
+        getFavorites: async (token) => {
+            const favorites: AxiosResponse = await axios({
+                method: 'get',
+                url: `${process.env.REACT_APP_API_URL}/favorites`,
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": token
+                }
+            })
+            dispatch({type: "GET_FAVORITES", payload: favorites.data})
+        },
+        //RATINGS
+        getRatings: async (token) => {
+            const ratings: AxiosResponse = await axios({
+                method: 'get',
+                url: `${process.env.REACT_APP_API_URL}/ratings`,
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": token
+                }
+            })
+            console.log(ratings)
+            dispatch({type: "GET_RATINGS", payload: ratings.data})
+        },
     }
 }
 

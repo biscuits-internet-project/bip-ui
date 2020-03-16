@@ -9,39 +9,39 @@ interface Props {
     currentUser: IUser
 }
 
-const SawItSwitch: React.FC<Props> = ({ showId, currentUser }) => {
-    const [sawIt, setSawIt] = useState(false)
+const FavoriteSwitch: React.FC<Props> = ({ showId, currentUser }) => {
+    const [favorite, setFavorite] = useState(false)
     const {state} = useContext(AppContext);
-    const {attendances} = state
+    const {favorites} = state
 
-    const handleSawItChange = () => (event: React.ChangeEvent<HTMLInputElement>) => {
-        postSawIt(event.target.checked)
+    const handleFavoriteChange = () => (event: React.ChangeEvent<HTMLInputElement>) => {
+        postFavorite(event.target.checked)
     };
 
-    const postSawIt = useCallback(async (value) => {
+    const postFavorite = useCallback(async (value) => {
         await axios({
             method: 'post',
-            url: `${process.env.REACT_APP_API_URL}/shows/${showId}/${value ? "attend" : "unattend"}`,
+            url: `${process.env.REACT_APP_API_URL}/shows/${showId}/${value ? "favorite" : "unfavorite"}`,
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": currentUser?.token
             }
         });
-        setSawIt(value)
+        setFavorite(value)
 
-        // need to update the attendances in state from here
+        // need to update the favorites in state from here
 
     }, [showId, currentUser])
 
     useEffect(() => {
-        setSawIt(attendances.includes(showId))
-    }, [showId, attendances])
+        setFavorite(favorites.includes(showId))
+    }, [showId, favorites])
 
     return (
         <Switch
-            name="sawit"
-            checked={sawIt}
-            onChange={handleSawItChange()}
+            name="favorite"
+            checked={favorite}
+            onChange={handleFavoriteChange()}
             color="secondary"
             value={showId}
             inputProps={{ 'aria-label': 'secondary checkbox' }}
@@ -49,4 +49,4 @@ const SawItSwitch: React.FC<Props> = ({ showId, currentUser }) => {
     );
 }
 
-export default SawItSwitch
+export default FavoriteSwitch

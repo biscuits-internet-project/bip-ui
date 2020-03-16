@@ -140,8 +140,11 @@ const App: React.FC = () => {
 		  !state.venues.length && asyncActions.getVenues()
       !state.songs.length && asyncActions.getSongs()
       !state.attendances.length && state.currentUser && asyncActions.getAttendances(state.currentUser.token)
+      !state.favorites.length && state.currentUser && asyncActions.getFavorites(state.currentUser.token)
+      !state.ratings.length && state.currentUser && asyncActions.getRatings(state.currentUser.token)
 		}
-		,[state.shows.length, state.venues.length, state.songs.length, state.currentUser, asyncActions, state.attendances.length]
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+		,[]
 	)
   useEffect(()=>{
     window.scrollTo({

@@ -2,23 +2,12 @@ import React, { memo, useState, useContext } from 'react';
 import { Link as RouterLink } from 'react-router-dom'
 import Setlist from './Setlist'
 import { IShow } from './Show';
-import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, Link, Box, Button, Switch, withStyles } from '@material-ui/core';
+import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, Link, Box, Button } from '@material-ui/core';
 import Moment from 'react-moment';
-import Rating from '@material-ui/lab/Rating';
 import { AppContext } from '../../context/AppProvider';
-import TdbIcon from '../shared/TdbIcon';
-import purple from '@material-ui/core/colors/purple';
 import SawItSwitch from './SawItSwitch';
-
-const StyledRating = withStyles({
-    iconFilled: {
-      color: purple[300],
-    },
-    iconHover: {
-      color: purple[500],
-    },
-  })(Rating);
-
+import ShowRating from './ShowRating';
+import FavoriteSwitch from './FavoriteSwitch';
 
 const ListShows = ({ shows }) => {
 	const { state } = useContext(AppContext)
@@ -35,7 +24,6 @@ const ListShows = ({ shows }) => {
             setToggleViewText("View Compact List")
         }
     }
-
 
     return (
         <>
@@ -101,21 +89,10 @@ const ListShows = ({ shows }) => {
                                                     <SawItSwitch showId={show.id} currentUser={currentUser} />
                                                 </TableCell>
                                                 <TableCell>
-                                                    <StyledRating
-                                                        name="simple-controlled"
-                                                        icon={<TdbIcon />}
-                                                        // value={value}
-                                                        //   onChange={(event, newValue) => {
-                                                        //     setValue(newValue);
-                                                        //   }}
-                                                        />
+                                                    <ShowRating showId={show.id} currentUser={currentUser} />
                                                 </TableCell>
                                                 <TableCell>
-                                                    <Switch
-                                                        checked={false}
-                                                        //onChange={handleAttendenceChange()}
-                                                        value=""
-                                                    />
+                                                   <FavoriteSwitch showId={show.id} currentUser={currentUser} />
                                                 </TableCell>
                                             </>
                                         }
