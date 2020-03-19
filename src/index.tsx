@@ -6,7 +6,7 @@ import App from './App';
 import Honeybadger from 'honeybadger-js'
 import ErrorBoundary from '@honeybadger-io/react'
 
-//require('dotenv').config()
+require('dotenv').config()
 
 const config = {
     apiKey: '5b2050a8',

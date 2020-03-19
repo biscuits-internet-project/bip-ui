@@ -1,10 +1,12 @@
 import React from 'react'
 import { Helmet } from "react-helmet"
 
-const HtmlHead = ({title, description="Offical fan site for the Disco Biscuits.", image_url="https://discobiscuits.net/biscuits-internet-project.jpg"}) => {
+const HtmlHead = ({title, description="Fan site for the Disco Biscuits.", image_url="https://discobiscuits.net/android-chrome-512x512.png"}) => {
     return (
         <Helmet>
-            <title>Biscuits Internet Project | {title}></title>
+            <title>Biscuits Internet Project {title && `| ${title}`}</title>
+            <meta name="description" content={description}/>
+            <meta name="keywords" content="Disco Biscuits, setlists, reviews, show, band history" />
             <meta name="twitter:image" content={image_url}/>
             <meta name="twitter:card" content="summary_large_image"/>
             <meta name="twitter:title" content={title}/>
