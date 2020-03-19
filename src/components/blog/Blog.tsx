@@ -59,7 +59,9 @@ const Blog: React.FC = () => {
   useEffect(() => {
     // These will likely be in different components when styling is polished
     dispatch(fetchPosts(state.currentUser, 'published'))
-    dispatch(fetchPosts(state.currentUser, 'draft'))
+    if (admin) {
+      dispatch(fetchPosts(state.currentUser, 'draft'))
+    }
   }, [])
 
   useEffect(() => {
@@ -124,28 +126,32 @@ const Blog: React.FC = () => {
           </Grid>
         ))}
       </Grid>
-      <Typography variant="h2" style={{ marginTop: 20, marginBottom: 20 }}>
-        Drafts
-      </Typography>
-      <Grid container spacing={3} alignItems="stretch">
-        {draftPosts.map((post) => (
-          <Grid
-            item
-            xs={12}
-            sm={8}
-            md={4}
-            lg={3}
-            xl={2}
-            style={{ display: 'flex', height: 'auto' }}
-          >
-            <BlogCard
-              post={post}
-              handleEdit={() => handleEdit(post.slug)}
-              handleDelete={() => handleDelete(post.slug)}
-            ></BlogCard>
+      {admin && draftPosts.length > 0 && (
+        <>
+          <Typography variant="h2" style={{ marginTop: 20, marginBottom: 20 }}>
+            Drafts
+          </Typography>
+          <Grid container spacing={3} alignItems="stretch">
+            {draftPosts.map((post) => (
+              <Grid
+                item
+                xs={12}
+                sm={8}
+                md={4}
+                lg={3}
+                xl={2}
+                style={{ display: 'flex', height: 'auto' }}
+              >
+                <BlogCard
+                  post={post}
+                  handleEdit={() => handleEdit(post.slug)}
+                  handleDelete={() => handleDelete(post.slug)}
+                ></BlogCard>
+              </Grid>
+            ))}
           </Grid>
-        ))}
-      </Grid>
+        </>
+      )}
       <Dialog
         open={formOpen}
         onClose={() => handleClose()}

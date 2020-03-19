@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Form, Formik, FormikProps } from 'formik'
 import { AppContext } from '../../context/AppProvider'
 import * as Yup from 'yup'
@@ -16,7 +16,7 @@ import { IBlogPost } from '../../stores/blog/types'
 import { createPostAsync, updatePostAsync } from '../../stores/blog/actions'
 import useAsync from './useAsync'
 import { useSnackbar } from 'notistack'
-import { error } from 'console'
+import axios, { AxiosResponse } from 'axios'
 
 const BlogFormSchema = Yup.object().shape({
   title: Yup.string().required('Title is required'),
@@ -29,6 +29,7 @@ const BlogForm = ({ editId }) => {
   const { state } = useContext(AppContext)
   const dispatch = useDispatch()
   const { enqueueSnackbar } = useSnackbar()
+  const [tags, setTags] = useState([])
   const [
     dispatchFuncUpdate,
     loadingUpdate,
@@ -65,6 +66,17 @@ const BlogForm = ({ editId }) => {
         : dispatchFuncCreate(postValues, state.currentUser),
     )
   }
+
+  useEffect(() => {
+    const fetchTags = async () => {
+      const data: AxiosResponse = await axios.get(
+        `${process.env.REACT_APP_API_URL}/blog_posts/tags`,
+      )
+      setTags(data.data)
+
+      fetchTags()
+    }
+  })
 
   useEffect(() => {
     if (successUpdate) {

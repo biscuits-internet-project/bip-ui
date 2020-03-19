@@ -63,7 +63,7 @@ const BlogCard: React.FC<Props> = ({ post, handleEdit, handleDelete }) => {
           </Link>
         </Typography>
         <Paragraph variant="body2" style={{ color: 'silver' }}>
-          posted on by {post.user?.username} on{' '}
+          <em>posted on by {post.user?.username} on </em>
           <Moment format="M/D/YY">{post.published_at}</Moment>
         </Paragraph>
         <Paragraph>{post.blurb}</Paragraph>
@@ -71,7 +71,13 @@ const BlogCard: React.FC<Props> = ({ post, handleEdit, handleDelete }) => {
         {username === post.user?.username && (
           <>
             <Button onClick={() => handleEdit(post.id)}>edit</Button>
-            <Button onClick={() => handleDelete(post.id)}>delete</Button>
+            <Button
+              onClick={() =>
+                window.confirm(`You sure mang?`) && handleDelete(post.id)
+              }
+            >
+              delete
+            </Button>
           </>
         )}
       </CardContent>

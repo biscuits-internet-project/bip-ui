@@ -12,7 +12,11 @@ const useStyles = makeStyles({
 
 const Paragraph = (props) => {
   const classes = useStyles()
-  return <Typography className={classes.paragraph}>{props.children}</Typography>
+  return (
+    <Typography {...props} className={classes.paragraph}>
+      {props.children}
+    </Typography>
+  )
 }
 
 export default Paragraph
