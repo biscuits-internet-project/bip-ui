@@ -5,7 +5,8 @@ import { makeStyles } from '@material-ui/core';
 const useStyles = makeStyles({
     paragraph:{
         paddingBottom: 15,
-        fontSize: 15
+        fontSize: 15,
+        lineHeight: 1.8
     }
 });
 
