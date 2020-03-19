@@ -17,10 +17,10 @@ export default createReducer(initialState, {
   ) => {
     const postsById = { ...state.postsById }
     const data = action.payload
-    data.forEach((venue: IBlogPost) => {
-      postsById[`${venue.id}`] = {
-        ...postsById[`${venue.id}`],
-        ...venue,
+    data.forEach((post: IBlogPost) => {
+      postsById[`${post.slug}`] = {
+        ...postsById[`${post.slug}`],
+        ...post,
       }
     })
     const newState = {
@@ -39,8 +39,8 @@ export default createReducer(initialState, {
   ) => {
     const postsById = { ...state.postsById }
     const data = action.payload
-    if (data && data.id) {
-      postsById[data.id] = data
+    if (data && data.slug) {
+      postsById[data.slug] = data
     }
 
     const newState = {
@@ -62,7 +62,7 @@ export default createReducer(initialState, {
     if (newPost) {
       const newState = {
         ...state,
-        postsById: { [`${newPost.id}`]: newPost, ...postsById },
+        postsById: { [`${newPost.slug}`]: newPost, ...postsById },
       }
       return newState
     }
@@ -84,12 +84,12 @@ export default createReducer(initialState, {
     if (newPost) {
       const newState = {
         ...state,
-        postsById: { ...postsById, [`${newPost.id}`]: newPost },
+        postsById: { ...postsById, [`${newPost.slug}`]: newPost },
       }
       return newState
     }
   },
-  [actions.CREATE_POST_REJECTED]: (state: BlogState) => {
+  [actions.UPDATE_POST_REJECTED]: (state: BlogState) => {
     const newState = { ...state }
     return newState
   },

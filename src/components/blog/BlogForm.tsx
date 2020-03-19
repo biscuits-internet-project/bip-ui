@@ -1,10 +1,8 @@
-import React, { useState, useEffect, useContext, useCallback } from 'react'
-import { Form, Formik, FormikProps, FormikHelpers } from 'formik'
+import React, { useContext, useEffect, useState } from 'react'
+import { Form, Formik, FormikProps } from 'formik'
 import { AppContext } from '../../context/AppProvider'
 import * as Yup from 'yup'
-import { useSnackbar } from 'notistack'
 import TextField from '../shared/TextFieldContainer'
-import TextAreaField from '../shared/TextAreaField'
 import Uploader from '../shared/Uploader'
 import TextEditorField from '../shared/TextEditorField'
 import CheckboxField from '../shared/CheckboxField'
@@ -14,9 +12,11 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import { useSelector, useDispatch } from 'react-redux'
 import Box from '@material-ui/core/Box'
 import { RootState } from '../../stores/reducers'
-import { Grid } from '@material-ui/core'
 import { IBlogPost } from '../../stores/blog/types'
 import { createPostAsync, updatePostAsync } from '../../stores/blog/actions'
+import useAsync from './useAsync'
+import { useSnackbar } from 'notistack'
+import axios, { AxiosResponse } from 'axios'
 
 const BlogFormSchema = Yup.object().shape({
   title: Yup.string().required('Title is required'),
@@ -28,27 +28,86 @@ const BlogFormSchema = Yup.object().shape({
 const BlogForm = ({ editId }) => {
   const { state } = useContext(AppContext)
   const dispatch = useDispatch()
+  const { enqueueSnackbar } = useSnackbar()
+  const [tags, setTags] = useState([])
+  const [
+    dispatchFuncUpdate,
+    loadingUpdate,
+    errorUpdate,
+    successUpdate,
+  ] = useAsync(updatePostAsync)
+  const [
+    dispatchFuncCreate,
+    loadingCreate,
+    errorCreate,
+    successCreate,
+  ] = useAsync(createPostAsync)
+  console.log(successUpdate)
   const createPostLoading = useSelector(
     (state: RootState) => state.loading.CREATE_POST,
   )
   const updatePostLoading = useSelector(
     (state: RootState) => state.loading.UPDATE_POST,
   )
-  const submitPost = (values: IBlogPost) => {
-    const postValues = values
-    postValues.state = values.state ? 'published' : 'draft'
-    dispatch(
-      editId
-        ? updatePostAsync(postValues, state.currentUser)
-        : createPostAsync(postValues, state.currentUser),
-    )
-  }
+
   const editData = useSelector((state: RootState) => {
     const data = { ...state.blog.postsById[editId] }
     data.state = data.state === 'published'
-    console.log(data)
     return data
   })
+
+  const submitPost = (values: IBlogPost) => {
+    const postValues = values
+    postValues.state = values.state ? 'published' : 'draft'
+    console.log(postValues)
+    dispatch(
+      editId
+        ? dispatchFuncUpdate(postValues, state.currentUser)
+        : dispatchFuncCreate(postValues, state.currentUser),
+    )
+  }
+
+  useEffect(() => {
+    const fetchTags = async () => {
+      const data: AxiosResponse = await axios.get(
+        `${process.env.REACT_APP_API_URL}/blog_posts/tags`,
+      )
+      setTags(data.data)
+
+      fetchTags()
+    }
+  })
+
+  useEffect(() => {
+    if (successUpdate) {
+      enqueueSnackbar(`Successfully updated blog post`, {
+        variant: 'success',
+      })
+    }
+    if (successCreate) {
+      enqueueSnackbar(`Successfully created blog post`, {
+        variant: 'success',
+      })
+    }
+  }, [successCreate, successUpdate])
+
+  useEffect(() => {
+    if (errorUpdate) {
+      enqueueSnackbar(`An error occurred`, {
+        variant: 'error',
+      })
+    }
+    if (errorCreate) {
+      enqueueSnackbar(`An error occurred`, {
+        variant: 'error',
+      })
+    }
+  }, [errorCreate, errorUpdate])
+
+  if (loadingCreate || loadingUpdate) {
+    return <div>Loading...</div>
+  }
+
   const initialData = editData.id
     ? editData
     : {
