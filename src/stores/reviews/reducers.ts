@@ -29,10 +29,6 @@ export default createReducer(initialState, {
     }
     return newState
   },
-  [actions.CREATE_REVIEW_REQUEST]: (state: ReviewState) => {
-    const newState = { ...state }
-    return newState
-  },
   [actions.GET_REVIEWS_REJECTED]: (state: ReviewState) => {
     const newState = { ...state }
     return newState
@@ -77,7 +73,7 @@ export default createReducer(initialState, {
       return newState
     }
   },
-  [actions.CREATE_REVIEW_REJECTED]: (state: ReviewState) => {
+  [actions.UPDATE_REVIEW_REJECTED]: (state: ReviewState) => {
     const newState = { ...state }
     return newState
   },

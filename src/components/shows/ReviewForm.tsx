@@ -1,4 +1,4 @@
-import React, { useState, useContext, useCallback } from 'react'
+import React, { useState, useContext, useCallback, useEffect } from 'react'
 import { Form, Formik, FormikProps, FormikHelpers } from 'formik'
 import { useSnackbar } from 'notistack'
 import { AppContext } from '../../context/AppProvider'
@@ -12,10 +12,11 @@ import {
   updateReviewAsync,
   deleteReviewAsync,
 } from '../../stores/reviews/actions'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { IShow } from './Show'
 import Moment from 'react-moment'
 import * as Yup from 'yup'
+import { RootState } from '../../stores/reducers'
 
 interface Props {
   show: IShow
@@ -32,7 +33,7 @@ const ReviewForm: React.FC<Props> = ({ show, review, handleClose }) => {
   const { currentUser } = state
 
   const validationSchema = Yup.object().shape({
-    content: Yup.string().required('Content is required'),
+    //content: Yup.string().required('Content is required'),
   })
 
   const handleDeleteOpen = () => {
@@ -47,24 +48,34 @@ const ReviewForm: React.FC<Props> = ({ show, review, handleClose }) => {
     }
   }, [enqueueSnackbar, review, currentUser, handleClose])
 
+  const errorOnCreate = useSelector(
+    (state: RootState) => state.error.CREATE_REVIEW,
+  )
+  const loading = useSelector((state: RootState) => state.loading.CREATE_REVIEW)
+
+  useEffect(() => {
+    if (loading === false && errorOnCreate && errorOnCreate.error) {
+      enqueueSnackbar('An error occurred', {
+        variant: 'error',
+      })
+    } else if (
+      loading === false &&
+      errorOnCreate &&
+      errorOnCreate.error === false
+    ) {
+      enqueueSnackbar('Review added', {
+        variant: 'success',
+      })
+      handleClose('form')
+    }
+  }, [loading, errorOnCreate])
+
   const saveReview = useCallback(
     async (values: IReview, actions: FormikHelpers<IReview>) => {
       if (review) {
-        // update
         dispatch(updateReviewAsync(values, state.currentUser))
-
-        enqueueSnackbar(`Review updated`, {
-          variant: 'success',
-        })
-        handleClose('form')
       } else {
-        // create
         dispatch(createReviewAsync(show.id, values, state.currentUser))
-
-        enqueueSnackbar(`Review added`, {
-          variant: 'success',
-        })
-        handleClose('form')
       }
     },
     [enqueueSnackbar, handleClose, currentUser],
