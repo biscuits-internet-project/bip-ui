@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useCallback, useContext } from 'react';
+import React, { useContext } from 'react';
 import { IUser } from '../users/Users';
-import axios from 'axios'
 import { AppContext } from '../../context/AppProvider';
 import { withStyles } from '@material-ui/core';
 import { purple } from '@material-ui/core/colors';
@@ -21,58 +20,25 @@ const StyledRating = withStyles({
     },
 })(Rating);
 
-
 const RatingSwitch: React.FC<Props> = ({ showId, currentUser }) => {
-    const [rating, setRating] = useState(0)
-    const { state } = useContext(AppContext);
-    const { ratings } = state
+    const { state, asyncActions } = useContext(AppContext)
 
     const handleRatingChange = (event, value) => {
-        postRating(value)
-    };
-
-    const postRating = useCallback(async (value) => {
-        console.log(value)
-        console.log(showId)
         if (value === null) {
             return
         }
-        const data = { value: value }
-        await axios({
-            method: 'post',
-            url: `${process.env.REACT_APP_API_URL}/shows/${showId}/rate`,
-            data: data,
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": currentUser?.token
-            }
-        });
-        setRating(value)
-
-        // need to update the ratings in state from here
-
-    }, [showId, currentUser])
-
-    useEffect(() => {
-        console.log(ratings)
-        console.log(showId)
-        const rating = ratings.find(r => r.show_id === showId)
-        console.log(rating)
-        if (rating) {
-            setRating(rating.value)
-        }
-    }, [showId, ratings])
+        asyncActions.postRating(currentUser.token, showId, value)
+    };
 
     return (
         <StyledRating
             name={showId}
             icon={<TdbIcon />}
-            value={rating}
+            value={state.ratings.find(r => r.show_id === showId)?.value || 0}
             onChange={(event, newValue) => {
                 handleRatingChange(event, newValue);
             }}
         />
-
     );
 }
 

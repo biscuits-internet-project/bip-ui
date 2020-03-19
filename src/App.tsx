@@ -139,7 +139,7 @@ const App: React.FC = () => {
 		()=> {
 		  !state.venues.length && asyncActions.getVenues()
       !state.songs.length && asyncActions.getSongs()
-      !state.attendances.length && state.currentUser && asyncActions.getAttendances(state.currentUser.token)
+      !state.attendances.length && state.currentUser && asyncActions.getUserAttendances(state.currentUser.token)
       !state.favorites.length && state.currentUser && asyncActions.getFavorites(state.currentUser.token)
       !state.ratings.length && state.currentUser && asyncActions.getRatings(state.currentUser.token)
 		}
