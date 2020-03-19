@@ -29,7 +29,6 @@ import TextField from '../shared/TextFieldContainer'
 import { useSnackbar } from 'notistack'
 import TextAreaField from '../shared/TextAreaField'
 import { IShow } from './Show'
-
 import { venuesSelector } from '../../stores/venues/selectors'
 
 export interface IShowForm {

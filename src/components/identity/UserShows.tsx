@@ -1,10 +1,17 @@
 import React, { useContext, useEffect, useState } from 'react'
 import PageHeading from '../shared/PageHeading'
-import { AppContext } from '../../context/AppProvider';
-import { IShow } from '../shows/Show';
-import axios, { AxiosResponse } from 'axios';
-import ListShows from '../shows/ListShows';
-import { LinearProgress, TableContainer, Paper, Table, TableRow, TableCell } from '@material-ui/core';
+import { AppContext } from '../../context/AppProvider'
+import { IShow } from '../shows/Show'
+import axios, { AxiosResponse } from 'axios'
+import ListShows from '../shows/ListShows'
+import {
+  TableContainer,
+  Paper,
+  Table,
+  TableRow,
+  TableCell,
+} from '@material-ui/core'
+import ProgressBar from '../shared/ProgressBar'
 
 const UserShows: React.FC = () => {
   const { state } = useContext(AppContext)
@@ -20,17 +27,23 @@ const UserShows: React.FC = () => {
         method: 'get',
         url: `${process.env.REACT_APP_API_URL}/shows/user`,
         headers: {
-          "Content-Type": "application/json",
-          "Authorization": currentUser?.token
-        }
-      });
+          'Content-Type': 'application/json',
+          Authorization: currentUser?.token,
+        },
+      })
       setShows(resp.data)
     }
     fetchShows()
     setLoading(false)
 
     if (state.ratings.length > 0) {
-      setRatingAvg(Math.round(state.ratings.map(r => r.value).reduce((a, b) => a + b, 0) / state.ratings.length * 10) / 10)
+      setRatingAvg(
+        Math.round(
+          (state.ratings.map((r) => r.value).reduce((a, b) => a + b, 0) /
+            state.ratings.length) *
+            10,
+        ) / 10,
+      )
     } else {
       setRatingAvg(0)
     }
@@ -43,7 +56,7 @@ const UserShows: React.FC = () => {
       <TableContainer component={Paper}>
         <Table>
           <TableRow>
-            <TableCell style={{width: "20%"}}>Attended:</TableCell>
+            <TableCell style={{ width: '20%' }}>Attended:</TableCell>
             <TableCell>{state.attendances.length}</TableCell>
           </TableRow>
           <TableRow>
@@ -63,15 +76,9 @@ const UserShows: React.FC = () => {
 
       <ListShows shows={shows} />
 
-      {loading &&
-        <>
-          <div style={{ height: 30 }}></div>
-          <LinearProgress />
-          <div style={{ height: 30 }}></div>
-        </>
-      }
+      {loading && <ProgressBar />}
     </>
-  );
+  )
 }
 
 export default UserShows

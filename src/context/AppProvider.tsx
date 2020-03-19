@@ -1,9 +1,7 @@
 import React, { useReducer, createContext, useEffect } from 'react'
 import jwt from 'jwt-decode'
 import asyncActions from './asyncActions'
-import { IVenue } from '../stores/venues/types'
-import { ISong } from '../components/songs/Song'
-import { IShow, IRating } from '../components/shows/Show'
+import { IRating } from '../components/shows/Show'
 import { IUser } from '../components/users/Users'
 
 type Nullable<T> = T | null
@@ -22,9 +20,6 @@ export interface AppState {
   email: string
   theme: string
   ready: boolean
-  venues: IVenue[]
-  songs: ISong[]
-  shows: IShow[]
   attendances: string[]
   favorites: string[]
   ratings: IRating[]
@@ -47,9 +42,6 @@ const initialState: AppState = {
   email: '',
   theme: 'dark',
   ready: false,
-  venues: [],
-  songs: [],
-  shows: [],
   attendances: [],
   favorites: [],
   ratings: [],
@@ -93,21 +85,6 @@ const appReducer = (state: AppState, action: Action): AppState => {
       return {
         ...state,
         viewJamCharts: action.payload,
-      }
-    case 'GET_VENUES':
-      return {
-        ...state,
-        venues: action.payload,
-      }
-    case 'GET_SONGS':
-      return {
-        ...state,
-        songs: action.payload,
-      }
-    case 'GET_SHOWS':
-      return {
-        ...state,
-        shows: action.payload,
       }
     case 'GET_USER_ATTENDANCES':
       return {

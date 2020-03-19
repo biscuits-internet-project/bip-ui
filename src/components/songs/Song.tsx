@@ -16,7 +16,6 @@ import {
   ExpansionPanelSummary,
   Typography,
   ExpansionPanelDetails,
-  LinearProgress,
   Button,
   Grid,
   Dialog,
@@ -31,6 +30,7 @@ import { AppContext } from '../../context/AppProvider'
 import SongForm from './SongForm'
 import Paragraph from '../shared/Paragraph'
 import HtmlHead from '../shared/HtmlHead'
+import ProgressBar from '../shared/ProgressBar'
 
 export interface ISong {
   id: string
@@ -218,7 +218,7 @@ const Song: React.FC = () => {
                       component={RouterLink}
                       to={`/shows/${song.first_played_show.slug}`}
                     >
-                      <Moment format="M/DD/YYYY">
+                      <Moment format="M/D/YY">
                         {song.first_played_show.date}
                       </Moment>
                       <span> - </span>
@@ -254,7 +254,7 @@ const Song: React.FC = () => {
                       component={RouterLink}
                       to={`/shows/${song.last_played_show.slug}`}
                     >
-                      <Moment format="M/DD/YYYY">
+                      <Moment format="M/D/YY">
                         {song.last_played_show.date}
                       </Moment>
                       <span> - </span>
@@ -299,7 +299,7 @@ const Song: React.FC = () => {
                             component={RouterLink}
                             to={`/shows/${allTimer.show.slug}`}
                           >
-                            <Moment format="M/DD/YYYY">
+                            <Moment format="M/D/YY">
                               {allTimer.show.date}
                             </Moment>
                             <span> - </span>
@@ -394,7 +394,7 @@ const Song: React.FC = () => {
                 <TableCell>
                   <Link component={RouterLink} to={`/shows/${s.show.slug}`}>
                     <Typography>
-                      <Moment format="M/DD/YYYY">{s.show.date}</Moment>
+                      <Moment format="M/D/YY">{s.show.date}</Moment>
                     </Typography>
                     <Typography>
                       {s.venue.name}
@@ -419,13 +419,7 @@ const Song: React.FC = () => {
         </Table>
       </TableContainer>
 
-      {loading && (
-        <>
-          <div style={{ height: 30 }}></div>
-          <LinearProgress />
-          <div style={{ height: 30 }}></div>
-        </>
-      )}
+      {loading && <ProgressBar />}
     </>
   )
 }

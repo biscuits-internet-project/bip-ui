@@ -15,25 +15,15 @@ import PageHeading from './../shared/PageHeading'
 import VenueForm from './VenueForm'
 import { AppContext } from '../../context/AppProvider'
 import HtmlHead from '../shared/HtmlHead'
-import { fetchVenues } from '../../stores/venues/actions'
 import { IVenue } from '../../stores/venues/types'
 import { venuesSelector } from '../../stores/venues/selectors'
 
 const Venues: React.FC = () => {
   const [formOpen, setFormOpen] = useState(false)
-  const { state, asyncActions } = useContext(AppContext)
+  const { state } = useContext(AppContext)
   const { currentUser } = state
   const admin = currentUser && currentUser.roles.includes('admin')
-  const dispatch = useDispatch()
   const venues = useSelector(venuesSelector)
-  console.log(venues)
-  useEffect(() => {
-    dispatch(fetchVenues())
-  }, [])
-
-  useEffect(() => {
-    !state.venues.length && asyncActions.getVenues()
-  }, [state.venues.length, asyncActions])
 
   const handleOpen = () => {
     setFormOpen(true)
@@ -125,20 +115,12 @@ const Venues: React.FC = () => {
       })
     },
   }
-  const data = state.venues.map((v: IVenue) => [
+  const data = venues.map((v: IVenue) => [
     [v.slug, v.name],
     v.city,
     v.state,
     v.times_played,
   ])
-
-  //We can use the redux store to render venues
-  // const data = venues.map((v: IVenue) => [
-  //   [v.slug, v.name],
-  //   v.city,
-  //   v.state,
-  //   v.times_played,
-  // ])
 
   return (
     <>
