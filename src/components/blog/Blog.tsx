@@ -1,35 +1,48 @@
-import React, { useEffect, useCallback, useContext, useState } from 'react'
+import React, { useEffect, useContext, useState } from 'react'
 import { AppContext } from '../../context/AppProvider'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../stores/reducers'
-import { useHistory } from 'react-router-dom'
 
-import {
-  fetchPosts,
-  deletePostAsync,
-  createCommentAsync,
-} from '../../stores/blog/actions'
+import { fetchPosts, deletePostAsync } from '../../stores/blog/actions'
 import {
   draftPostsSelector,
   publishedPostsSelector,
 } from '../../stores/blog/selectors'
 import {
-  Link,
   Grid,
   Button,
   Dialog,
   DialogTitle,
   DialogContent,
+  Typography,
+  makeStyles,
 } from '@material-ui/core'
 import BlogForm from './BlogForm'
-import Comments from './Comments'
+import HtmlHead from '../shared/HtmlHead'
+import PageHeading from '../shared/PageHeading'
+import BlogCard from './BlogCard'
+
+const useStyles = makeStyles({
+  root: {
+    height: 'auto',
+  },
+  media: {
+    maxHeight: 150,
+    minHeight: 150,
+    transition: 'all 1s ease-in-out',
+    '&:hover': {
+      transform: 'scale(1.1)',
+    },
+  },
+})
 
 const Blog: React.FC = () => {
   const { state } = useContext(AppContext)
+  const { currentUser } = state
+  const admin = currentUser?.roles.includes('admin')
   const [formOpen, setFormOpen] = useState(false)
   const [editId, setEditId] = useState(null)
   const dispatch = useDispatch()
-  const history = useHistory()
   const publishedPosts = useSelector(publishedPostsSelector)
   const draftPosts = useSelector(draftPostsSelector)
   const postsLoading = useSelector(
@@ -55,7 +68,7 @@ const Blog: React.FC = () => {
   }, [createPostLoading, updatePostLoading])
 
   if (postsLoading) {
-    return <h1>Loading....</h1>
+    return <Typography>Loading....</Typography>
   }
   const handleOpen = () => {
     setEditId(null)
@@ -68,72 +81,83 @@ const Blog: React.FC = () => {
   const handleDelete = (id) => {
     dispatch(deletePostAsync(id, state.currentUser))
   }
-
   const handleClose = () => {
     setFormOpen(false)
   }
+
   return (
-    <div>
-      <Button variant="contained" onClick={handleOpen}>
-        Add New Post
-      </Button>
-      <h1>Published Posts</h1>
-      {publishedPosts.map((post) => (
-        <div
-          onClick={() => history.push(`/blog/${post.id}`)}
-          style={{
-            border: '1px solid white',
-            margin: '16px 0px',
-            cursor: 'pointer',
-          }}
-        >
-          <img
-            width="60px"
-            height="60px"
-            src={
-              post.primary_image_url
-                ? post.primary_image_url
-                : 'https://cdn3.iconfinder.com/data/icons/christmas-flat-square-rounded-vol-3/150/cookies__biscuits__sweets__cake-512.png'
-            }
-          />
-          {post.title}, {post.blurb}, {post.content}, {post.state}{' '}
-          {/* We can conditionally render these depending on roles/user etc. */}
-          <button onClick={() => handleEdit(post.id)}>edit</button>
-          <button onClick={() => handleDelete(post.id)}>delete</button>
-        </div>
-      ))}
-      <h1>Draft Posts</h1>
-      {draftPosts.map((post) => (
-        <div
-          onClick={() => history.push(`/blog/${post.id}`)}
-          style={{
-            border: '1px solid white',
-            margin: '16px 0px',
-            cursor: 'pointer',
-          }}
-        >
-          <img
-            width="60px"
-            height="60px"
-            src={
-              post.primary_image_url
-                ? post.primary_image_url
-                : 'https://cdn3.iconfinder.com/data/icons/christmas-flat-square-rounded-vol-3/150/cookies__biscuits__sweets__cake-512.png'
-            }
-          />
-          {post.title}, {post.blurb}, {post.content}, {post.state}{' '}
-          {/* We can conditionally render these depending on roles/user etc. */}
-          <button onClick={() => handleEdit(post.id)}>edit</button>
-          <button onClick={() => handleDelete(post.id)}>delete</button>
-        </div>
-      ))}
-      <Dialog open={formOpen} onClose={() => handleClose()}>
-        <DialogTitle>Add Song</DialogTitle>
+    <>
+      <HtmlHead
+        title={`A Clamouring Sound - Disco Biscuits Blog`}
+        description={`Original long-form articles on all things Disco Biscuits`}
+      />
+      <Grid container justify="space-between">
+        <Grid item>
+          <PageHeading text="A Clamouring Sound" />
+        </Grid>
+        <Grid item>
+          {admin && (
+            <div style={{ alignContent: 'right' }}>
+              <Button variant="text" onClick={handleOpen}>
+                Add New Post
+              </Button>
+            </div>
+          )}
+        </Grid>
+      </Grid>
+      <Grid container spacing={3} alignItems="stretch">
+        {publishedPosts.map((post) => (
+          <Grid
+            item
+            xs={12}
+            sm={8}
+            md={4}
+            lg={3}
+            xl={2}
+            style={{ display: 'flex', height: 'auto' }}
+          >
+            <BlogCard
+              post={post}
+              handleEdit={() => handleEdit(post.slug)}
+              handleDelete={() => handleDelete(post.slug)}
+            ></BlogCard>
+          </Grid>
+        ))}
+      </Grid>
+      <Typography variant="h2" style={{ marginTop: 20, marginBottom: 20 }}>
+        Drafts
+      </Typography>
+      <Grid container spacing={3} alignItems="stretch">
+        {draftPosts.map((post) => (
+          <Grid
+            item
+            xs={12}
+            sm={8}
+            md={4}
+            lg={3}
+            xl={2}
+            style={{ display: 'flex', height: 'auto' }}
+          >
+            <BlogCard
+              post={post}
+              handleEdit={() => handleEdit(post.slug)}
+              handleDelete={() => handleDelete(post.slug)}
+            ></BlogCard>
+          </Grid>
+        ))}
+      </Grid>
+      <Dialog
+        open={formOpen}
+        onClose={() => handleClose()}
+        maxWidth="md"
+        fullWidth
+      >
+        <DialogTitle>{editId ? 'Edit' : 'Create'} Post</DialogTitle>
         <DialogContent>
           <BlogForm editId={editId} />
         </DialogContent>
       </Dialog>
-    </div>
+    </>
   )
 }
 export default Blog

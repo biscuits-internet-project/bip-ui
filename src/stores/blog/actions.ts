@@ -35,8 +35,8 @@ export const createPost = (payload: IBlogPost) =>
 export const createPostFulfilled = (payload: IBlogPost) =>
   ({ type: CREATE_POST_FULFILLED, payload } as const)
 
-export const createPostRejected = () =>
-  ({ type: CREATE_POST_REJECTED } as const)
+export const createPostRejected = (payload) =>
+  ({ type: CREATE_POST_REJECTED, payload } as const)
 
 //CREATE POST
 export const UPDATE_POST_REQUEST = 'UPDATE_POST_REQUEST'
@@ -49,8 +49,8 @@ export const updatePost = (payload: IBlogPost) =>
 export const updatePostFulfilled = (payload: IBlogPost) =>
   ({ type: UPDATE_POST_FULFILLED, payload } as const)
 
-export const updatePostRejected = () =>
-  ({ type: UPDATE_POST_REJECTED } as const)
+export const updatePostRejected = (payload) =>
+  ({ type: UPDATE_POST_REJECTED, payload } as const)
 
 //DELETE POST
 export const DELETE_POST_REQUEST = 'DELETE_POST_REQUEST'
@@ -63,8 +63,8 @@ export const deletePost = (payload: string) =>
 export const deletePostFulfilled = (payload: string) =>
   ({ type: DELETE_POST_FULFILLED, payload } as const)
 
-export const deletePostRejected = () =>
-  ({ type: DELETE_POST_REJECTED } as const)
+export const deletePostRejected = (payload) =>
+  ({ type: DELETE_POST_REJECTED, payload } as const)
 
 //CREATE COMMENT
 export const CREATE_COMMENT_REQUEST = 'CREATE_COMMENT_REQUEST'
@@ -120,17 +120,21 @@ export const createPostAsync = (post: IBlogPost, currentUser) => {
   Object.keys(post).forEach((key) => formData.append(key, post[key]))
   return async (dispatch) => {
     dispatch(createPost(post))
-    const newPost: AxiosResponse = await axios({
-      method: 'post',
-      url: `${process.env.REACT_APP_API_URL}/blog_posts`,
-      data: formData,
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        Authorization: currentUser?.token,
-      },
-    })
 
-    dispatch(createPostFulfilled(newPost.data))
+    try {
+      const newPost: AxiosResponse = await axios({
+        method: 'post',
+        url: `${process.env.REACT_APP_API_URL}/blog_posts`,
+        data: formData,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: currentUser?.token,
+        },
+      })
+      dispatch(createPostFulfilled(newPost.data))
+    } catch (error) {
+      dispatch(createPostRejected(error))
+    }
   }
 }
 
@@ -139,33 +143,41 @@ export const updatePostAsync = (post: IBlogPost, currentUser) => {
   Object.keys(post).forEach((key) => formData.append(key, post[key]))
   return async (dispatch) => {
     dispatch(updatePost(post))
-    const updatedPost: AxiosResponse = await axios({
-      method: 'put',
-      url: `${process.env.REACT_APP_API_URL}/blog_posts/${post.id}`,
-      data: formData,
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        Authorization: currentUser?.token,
-      },
-    })
+    try {
+      const updatedPost: AxiosResponse = await axios({
+        method: 'put',
+        url: `${process.env.REACT_APP_API_URL}/blog_posts/${post.id}`,
+        data: formData,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: currentUser?.token,
+        },
+      })
 
-    dispatch(updatePostFulfilled(updatedPost.data))
+      dispatch(updatePostFulfilled(updatedPost.data))
+    } catch (error) {
+      dispatch(updatePostRejected(error))
+    }
   }
 }
 
 export const deletePostAsync = (id: string, currentUser) => {
   return async (dispatch) => {
     dispatch(deletePost(id))
-    const updatedPost: AxiosResponse = await axios({
-      method: 'delete',
-      url: `${process.env.REACT_APP_API_URL}/blog_posts/${id}`,
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        Authorization: currentUser?.token,
-      },
-    })
+    try {
+      await axios({
+        method: 'delete',
+        url: `${process.env.REACT_APP_API_URL}/blog_posts/${id}`,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: currentUser?.token,
+        },
+      })
 
-    dispatch(deletePostFulfilled(id))
+      dispatch(deletePostFulfilled(id))
+    } catch (error) {
+      dispatch(deletePostRejected(error))
+    }
   }
 }
 
