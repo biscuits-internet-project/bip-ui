@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useCallback } from 'react'
+import React, { useState, useContext, useCallback } from 'react'
 import { Form, Formik, FormikProps, FormikHelpers } from 'formik'
 import { useSnackbar } from 'notistack'
 import { AppContext } from '../../context/AppProvider'
@@ -7,9 +7,15 @@ import { Grid } from '@material-ui/core'
 import DeleteConfirm from '../shared/DeleteConfirm'
 import { IReview } from '../../stores/reviews/types'
 import TextAreaField from '../shared/TextAreaField'
-import { createReview, createReviewAsync } from '../../stores/reviews/actions'
+import {
+  createReviewAsync,
+  updateReviewAsync,
+  deleteReviewAsync,
+} from '../../stores/reviews/actions'
 import { useDispatch } from 'react-redux'
 import { IShow } from './Show'
+import Moment from 'react-moment'
+import * as Yup from 'yup'
 
 interface Props {
   show: IShow
@@ -25,14 +31,18 @@ const ReviewForm: React.FC<Props> = ({ show, review, handleClose }) => {
   const { enqueueSnackbar } = useSnackbar()
   const { currentUser } = state
 
+  const validationSchema = Yup.object().shape({
+    content: Yup.string().required('Content is required'),
+  })
+
   const handleDeleteOpen = () => {
     setDeleteOpen(true)
   }
 
   const deleteReview = useCallback(async () => {
     if (review) {
-      // delete review via redux
-      enqueueSnackbar('Successfully deleted review', { variant: 'success' })
+      dispatch(deleteReviewAsync(String(review.id), state.currentUser))
+      enqueueSnackbar('Review deleted', { variant: 'success' })
       handleClose('delete')
     }
   }, [enqueueSnackbar, review, currentUser, handleClose])
@@ -41,17 +51,17 @@ const ReviewForm: React.FC<Props> = ({ show, review, handleClose }) => {
     async (values: IReview, actions: FormikHelpers<IReview>) => {
       if (review) {
         // update
+        dispatch(updateReviewAsync(values, state.currentUser))
 
-        enqueueSnackbar(`Successfully updated review`, {
+        enqueueSnackbar(`Review updated`, {
           variant: 'success',
         })
         handleClose('form')
       } else {
         // create
-
         dispatch(createReviewAsync(show.id, values, state.currentUser))
 
-        enqueueSnackbar(`Successfully added review`, {
+        enqueueSnackbar(`Review added`, {
           variant: 'success',
         })
         handleClose('form')
@@ -68,13 +78,14 @@ const ReviewForm: React.FC<Props> = ({ show, review, handleClose }) => {
           deleteOpen={deleteOpen}
           handleDelete={deleteReview}
         >
-          Review
+          Review of&nbsp;<Moment format="M/D/YY">{show.date}</Moment>
         </DeleteConfirm>
       )}
       <Formik
         enableReinitialize
         initialValues={formData}
         onSubmit={(values, actions) => saveReview(values, actions)}
+        validationSchema={validationSchema}
       >
         {(props: FormikProps<IReview>) => (
           <Form>
