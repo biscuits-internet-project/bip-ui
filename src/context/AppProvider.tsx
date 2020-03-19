@@ -75,6 +75,11 @@ const appReducer = (state: AppState, action: Action): AppState => {
       return {
         ...state,
         currentUser: null,
+        username: '',
+        avatar_url: '',
+        first_name: '',
+        last_name: '',
+        email: '',
       }
     case 'TOGGLE_VIEW_SETLISTS':
       return {

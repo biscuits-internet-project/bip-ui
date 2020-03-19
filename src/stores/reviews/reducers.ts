@@ -59,4 +59,45 @@ export default createReducer(initialState, {
     const newState = { ...state }
     return newState
   },
+  [actions.UPDATE_REVIEW_REQUEST]: (state: ReviewState) => {
+    const newState = { ...state }
+    return newState
+  },
+  [actions.UPDATE_REVIEW_FULFILLED]: (
+    state: ReviewState,
+    action: ReturnType<typeof actions.updateReviewFulfilled>,
+  ) => {
+    const reviewsById = { ...state.reviewsById }
+    const newReview = action.payload
+    if (newReview) {
+      const newState = {
+        ...state,
+        reviewsById: { ...reviewsById, [`${newReview.id}`]: newReview },
+      }
+      return newState
+    }
+  },
+  [actions.CREATE_REVIEW_REJECTED]: (state: ReviewState) => {
+    const newState = { ...state }
+    return newState
+  },
+  [actions.DELETE_REVIEW_REQUEST]: (state: ReviewState) => {
+    const newState = { ...state }
+    return newState
+  },
+  [actions.DELETE_REVIEW_FULFILLED]: (
+    state: ReviewState,
+    action: ReturnType<typeof actions.deleteReviewFulfilled>,
+  ) => {
+    const reviewsById = { ...state.reviewsById }
+    delete reviewsById[action.payload]
+    return {
+      ...state,
+      reviewsById,
+    }
+  },
+  [actions.DELETE_REVIEW_REJECTED]: (state: ReviewState) => {
+    const newState = { ...state }
+    return newState
+  },
 })

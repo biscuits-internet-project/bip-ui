@@ -27,7 +27,7 @@ export const createPostFulfilled = (payload: IBlogPost) =>
 export const createPostRejected = () =>
   ({ type: CREATE_POST_REJECTED } as const)
 
-//CREATE POST
+//UPDATE POST
 export const UPDATE_POST_REQUEST = 'UPDATE_POST_REQUEST'
 export const UPDATE_POST_FULFILLED = 'UPDATE_POST_FULFILLED'
 export const UPDATE_POST_REJECTED = 'UPDATE_POST_REJECTED'

@@ -92,7 +92,7 @@ export default createReducer(initialState, {
       postsById,
     }
   },
-  [actions.CREATE_POST_REJECTED]: (state: BlogState) => {
+  [actions.DELETE_POST_REJECTED]: (state: BlogState) => {
     const newState = { ...state }
     return newState
   },

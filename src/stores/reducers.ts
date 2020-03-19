@@ -20,11 +20,8 @@ export interface RootState {
   songs: SongState
   loading: LoadingState
   blog: BlogState
-<<<<<<< HEAD
   reviews: ReviewState
-=======
   filters: FilterState
->>>>>>> add filter
 }
 
 const rootReducer = combineReducers<RootState>({
@@ -32,11 +29,8 @@ const rootReducer = combineReducers<RootState>({
   venues,
   songs,
   blog,
-<<<<<<< HEAD
   reviews,
-=======
   filters,
->>>>>>> add filter
 })
 
 export default rootReducer

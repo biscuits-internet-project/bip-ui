@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useCallback, useContext } from 'react'
-import axios, { AxiosResponse } from 'axios'
+import React, { useState, useEffect, useContext } from 'react'
 import {
   Typography,
   Grid,
@@ -11,6 +10,7 @@ import {
   DialogTitle,
   DialogContent,
   Button,
+  Link,
 } from '@material-ui/core'
 import Moment from 'react-moment'
 import { AppContext } from '../../context/AppProvider'
@@ -18,8 +18,9 @@ import { IShow } from './Show'
 import Paragraph from '../shared/Paragraph'
 import { IReview } from '../../stores/reviews/types'
 import ReviewForm from './ReviewForm'
-import { useSelector } from 'react-redux'
-import { reviewsSelector } from '../../stores/reviews/selectors'
+import { useSelector, useDispatch } from 'react-redux'
+import { fetchReviews } from '../../stores/reviews/actions'
+import { RootState } from '../../stores/reducers'
 
 interface Props {
   show: IShow
@@ -39,18 +40,38 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const Reviews: React.FC<Props> = ({ show }) => {
   const { state } = useContext(AppContext)
-  const { currentUser } = state
+  const { username, currentUser } = state
+  const dispatch = useDispatch()
   const [review, setReview] = useState<IReview | undefined>(undefined)
   const styles = useStyles()
   const [formOpen, setFormOpen] = useState(false)
-  const reviews = useSelector(reviewsSelector)
 
-  const handleOpen = () => {
+  const reviewsLoading = useSelector(
+    (state: RootState) => state.loading.GET_REVIEWS,
+  )
+
+  const reviews = useSelector((state: RootState) => {
+    return Object.values(state.reviews.reviewsById).filter(
+      (r: IReview) => r.show_id === show.id,
+    )
+  })
+
+  useEffect(() => {
+    dispatch(fetchReviews(show.id))
+  }, [])
+
+  const handleOpen = (review) => {
+    setReview(review)
     setFormOpen(true)
   }
 
   const handleClose = () => {
     setFormOpen(false)
+    setTimeout(() => setReview(undefined), 300)
+  }
+
+  if (reviewsLoading) {
+    return <h1>Loading....</h1>
   }
 
   return (
@@ -61,7 +82,7 @@ const Reviews: React.FC<Props> = ({ show }) => {
         open={formOpen}
         onClose={() => handleClose()}
       >
-        <DialogTitle>Add a Review</DialogTitle>
+        <DialogTitle>{review ? 'Edit' : 'Add'} Review</DialogTitle>
         <DialogContent>
           <ReviewForm
             review={review}
@@ -76,13 +97,21 @@ const Reviews: React.FC<Props> = ({ show }) => {
           <Typography variant="h2">Reviews</Typography>
         </Grid>
         <Grid item>
-          {currentUser && (
+          {currentUser && reviews.length > 0 && (
             <div style={{ alignContent: 'right' }}>
-              <Button onClick={() => handleOpen()}>Add a Review</Button>
+              <Button onClick={() => handleOpen(undefined)}>
+                Add a Review
+              </Button>
             </div>
           )}
         </Grid>
       </Grid>
+
+      {reviews.length === 0 && currentUser && (
+        <Paper className={styles.review}>
+          <Button onClick={() => handleOpen(undefined)}>Add a review</Button>
+        </Paper>
+      )}
 
       {reviews.map((review) => {
         return (
@@ -93,7 +122,28 @@ const Reviews: React.FC<Props> = ({ show }) => {
                 <Moment format="M/D/YY">{review.created_at}</Moment>
               </Typography>
 
-              <Paragraph>{review.content}</Paragraph>
+              <Paragraph>
+                {review.content &&
+                  review.content.split('\n').map((item, key) => {
+                    return (
+                      <span key={key}>
+                        {item}
+                        <br />
+                      </span>
+                    )
+                  })}
+              </Paragraph>
+
+              {review.user?.username === username && (
+                <>
+                  <Link
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => handleOpen(review)}
+                  >
+                    Edit
+                  </Link>
+                </>
+              )}
             </Paper>
           </>
         )
