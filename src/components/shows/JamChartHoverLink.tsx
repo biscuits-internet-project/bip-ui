@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ITrack } from './Tracklist';
 import { Link as RouterLink } from 'react-router-dom'
 import { Popover, Typography, Link, makeStyles, Theme, createStyles } from '@material-ui/core';
+import { purple } from '@material-ui/core/colors';
 
 interface Props {
     track: ITrack
@@ -11,7 +12,9 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         paper: {
             padding: 20,
-            width: 400,
+            width: 450,
+            backgroundColor: "#333333",
+            color: "#e6b800"
         },
         popover: {
             pointerEvents: 'none',
