@@ -33,7 +33,7 @@ const ReviewForm: React.FC<Props> = ({ show, review, handleClose }) => {
   const { currentUser } = state
 
   const validationSchema = Yup.object().shape({
-    //content: Yup.string().required('Content is required'),
+    content: Yup.string().required('Content is required'),
   })
 
   const handleDeleteOpen = () => {
