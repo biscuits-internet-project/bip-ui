@@ -11,7 +11,6 @@ import ShowRating from './ShowRating';
 import FavoriteSwitch from './FavoriteSwitch';
 import { AppContext } from '../../context/AppProvider';
 
-
 export interface ISetlist {
 	show: IShow
 }

@@ -55,6 +55,7 @@
     "slate-lists": "^1.0.0",
     "slate-react": "0.22.9",
     "typescript": "~3.7.2",
+    "underscore": "^1.10.2",
     "uuid": "^7.0.1",
     "yarn": "^1.22.0",
     "yup": "^0.28.0"
@@ -79,5 +80,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/underscore": "^1.9.4"
   }
 }

@@ -32,6 +32,7 @@ import AddShow from '../components/shows/AddShow'
 import EditShow from '../components/shows/EditShow'
 import Users from '../components/users/Users'
 import JamCharts from '../components/songs/JamCharts'
+import UserShows from '../components/identity/UserShows'
 
 const Routes: React.FC = () => {
 	return (
@@ -40,6 +41,7 @@ const Routes: React.FC = () => {
 			<PrivateRoute path="/admin/shows/edit/:id" exact component={EditShow} adminOnly />
 			<PrivateRoute path="/admin/users" exact component={Users} adminOnly />
 			<PrivateRoute path="/account" exact component={Account} />
+			<PrivateRoute path="/my-shows" exact component={UserShows} />
 
 			<Route path="/" exact component={LatestShows} />
 			<Route path="/login" component={Login} />
@@ -55,6 +57,7 @@ const Routes: React.FC = () => {
 			<Route path="/resources/tractorbeam" exact component={Tractorbeam} />
 			<Route path="/resources/media" exact component={Media} />
 			<Route path="/resources/touchdowns-all-day" exact component={Touchdowns} />
+			<Route path="/setlists.php" exact component={Shows} />
 			<Route path="/shows" exact component={Shows} />
 			<Route path="/shows/add" exact component={AddShow} />
 			<Route path="/shows/:id" exact component={Show} />

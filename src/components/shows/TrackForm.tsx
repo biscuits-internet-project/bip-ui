@@ -64,8 +64,6 @@ const TrackForm: React.FC<Props> = ({ track, show, handleClose }) => {
 
   const postTrack = useCallback(async (values: ITrack, actions: FormikHelpers<ITrack>) => {
     values.annotations = values.annotations_with_newlines.split("\n")
-
-    console.log(values.annotations)
     const resp: AxiosResponse = await axios({
       method: track ? 'put' : 'post',
       url: `${process.env.REACT_APP_API_URL}/${track ? `tracks/${track.id}` : `shows/${show.id}/tracks`}`,
