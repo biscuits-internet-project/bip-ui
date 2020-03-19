@@ -10,6 +10,7 @@ import Carousel, { Modal, ModalGateway } from "react-images";
 import { AppContext } from '../../context/AppProvider';
 import LinkButton from '../shared/LinkButton';
 import HtmlHead from '../shared/HtmlHead';
+import Setlist from './Setlist';
 
 export interface IShow {
 	id: string
@@ -116,7 +117,6 @@ const Show: React.FC = () => {
 					</Grid>
 				</Grid>
 				<div>
-					{/* <div>{show.likes_count} likes </div> */}
 					{show.notes &&
 						<div>
 							<Typography variant="body2" dangerouslySetInnerHTML={{__html: show.notes}} />
@@ -124,19 +124,7 @@ const Show: React.FC = () => {
 						</div>
 					}
 
-					{show.relisten_url &&
-						<div>
-							<Link target="blank" href={show.relisten_url}>{show.relisten_url}</Link>
-							<br/>
-							<br/>
-						</div>
-					}
-
-					<Card>
-						<CardContent>
-							<Tracklist key={show.slug} tracks={show.tracks} />
-						</CardContent>
-					</Card>
+					<Setlist show={show} />
 				</div>
 				{show.youtube_ids.map((id) => {
 					return (

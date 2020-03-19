@@ -74,7 +74,7 @@ const Shows: React.FC = () => {
 	}, [selectedYear])
 	return (
 		<>
-			<HtmlHead title="Shows" description="Check out setlists by year, venue, song, or search for combinations." />
+			<HtmlHead title="Shows & Setlists" description="Check out setlists by year, venue, song, or search for combinations." />
 
 			<Grid container justify="space-between" >
 				<Grid item>
