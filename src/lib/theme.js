@@ -1,5 +1,7 @@
-import { createMuiTheme } from '@material-ui/core/styles';
-import purple from '@material-ui/core/colors/purple';
+import { createMuiTheme } from '@material-ui/core/styles'
+import purple from '@material-ui/core/colors/purple'
+
+const defaultTheme = createMuiTheme()
 
 const baseTheme = {
   typography: {
@@ -14,15 +16,15 @@ const baseTheme = {
     body2: { fontSize: 15 },
     overrides: {
       MuiCardHeader: {
-        fontSize: 18
+        fontSize: 18,
       },
       MuiTextField: {
-        marginBottom: 10
+        marginBottom: 10,
       },
       MUIDataTableFilter: {
-        width: 300
-      }
-    }
+        width: 300,
+      },
+    },
   },
 }
 
@@ -36,15 +38,25 @@ export const darkTheme = createMuiTheme({
   overrides: {
     MUIDataTableFilter: {
       root: {
-        width: 300
-      }
+        width: 300,
+      },
     },
-    MuiLink: {
-      root: {
-        color: "#BB86FC"
-      },
-    },
-  },
+    MuiLink: {
+      root: {
+        color: '#BB86FC',
+      },
+    },
+    MUIDataTableBodyCell: {
+      stackedCommon: {
+        height: 'inherit !important',
+      },
+    },
+    MuiTableCell: {
+      root: {
+        borderBottom: '0px',
+      },
+    },
+  },
 })
 
 export const lightTheme = createMuiTheme({
