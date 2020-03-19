@@ -15,7 +15,7 @@ import { AppContext } from '../../context/AppProvider'
 import Moment from 'react-moment'
 import HtmlHead from '../shared/HtmlHead'
 import { useSelector } from 'react-redux'
-import { songsSelector } from '../../stores/songs/selectors'
+import { songsForTableSelector } from '../../stores/songs/selectors'
 import { ISong } from '../../stores/songs/types'
 
 const Songs: React.FC = () => {
@@ -23,7 +23,7 @@ const Songs: React.FC = () => {
   const { currentUser } = state
   const admin = currentUser?.roles.includes('admin')
   const [formOpen, setFormOpen] = useState(false)
-  const songs = useSelector(songsSelector)
+  const songs = useSelector(songsForTableSelector)
 
   const handleOpen = () => {
     setFormOpen(true)
@@ -133,14 +133,6 @@ const Songs: React.FC = () => {
     },
   }
 
-  const data = songs.map((s: ISong) => [
-    [s.slug, s.title],
-    s.author_name,
-    s.cover ? 'cover' : 'original',
-    s.times_played,
-    s.date_last_played,
-  ])
-
   return (
     <>
       <HtmlHead
@@ -159,7 +151,7 @@ const Songs: React.FC = () => {
           )}
         </Grid>
       </Grid>
-      <MUIDataTable data={data} columns={columns} options={options} />
+      <MUIDataTable data={songs} columns={columns} options={options} />
 
       <Dialog open={formOpen} onClose={() => handleClose()}>
         <DialogTitle>Add Song</DialogTitle>
