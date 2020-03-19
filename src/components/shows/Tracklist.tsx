@@ -1,7 +1,7 @@
 import React from 'react';
-import { Link as RouterLink } from 'react-router-dom'
-import { Typography, Link, makeStyles, Theme, createStyles, Box } from '@material-ui/core';
+import { Typography, makeStyles, createStyles, Box } from '@material-ui/core';
 import { v4 as uuidv4 } from 'uuid';
+import JamChartHoverLink from './JamChartHoverLink';
 
 export interface ITracklist {
 	tracks: ITrack[]
@@ -22,7 +22,7 @@ export interface ITrack {
 	annotations_with_newlines: string
 }
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
 	createStyles({
 		annotations: {
 			fontStyle: "italic",
@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		set: {
 			marginTop: 8
-		}
+		},
 	}),
 );
 
@@ -56,26 +56,29 @@ const Tracklist: React.FC<ITracklist> = ({ tracks }) => {
 
 	return (
 		<div>
-			{Object.keys(sets).map((key, i) => {
+			{Object.keys(sets).map((key) => {
 				return (
 					<Typography key={uuidv4()} className={classes.set}>
-						<span style={{paddingRight: 6}}>{key} </span>
+						<span style={{ paddingRight: 6 }}>{key} </span>
 						{sets[key].map((track: ITrack, index: number) => {
 							return (
 								<span key={uuidv4()}>
-									<Link component={RouterLink} to={`/songs/${track.song_slug}`}>{track.song_title}</Link>
+
+									<JamChartHoverLink track={track} />
+
 									{track.annotations.map((a, i) => {
 										return <sup key={i}> {annLookup[a]}</sup>
 									})}
 									{track.segue &&
-										<span style={{paddingRight: 4, paddingLeft: 4}}> {track.segue} </span>
+										<span style={{ paddingRight: 4, paddingLeft: 4 }}> {track.segue} </span>
 									}
 									{track.segue === "" && sets[key].length > index + 1 &&
-										<span style={{paddingRight: 8}}>, </span>
+										<span style={{ paddingRight: 8 }}>, </span>
 									}
 								</span>
 							)
 						})}
+
 					</Typography>
 				)
 			})}
