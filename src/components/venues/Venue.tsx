@@ -23,8 +23,11 @@ import ListShows from '../shows/ListShows'
 import HtmlHead from '../shared/HtmlHead'
 import { IVenue } from '../../stores/venues/types'
 import ProgressBar from '../shared/ProgressBar'
+import { venuesByIdSelector } from '../../stores/venues/selectors'
+import { useSelector } from 'react-redux'
 
 const Venue: React.FC = () => {
+  const test = useSelector(venuesByIdSelector)
   const params = useParams()
   const [loading, setLoading] = useState(false)
   const [venue, setVenue] = useState<IVenue | undefined>(undefined)
@@ -34,6 +37,8 @@ const Venue: React.FC = () => {
   const { state } = useContext(AppContext)
   const { currentUser } = state
   const admin = currentUser?.roles.includes('admin')
+
+  console.log(test)
 
   const handleOpen = (type: string, id: string) => {
     setId(id)
