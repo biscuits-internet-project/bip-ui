@@ -11,12 +11,12 @@ import {
 import MUIDataTable from 'mui-datatables'
 import PageHeading from '../shared/PageHeading'
 import SongForm from './SongForm'
-import { ISong } from './Song'
 import { AppContext } from '../../context/AppProvider'
 import Moment from 'react-moment'
 import HtmlHead from '../shared/HtmlHead'
 import { useSelector } from 'react-redux'
 import { songsSelector } from '../../stores/songs/selectors'
+import { ISong } from '../../stores/songs/types'
 
 const Songs: React.FC = () => {
   const { state } = useContext(AppContext)

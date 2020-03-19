@@ -31,25 +31,7 @@ import SongForm from './SongForm'
 import Paragraph from '../shared/Paragraph'
 import HtmlHead from '../shared/HtmlHead'
 import ProgressBar from '../shared/ProgressBar'
-
-export interface ISong {
-  id: string
-  author_id: string
-  author_name: string
-  cover: boolean
-  lyrics?: string
-  notes?: string
-  slug: string
-  tabs?: string
-  title: string
-  times_played: number
-  first_played_show?: IShow
-  last_played_show?: IShow
-  history?: string
-  featured_lyric?: string
-  date_last_played?: Date
-  shows_since_last_played?: number
-}
+import { ISong } from '../../stores/songs/types'
 
 interface ISongPlayed {
   annotations: string[]
@@ -97,8 +79,6 @@ const Song: React.FC = () => {
   const admin = currentUser?.roles.includes('admin')
 
   const initViewJamCharts = state.viewJamCharts ? true : false
-
-  console.log(initViewJamCharts)
 
   const handleOpen = (type: string, id: string) => {
     setId(id)

@@ -16,7 +16,7 @@ import {
 import Moment from 'react-moment'
 import PageHeading from '../shared/PageHeading'
 import { IShow } from '../shows/Show'
-import { ISong } from './Song'
+import { ISong } from '../../stores/songs/types'
 import HtmlHead from '../shared/HtmlHead'
 import ProgressBar from '../shared/ProgressBar'
 
