@@ -3,13 +3,15 @@ import purple from '@material-ui/core/colors/purple';
 
 const baseTheme = {
   typography: {
-    fontSize: 15,
+    fontSize: 16,
     h1: { margin: 0, padding: 0, fontSize: 26 },
     h2: { margin: 0, padding: 0, fontSize: 22 },
     h3: { margin: 0, padding: 0, fontSize: 20, paddingBottom: 15 },
     h4: { margin: 0, padding: 0, fontSize: 18, paddingBottom: 15 },
     h5: { margin: 0, padding: 0 },
     h6: { margin: 0, padding: 0 },
+    body1: { fontSize: 16 },
+    body2: { fontSize: 15 },
     overrides: {
       MuiCardHeader: {
         fontSize: 18

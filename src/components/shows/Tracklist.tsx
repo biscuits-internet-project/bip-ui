@@ -1,7 +1,7 @@
 import React from 'react';
 import { Typography, makeStyles, createStyles, Box } from '@material-ui/core';
 import { v4 as uuidv4 } from 'uuid';
-import JamChartHoverLink from './JamChartHoverLink';
+import TrackSongLink from './TrackSongLink';
 
 export interface ITracklist {
 	tracks: ITrack[]
@@ -64,7 +64,7 @@ const Tracklist: React.FC<ITracklist> = ({ tracks }) => {
 							return (
 								<span key={uuidv4()}>
 
-									<JamChartHoverLink track={track} />
+									<TrackSongLink track={track} />
 
 									{track.annotations.map((a, i) => {
 										return <sup key={i}> {annLookup[a]}</sup>
