@@ -246,7 +246,8 @@ const App: React.FC = () => {
                       <span><Link component={RouterLink} to="/about">About</Link> | </span>
                       <span><Link component={RouterLink} to="/contact">Contact</Link> | </span>
                       <span><Link component={RouterLink} to="/privacy">Privacy</Link> | </span>
-                      <span><Link href="https://twitter.com/tdbdotnet" target="blank">@tdbdotnet</Link></span>
+                      <span><Link href="https://twitter.com/tdbdotnet" target="blank">twitter</Link> | </span>
+                      <span><Link href="https://instagram.com/tdbdotnet" target="blank">instagram</Link></span>
                     </Typography>
                   </Box>
                 </main>

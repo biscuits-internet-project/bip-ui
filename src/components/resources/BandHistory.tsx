@@ -103,7 +103,7 @@ const BandHistory: React.FC = () => {
 			<Card>
 				<CardHeader title={"2000 - 2004"} />
 				<CardContent>
-					<Paragraph>Coming soon - this shit don't write itself.  Follow us at <Link href="https://twitter.com/tdbdotnet" target="blank">@tdbdotnet</Link> for content updates!</Paragraph>
+					<Paragraph>Coming soon!.  Follow us at on <Link href="https://twitter.com/tdbdotnet" target="blank">twitter</Link> and <Link href="https://instagram.com/tdbdotnet" target="blank">instagram</Link>  for content updates!</Paragraph>
 				</CardContent>
 			</Card>
 			{divider}
@@ -238,24 +238,24 @@ This leg of tour was supposed to end with a set at Langerado, but the festival w
 
 
 			<Card>
-				<CardHeader title={"2009 - 2010"} />
+				<CardHeader title={"2010"} />
 				<CardContent>
-					<Paragraph>Coming soon - this shit don't write itself.  Follow us at <Link href="https://twitter.com/tdbdotnet" target="blank">@tdbdotnet</Link> for content updates!</Paragraph>
+					<Paragraph>Coming soon!.  Follow us at on <Link href="https://twitter.com/tdbdotnet" target="blank">twitter</Link> and <Link href="https://instagram.com/tdbdotnet" target="blank">instagram</Link>  for content updates!</Paragraph>
 				</CardContent>
 			</Card>
 			{divider}
 			<Card>
-				<CardHeader title={"2011-2019 - Setbreak"} />
+				<CardHeader title={"2011 - 2019 - Setbreak"} />
 				<CardContent>
 					<Paragraph>
-						During the 8 years from 2011-2019, the band did not tour - instead just performing periodic series of limited engagement runs
+						During the 8 years from 2011 - 2019, the band did not tour - instead just performing periodic series of limited engagement runs
 						(4 nights in Colorado, NYE Run, Camp Bisco, etc).
 					</Paragraph>
 				</CardContent>
 			</Card>
 			{divider}
 			<Card>
-				<CardHeader title={"2019-Present - Setbreak is Over"} />
+				<CardHeader title={"2019 - Present - Setbreak is Over"} />
 				<CardContent>
 					<Paragraph>
 						In September of 2019 in a series of social media posts, the Disco Biscuits announced "Setbreak is over. Gas tank's refilled. We are back."  Shortly thereafter, they announced their 2019-2020 Winter Tour, playing 23 shows in a 2 month period, including 3-night runs in Florida and Chicago and a 4-night New Year's Eve run at the Playstation Theater in New York City.

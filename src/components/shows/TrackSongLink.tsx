@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme: Theme) =>
         paper: {
             padding: 20,
             width: 450,
-            backgroundColor: "#333333",
+            backgroundColor: "#212121",
             //color: "#e6b800"
         },
         popover: {
