@@ -13,6 +13,10 @@ import LinkButton from '../shared/LinkButton';
 import ScrollUpButton from "react-scroll-up-button";
 import moment from 'moment';
 
+const scrollListener = () => {
+	localStorage.setItem('showsScrollY', `${window.scrollY}`);
+}
+
 const Shows: React.FC = () => {
 	const params = useParams();
 	const [loading, setLoading] = useState(false)
@@ -25,6 +29,17 @@ const Shows: React.FC = () => {
 	const { state } = useContext(AppContext)
 	const { currentUser } = state
 	const admin = currentUser?.roles.includes('admin')
+
+	useEffect(()=>{
+		if(shows.length){
+			const scrollY = localStorage.getItem('showsScrollY')
+			scrollY && window.scrollTo(0, parseInt(scrollY))
+		}
+		window.addEventListener("scroll", scrollListener);
+		return () => {
+			window.removeEventListener("scroll", scrollListener);
+		};
+	},[shows])
 
 	const changeYear = (year) => {
 		setShows([])
