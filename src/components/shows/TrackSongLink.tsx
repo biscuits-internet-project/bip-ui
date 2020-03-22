@@ -48,52 +48,54 @@ const TrackSongLink: React.FC<Props> = ({ track }) => {
     };
 
     return (
-        <span className={track.note ? classes.jamchartContainer : ""}>
-            <ClickAwayListener onClickAway={handleClickAway}>
-                <Link
-                    component={RouterLink}
-                    to={!track.note && `/songs/${track.song_slug}`}
-                    className={track.note ? "jamchart" : ""}
-                    onClick={track.note ? (e) => handlePopoverOpen(e, track.slug) : undefined}
-                >
-                    {track.song_title}
-                </Link>
-            </ClickAwayListener>
-
-            {track.note &&
-                <Popover
-                    id={track.slug}
-                    className={classes.popover}
-                    classes={{
-                        paper: classes.paper,
-                    }}
-                    open={openedPopoverId === track.slug}
-                    anchorEl={anchorEl}
-                    anchorOrigin={{
-                        vertical: 'center',
-                        horizontal: 'center',
-                    }}
-                    transformOrigin={{
-                        vertical: 'center',
-                        horizontal: 'center',
-                    }}
-                    onClose={handlePopoverClose}
-                >
-                    <Paragraph>
-                        {track.note}
-                    </Paragraph>
-                    <Typography>
+        <>
+            {track.note ? (
+                <span className={classes.jamchartContainer}>
+                    <ClickAwayListener onClickAway={handleClickAway}>
                         <Link
                             component={RouterLink}
-                            to={`/songs/${track.song_slug}`}
+                            to="#"
+                            onClick={(e) => handlePopoverOpen(e, track.slug)}
                         >
-                            View {track.song_title} details
+                            {track.song_title}
                         </Link>
-                    </Typography>
-                </Popover>
-            }
-        </span>
+                    </ClickAwayListener>
+                    <Popover
+                        id={track.slug}
+                        className={classes.popover}
+                        classes={{
+                            paper: classes.paper,
+                        }}
+                        open={openedPopoverId === track.slug}
+                        anchorEl={anchorEl}
+                        anchorOrigin={{
+                            vertical: 'center',
+                            horizontal: 'center',
+                        }}
+                        transformOrigin={{
+                            vertical: 'center',
+                            horizontal: 'center',
+                        }}
+                        onClose={handlePopoverClose}
+                    >
+                        <Paragraph>
+                            {track.note}
+                        </Paragraph>
+                        <Typography>
+                            <Link
+                                component={RouterLink}
+                                to={`/songs/${track.song_slug}`}
+                            >
+                                View {track.song_title} details
+                        </Link>
+                        </Typography>
+                    </Popover>
+                </span>
+            ) : (
+                    <Link component={RouterLink} to={`/songs/${track.song_slug}`} > {track.song_title} </Link>
+                )}
 
+        </>
     );
 }
 

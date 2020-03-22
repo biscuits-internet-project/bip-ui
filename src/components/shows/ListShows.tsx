@@ -34,10 +34,10 @@ const ListShows = ({ shows }) => {
                 <>
                     {shows.map((show: IShow) => {
                         return (
-                            <>
+                            <React.Fragment key={show.slug}>
                                 <div id={moment(show.date).format("MMM")}></div>
                                 <Setlist key={show.id} show={show} />
-                            </>
+                            </React.Fragment>
                         )
                     })}
                 </>

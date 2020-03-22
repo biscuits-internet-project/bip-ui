@@ -51,9 +51,9 @@ const Shows: React.FC = () => {
 		const offset = (state.viewSetlists) ? 100 : -300
 		const elementPosition = el.offsetTop - offset;
 		window.scroll({
-		  top: elementPosition,
-		  left: 0,
-		  behavior: "smooth"
+			top: elementPosition,
+			left: 0,
+			behavior: "smooth"
 		});
 	}
 
@@ -65,7 +65,7 @@ const Shows: React.FC = () => {
 			setLoading(false)
 
 			// populate months
-			const m : string[] = data.data.map((s) => {
+			const m: string[] = data.data.map((s) => {
 				return moment(s.date).format("MMM")
 			})
 			setMonths(Array.from(new Set(m)))
@@ -103,19 +103,23 @@ const Shows: React.FC = () => {
 			{months &&
 				<>
 					<div style={{ height: 20 }}></div>
-					{months.map((month) => {
-						return (
-							<Button
-								key={month}
-								scroll={el => scrollWithOffset(el)}
-								component={HashLink}
-								to={`#${month}`}
-								style={{ display: "inline", marginRight: 6 }}
-							>
-								{month}
-							</Button>
-						)
-					})}
+					<Grid container>
+						{months.map((month) => {
+							return (
+								<Grid item>
+									<Button
+										key={month}
+										scroll={el => scrollWithOffset(el)}
+										component={HashLink}
+										to={`#${month}`}
+										style={{ display: "inline", marginRight: 6 }}
+									>
+										{month}
+									</Button>
+								</Grid>
+							)
+						})}
+					</Grid>
 				</>
 			}
 
