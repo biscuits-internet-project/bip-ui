@@ -5,12 +5,12 @@ import * as Yup from 'yup';
 import { useHistory, Link as RouterLink } from "react-router-dom";
 import { History } from 'history'
 import jwt from 'jwt-decode'
-import { AppContext } from '../context/AppProvider'
-import TextField from './shared/TextFieldContainer'
+import { AppContext } from '../../context/AppProvider'
+import TextField from '../shared/TextFieldContainer'
 import Button from '@material-ui/core/Button'
 import ForgotPassword from './ForgotPassword'
 import { Link, Paper, Grid, Fade, Box } from '@material-ui/core';
-import PageHeading from './shared/PageHeading';
+import PageHeading from '../shared/PageHeading';
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
@@ -51,20 +51,26 @@ const Login: React.FC = () => {
       });
       const { data } = loginRequest
       const { token } = data
-      const roles = jwt(token).roles
       localStorage.setItem('token', token);
 
       asyncActions.getUserAttendances(token)
       asyncActions.getFavorites(token)
       asyncActions.getRatings(token)
 
+      const currentUser = {
+        id: jwt(token).user_id,
+        token: token,
+        roles: jwt(token).roles,
+      }
+
       dispatch({
         type: 'LOGIN',
         payload: {
-          token,
-          roles
+          currentUser,
         }
       })
+
+      asyncActions.getUser(token, currentUser.id)
       history.push("/")
       return
     }

@@ -32,6 +32,7 @@ const TrackSongLink: React.FC<Props> = ({ track }) => {
     const classes = useStyles();
 
     const handlePopoverOpen = (event, trackSlug) => {
+        event.preventDefault()
         setAnchorEl(event.currentTarget)
         setOpenedPopoverId(trackSlug)
     }

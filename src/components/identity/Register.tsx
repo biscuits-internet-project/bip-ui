@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import { Form, Formik, FormikProps } from 'formik'
 import axios, { AxiosResponse } from 'axios'
-import TextField from './shared/TextFieldContainer'
+import TextField from '../shared/TextFieldContainer'
 import * as Yup from 'yup';
-import ReCaptcha from './shared/ReCaptcha';
+import ReCaptcha from '../shared/ReCaptcha';
 import { Typography, Button, Paper } from '@material-ui/core';
-import PageHeading from './shared/PageHeading';
-import Uploader from './shared/Uploader';
+import PageHeading from '../shared/PageHeading';
+import Uploader from '../shared/Uploader';
 
 const RegisterSchema = Yup.object().shape({
   email: Yup.string()

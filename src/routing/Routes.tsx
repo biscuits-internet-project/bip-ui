@@ -8,20 +8,20 @@ import Songs from '../components/songs/Songs';
 import Song from '../components/songs/Song';
 import Venues from '../components/venues/Venues';
 import Venue from '../components/venues/Venue';
-import Register from '../components/Register';
+import Register from '../components/identity/Register';
 import Tour from '../components/Tour';
 import Resources from '../components/resources/Resources';
 import About from '../components/About';
 import Contact from '../components/Contact';
-import ResetPassword from '../components/ResetPassword';
-import Login from '../components/Login';
+import ResetPassword from '../components/identity/ResetPassword';
+import Login from '../components/identity/Login';
 import BandHistory from '../components/resources/BandHistory'
 import MovieScores from '../components/resources/MovieScores'
 import Tractorbeam from '../components/resources/Tractorbeam'
 import Media from '../components/resources/Media'
 import Touchdowns from '../components/resources/Touchdowns'
 import Perfume from '../components/resources/Perfume'
-import Profile from '../components/Profile';
+import Account from '../components/identity/Account';
 import Privacy from '../components/Privacy';
 import HotAirBalloon from '../components/resources/HotAirBalloon';
 import Gear from '../components/resources/Gear';
@@ -38,7 +38,7 @@ const Routes: React.FC = () => {
 			<PrivateRoute path="/admin/shows/create" exact component={AddShow} adminOnly />
 			<PrivateRoute path="/admin/shows/edit/:id" exact component={EditShow} adminOnly />
 			<PrivateRoute path="/admin/users" exact component={Users} adminOnly />
-			<PrivateRoute path="/profile" exact component={Profile} />
+			<PrivateRoute path="/account" exact component={Account} />
 
 			<Route path="/" exact component={LatestShows} />
 			<Route path="/login" component={Login} />

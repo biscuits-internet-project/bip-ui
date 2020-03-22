@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Form, Formik, FormikProps } from 'formik'
 import axios, { AxiosResponse } from 'axios'
-import TextField from './shared/TextFieldContainer'
+import TextField from '../shared/TextFieldContainer'
 import * as Yup from 'yup';
 import { Typography, Button } from '@material-ui/core';
-import PageHeading from './shared/PageHeading'
+import PageHeading from '../shared/PageHeading'
 
 const ResetPasswordSchema = Yup.object().shape({
   password: Yup.string()
