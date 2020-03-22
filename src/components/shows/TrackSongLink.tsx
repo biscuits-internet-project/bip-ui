@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { ITrack } from './Tracklist';
 import { Link as RouterLink } from 'react-router-dom'
 import { Popover, Typography, Link, makeStyles, Theme, createStyles, ClickAwayListener } from '@material-ui/core';
-import { purple } from '@material-ui/core/colors';
 import Paragraph from '../shared/Paragraph';
 
 interface Props {

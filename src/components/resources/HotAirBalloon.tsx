@@ -8,24 +8,28 @@ import OperaMenuCard from './OperaMenuCard';
 import Paragraph from '../shared/Paragraph';
 
 const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-	  heading: {
-	  },
-	  subheading: {
-	  },
-	  lyrics: {
-		  fontStyle: "italic"
-	  },
-	  setting: {
+	createStyles({
+		heading: {
+			marginBottom: 20
+		},
+		contentCard: {
+			marginBottom: 30
+		},
+		subheading: {
+		},
+		lyrics: {
+			fontStyle: "italic"
+		},
+		setting: {
 
-	  }
-  })
+		}
+	})
 )
 
 const HotAirBalloon: React.FC = () => {
 	const divider = (
 		<>
-			<div style={{height: 30}}></div>
+			<div style={{ height: 30 }}></div>
 		</>
 	)
 	const classes = useStyles();
@@ -350,6 +354,17 @@ at his last chance to fly
 		` },
 	]
 
+	const scrollWithOffset = (el) => {
+		const offset = 100
+		const elementPosition = el.offsetTop - offset;
+		const behavior = (elementPosition > 5000) ? "auto" : "smooth"
+		window.scroll({
+			top: elementPosition,
+			left: 0,
+			behavior: behavior
+		});
+	}
+
 	return (
 		<>
 			<Helmet>
@@ -399,8 +414,8 @@ at his last chance to fly
 					<OperaMenuCard title="Character Sketches">
 						{chars.map((char) => {
 							return (
-								<ListItem>
-									<Link scroll={el => el.scrollIntoView({ behavior: 'smooth', block: "start" })} component={HashLink}  to={`#${char.anchor}`}>{char.name}</Link>
+								<ListItem key={char.name}>
+									<Link scroll={el => scrollWithOffset(el)} component={HashLink} to={`#${char.anchor}`}>{char.name}</Link>
 								</ListItem>
 							)
 						})}
@@ -410,24 +425,22 @@ at his last chance to fly
 					<OperaMenuCard title="ACT I">
 						{act1.map((song) => {
 							return (
-								<ListItem>
-									<Link scroll={el => el.scrollIntoView({ behavior: 'smooth', block: "start" })} component={HashLink} to={`#${song.anchor}`}>{song.name}</Link>
+								<ListItem key={song.name}>
+									<Link scroll={el => scrollWithOffset(el)} component={HashLink} to={`#${song.anchor}`}>{song.name}</Link>
 								</ListItem>
 							)
 						})}
-
 					</OperaMenuCard>
 				</Grid>
 				<Grid item xs={12} sm={6} md={4}>
 					<OperaMenuCard title="ACT II">
 						{act2.map((song) => {
 							return (
-								<ListItem>
-									<Link scroll={el => el.scrollIntoView({ behavior: 'smooth', block: "start" })} component={HashLink} to={`#${song.anchor}`}>{song.name}</Link>
+								<ListItem key={song.name}>
+									<Link scroll={el => scrollWithOffset(el)} component={HashLink} to={`#${song.anchor}`}>{song.name}</Link>
 								</ListItem>
 							)
 						})}
-
 					</OperaMenuCard>
 				</Grid>
 			</Grid>
@@ -435,60 +448,45 @@ at his last chance to fly
 			{divider}
 
 			<Typography variant="h2" className={classes.heading}>Character Sketches</Typography>
-			<div style={{height: 20}}></div>
 			{chars.map((char) => {
 				return (
-					<>
-						<div id={char.anchor}></div>
-						<Card>
-							<CardContent>
-								<Typography variant="h3" className={classes.subheading}>{char.name}</Typography>
-								<Paragraph>{char.copy}</Paragraph>
-							</CardContent>
-						</Card>
-						<div style={{height: 30}}></div>
-					</>
+					<Card key={char.name} id={char.anchor} className={classes.contentCard}>
+						<CardContent>
+							<Typography variant="h3" className={classes.subheading}>{char.name}</Typography>
+							<Paragraph>{char.copy}</Paragraph>
+						</CardContent>
+					</Card>
 				)
 			})}
 
 			{divider}
 
 			<Typography variant="h2" className={classes.heading}>ACT I</Typography>
-			<div style={{height: 20}}></div>
 			{act1.map((act) => {
 				return (
-					<>
-					<div id={act.anchor}></div>
-					<Card>
+					<Card key={act.name} id={act.anchor} className={classes.contentCard}>
 						<CardContent>
 							<Typography variant="h3" className={classes.subheading}>{act.name}</Typography>
 							<Paragraph>{act.setting}</Paragraph>
 							{act.lyrics && <blockquote><Typography className={classes.lyrics} dangerouslySetInnerHTML={{ __html: act.lyrics }} /></blockquote>}
 						</CardContent>
 					</Card>
-					<div style={{height: 30}}></div>
-					</>
 				)
 			})}
 
 			{divider}
 
 			<Typography variant="h2" className={classes.heading}>ACT II</Typography>
-			<div style={{height: 20}}></div>
 			{act2.map((act) => {
 				return (
-					<>
-					<div id={act.anchor}></div>
-					<Card>
+					<Card key={act.name} id={act.anchor} className={classes.contentCard}>
 						<CardContent>
 							<Typography variant="h3" className={classes.subheading}>{act.name}</Typography>
 							<Typography className={classes.setting}>{act.setting}</Typography>
 							{act.lyrics && <blockquote><Typography variant="body2" className={classes.lyrics} dangerouslySetInnerHTML={{ __html: act.lyrics }} /></blockquote>}
 						</CardContent>
 					</Card>
-					<div style={{height: 30}}></div>
-					</>
-				)
+			)
 			})}
 		</>
 	)

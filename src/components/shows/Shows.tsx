@@ -10,7 +10,6 @@ import PageHeading from '../shared/PageHeading';
 import ShowSearch from '../shared/ShowSearch';
 import { AppContext } from '../../context/AppProvider';
 import LinkButton from '../shared/LinkButton';
-import ScrollUpButton from "react-scroll-up-button";
 import moment from 'moment';
 
 const scrollListener = () => {
@@ -50,10 +49,11 @@ const Shows: React.FC = () => {
 	const scrollWithOffset = (el) => {
 		const offset = (state.viewSetlists) ? 100 : -300
 		const elementPosition = el.offsetTop - offset;
+		const behavior = (elementPosition > 5000) ? "auto" : "smooth"
 		window.scroll({
 			top: elementPosition,
 			left: 0,
-			behavior: "smooth"
+			behavior: behavior
 		});
 	}
 
@@ -77,7 +77,7 @@ const Shows: React.FC = () => {
 			<Helmet>
 				<title>Biscuits Internet Project - Shows</title>
 			</Helmet>
-			<ScrollUpButton ShowAtPosition={500} />
+
 			<Grid container justify="space-between" >
 				<Grid item>
 					<PageHeading text="Shows" />
@@ -106,7 +106,7 @@ const Shows: React.FC = () => {
 					<Grid container>
 						{months.map((month) => {
 							return (
-								<Grid item>
+								<Grid item key={month}>
 									<Button
 										key={month}
 										scroll={el => scrollWithOffset(el)}

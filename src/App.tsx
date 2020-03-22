@@ -12,6 +12,7 @@ import { QueueMusic, Home, Room, CardTravel, Info, Album } from '@material-ui/ic
 import { SnackbarProvider } from 'notistack';
 import Routes from './routing/Routes';
 import AvatarMenu from './components/identity/AvatarMenu';
+import ScrollUpButton from "react-scroll-up-button";
 
 interface sideMenuItem {
   name: string | undefined,
@@ -240,6 +241,7 @@ const App: React.FC = () => {
                 <Routes />
               </Switch>
               <Divider style={{ marginTop: "30px" }} />
+              <ScrollUpButton ShowAtPosition={500} />
 
               <Box className={classes.footer}>
                 <Typography>

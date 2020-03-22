@@ -72,7 +72,7 @@ const Song: React.FC = () => {
 	const [allTimers, setAllTimers] = useState<ISongPlayed[]>([])
 	const [jamCharts, setJamCharts] = useState<ISongPlayed[]>([])
 	const [displayTracks, setDisplayTracks] = useState<ISongPlayed[]>([])
-	const initViewJamCharts = state.viewJamCharts
+	const initViewJamCharts = (state.viewJamCharts) ? true : false
 	const { currentUser } = state
 	const admin = currentUser?.roles.includes('admin')
 

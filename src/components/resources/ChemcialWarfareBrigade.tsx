@@ -10,6 +10,10 @@ import Paragraph from '../shared/Paragraph';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
 	  heading: {
+		  marginBottom: 20
+	  },
+	  contentCard: {
+		  marginBottom: 30
 	  },
 	  subheading: {
 	  },
@@ -368,6 +372,17 @@ const ChemicalWarfareBrigade: React.FC = () => {
 		}
 	]
 
+	const scrollWithOffset = (el) => {
+		const offset = 100
+		const elementPosition = el.offsetTop - offset;
+		const behavior = (elementPosition > 5000) ? "auto" : "smooth"
+		window.scroll({
+			top: elementPosition,
+			left: 0,
+			behavior: behavior
+		});
+	}
+
 	return (
 		<>
 			<Helmet>
@@ -406,8 +421,8 @@ const ChemicalWarfareBrigade: React.FC = () => {
 					<OperaMenuCard title="The Cast">
 						{chars.map((char) => {
 							return (
-								<ListItem>
-									<Link scroll={el => el.scrollIntoView({ behavior: 'smooth', block: "start" })} component={HashLink}  to={`#${char.anchor}`}>{char.name}</Link>
+								<ListItem key={char.name}>
+									<Link scroll={el => scrollWithOffset(el)} component={HashLink} to={`#${char.anchor}`}>{char.name}</Link>
 								</ListItem>
 							)
 						})}
@@ -417,8 +432,8 @@ const ChemicalWarfareBrigade: React.FC = () => {
 					<OperaMenuCard title="Overview">
 						{acts.map((act) => {
 							return (
-								<ListItem>
-									<Link scroll={el => el.scrollIntoView({ behavior: 'smooth', block: "start" })} component={HashLink} to={`#${act.anchor}`}>{act.name}</Link>
+								<ListItem key={act.name}>
+									<Link scroll={el => scrollWithOffset(el)} component={HashLink} to={`#${act.anchor}`}>{act.name}</Link>
 								</ListItem>
 							)
 						})}
@@ -429,8 +444,8 @@ const ChemicalWarfareBrigade: React.FC = () => {
 					<OperaMenuCard title="Songs">
 						{songs.map((song) => {
 							return (
-								<ListItem>
-									<Link scroll={el => el.scrollIntoView({ behavior: 'smooth', block: "start" })} component={HashLink} to={`#${song.anchor}`}>{song.name}</Link>
+								<ListItem key={song.name}>
+									<Link scroll={el => scrollWithOffset(el)} component={HashLink} to={`#${song.anchor}`}>{song.name}</Link>
 								</ListItem>
 							)
 						})}
@@ -442,58 +457,43 @@ const ChemicalWarfareBrigade: React.FC = () => {
 			{divider}
 
 			<Typography variant="h2" className={classes.heading}>The Cast</Typography>
-			<div style={{height: 20}}></div>
 			{chars.map((char) => {
 				return (
-					<>
-						<div id={char.anchor}></div>
-						<Card>
-							<CardContent>
-								<Typography variant="h3" className={classes.subheading}>{char.name}</Typography>
-								<Paragraph>{char.copy}</Paragraph>
-							</CardContent>
-						</Card>
-						<div style={{height: 30}}></div>
-					</>
+					<Card className={classes.contentCard} key={char.name} id={char.anchor}>
+						<CardContent>
+							<Typography variant="h3" className={classes.subheading}>{char.name}</Typography>
+							<Paragraph>{char.copy}</Paragraph>
+						</CardContent>
+					</Card>
 				)
 			})}
 
 			{divider}
 
 			<Typography variant="h2" className={classes.heading}>Overview</Typography>
-			<div style={{height: 20}}></div>
 			{acts.map((act) => {
 				return (
-					<>
-					<div id={act.anchor}></div>
-					<Card>
+					<Card key={act.name} id={act.anchor} className={classes.contentCard}>
 						<CardContent>
 							<Typography variant="h3" className={classes.subheading}>{act.name}</Typography>
 							<Paragraph>{act.setting}</Paragraph>
 						</CardContent>
 					</Card>
-					<div style={{height: 30}}></div>
-					</>
 				)
 			})}
 
 			{divider}
 
 			<Typography variant="h2" className={classes.heading}>Songs</Typography>
-			<div style={{height: 20}}></div>
 			{songs.map((song) => {
 				return (
-					<>
-					<div id={song.anchor}></div>
-					<Card>
+					<Card key={song.name} id={song.anchor} className={classes.contentCard}>
 						<CardContent>
 							<Typography variant="h3" className={classes.subheading}>{song.name}</Typography>
 							<Typography className={classes.setting}>{song.setting}</Typography>
 							{song.lyrics && <blockquote><Typography variant="body2" className={classes.lyrics} dangerouslySetInnerHTML={{ __html: song.lyrics }} /></blockquote>}
 						</CardContent>
 					</Card>
-					<div style={{height: 30}}></div>
-					</>
 				)
 			})}
 		</>
