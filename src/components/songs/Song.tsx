@@ -380,7 +380,7 @@ const Song: React.FC = () => {
 										</Link>
 									}
 								</TableCell>
-								<TableCell>{s.note}</TableCell>
+								<TableCell style={{width: "50%"}}>{s.note}</TableCell>
 							</TableRow>
 						))}
 					</TableBody>

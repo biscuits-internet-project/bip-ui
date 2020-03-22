@@ -8,7 +8,7 @@ import { darkTheme } from './lib/theme'
 import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import { Link, ListItem, ListItemIcon, ListItemText, List, IconButton, Typography, Drawer, AppBar, Hidden, Divider, Box, Grid } from '@material-ui/core';
-import { QueueMusic, Home, Room, CardTravel, Info, Album } from '@material-ui/icons';
+import { Notes, QueueMusic, Home, Room, CardTravel, Info, Album } from '@material-ui/icons';
 import { SnackbarProvider } from 'notistack';
 import Routes from './routing/Routes';
 import AvatarMenu from './components/identity/AvatarMenu';
@@ -31,19 +31,24 @@ const itemList: sideMenuItem[] = [
     icon: <QueueMusic />
   },
   {
-    name: 'tour',
-    label: 'Tour Dates',
-    icon: <CardTravel />
-  },
-  {
     name: 'songs',
     label: 'Songs',
     icon: <Album />
   },
   {
+    name: 'jam-charts',
+    label: 'Jam Charts',
+    icon: <Notes />
+  },
+  {
     name: 'venues',
     label: 'Venues',
     icon: <Room />
+  },
+  {
+    name: 'tour',
+    label: 'Tour Dates',
+    icon: <CardTravel />
   },
   {
     name: 'resources',

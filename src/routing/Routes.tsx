@@ -1,36 +1,37 @@
-import React, { useContext } from 'react';
-import { Route } from 'react-router-dom';
-import PrivateRoute from './PrivateRoute';
-import LatestShows from '../components/shows/LatestShows';
-import Shows from '../components/shows/Shows';
-import Show from '../components/shows/Show';
-import Songs from '../components/songs/Songs';
-import Song from '../components/songs/Song';
-import Venues from '../components/venues/Venues';
-import Venue from '../components/venues/Venue';
-import Register from '../components/identity/Register';
-import Tour from '../components/Tour';
-import Resources from '../components/resources/Resources';
-import About from '../components/About';
-import Contact from '../components/Contact';
-import ResetPassword from '../components/identity/ResetPassword';
-import Login from '../components/identity/Login';
+import React from 'react'
+import { Route } from 'react-router-dom'
+import PrivateRoute from './PrivateRoute'
+import LatestShows from '../components/shows/LatestShows'
+import Shows from '../components/shows/Shows'
+import Show from '../components/shows/Show'
+import Songs from '../components/songs/Songs'
+import Song from '../components/songs/Song'
+import Venues from '../components/venues/Venues'
+import Venue from '../components/venues/Venue'
+import Register from '../components/identity/Register'
+import Tour from '../components/Tour'
+import Resources from '../components/resources/Resources'
+import About from '../components/About'
+import Contact from '../components/Contact'
+import ResetPassword from '../components/identity/ResetPassword'
+import Login from '../components/identity/Login'
 import BandHistory from '../components/resources/BandHistory'
 import MovieScores from '../components/resources/MovieScores'
 import Tractorbeam from '../components/resources/Tractorbeam'
 import Media from '../components/resources/Media'
 import Touchdowns from '../components/resources/Touchdowns'
 import Perfume from '../components/resources/Perfume'
-import Account from '../components/identity/Account';
-import Privacy from '../components/Privacy';
-import HotAirBalloon from '../components/resources/HotAirBalloon';
-import Gear from '../components/resources/Gear';
-import Music from '../components/resources/Music';
-import ChemicalWarfareBrigade from '../components/resources/ChemcialWarfareBrigade';
-import SideProjects from '../components/resources/SideProjects';
-import AddShow from '../components/shows/AddShow';
-import EditShow from '../components/shows/EditShow';
-import Users from '../components/users/Users';
+import Account from '../components/identity/Account'
+import Privacy from '../components/Privacy'
+import HotAirBalloon from '../components/resources/HotAirBalloon'
+import Gear from '../components/resources/Gear'
+import Music from '../components/resources/Music'
+import ChemicalWarfareBrigade from '../components/resources/ChemcialWarfareBrigade'
+import SideProjects from '../components/resources/SideProjects'
+import AddShow from '../components/shows/AddShow'
+import EditShow from '../components/shows/EditShow'
+import Users from '../components/users/Users'
+import JamCharts from '../components/songs/JamCharts'
 
 const Routes: React.FC = () => {
 	return (
@@ -62,6 +63,7 @@ const Routes: React.FC = () => {
 			<Route path="/shows/state/:state" exact component={Shows} />
 			<Route path="/songs" exact component={Songs} />
 			<Route path="/songs/:id" component={Song} />
+			<Route path="/jam-charts" component={JamCharts} />
 			<Route path="/venues" exact component={Venues} />
 			<Route path="/venues/:id" exact component={Venue} />
 			<Route path="/tour" exact component={Tour} />
