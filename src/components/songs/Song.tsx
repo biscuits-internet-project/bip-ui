@@ -38,6 +38,7 @@ interface ISongPlayed {
 	venue: IVenue
 	show: IShow
 	note: string
+	all_timer: boolean
 }
 
 interface IShow {
@@ -60,7 +61,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const Song: React.FC = () => {
-	const {state} = useContext(AppContext)
+	const { state } = useContext(AppContext)
 	const classes = useStyles();
 	const params = useParams();
 	const [loading, setLoading] = useState(false)
@@ -68,6 +69,8 @@ const Song: React.FC = () => {
 	const [formOpen, setFormOpen] = useState(false)
 	const [id, setId] = useState("")
 	const [songsPlayed, setSongsPlayed] = useState<ISongPlayed[]>([])
+	const [allTimers, setAllTimers] = useState<ISongPlayed[]>([])
+	const [withJamCharts, setWithJamCharts] = useState<ISongPlayed[]>([])
 	const { currentUser } = state
 	const admin = currentUser?.roles.includes('admin')
 
@@ -76,16 +79,16 @@ const Song: React.FC = () => {
 		type === 'form' ? setFormOpen(true) : setDeleteOpen(true)
 	};
 
-	const handleClose = (type :string) => {
+	const handleClose = (type: string) => {
 		type === 'form' ? setFormOpen(false) : setDeleteOpen(false)
 		setFormOpen(false)
-		setTimeout(()=>setId(''), 500)
+		setTimeout(() => setId(''), 500)
 	};
 
 	const setDeleteOpen = ((type) => {
 		type === 'form' ? setFormOpen(false) : setDeleteOpen(false)
 		setFormOpen(false)
-		setTimeout(()=>setId(''), 500)
+		setTimeout(() => setId(''), 500)
 	});
 
 	useEffect(() => {
@@ -95,7 +98,10 @@ const Song: React.FC = () => {
 			setSong(song.data)
 
 			const tracks: AxiosResponse = await axios.get(`${process.env.REACT_APP_API_URL}/tracks/songs/${params.id}`)
+
 			setSongsPlayed(tracks.data)
+			setAllTimers(tracks.data.filter(x => x.all_timer))
+			setWithJamCharts(tracks.data.filter(x => x.note !== ""))
 
 			setLoading(false)
 		}
@@ -113,9 +119,9 @@ const Song: React.FC = () => {
 							<PageHeading text={song.title} />
 						</Grid>
 						<Grid item>
-							{ admin &&
-								<div style={{alignContent: "right"}}>
-									<Button onClick={()=>handleOpen("form", song.id)}>Edit Song</Button>
+							{admin &&
+								<div style={{ alignContent: "right" }}>
+									<Button onClick={() => handleOpen("form", song.id)}>Edit Song</Button>
 								</div>
 							}
 						</Grid>
@@ -178,7 +184,7 @@ const Song: React.FC = () => {
 									}
 									{song.first_played_show && song.first_played_show.relisten_url &&
 										<>
-											<span style={{paddingLeft: 12, verticalAlign: "middle"}}>
+											<span style={{ paddingLeft: 12, verticalAlign: "middle" }}>
 												<Link href={song.first_played_show.relisten_url} target="blank">
 													<img src="/relisten.png" alt="relisten" />
 												</Link>
@@ -208,7 +214,7 @@ const Song: React.FC = () => {
 
 									{song.last_played_show && song.last_played_show.relisten_url &&
 										<>
-											<span style={{paddingLeft: 12, verticalAlign: "middle"}}>
+											<span style={{ paddingLeft: 12, verticalAlign: "middle" }}>
 												<Link href={song.last_played_show.relisten_url} target="blank">
 													<img src="/relisten.png" alt="relisten" />
 												</Link>
@@ -224,6 +230,32 @@ const Song: React.FC = () => {
 									</TableCell>
 									<TableCell>
 										{song.notes}
+									</TableCell>
+								</TableRow>
+							}
+							{allTimers.length > 0 &&
+								<TableRow>
+									<TableCell>
+										All Timers
+									</TableCell>
+									<TableCell>
+										{allTimers.map((allTimer) => {
+											return (
+												<Typography key={allTimer.show.slug}>
+													<Link component={RouterLink} to={`/shows/${allTimer.show.slug}`}>
+														<Moment format="M/DD/YYYY">
+															{allTimer.show.date}
+														</Moment>
+														<span> - </span>
+														{allTimer.show.venue.name}
+														<span> - </span>
+														{allTimer.show.venue.city}
+														<span>, </span>
+														{allTimer.show.venue.state}
+													</Link>
+												</Typography>
+											)
+										})}
 									</TableCell>
 								</TableRow>
 							}
