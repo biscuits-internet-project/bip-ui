@@ -8,6 +8,26 @@ export interface IasyncActions {
 
 const asyncActions = (dispatch: Dispatch<Action>) => {
     return {
+        //USER
+        getUser: async (token: string, user_id: string) => {
+            const resp = await axios({
+                method: 'get',
+                url: `${process.env.REACT_APP_API_URL}/users/${user_id}`,
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": token
+                }})
+
+            const { data } = resp
+            const payload = {
+                username: data.username,
+                avatar_url: data.avatar_url,
+                first_name: data.first_name,
+                last_name: data.last_name,
+                email: data.email
+            }
+            dispatch({type: "UPDATE_USER", payload: payload})
+        },
         //SONGS
         getSongs: async () => {
             const songs:AxiosResponse = await axios.get(`${process.env.REACT_APP_API_URL}/songs`)
@@ -33,6 +53,7 @@ const asyncActions = (dispatch: Dispatch<Action>) => {
                     "Authorization": token
                 }
             })
+            localStorage.setItem('token', token);
             dispatch({type: "GET_USER_ATTENDANCES", payload: attendances.data})
         },
         postAttendance: async (token: string, showId: string, value: boolean) => {

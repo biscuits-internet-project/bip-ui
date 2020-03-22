@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import { Form, Formik, FormikProps } from 'formik'
 import axios, { AxiosResponse } from 'axios'
-import TextField from './shared/TextFieldContainer'
+import TextField from '../shared/TextFieldContainer'
 import * as Yup from 'yup';
 import { Typography, Button, Link, Fade, Box } from '@material-ui/core';
-import Paragraph from './shared/Paragraph';
+import Paragraph from '../shared/Paragraph';
 
 const ForgotPasswordSchema = Yup.object().shape({
   email: Yup.string()

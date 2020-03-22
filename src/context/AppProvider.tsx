@@ -15,6 +15,11 @@ export type Action = {
 
 export interface AppState {
   currentUser?: Nullable<IUser>
+  username: string
+  avatar_url: string
+  first_name: string
+  last_name: string
+  email: string
   theme: string
   ready: boolean
   venues: IVenue[]
@@ -34,6 +39,11 @@ interface IContextProps {
 
 const initialState: AppState = {
   currentUser: null,
+  username: "",
+  avatar_url: "",
+  first_name: "",
+  last_name: "",
+  email: "",
   theme: "dark",
   ready: false,
   venues: [],
@@ -52,6 +62,15 @@ const appReducer = (state: AppState, action: Action): AppState => {
         ...state,
         currentUser: action.payload.currentUser,
         ready: true
+      };
+    case "UPDATE_USER":
+      return {
+        ...state,
+        username: action.payload.username,
+        avatar_url: action.payload.avatar_url,
+        first_name: action.payload.first_name,
+        last_name: action.payload.last_name,
+        email: action.payload.email
       };
     case "LOGIN":
       return {
@@ -134,8 +153,6 @@ const appReducer = (state: AppState, action: Action): AppState => {
       } else {
         ratings.push(action.payload)
       }
-      console.log(ratings)
-      console.log(action.payload)
       return {
         ...state,
         ratings: ratings
@@ -155,15 +172,13 @@ const AppProvider: React.FC = ({ children }) => {
     let currentUser: Nullable<IUser> = null
 
     if (typeof token === 'string') {
+      const id = jwt(token).user_id
       currentUser = {
+        id: id,
         token: token,
         roles: jwt(token).roles,
-        username: jwt(token).username,
-        avatar_url: jwt(token).avatar_url,
-        first_name: jwt(token).first_name,
-        last_name: jwt(token).last_name,
-        email: jwt(token).email
       }
+      asyncActions(dispatch).getUser(currentUser.token, id)
     }
     dispatch({
       type: 'INITIATE',

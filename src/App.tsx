@@ -1,5 +1,5 @@
 import React, { useContext, ReactElement, useEffect } from 'react';
-import {Switch, Link as RouterLink, useHistory } from 'react-router-dom';
+import { Switch, Link as RouterLink, useHistory } from 'react-router-dom';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -7,11 +7,11 @@ import { AppContext } from './context/AppProvider'
 import { darkTheme } from './lib/theme'
 import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
-import { Link, ListItem, ListItemIcon, ListItemText, List, IconButton, Typography, Drawer, AppBar, Hidden, Divider, Box } from '@material-ui/core';
+import { Link, ListItem, ListItemIcon, ListItemText, List, IconButton, Typography, Drawer, AppBar, Hidden, Divider, Box, Grid } from '@material-ui/core';
 import { QueueMusic, Home, Room, CardTravel, Info, Album } from '@material-ui/icons';
 import { SnackbarProvider } from 'notistack';
 import Routes from './routing/Routes';
-import UserSidebar from './UserSidebar';
+import AvatarMenu from './components/identity/AvatarMenu';
 
 interface sideMenuItem {
   name: string | undefined,
@@ -73,6 +73,7 @@ const useStyles = makeStyles((theme: Theme) =>
         marginLeft: drawerWidth,
       },
       minHeight: 80,
+      verticalAlign: 'middle',
       backgroundImage: 'url("/bkgrnd-navbar.jpg")',
       backgroundRepeat: 'no-repeat',
       backgroundSize: 'container',
@@ -130,29 +131,29 @@ function ListItemLink(props) {
 const App: React.FC = () => {
   const history = useHistory()
   const classes = useStyles();
-  const {state, asyncActions} = useContext(AppContext)
+  const { state, asyncActions } = useContext(AppContext)
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
   useEffect(
-		()=> {
-		  !state.venues.length && asyncActions.getVenues()
+    () => {
+      !state.venues.length && asyncActions.getVenues()
       !state.songs.length && asyncActions.getSongs()
       !state.attendances.length && state.currentUser && asyncActions.getUserAttendances(state.currentUser.token)
       !state.favorites.length && state.currentUser && asyncActions.getFavorites(state.currentUser.token)
       !state.ratings.length && state.currentUser && asyncActions.getRatings(state.currentUser.token)
-		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-		,[]
-	)
-  useEffect(()=>{
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    , []
+  )
+  useEffect(() => {
     window.scrollTo({
       top: 0,
       left: 0,
       behavior: 'smooth'
     });
-  },[history.location.pathname])
+  }, [history.location.pathname])
 
   const drawer = (
     <>
@@ -168,92 +169,92 @@ const App: React.FC = () => {
           )
         })}
       </List>
-
-      <Divider></Divider>
-      <div style={{ height: 20 }}></div>
-
-      <UserSidebar />
     </>
   )
 
   return (
     <React.Fragment>
-        <ThemeProvider theme={darkTheme}>
-          <SnackbarProvider
-            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-            maxSnack={3}
-          >
-            <CssBaseline />
-              <div className={classes.root}>
-                <AppBar position="fixed" className={classes.appBar}>
-                  <Toolbar>
-                    <IconButton
-                      color="inherit"
-                      aria-label="open drawer"
-                      edge="start"
-                      onClick={handleDrawerToggle}
-                      className={classes.menuButton}
-                    >
-                      <MenuIcon />
-                    </IconButton>
-                    <Typography variant="h5" className={classes.navHeaderDisplay}>
-                      Biscuits Internet Project 2.0
-                      </Typography>
+      <ThemeProvider theme={darkTheme}>
+        <SnackbarProvider
+          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+          maxSnack={3}
+        >
+          <CssBaseline />
+          <div className={classes.root}>
+            <AppBar position="fixed" className={classes.appBar}>
+              <Toolbar>
+                <IconButton
+                  color="inherit"
+                  aria-label="open drawer"
+                  edge="start"
+                  onClick={handleDrawerToggle}
+                  className={classes.menuButton}
+                >
+                  <MenuIcon />
+                </IconButton>
 
-                  </Toolbar>
-                </AppBar>
-                <nav className={classes.drawer} aria-label="mailbox folders">
-                  {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-                  <Hidden smUp implementation="css">
-                    <Drawer
-                      variant="temporary"
-                      anchor="left"
-                      open={mobileOpen}
-                      onClose={handleDrawerToggle}
-                      classes={{
-                        paper: classes.drawerPaper,
-                      }}
-                      ModalProps={{
-                        keepMounted: true, // Better open performance on mobile.
-                      }}
-                      onClick={handleDrawerToggle}
-                    >
-                      {drawer}
-                    </Drawer>
-                  </Hidden>
-                  <Hidden xsDown implementation="css">
-                    <Drawer
-                      classes={{
-                        paper: classes.drawerPaper,
-                      }}
-                      variant="permanent"
-                      open
-                    >
-                      {drawer}
-                    </Drawer>
-                  </Hidden>
-                </nav>
-                <main className={classes.content}>
-                  <div className={classes.toolbar} />
-                  <Switch>
-                    <Routes />
-                  </Switch>
-                  <Divider style={{ marginTop: "30px" }} />
+                <Box flexGrow={1}>
+                  <Typography variant="h5" className={classes.navHeaderDisplay}>
+                    Biscuits Internet Project 2.0
+                  </Typography>
+                </Box>
+                <Box>
+                  <AvatarMenu />
+                </Box>
+              </Toolbar>
+            </AppBar>
+            <nav className={classes.drawer} aria-label="mailbox folders">
+              {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
+              <Hidden smUp implementation="css">
+                <Drawer
+                  variant="temporary"
+                  anchor="left"
+                  open={mobileOpen}
+                  onClose={handleDrawerToggle}
+                  classes={{
+                    paper: classes.drawerPaper,
+                  }}
+                  ModalProps={{
+                    keepMounted: true, // Better open performance on mobile.
+                  }}
+                  onClick={handleDrawerToggle}
+                >
+                  {drawer}
+                </Drawer>
+              </Hidden>
+              <Hidden xsDown implementation="css">
+                <Drawer
+                  classes={{
+                    paper: classes.drawerPaper,
+                  }}
+                  variant="permanent"
+                  open
+                >
+                  {drawer}
+                </Drawer>
+              </Hidden>
+            </nav>
+            <main className={classes.content}>
+              <div className={classes.toolbar} />
+              <Switch>
+                <Routes />
+              </Switch>
+              <Divider style={{ marginTop: "30px" }} />
 
-                  <Box className={classes.footer}>
-                    <Typography>
-                      <span>BIP 2.0 | </span>
-                      <span><Link component={RouterLink} to="/about">About</Link> | </span>
-                      <span><Link component={RouterLink} to="/contact">Contact</Link> | </span>
-                      <span><Link component={RouterLink} to="/privacy">Privacy</Link> | </span>
-                      <span><Link href="https://twitter.com/tdbdotnet" target="blank">twitter</Link> | </span>
-                      <span><Link href="https://instagram.com/tdbdotnet" target="blank">instagram</Link></span>
-                    </Typography>
-                  </Box>
-                </main>
-              </div>
-          </SnackbarProvider>
-        </ThemeProvider>
+              <Box className={classes.footer}>
+                <Typography>
+                  <span>BIP 2.0 | </span>
+                  <span><Link component={RouterLink} to="/about">About</Link> | </span>
+                  <span><Link component={RouterLink} to="/contact">Contact</Link> | </span>
+                  <span><Link component={RouterLink} to="/privacy">Privacy</Link> | </span>
+                  <span><Link href="https://twitter.com/tdbdotnet" target="blank">twitter</Link> | </span>
+                  <span><Link href="https://instagram.com/tdbdotnet" target="blank">instagram</Link></span>
+                </Typography>
+              </Box>
+            </main>
+          </div>
+        </SnackbarProvider>
+      </ThemeProvider>
     </React.Fragment>
   )
 }

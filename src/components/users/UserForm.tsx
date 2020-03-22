@@ -40,7 +40,7 @@ const validationSchema = Yup.object().shape({
 });
 
 const UserForm: React.FC<Props> = ({ user, handleClose }) => {
-  const { state } = useContext(AppContext)
+  const { state, asyncActions } = useContext(AppContext)
   const [error, setError] = useState(null)
   const [formData, setFormData] = useState(initialValues)
   const { enqueueSnackbar } = useSnackbar()
@@ -68,9 +68,12 @@ const UserForm: React.FC<Props> = ({ user, handleClose }) => {
       });
 
       if (user) {
-        enqueueSnackbar(`Successfully edited user`, { variant: 'success' })
+        enqueueSnackbar(`Successfully edited account`, { variant: 'success' })
+        if (currentUser && user.id === currentUser.id) {
+          asyncActions.getUser(currentUser.token, currentUser.id)
+        }
       } else {
-        enqueueSnackbar(`Successfully added use`, { variant: 'success' })
+        enqueueSnackbar(`Successfully added user`, { variant: 'success' })
       }
       handleClose()
     } catch (error) {
@@ -83,7 +86,7 @@ const UserForm: React.FC<Props> = ({ user, handleClose }) => {
         setError(response.statusText)
       }
     }
-  }, [enqueueSnackbar, handleClose, user, currentUser])
+  }, [user, currentUser, handleClose, enqueueSnackbar, asyncActions])
 
   return (
     <Formik
