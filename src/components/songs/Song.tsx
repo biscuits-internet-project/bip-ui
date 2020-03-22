@@ -4,7 +4,7 @@ import axios, { AxiosResponse } from 'axios'
 import { IVenue } from '../venues/Venue';
 import { Helmet } from "react-helmet";
 import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
-import { Link, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, ExpansionPanel, ExpansionPanelSummary, Typography, ExpansionPanelDetails, LinearProgress, Button, Grid, Dialog, DialogTitle, DialogContent } from '@material-ui/core';
+import { Link, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, ExpansionPanel, ExpansionPanelSummary, Typography, ExpansionPanelDetails, LinearProgress, Button, Grid, Dialog, DialogTitle, DialogContent, Box } from '@material-ui/core';
 import Moment from 'react-moment';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import PageHeading from '../shared/PageHeading';
@@ -61,7 +61,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const Song: React.FC = () => {
-	const { state } = useContext(AppContext)
+	const { state, dispatch } = useContext(AppContext)
 	const classes = useStyles();
 	const params = useParams();
 	const [loading, setLoading] = useState(false)
@@ -70,7 +70,9 @@ const Song: React.FC = () => {
 	const [id, setId] = useState("")
 	const [songsPlayed, setSongsPlayed] = useState<ISongPlayed[]>([])
 	const [allTimers, setAllTimers] = useState<ISongPlayed[]>([])
-	const [withJamCharts, setWithJamCharts] = useState<ISongPlayed[]>([])
+	const [jamCharts, setJamCharts] = useState<ISongPlayed[]>([])
+	const [displayTracks, setDisplayTracks] = useState<ISongPlayed[]>([])
+	const initViewJamCharts = state.viewJamCharts
 	const { currentUser } = state
 	const admin = currentUser?.roles.includes('admin')
 
@@ -91,6 +93,15 @@ const Song: React.FC = () => {
 		setTimeout(() => setId(''), 500)
 	});
 
+	const toggleView = (jamcharts) => {
+		if (jamcharts) {
+			setDisplayTracks(jamCharts)
+		} else {
+			setDisplayTracks(songsPlayed)
+		}
+        dispatch({type: 'TOGGLE_VIEW_JAM_CHARTS', payload: jamcharts})
+	}
+
 	useEffect(() => {
 		setLoading(true)
 		const fetchSong = async () => {
@@ -100,13 +111,21 @@ const Song: React.FC = () => {
 			const tracks: AxiosResponse = await axios.get(`${process.env.REACT_APP_API_URL}/tracks/songs/${params.id}`)
 
 			setSongsPlayed(tracks.data)
-			setAllTimers(tracks.data.filter(x => x.all_timer))
-			setWithJamCharts(tracks.data.filter(x => x.note !== ""))
+			const allTimers = tracks.data.filter(x => x.all_timer)
+			setAllTimers(allTimers)
+			const jamCharts = tracks.data.filter(x => x.note != null && x.note !== "")
+			setJamCharts(jamCharts)
+
+			if (initViewJamCharts) {
+				setDisplayTracks(jamCharts)
+			} else {
+				setDisplayTracks(tracks.data)
+			}
 
 			setLoading(false)
 		}
 		fetchSong()
-	}, [params.id])
+	}, [initViewJamCharts, params.id])
 	return (
 		<>
 			{song &&
@@ -316,6 +335,16 @@ const Song: React.FC = () => {
 				</>
 			}
 
+			<Box style={{marginTop: 0, marginBottom: 10, textAlign: "right"}}>
+                <Button onClick={() => toggleView(!state.viewJamCharts)}>
+                    {state.viewJamCharts ? (
+                        "View All"
+                    ) : (
+                        "View Jam Charts"
+                    )}
+                </Button>
+			</Box>
+
 			<TableContainer component={Paper}>
 				<Table>
 					<TableHead>
@@ -327,7 +356,7 @@ const Song: React.FC = () => {
 						</TableRow>
 					</TableHead>
 					<TableBody>
-						{songsPlayed.map((s: ISongPlayed) => (
+						{displayTracks.map((s: ISongPlayed) => (
 							<TableRow>
 								<TableCell component="th" scope="row">
 									<Link component={RouterLink} to={`/shows/${s.show.slug}`} >

@@ -29,6 +29,7 @@ export interface AppState {
   favorites: string[]
   ratings: IRating[]
   viewSetlists: boolean
+  viewJamCharts: boolean
 }
 
 interface IContextProps {
@@ -52,7 +53,8 @@ const initialState: AppState = {
   attendances: [],
   favorites: [],
   ratings: [],
-  viewSetlists: true
+  viewSetlists: true,
+  viewJamCharts: false
 }
 
 const appReducer = (state: AppState, action: Action): AppState => {
@@ -86,6 +88,11 @@ const appReducer = (state: AppState, action: Action): AppState => {
       return {
         ...state,
         viewSetlists: action.payload
+      }
+    case "TOGGLE_VIEW_JAM_CHARTS":
+      return {
+        ...state,
+        viewJamCharts: action.payload
       }
     case "GET_VENUES":
       return {
