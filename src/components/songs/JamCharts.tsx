@@ -51,7 +51,6 @@ const Song: React.FC = () => {
 						<TableRow>
 							<TableCell>Song</TableCell>
 							<TableCell>Show</TableCell>
-							<TableCell>Relisten</TableCell>
 							<TableCell>Notes</TableCell>
 						</TableRow>
 					</TableHead>
@@ -75,12 +74,12 @@ const Song: React.FC = () => {
 											{track.show.venue.city}, {track.show.venue.state}
 										</Typography>
 									</Link>
-								</TableCell>
-								<TableCell>
 									{track.show.relisten_url &&
-										<Link href={track.show.relisten_url} target="blank">
-											<img src="/relisten.png" alt="relisten" />
-										</Link>
+										<Typography style={{marginTop: 6}}>
+											<Link href={track.show.relisten_url} target="blank">
+												<img src="/relisten.png" alt="relisten" />
+											</Link>
+										</Typography>
 									}
 								</TableCell>
 								<TableCell style={{width: "50%"}}>{track.note}</TableCell>

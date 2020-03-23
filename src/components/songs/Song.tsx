@@ -72,9 +72,12 @@ const Song: React.FC = () => {
 	const [allTimers, setAllTimers] = useState<ISongPlayed[]>([])
 	const [jamCharts, setJamCharts] = useState<ISongPlayed[]>([])
 	const [displayTracks, setDisplayTracks] = useState<ISongPlayed[]>([])
-	const initViewJamCharts = (state.viewJamCharts) ? true : false
 	const { currentUser } = state
 	const admin = currentUser?.roles.includes('admin')
+
+	const initViewJamCharts = (state.viewJamCharts) ? true : false
+
+	console.log(initViewJamCharts)
 
 	const handleOpen = (type: string, id: string) => {
 		setId(id)
@@ -349,35 +352,34 @@ const Song: React.FC = () => {
 				<Table>
 					<TableHead>
 						<TableRow>
-							<TableCell>Date</TableCell>
-							<TableCell>Venue</TableCell>
-							<TableCell>Relisten</TableCell>
+							<TableCell>Show</TableCell>
 							<TableCell>Notes</TableCell>
 						</TableRow>
 					</TableHead>
 					<TableBody>
 						{displayTracks.map((s: ISongPlayed) => (
 							<TableRow>
-								<TableCell component="th" scope="row">
+								<TableCell>
+
 									<Link component={RouterLink} to={`/shows/${s.show.slug}`} >
-										<Moment format="M/DD/YYYY">
-											{s.show.date}
-										</Moment>
+										<Typography>
+											<Moment format="M/DD/YYYY">
+												{s.show.date}
+											</Moment>
+										</Typography>
+										<Typography>
+											{s.venue.name}<br />
+											{s.venue.city}
+											<span>, </span>
+											{s.venue.state}
+										</Typography>
 									</Link>
-								</TableCell>
-								<TableCell>
-									<Link component={RouterLink} to={`/venues/${s.venue.slug}`}>
-										{s.venue.name}<br />
-										{s.venue.city}
-										<span>, </span>
-										{s.venue.state}
-									</Link>
-								</TableCell>
-								<TableCell>
 									{s.show.relisten_url &&
-										<Link href={s.show.relisten_url} target="blank">
-											<img src="/relisten.png" alt="relisten" />
-										</Link>
+										<Typography style={{marginTop: 6}}>
+											<Link href={s.show.relisten_url} target="blank">
+												<img src="/relisten.png" alt="relisten" />
+											</Link>
+										</Typography>
 									}
 								</TableCell>
 								<TableCell style={{width: "50%"}}>{s.note}</TableCell>
