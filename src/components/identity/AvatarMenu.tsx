@@ -46,7 +46,7 @@ const AvatarMenu: React.FC = () => {
 				</>
 			) : (
 				<>
-					{/* <LinkButton to="/login" text="login" /> */}
+					<LinkButton to="/login" text="login" />
 				</>
 			)
 		}
