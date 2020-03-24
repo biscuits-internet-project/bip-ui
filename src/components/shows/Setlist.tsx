@@ -4,7 +4,9 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Tracklist from './Tracklist';
 import {IShow} from './Show'
 import Moment from 'react-moment';
-import { Typography, Link, Card, CardHeader, CardContent, CardActions } from '@material-ui/core';
+import { Typography, Link, Card, CardHeader, CardContent, CardActions, Avatar, Grid, Chip } from '@material-ui/core';
+import StarIcon from '@material-ui/icons/Star';
+
 
 export interface ISetlist {
 	show: IShow
@@ -20,6 +22,7 @@ const useStyles = makeStyles((theme: Theme) =>
 		},
 		subheader: {
 			fontSize: 18,
+			marginTop: 2,
 			paddingBottom: 0,
 			marginBottom: 0
 		},
@@ -27,6 +30,14 @@ const useStyles = makeStyles((theme: Theme) =>
 			height: 0,
 			paddingTop: '56.25%', // 16:9
 		},
+		avatar: {
+			width: theme.spacing(2.5),
+			height: theme.spacing(2.5),
+			marginTop: 4,
+			marginLeft: 1,
+			marginRight: 1,
+			display: "inline-block"
+		  },
 	}),
 );
 
@@ -40,11 +51,54 @@ const Setlist: React.FC<ISetlist> = ({ show }) => {
 					subheader: classes.subheader,
 				}}
 				title = {
-					<Link component={RouterLink} to={`/shows/${show.slug}`}>
-						<Moment format="M/DD/YYYY">
-							{show.date}
-						</Moment>
-					</Link>
+
+					<Grid container direction="row"  justify="space-between">
+						<Grid item>
+							<Link component={RouterLink} to={`/shows/${show.slug}`}>
+								<Moment format="M/DD/YYYY">
+									{show.date}
+								</Moment>
+							</Link>
+						</Grid>
+						<Grid item>
+							<div style={{textAlign: "right"}}>
+
+							{ show.average_rating > 0 &&
+								<Chip
+									icon={<StarIcon />}
+									label={show.average_rating}
+									size="small"
+									style={{marginRight: 2 }}
+								/>
+							}
+
+							{(show.show_youtubes_count > 0 || show.relisten_url !== "" || show.show_photos_count > 0) &&
+								<Chip
+									size="small"
+									label={
+										<>
+											{show.relisten_url !== "" &&
+												<Link target="blank" href={show.relisten_url}>
+													<Avatar alt="relisten" src="/icons/relisten.png" className={classes.avatar} />
+												</Link>
+											}
+											{show.show_youtubes_count > 0 &&
+												<Avatar alt="youtube" src="/icons/youtube.png" className={classes.avatar} />
+											}
+											{show.show_photos_count > 0 &&
+											  <Avatar alt="photos" src="/icons/photos.png" className={classes.avatar} />
+											}
+										</>
+									}
+								/>
+							}
+
+							</div>
+
+						</Grid>
+
+					</Grid>
+
 				}
 				subheader = {show.venue &&
 					<>
