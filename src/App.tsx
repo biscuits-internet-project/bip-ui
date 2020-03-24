@@ -245,7 +245,7 @@ const App: React.FC = () => {
               <Switch>
                 <Routes />
               </Switch>
-              <Divider style={{ marginTop: "30px" }} />
+              <Divider style={{ marginTop: "120px" }} />
               <ScrollUpButton ShowAtPosition={500} />
 
               <Box className={classes.footer}>

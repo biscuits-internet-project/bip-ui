@@ -382,7 +382,7 @@ const Song: React.FC = () => {
 										</Typography>
 									}
 								</TableCell>
-								<TableCell style={{width: "50%"}}>{s.note}</TableCell>
+								<TableCell style={{width: "70%"}}>{s.note}</TableCell>
 							</TableRow>
 						))}
 					</TableBody>

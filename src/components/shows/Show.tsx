@@ -23,6 +23,9 @@ export interface IShow {
 	venue: { id: string, slug: string, name: string, city: string, state: string }
 	tracks: ITrack[]
 	year: number
+	average_rating: number
+	show_photos_count: number
+	show_youtubes_count: number
 }
 
 export interface IRating {
@@ -31,6 +34,7 @@ export interface IRating {
 }
 
 interface IImage {
+  source: string
   src: string
   srcSet?: string[]
   height: number
@@ -65,6 +69,7 @@ const Show: React.FC = () => {
 			const data:AxiosResponse = await axios.get(`${process.env.REACT_APP_API_URL}/shows/${params.id}/photos`)
 			const imgs: IImage[] = data.data.map(obj => {
 				return {
+					source: obj.url,
 					src: obj.url,
 					srcSet: obj.src_set,
 					sizes: ["(min-width: 480px) 50vw,(min-width: 1024px) 33.3vw,100vw"],
@@ -169,7 +174,7 @@ const Show: React.FC = () => {
 							views={photos.map(x => ({
 								...x,
 								srcset: x.srcSet,
-								caption: x.title
+								caption: x.title,
 							}))}
 							/>
 						</Modal>
