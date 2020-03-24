@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link as RouterLink } from 'react-router-dom'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Tracklist from './Tracklist';
-import {IShow} from './Show'
+import { IShow } from './Show'
 import Moment from 'react-moment';
 import { Typography, Link, Card, CardHeader, CardContent, CardActions, Avatar, Grid, Chip } from '@material-ui/core';
 import StarIcon from '@material-ui/icons/Star';
+import SawItSwitch from './SawItSwitch';
+import ShowRating from './ShowRating';
+import FavoriteSwitch from './FavoriteSwitch';
+import { AppContext } from '../../context/AppProvider';
 
 
 export interface ISetlist {
@@ -37,11 +41,19 @@ const useStyles = makeStyles((theme: Theme) =>
 			marginLeft: 1,
 			marginRight: 1,
 			display: "inline-block"
-		  },
+		},
+		interaction: {
+			textAlign: "center",
+			marginBottom: 4
+			//height: 100
+		}
+
 	}),
 );
 
 const Setlist: React.FC<ISetlist> = ({ show }) => {
+	const { state } = useContext(AppContext)
+	const { currentUser } = state
 	const classes = useStyles();
 	return (
 		<Card className={classes.root}>
@@ -50,9 +62,9 @@ const Setlist: React.FC<ISetlist> = ({ show }) => {
 					title: classes.title,
 					subheader: classes.subheader,
 				}}
-				title = {
+				title={
 
-					<Grid container direction="row"  justify="space-between">
+					<Grid container direction="row" justify="space-between">
 						<Grid item>
 							<Link component={RouterLink} to={`/shows/${show.slug}`}>
 								<Moment format="M/DD/YYYY">
@@ -61,37 +73,37 @@ const Setlist: React.FC<ISetlist> = ({ show }) => {
 							</Link>
 						</Grid>
 						<Grid item>
-							<div style={{textAlign: "right"}}>
+							<div style={{ textAlign: "right" }}>
 
-							{ show.average_rating > 0 &&
-								<Chip
-									icon={<StarIcon />}
-									label={show.average_rating}
-									size="small"
-									style={{marginRight: 2 }}
-								/>
-							}
+								{show.average_rating > 0 &&
+									<Chip
+										icon={<StarIcon />}
+										label={show.average_rating}
+										size="small"
+										style={{ marginRight: 2 }}
+									/>
+								}
 
-							{(show.show_youtubes_count > 0 || show.relisten_url || show.show_photos_count > 0) &&
-								<Chip
-									size="small"
-									label={
-										<>
-											{show.relisten_url &&
-												<Link target="blank" href={show.relisten_url}>
-													<Avatar alt="relisten" src="/icons/relisten.png" className={classes.avatar} />
-												</Link>
-											}
-											{show.show_youtubes_count > 0 &&
-												<Avatar alt="youtube" src="/icons/youtube.png" className={classes.avatar} />
-											}
-											{show.show_photos_count > 0 &&
-											  <Avatar alt="photos" src="/icons/photos.png" className={classes.avatar} />
-											}
-										</>
-									}
-								/>
-							}
+								{(show.show_youtubes_count > 0 || show.relisten_url || show.show_photos_count > 0) &&
+									<Chip
+										size="small"
+										label={
+											<>
+												{show.relisten_url &&
+													<Link target="blank" href={show.relisten_url}>
+														<Avatar alt="relisten" src="/icons/relisten.png" className={classes.avatar} />
+													</Link>
+												}
+												{show.show_youtubes_count > 0 &&
+													<Avatar alt="youtube" src="/icons/youtube.png" className={classes.avatar} />
+												}
+												{show.show_photos_count > 0 &&
+													<Avatar alt="photos" src="/icons/photos.png" className={classes.avatar} />
+												}
+											</>
+										}
+									/>
+								}
 
 							</div>
 
@@ -100,7 +112,7 @@ const Setlist: React.FC<ISetlist> = ({ show }) => {
 					</Grid>
 
 				}
-				subheader = {show.venue &&
+				subheader={show.venue &&
 					<>
 						<Link component={RouterLink} to={`/venues/${show.venue.slug}`}>
 							{show.venue.name} - {show.venue.city}, {show.venue.state}
@@ -108,23 +120,27 @@ const Setlist: React.FC<ISetlist> = ({ show }) => {
 					</>
 				}
 			/>
-			<CardContent style={{paddingTop: 0, paddingBottom: 0}}>
-				{show.notes && <Typography variant="body2" dangerouslySetInnerHTML={{ __html: show.notes }} /> }
+			<CardContent style={{ paddingTop: 0, paddingBottom: 0 }}>
+				{show.notes && <Typography variant="body2" dangerouslySetInnerHTML={{ __html: show.notes }} />}
 				<Tracklist tracks={show.tracks}></Tracklist>
+
+				{currentUser &&
+					<Grid container alignItems="center" justify="flex-end" spacing={4} dir="row">
+						<Grid item alignContent="center" className={classes.interaction}>
+							<Typography>Rating</Typography>
+							<ShowRating showId={show.id} currentUser={currentUser} />
+						</Grid>
+						<Grid item alignContent="center" className={classes.interaction}>
+							<Typography>Saw it</Typography>
+							<SawItSwitch showId={show.id} currentUser={currentUser} />
+						</Grid>
+						<Grid item alignContent="center" className={classes.interaction}>
+							<Typography>Favorite</Typography>
+							<FavoriteSwitch showId={show.id} currentUser={currentUser} />
+						</Grid>
+					</Grid>
+				}
 			</CardContent>
-			<CardActions disableSpacing>
-				{/* <IconButton aria-label="Favorite">
-					<FavoriteIcon/>
-				</IconButton>
-
-				<IconButton aria-label="I was there">
-					<EmojiTransportationIcon/>
-				</IconButton>
-
-				<IconButton aria-label="Relisten">
-					<HeadsetIcon />
-				</IconButton> */}
-			</CardActions>
 		</Card>
 	)
 }
