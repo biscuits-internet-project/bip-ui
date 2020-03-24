@@ -72,12 +72,12 @@ const Setlist: React.FC<ISetlist> = ({ show }) => {
 								/>
 							}
 
-							{(show.show_youtubes_count > 0 || show.relisten_url !== "" || show.show_photos_count > 0) &&
+							{(show.show_youtubes_count > 0 || show.relisten_url || show.show_photos_count > 0) &&
 								<Chip
 									size="small"
 									label={
 										<>
-											{show.relisten_url !== "" &&
+											{show.relisten_url &&
 												<Link target="blank" href={show.relisten_url}>
 													<Avatar alt="relisten" src="/icons/relisten.png" className={classes.avatar} />
 												</Link>
