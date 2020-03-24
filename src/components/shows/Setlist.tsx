@@ -124,7 +124,7 @@ const Setlist: React.FC<ISetlist> = ({ show }) => {
 				{show.notes && <Typography variant="body2" dangerouslySetInnerHTML={{ __html: show.notes }} />}
 				<Tracklist tracks={show.tracks}></Tracklist>
 
-				{currentUser &&
+				{currentUser ? (
 					<Grid container alignItems="center" justify="flex-end" spacing={4} dir="row">
 						<Grid item alignContent="center" className={classes.interaction}>
 							<Typography>Rating</Typography>
@@ -139,7 +139,9 @@ const Setlist: React.FC<ISetlist> = ({ show }) => {
 							<FavoriteSwitch showId={show.id} currentUser={currentUser} />
 						</Grid>
 					</Grid>
-				}
+				) : (
+					<div style={{height: 15}}></div>
+				)}
 			</CardContent>
 		</Card>
 	)
