@@ -4,7 +4,7 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Tracklist from './Tracklist';
 import { IShow } from './Show'
 import Moment from 'react-moment';
-import { Typography, Link, Card, CardHeader, CardContent, CardActions, Avatar, Grid, Chip } from '@material-ui/core';
+import { Typography, Link, Card, CardHeader, CardContent, Avatar, Grid, Chip } from '@material-ui/core';
 import StarIcon from '@material-ui/icons/Star';
 import SawItSwitch from './SawItSwitch';
 import ShowRating from './ShowRating';
@@ -78,7 +78,7 @@ const Setlist: React.FC<ISetlist> = ({ show }) => {
 								{show.average_rating > 0 &&
 									<Chip
 										icon={<StarIcon />}
-										label={show.average_rating}
+										label={Math.round(show.average_rating * 10) / 10}
 										size="small"
 										style={{ marginRight: 2 }}
 									/>
