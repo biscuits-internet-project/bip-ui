@@ -78,6 +78,7 @@ const useStyles = makeStyles((theme: Theme) =>
         width: `calc(100% - ${drawerWidth}px)`,
         marginLeft: drawerWidth,
       },
+      paddingTop: 8,
       minHeight: 80,
       verticalAlign: 'middle',
       backgroundImage: 'url("/bkgrnd-navbar.jpg")',
@@ -114,8 +115,14 @@ const useStyles = makeStyles((theme: Theme) =>
       'background-image': 'linear-gradient(#9ccaea, #e94abc)',
       '-webkit-background-clip': 'text',
       '-webkit-text-fill-color': 'transparent',
-      [theme.breakpoints.down('sm')]: {
-        fontSize: `1.80rem`,
+      [theme.breakpoints.up('xs')]: {
+        fontSize: `2.20rem`,
+      },
+      [theme.breakpoints.up('sm')]: {
+        fontSize: `1.70rem`,
+      },
+      [theme.breakpoints.up('md')]: {
+        fontSize: `2.0rem`,
       },
       [theme.breakpoints.up('md')]: {
         fontSize: `2.20rem`,
@@ -200,9 +207,16 @@ const App: React.FC = () => {
                 </IconButton>
 
                 <Box flexGrow={1}>
-                  <Typography variant="h5" className={classes.navHeaderDisplay}>
-                    Biscuits Internet Project 2.0
-                  </Typography>
+                  <Box display={{ xs: 'block', sm: 'none' }}>
+                    <Typography variant="h5" className={classes.navHeaderDisplay}>
+                      BIP 2.0
+                    </Typography>
+                  </Box>
+                  <Box display={{ xs: 'none', sm: 'block' }}>
+                    <Typography variant="h5" className={classes.navHeaderDisplay}>
+                      Biscuits Internet Project 2.0
+                    </Typography>
+                  </Box>
                 </Box>
                 <Box>
                   <AvatarMenu />
