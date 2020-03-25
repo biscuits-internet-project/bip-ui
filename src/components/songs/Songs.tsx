@@ -90,6 +90,7 @@ const Songs: React.FC = () => {
 		];
 
 	const options = {
+		responsive: 'scrollFullHeight',
 		filterType: 'multiselect',
 		pagination: true,
 		print: false,
