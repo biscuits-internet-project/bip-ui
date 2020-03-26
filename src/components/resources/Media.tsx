@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Helmet } from "react-helmet";
 import PageHeading from '../shared/PageHeading';
 import axios, { AxiosResponse } from 'axios';
 import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, Link } from '@material-ui/core';
-import { type } from 'os';
+import HtmlHead from '../shared/HtmlHead';
 
 interface IMedia {
 	date: Date
@@ -25,9 +24,12 @@ const Media: React.FC = () => {
 	}, [])
 	return (
 		<>
-			<Helmet>
-				<title>Biscuits Internet Project - Articles and Podcasts</title>
-			</Helmet>
+			<HtmlHead
+				title="News from Nowhere - Articles & Podcasts"
+				description="From jambands.com to Rolling Stone, here you'll find all of your favorite Disco Biscuits articles and interviews in one place."
+				image_url="https://discobiscuits.net/news.jpg"
+			/>
+
 			<PageHeading text="News from Nowhere"/>
 
 			<TableContainer component={Paper}>

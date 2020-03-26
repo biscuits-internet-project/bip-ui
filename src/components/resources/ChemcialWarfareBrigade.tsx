@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom'
 import { HashLink } from 'react-router-hash-link';
-import { Helmet } from "react-helmet";
 import PageHeading from '../shared/PageHeading';
 import { Link, Typography, ListItem, createStyles, Theme, makeStyles, Card, CardContent, Grid } from '@material-ui/core';
 import OperaMenuCard from './OperaMenuCard';
 import Paragraph from '../shared/Paragraph';
+import HtmlHead from '../shared/HtmlHead';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -385,9 +385,11 @@ const ChemicalWarfareBrigade: React.FC = () => {
 
 	return (
 		<>
-			<Helmet>
-				<title>Biscuits Internet Project - The Chemical Warfare Brigade</title>
-			</Helmet>
+			<HtmlHead
+				title="The Chemical Warefare Brigade"
+				description="The band’s second full length rock opera, written by Marc Brownstein, and debuted Dec 30, 2000 at the Vanderbilt on Long Island."
+				image_url="https://discobiscuits.net/cwb.jpg"
+			/>
 			<PageHeading text="The Chemical Warfare Brigade" />
 
 			<Card>

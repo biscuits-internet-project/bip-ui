@@ -1,12 +1,12 @@
 import React, {useState, useEffect, useContext} from 'react';
 import { Link as RouterLink } from 'react-router-dom'
-import { Helmet } from "react-helmet"
 import { Link, Dialog, DialogTitle, DialogContent, Grid, Button } from '@material-ui/core';
 import MUIDataTable from "mui-datatables";
 import PageHeading from './../shared/PageHeading';
 import { IVenue } from './Venue'
 import VenueForm from './VenueForm';
 import { AppContext } from '../../context/AppProvider';
+import HtmlHead from '../shared/HtmlHead';
 
 const Venues: React.FC = () => {
 	const [formOpen, setFormOpen] = useState(false)
@@ -113,9 +113,7 @@ const Venues: React.FC = () => {
 
 	return (
 		<>
-			<Helmet>
-				<title>Biscuits Internet Project - Venues</title>
-			</Helmet>
+			<HtmlHead title="Venues Played" description="Search, sort, and filter this comprehensive list of venues The Disco Biscuits have played." />
 			<Grid container justify="space-between" >
 				<Grid item>
 					<PageHeading text="Venues"/>

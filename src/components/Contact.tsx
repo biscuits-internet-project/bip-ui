@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Helmet } from "react-helmet";
 import axios, { AxiosResponse } from 'axios';
 import { Formik, Form, FormikProps } from 'formik';
 import TextField from './shared/TextFieldContainer'
@@ -9,6 +8,7 @@ import * as Yup from 'yup';
 import { Button } from '@material-ui/core';
 import PageHeading from './shared/PageHeading';
 import Paragraph from './shared/Paragraph';
+import HtmlHead from './shared/HtmlHead';
 
 const ContactSchema = Yup.object().shape({
   email: Yup.string()
@@ -58,10 +58,7 @@ const Register: React.FC = () => {
   }
   return (
     <div>
-      <Helmet>
-        <title>Biscuits Internet Project - Contact</title>
-      </Helmet>
-
+      <HtmlHead title="Contact Us" />
       <PageHeading text="Contact"/>
       {confirmation ? (
         <Paragraph>

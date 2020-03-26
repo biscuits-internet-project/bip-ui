@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios, { AxiosResponse } from 'axios'
-import { Helmet } from "react-helmet"
 import { TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody } from '@material-ui/core';
 import PageHeading from './shared/PageHeading';
+import HtmlHead from './shared/HtmlHead';
 
 interface ITourDate {
 	details?: string,
@@ -38,9 +38,7 @@ const Tour: React.FC = () => {
 	}, [])
 	return (
 		<>
-			<Helmet>
-				<title>Biscuits Internet Project - Tour Dates</title>
-			</Helmet>
+			<HtmlHead title="Tour Dates" />
 			<PageHeading text="Tour Dates"/>
 			<TableContainer component={Paper}>
 				<Table>

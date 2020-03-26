@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useParams, Link as RouterLink } from 'react-router-dom';
 import axios, { AxiosResponse } from 'axios'
-import { Helmet } from "react-helmet";
 import { IShow } from '../shows/Show';
 import { LinearProgress, TableContainer, Paper, Table, TableRow, TableCell, Link, Dialog, DialogTitle, DialogContent, Grid, Button } from '@material-ui/core';
 import Moment from 'react-moment';
@@ -9,6 +8,7 @@ import PageHeading from './../shared/PageHeading';
 import VenueForm from './VenueForm';
 import { AppContext } from '../../context/AppProvider';
 import ListShows from '../shows/ListShows';
+import HtmlHead from '../shared/HtmlHead';
 
 export interface IVenue {
 	id: string,
@@ -64,9 +64,10 @@ const Venue: React.FC = () => {
 		<>
 			{venue &&
 				<>
-					<Helmet>
-						<title>Biscuits Internet Project - {venue.name}</title>
-					</Helmet>
+					<HtmlHead
+						title={`${venue.name} - ${venue.city}, ${venue.state}`}
+						description={`Get a list of every time the Disco Biscuits have played at ${venue.name}`}
+					/>
 					<Grid container justify="space-between" >
 						<Grid item>
 							<PageHeading text={venue.name} />

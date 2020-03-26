@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Link as RouterLink, useParams } from 'react-router-dom';
 import axios, { AxiosResponse } from 'axios'
 import { IVenue } from '../venues/Venue';
-import { Helmet } from "react-helmet";
 import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
 import { Link, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, ExpansionPanel, ExpansionPanelSummary, Typography, ExpansionPanelDetails, LinearProgress, Button, Grid, Dialog, DialogTitle, DialogContent, Box } from '@material-ui/core';
 import Moment from 'react-moment';
@@ -11,6 +10,7 @@ import PageHeading from '../shared/PageHeading';
 import { AppContext } from '../../context/AppProvider';
 import SongForm from './SongForm';
 import Paragraph from '../shared/Paragraph';
+import HtmlHead from '../shared/HtmlHead';
 
 export interface ISong {
 	id: string,
@@ -133,9 +133,7 @@ const Song: React.FC = () => {
 		<>
 			{song &&
 				<>
-					<Helmet>
-						<title>Biscuits Internet Project - {song.title}</title>
-					</Helmet>
+					<HtmlHead title={song.title} description="Lyrics, history, and a list of every time played." />
 					<Grid container justify="space-between" >
 						<Grid item>
 							<PageHeading text={song.title} />

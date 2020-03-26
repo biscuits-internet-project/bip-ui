@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Helmet } from "react-helmet";
 import PageHeading from '../shared/PageHeading';
 import axios, { AxiosResponse } from 'axios'
 import { Card, Typography, CardContent, Grid } from '@material-ui/core';
 import Paragraph from '../shared/Paragraph';
+import HtmlHead from '../shared/HtmlHead';
 
 interface ISideProject {
 	notes?: string,
@@ -24,9 +24,11 @@ const SideProjects: React.FC = () => {
 	}, [])
 	return (
 		<>
-			<Helmet>
-				<title>Biscuits Internet Project - Side Projects</title>
-			</Helmet>
+			<HtmlHead
+			  title="Side Projects"
+			  description="From Barber and the Laid Back Band to Younger Brother Live and everything in between. And we mean EVERYTHING."
+			  image_url="https://discobiscuits.net/electron.jpg"
+			/>
 			<PageHeading text="Side Projects"/>
 			<Grid container spacing={3}  alignItems="stretch">
 				{sideProjects.map((sp) => {

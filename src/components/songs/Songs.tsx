@@ -1,6 +1,5 @@
 import React, {useState, useEffect, useContext} from 'react';
 import { Link as RouterLink } from 'react-router-dom'
-import { Helmet } from "react-helmet";
 import { Link, Grid, Button, Dialog, DialogTitle, DialogContent } from '@material-ui/core';
 import MUIDataTable from "mui-datatables";
 import PageHeading from '../shared/PageHeading';
@@ -8,6 +7,7 @@ import SongForm from './SongForm'
 import { ISong } from './Song'
 import { AppContext } from '../../context/AppProvider'
 import Moment from 'react-moment';
+import HtmlHead from '../shared/HtmlHead';
 
 const Songs: React.FC = () => {
 	const [formOpen, setFormOpen] = useState(false)
@@ -133,9 +133,7 @@ const Songs: React.FC = () => {
 
 	return (
 		<>
-			<Helmet>
-				<title>Biscuits Internet Project - Songs</title>
-			</Helmet>
+			<HtmlHead title="Song List" description="Search and sort a comprehensive list of Disco Biscuits originals and covers." />
 			<Grid container justify="space-between" >
 				<Grid item>
 					<PageHeading text="Songs"/>

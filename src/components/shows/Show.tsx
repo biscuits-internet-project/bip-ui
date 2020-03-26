@@ -2,7 +2,6 @@ import React, {useState, useEffect, useCallback, useContext} from 'react'
 import { useParams } from 'react-router-dom';
 import axios, { AxiosResponse } from 'axios'
 import Tracklist, {ITrack} from './Tracklist';
-import { Helmet } from "react-helmet"
 import { Typography, Link, Card, CardContent, Grid } from '@material-ui/core';
 import Moment from 'react-moment';
 import PageHeading from '../shared/PageHeading';
@@ -10,6 +9,7 @@ import Gallery from "react-photo-gallery";
 import Carousel, { Modal, ModalGateway } from "react-images";
 import { AppContext } from '../../context/AppProvider';
 import LinkButton from '../shared/LinkButton';
+import HtmlHead from '../shared/HtmlHead';
 
 export interface IShow {
 	id: string
@@ -90,9 +90,10 @@ const Show: React.FC = () => {
 		<>
 			{show &&
 			<>
-				<Helmet>
-					<title>Biscuits Internet Project - Shows - {show.date} at {show.venue.name} - {show.venue.city}, {show.venue.state}</title>
-				</Helmet>
+				<HtmlHead
+					title={`${show.date} at ${show.venue.name} - ${show.venue.city}, ${show.venue.state}`}
+					description={`Setlist, photos, and reviews of The Disco Biscuits show from ${show.date} at ${show.venue.name}`}
+					image_url={photos.length > 0 ? photos[0].src : undefined } />
 				<Grid container justify="space-between">
 					<Grid item>
 						<PageHeading text={

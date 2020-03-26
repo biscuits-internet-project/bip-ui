@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import axios, { AxiosResponse } from 'axios'
-import { Helmet } from "react-helmet";
 import { Link, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, LinearProgress, Grid, Typography } from '@material-ui/core';
 import Moment from 'react-moment';
 import PageHeading from '../shared/PageHeading';
 import { IShow } from '../shows/Show';
 import { ISong } from './Song';
+import HtmlHead from '../shared/HtmlHead';
 
 export interface ITrack {
 	annotations: string[]
@@ -34,16 +34,12 @@ const Song: React.FC = () => {
 	}, [])
 	return (
 		<>
-			<Helmet>
-				<title>Biscuits Internet Project - Jam Charts</title>
-			</Helmet>
+			<HtmlHead title="Jam Charts" description="The most comprehensive notes on Disco Biscuits jams on the internet - or at least it will be!" />
 			<Grid container justify="space-between" >
 				<Grid item>
 					<PageHeading text="Jam Charts" />
 				</Grid>
 			</Grid>
-
-
 
 			<TableContainer component={Paper}>
 				<Table>

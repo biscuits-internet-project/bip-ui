@@ -4,13 +4,13 @@ import { HashLink } from 'react-router-hash-link';
 import axios, { AxiosResponse } from 'axios'
 import { IShow } from './Show';
 import ListShows from './ListShows'
-import { Helmet } from "react-helmet"
 import { LinearProgress, Button, Grid } from '@material-ui/core';
 import PageHeading from '../shared/PageHeading';
 import ShowSearch from '../shared/ShowSearch';
 import { AppContext } from '../../context/AppProvider';
 import LinkButton from '../shared/LinkButton';
 import moment from 'moment';
+import HtmlHead from '../shared/HtmlHead';
 
 const scrollListener = () => {
 	localStorage.setItem('showsScrollY', `${window.scrollY}`);
@@ -74,9 +74,7 @@ const Shows: React.FC = () => {
 	}, [selectedYear])
 	return (
 		<>
-			<Helmet>
-				<title>Biscuits Internet Project - Shows</title>
-			</Helmet>
+			<HtmlHead title="Shows" description="Check out setlists by year, venue, song, or search for combinations." />
 
 			<Grid container justify="space-between" >
 				<Grid item>

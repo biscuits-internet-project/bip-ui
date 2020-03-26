@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Helmet } from "react-helmet";
 import PageHeading from '../shared/PageHeading';
 import LinkButton from '../shared/LinkButton';
 import * as rssParser from 'react-native-rss-parser';
 import { Card, CardHeader, CardMedia, CardContent, makeStyles, Grid, Typography } from '@material-ui/core';
+import HtmlHead from '../shared/HtmlHead';
 
 interface IPodcast {
   title: string
@@ -49,9 +49,11 @@ const Touchdowns: React.FC = () => {
 	}, [])
 	return (
 		<>
-			<Helmet>
-				<title>Biscuits Internet Project - Touchdowns All Day Podcast</title>
-			</Helmet>
+			<HtmlHead
+				title="Touchdowns All Day Podcast"
+				description="Step inside the mind of Jon Barber as he breaks down jams, interviews guests, and discusses all things Disco Biscuits on Touchdowns All Day w/ Jon Barber."
+				image_url="http://discobiscuits.net/tdad.jpg"
+			/>
 			<PageHeading text="Touchdowns All Day"/>
 
 			<Grid container spacing={5} alignItems="stretch">

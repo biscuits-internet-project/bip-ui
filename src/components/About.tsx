@@ -1,16 +1,15 @@
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom'
-import { Helmet } from "react-helmet";
 import { Link } from '@material-ui/core';
 import PageHeading from './shared/PageHeading';
 import Paragraph from './shared/Paragraph';
+import HtmlHead from './shared/HtmlHead';
 
 const About: React.FC = () => {
 	return (
 		<>
-			<Helmet>
-				<title>Biscuits Internet Project - About</title>
-			</Helmet>
+			<HtmlHead title="About" />
+
 			<PageHeading text="About the Biscuits Internet Project" />
 
 			<Paragraph>

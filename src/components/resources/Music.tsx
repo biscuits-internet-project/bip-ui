@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom'
-import { Helmet } from "react-helmet";
 import PageHeading from '../shared/PageHeading';
 import { Card, CardContent, Typography, Link } from '@material-ui/core';
 import Paragraph from '../shared/Paragraph';
+import HtmlHead from '../shared/HtmlHead';
 
 const Music: React.FC = () => {
 	const divider = (
@@ -13,9 +13,11 @@ const Music: React.FC = () => {
 	)
 	return (
 		<>
-			<Helmet>
-				<title>Biscuits Internet Project - Resources - Music Terminology</title>
-			</Helmet>
+			<HtmlHead
+				title="Music Terminology"
+				description="Inverted I-Man? Dyslexic Munchkin?? Dub Dribble??? WHAT DOES IT ALL MEAN?"
+				image_url="https://discobiscuits.net/music.jpg"
+			/>
 			<PageHeading text="Music Terminology" />
 
 			<Card>
