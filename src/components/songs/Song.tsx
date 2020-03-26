@@ -28,6 +28,7 @@ export interface ISong {
 	history?: string,
 	featured_lyric?: string,
 	date_last_played?: Date
+	shows_since_last_played?: number
 }
 
 interface ISongPlayed {
@@ -180,7 +181,13 @@ const Song: React.FC = () => {
 									Times played
 									</TableCell>
 								<TableCell>
-									{song.times_played}
+									{song.times_played} (
+										{(song.shows_since_last_played || 0) > 0 ? (
+											`${song.shows_since_last_played} shows ago`
+										) : (
+											"last show"
+										)}
+									)
 								</TableCell>
 							</TableRow>
 							<TableRow>

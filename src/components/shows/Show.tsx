@@ -49,6 +49,7 @@ const Show: React.FC = () => {
 	const admin = currentUser?.roles.includes('admin')
 	const [currentImage, setCurrentImage] = useState(0);
 	const [viewerIsOpen, setViewerIsOpen] = useState(false);
+	const [firstThumbUrl, setFirstThumbUrl] = useState("");
 
 	const openLightbox = useCallback((event, { photo, index }) => {
 		setCurrentImage(index);
@@ -68,6 +69,7 @@ const Show: React.FC = () => {
 		const fetchPhotos = async () => {
 			const data:AxiosResponse = await axios.get(`${process.env.REACT_APP_API_URL}/shows/${params.id}/photos`)
 			const imgs: IImage[] = data.data.map(obj => {
+				setFirstThumbUrl(obj.thumb_url)
 				return {
 					source: obj.url,
 					src: obj.url,
@@ -93,7 +95,7 @@ const Show: React.FC = () => {
 				<HtmlHead
 					title={`${show.date} at ${show.venue.name} - ${show.venue.city}, ${show.venue.state}`}
 					description={`Setlist, photos, and reviews of The Disco Biscuits show from ${show.date} at ${show.venue.name}`}
-					image_url={photos.length > 0 ? photos[0].src : undefined } />
+					image_url={firstThumbUrl ? firstThumbUrl : undefined } />
 				<Grid container justify="space-between">
 					<Grid item>
 						<PageHeading text={
