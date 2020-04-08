@@ -16,6 +16,7 @@ import VenueForm from './VenueForm'
 import { AppContext } from '../../context/AppProvider'
 import HtmlHead from '../shared/HtmlHead'
 import { fetchVenues } from '../../stores/venues/actions'
+import { fetchPosts } from '../../stores/blog/actions'
 
 const Venues: React.FC = () => {
   const [formOpen, setFormOpen] = useState(false)
@@ -26,6 +27,7 @@ const Venues: React.FC = () => {
 
   useEffect(() => {
     dispatch(fetchVenues())
+    dispatch(fetchPosts())
   }, [])
 
   useEffect(() => {

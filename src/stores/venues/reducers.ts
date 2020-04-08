@@ -8,8 +8,8 @@ const initialState: VenueState = {
 }
 
 export default createReducer(initialState, {
-  [actions.GET_VENUES]: (state: VenueState) => {
-    const newState = { ...state, getVenuesStatus: 'pending' }
+  [actions.GET_VENUES_REQUEST]: (state: VenueState) => {
+    const newState = { ...state }
     return newState
   },
   [actions.GET_VENUES_FULFILLED]: (
@@ -27,12 +27,11 @@ export default createReducer(initialState, {
     const newState = {
       ...state,
       venuesById,
-      getVenuesStatus: 'complete',
     }
     return newState
   },
   [actions.GET_VENUES_REJECTED]: (state: VenueState) => {
-    const newState = { ...state, getVenuesStatus: 'rejected' }
+    const newState = { ...state }
     return newState
   },
 })
