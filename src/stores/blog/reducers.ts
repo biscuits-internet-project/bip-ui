@@ -1,5 +1,5 @@
 import createReducer from '../../lib/createReducer'
-import { Post, BlogState } from './types'
+import { IPost, BlogState } from './types'
 import * as actions from './actions'
 
 const initialState: BlogState = {
@@ -17,7 +17,7 @@ export default createReducer(initialState, {
   ) => {
     const postsById = { ...state.postsById }
     const data = action.payload
-    data.forEach((venue: Post) => {
+    data.forEach((venue: IPost) => {
       postsById[`${venue.id}`] = {
         ...postsById[`${venue.id}`],
         ...venue,

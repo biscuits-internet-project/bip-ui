@@ -18,7 +18,6 @@ import HtmlHead from '../shared/HtmlHead'
 import { fetchVenues } from '../../stores/venues/actions'
 import { IVenue } from '../../stores/venues/types'
 import { venuesSelector } from '../../stores/venues/selectors'
-import { fetchPosts } from '../../stores/blog/actions'
 
 const Venues: React.FC = () => {
   const [formOpen, setFormOpen] = useState(false)
@@ -30,7 +29,6 @@ const Venues: React.FC = () => {
   console.log(venues)
   useEffect(() => {
     dispatch(fetchVenues())
-    dispatch(fetchPosts())
   }, [])
 
   useEffect(() => {

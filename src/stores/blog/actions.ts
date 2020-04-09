@@ -1,12 +1,12 @@
 import axios, { AxiosResponse } from 'axios'
-import { Post } from './types'
+import { IPost } from './types'
 export const GET_POSTS_REQUEST = 'GET_POSTS_REQUEST'
 export const GET_POSTS_FULFILLED = 'GET_POSTS_FULFILLED'
 export const GET_POSTS_REJECTED = 'GET_POSTS_REJECTED'
 
 export const getPosts = () => ({ type: GET_POSTS_REQUEST } as const)
 
-export const getPostsFulfilled = (payload: Post[]) =>
+export const getPostsFulfilled = (payload: IPost[]) =>
   ({ type: GET_POSTS_FULFILLED, payload } as const)
 
 export const getPostsRejected = () => ({ type: GET_POSTS_REJECTED } as const)
