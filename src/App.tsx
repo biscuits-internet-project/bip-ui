@@ -1,63 +1,85 @@
-import React, { useContext, ReactElement, useEffect } from 'react';
-import { Switch, Link as RouterLink, useHistory } from 'react-router-dom';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { ThemeProvider } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
+import React, { useContext, ReactElement, useEffect } from 'react'
+import { Switch, Link as RouterLink, useHistory } from 'react-router-dom'
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import { ThemeProvider } from '@material-ui/core/styles'
+import CssBaseline from '@material-ui/core/CssBaseline'
 import { AppContext } from './context/AppProvider'
 import { darkTheme } from './lib/theme'
-import MenuIcon from '@material-ui/icons/Menu';
-import Toolbar from '@material-ui/core/Toolbar';
-import { Link, ListItem, ListItemIcon, ListItemText, List, IconButton, Typography, Drawer, AppBar, Hidden, Divider, Box, Grid } from '@material-ui/core';
-import { Notes, QueueMusic, Home, Room, CardTravel, Info, Album } from '@material-ui/icons';
-import { SnackbarProvider } from 'notistack';
-import Routes from './routing/Routes';
-import AvatarMenu from './components/identity/AvatarMenu';
-import ScrollUpButton from "react-scroll-up-button";
+import MenuIcon from '@material-ui/icons/Menu'
+import Toolbar from '@material-ui/core/Toolbar'
+import {
+  Link,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  List,
+  IconButton,
+  Typography,
+  Drawer,
+  AppBar,
+  Hidden,
+  Divider,
+  Box,
+  Grid,
+} from '@material-ui/core'
+import {
+  Notes,
+  QueueMusic,
+  Home,
+  Room,
+  CardTravel,
+  Info,
+  Album,
+} from '@material-ui/icons'
+import { SnackbarProvider } from 'notistack'
+import Routes from './routing/Routes'
+import AvatarMenu from './components/identity/AvatarMenu'
+import ScrollUpButton from 'react-scroll-up-button'
 
 interface sideMenuItem {
-  name: string | undefined,
-  label: string,
+  name: string | undefined
+  label: string
   icon: ReactElement
 }
 const itemList: sideMenuItem[] = [
   {
     name: '',
     label: 'Home',
-    icon: <Home />
+    icon: <Home />,
   },
   {
     name: 'shows',
     label: 'Shows',
-    icon: <QueueMusic />
+    icon: <QueueMusic />,
   },
   {
     name: 'songs',
     label: 'Songs',
-    icon: <Album />
+    icon: <Album />,
   },
   {
     name: 'jam-charts',
     label: 'Jam Charts',
-    icon: <Notes />
+    icon: <Notes />,
   },
   {
     name: 'venues',
     label: 'Venues',
-    icon: <Room />
+    icon: <Room />,
   },
   {
     name: 'tour',
     label: 'Tour Dates',
-    icon: <CardTravel />
+    icon: <CardTravel />,
   },
   {
     name: 'resources',
     label: 'Resources',
-    icon: <Info />
-  }
+    icon: <Info />,
+  },
 ]
 
-const drawerWidth = 190;
+const drawerWidth = 190
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -95,14 +117,14 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     drawerPaper: {
       width: drawerWidth,
-      zIndex: 1000
+      zIndex: 1000,
     },
     content: {
       flexGrow: 1,
       padding: theme.spacing(3),
     },
     footer: {
-      marginTop: 30
+      marginTop: 30,
     },
     toolbar: {
       ...theme.mixins.toolbar,
@@ -111,7 +133,7 @@ const useStyles = makeStyles((theme: Theme) =>
     navHeaderDisplay: {
       fontFamily: '"Orbitron", sans-serif',
       textTransform: 'lowercase',
-      fontWeight: "bold",
+      fontWeight: 'bold',
       'background-image': 'linear-gradient(#9ccaea, #e94abc)',
       '-webkit-background-clip': 'text',
       '-webkit-text-fill-color': 'transparent',
@@ -133,39 +155,45 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     sidebarText: {
       textTransform: 'lowercase',
-    }
+    },
   }),
-);
+)
 
 function ListItemLink(props) {
-  return <ListItem button component="a" {...props} />;
+  return <ListItem button component="a" {...props} />
 }
 
 const App: React.FC = () => {
   const history = useHistory()
-  const classes = useStyles();
+  const classes = useStyles()
   const { state, asyncActions } = useContext(AppContext)
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [mobileOpen, setMobileOpen] = React.useState(false)
   const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
-  };
+    setMobileOpen(!mobileOpen)
+  }
   useEffect(
     () => {
-      !state.venues.length && asyncActions.getVenues()
+      // !state.venues.length && asyncActions.getVenues()
       !state.songs.length && asyncActions.getSongs()
-      !state.attendances.length && state.currentUser && asyncActions.getUserAttendances(state.currentUser.token)
-      !state.favorites.length && state.currentUser && asyncActions.getFavorites(state.currentUser.token)
-      !state.ratings.length && state.currentUser && asyncActions.getRatings(state.currentUser.token)
-    }
+      !state.attendances.length &&
+        state.currentUser &&
+        asyncActions.getUserAttendances(state.currentUser.token)
+      !state.favorites.length &&
+        state.currentUser &&
+        asyncActions.getFavorites(state.currentUser.token)
+      !state.ratings.length &&
+        state.currentUser &&
+        asyncActions.getRatings(state.currentUser.token)
+    },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    , []
+    [],
   )
   useEffect(() => {
     window.scrollTo({
       top: 0,
       left: 0,
-      behavior: 'smooth'
-    });
+      behavior: 'smooth',
+    })
   }, [history.location.pathname])
 
   const drawer = (
@@ -173,11 +201,16 @@ const App: React.FC = () => {
       <List>
         {itemList.map((item: sideMenuItem) => {
           return (
-            <ListItemLink component={RouterLink} key={item.name} to={`/${item.name}`}>
-              <ListItemIcon>
-                {item.icon}
-              </ListItemIcon>
-              <ListItemText className={classes.sidebarText} primary={item.label} />
+            <ListItemLink
+              component={RouterLink}
+              key={item.name}
+              to={`/${item.name}`}
+            >
+              <ListItemIcon>{item.icon}</ListItemIcon>
+              <ListItemText
+                className={classes.sidebarText}
+                primary={item.label}
+              />
             </ListItemLink>
           )
         })}
@@ -208,12 +241,18 @@ const App: React.FC = () => {
 
                 <Box flexGrow={1}>
                   <Box display={{ xs: 'block', sm: 'none' }}>
-                    <Typography variant="h5" className={classes.navHeaderDisplay}>
+                    <Typography
+                      variant="h5"
+                      className={classes.navHeaderDisplay}
+                    >
                       BIP 2.0
                     </Typography>
                   </Box>
                   <Box display={{ xs: 'none', sm: 'block' }}>
-                    <Typography variant="h5" className={classes.navHeaderDisplay}>
+                    <Typography
+                      variant="h5"
+                      className={classes.navHeaderDisplay}
+                    >
                       Biscuits Internet Project 2.0
                     </Typography>
                   </Box>
@@ -259,17 +298,41 @@ const App: React.FC = () => {
               <Switch>
                 <Routes />
               </Switch>
-              <Divider style={{ marginTop: "120px" }} />
+              <Divider style={{ marginTop: '120px' }} />
               <ScrollUpButton ShowAtPosition={500} />
 
               <Box className={classes.footer}>
                 <Typography>
                   <span>BIP 2.0 | </span>
-                  <span><Link component={RouterLink} to="/about">About</Link> | </span>
-                  <span><Link component={RouterLink} to="/contact">Contact</Link> | </span>
-                  <span><Link component={RouterLink} to="/privacy">Privacy</Link> | </span>
-                  <span><Link href="https://twitter.com/tdbdotnet" target="blank">twitter</Link> | </span>
-                  <span><Link href="https://instagram.com/tdbdotnet" target="blank">instagram</Link></span>
+                  <span>
+                    <Link component={RouterLink} to="/about">
+                      About
+                    </Link>{' '}
+                    |{' '}
+                  </span>
+                  <span>
+                    <Link component={RouterLink} to="/contact">
+                      Contact
+                    </Link>{' '}
+                    |{' '}
+                  </span>
+                  <span>
+                    <Link component={RouterLink} to="/privacy">
+                      Privacy
+                    </Link>{' '}
+                    |{' '}
+                  </span>
+                  <span>
+                    <Link href="https://twitter.com/tdbdotnet" target="blank">
+                      twitter
+                    </Link>{' '}
+                    |{' '}
+                  </span>
+                  <span>
+                    <Link href="https://instagram.com/tdbdotnet" target="blank">
+                      instagram
+                    </Link>
+                  </span>
                 </Typography>
               </Box>
             </main>

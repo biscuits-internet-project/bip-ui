@@ -1,5 +1,5 @@
 import createReducer from '../../lib/createReducer'
-import { Venue, VenueState } from './types'
+import { IVenue, VenueState } from './types'
 import * as actions from './actions'
 
 const initialState: VenueState = {
@@ -18,7 +18,7 @@ export default createReducer(initialState, {
   ) => {
     const venuesById = { ...state.venuesById }
     const data = action.payload
-    data.forEach((venue: Venue) => {
+    data.forEach((venue: IVenue) => {
       venuesById[`${venue.id}`] = {
         ...venuesById[`${venue.id}`],
         ...venue,

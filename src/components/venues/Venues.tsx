@@ -11,11 +11,13 @@ import {
 } from '@material-ui/core'
 import MUIDataTable from 'mui-datatables'
 import PageHeading from './../shared/PageHeading'
-import { IVenue } from './Venue'
+
 import VenueForm from './VenueForm'
 import { AppContext } from '../../context/AppProvider'
 import HtmlHead from '../shared/HtmlHead'
 import { fetchVenues } from '../../stores/venues/actions'
+import { IVenue } from '../../stores/venues/types'
+import { venuesSelector } from '../../stores/venues/selectors'
 import { fetchPosts } from '../../stores/blog/actions'
 
 const Venues: React.FC = () => {
@@ -24,7 +26,8 @@ const Venues: React.FC = () => {
   const { currentUser } = state
   const admin = currentUser && currentUser.roles.includes('admin')
   const dispatch = useDispatch()
-
+  const venues = useSelector(venuesSelector)
+  console.log(venues)
   useEffect(() => {
     dispatch(fetchVenues())
     dispatch(fetchPosts())
@@ -124,13 +127,20 @@ const Venues: React.FC = () => {
       })
     },
   }
-
   const data = state.venues.map((v: IVenue) => [
     [v.slug, v.name],
     v.city,
     v.state,
     v.times_played,
   ])
+
+  //We can use the redux store to render venues
+  // const data = venues.map((v: IVenue) => [
+  //   [v.slug, v.name],
+  //   v.city,
+  //   v.state,
+  //   v.times_played,
+  // ])
 
   return (
     <>
