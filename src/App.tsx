@@ -35,6 +35,12 @@ import { SnackbarProvider } from 'notistack'
 import Routes from './routing/Routes'
 import AvatarMenu from './components/identity/AvatarMenu'
 import ScrollUpButton from 'react-scroll-up-button'
+import { fetchVenues } from './stores/venues/actions'
+import { IVenue } from './stores/venues/types'
+import { venuesSelector } from './stores/venues/selectors'
+import { fetchSongs } from './stores/songs/actions'
+import { songsSelector } from './stores/songs/selectors'
+import { useDispatch, useSelector } from 'react-redux'
 
 interface sideMenuItem {
   name: string | undefined
@@ -168,13 +174,18 @@ const App: React.FC = () => {
   const classes = useStyles()
   const { state, asyncActions } = useContext(AppContext)
   const [mobileOpen, setMobileOpen] = React.useState(false)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(fetchVenues())
+    dispatch(fetchSongs())
+  }, [])
+
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen)
   }
   useEffect(
     () => {
-      // !state.venues.length && asyncActions.getVenues()
-      !state.songs.length && asyncActions.getSongs()
       !state.attendances.length &&
         state.currentUser &&
         asyncActions.getUserAttendances(state.currentUser.token)

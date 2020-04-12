@@ -16,7 +16,6 @@ import {
   ExpansionPanelSummary,
   Typography,
   ExpansionPanelDetails,
-  LinearProgress,
   Button,
   Grid,
   Dialog,
@@ -31,25 +30,8 @@ import { AppContext } from '../../context/AppProvider'
 import SongForm from './SongForm'
 import Paragraph from '../shared/Paragraph'
 import HtmlHead from '../shared/HtmlHead'
-
-export interface ISong {
-  id: string
-  author_id: string
-  author_name: string
-  cover: boolean
-  lyrics?: string
-  notes?: string
-  slug: string
-  tabs?: string
-  title: string
-  times_played: number
-  first_played_show?: IShow
-  last_played_show?: IShow
-  history?: string
-  featured_lyric?: string
-  date_last_played?: Date
-  shows_since_last_played?: number
-}
+import ProgressBar from '../shared/ProgressBar'
+import { ISong } from '../../stores/songs/types'
 
 interface ISongPlayed {
   annotations: string[]
@@ -97,8 +79,6 @@ const Song: React.FC = () => {
   const admin = currentUser?.roles.includes('admin')
 
   const initViewJamCharts = state.viewJamCharts ? true : false
-
-  console.log(initViewJamCharts)
 
   const handleOpen = (type: string, id: string) => {
     setId(id)
@@ -218,7 +198,7 @@ const Song: React.FC = () => {
                       component={RouterLink}
                       to={`/shows/${song.first_played_show.slug}`}
                     >
-                      <Moment format="M/DD/YYYY">
+                      <Moment format="M/D/YY">
                         {song.first_played_show.date}
                       </Moment>
                       <span> - </span>
@@ -254,7 +234,7 @@ const Song: React.FC = () => {
                       component={RouterLink}
                       to={`/shows/${song.last_played_show.slug}`}
                     >
-                      <Moment format="M/DD/YYYY">
+                      <Moment format="M/D/YY">
                         {song.last_played_show.date}
                       </Moment>
                       <span> - </span>
@@ -299,7 +279,7 @@ const Song: React.FC = () => {
                             component={RouterLink}
                             to={`/shows/${allTimer.show.slug}`}
                           >
-                            <Moment format="M/DD/YYYY">
+                            <Moment format="M/D/YY">
                               {allTimer.show.date}
                             </Moment>
                             <span> - </span>
@@ -394,7 +374,7 @@ const Song: React.FC = () => {
                 <TableCell>
                   <Link component={RouterLink} to={`/shows/${s.show.slug}`}>
                     <Typography>
-                      <Moment format="M/DD/YYYY">{s.show.date}</Moment>
+                      <Moment format="M/D/YY">{s.show.date}</Moment>
                     </Typography>
                     <Typography>
                       {s.venue.name}
@@ -419,13 +399,7 @@ const Song: React.FC = () => {
         </Table>
       </TableContainer>
 
-      {loading && (
-        <>
-          <div style={{ height: 30 }}></div>
-          <LinearProgress />
-          <div style={{ height: 30 }}></div>
-        </>
-      )}
+      {loading && <ProgressBar />}
     </>
   )
 }

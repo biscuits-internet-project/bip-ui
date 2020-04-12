@@ -3,7 +3,6 @@ import { useParams, Link as RouterLink } from 'react-router-dom'
 import axios, { AxiosResponse } from 'axios'
 import { IShow } from '../shows/Show'
 import {
-  LinearProgress,
   TableContainer,
   Paper,
   Table,
@@ -23,6 +22,7 @@ import { AppContext } from '../../context/AppProvider'
 import ListShows from '../shows/ListShows'
 import HtmlHead from '../shared/HtmlHead'
 import { IVenue } from '../../stores/venues/types'
+import ProgressBar from '../shared/ProgressBar'
 
 const Venue: React.FC = () => {
   const params = useParams()
@@ -61,7 +61,7 @@ const Venue: React.FC = () => {
       setLoading(false)
     }
     fetchVenue()
-  }, [params.id, state.venues])
+  }, [params.id])
   return (
     <>
       {venue && (
@@ -111,7 +111,7 @@ const Venue: React.FC = () => {
                       component={RouterLink}
                       to={`/shows/${venue.first_played_show.slug}`}
                     >
-                      <Moment format="M/DD/YYYY">
+                      <Moment format="M/D/YY">
                         {venue.first_played_show.date}
                       </Moment>
                     </Link>
@@ -138,7 +138,7 @@ const Venue: React.FC = () => {
                       component={RouterLink}
                       to={`/shows/${venue.last_played_show.slug}`}
                     >
-                      <Moment format="M/DD/YYYY">
+                      <Moment format="M/D/YY">
                         {venue.last_played_show.date}
                       </Moment>
                     </Link>
@@ -164,13 +164,7 @@ const Venue: React.FC = () => {
 
           <ListShows shows={shows} />
 
-          {loading && (
-            <>
-              <div style={{ height: 30 }}></div>
-              <LinearProgress />
-              <div style={{ height: 30 }}></div>
-            </>
-          )}
+          {loading && <ProgressBar />}
         </>
       )}
     </>
