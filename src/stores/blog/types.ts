@@ -1,14 +1,14 @@
 export type IPost = {
-  id: String
+  id?: String
   blurb: String
   content: String
-  published_at: String
-  slug: String
-  state: String
+  published_at?: String
+  slug?: String
+  state?: String
   title: String
-  user: {
-    avatar_url: String
-    username: String
+  user?: {
+    avatar_url?: String
+    username?: String
   }
 }
 
