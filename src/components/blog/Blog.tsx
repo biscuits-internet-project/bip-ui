@@ -1,10 +1,12 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useCallback, useContext } from 'react'
+import { AppContext } from '../../context/AppProvider'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../stores/reducers'
-import { fetchPosts } from '../../stores/blog/actions'
+import { fetchPosts, createPostAsync } from '../../stores/blog/actions'
 import { postsSelector } from '../../stores/blog/selectors'
 
 const Blog: React.FC = () => {
+  const { state } = useContext(AppContext)
   const dispatch = useDispatch()
   const posts = useSelector(postsSelector)
   const postsLoading = useSelector(
@@ -12,6 +14,15 @@ const Blog: React.FC = () => {
   )
   useEffect(() => {
     dispatch(fetchPosts())
+  }, [])
+
+  const postBlog = useCallback(() => {
+    const dummy = {
+      blurb: 'new blurb',
+      content: 'new content',
+      title: 'new title',
+    }
+    dispatch(createPostAsync(dummy, state.currentUser))
   }, [])
 
   if (postsLoading) {
@@ -26,6 +37,7 @@ const Blog: React.FC = () => {
           {post.title}, {post.blurb}, {post.content}
         </div>
       ))}
+      <button onClick={postBlog}>Add Dummy Blog Post</button>
     </div>
   )
 }

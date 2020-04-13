@@ -29,7 +29,33 @@ export default createReducer(initialState, {
     }
     return newState
   },
+  [actions.CREATE_POST_REQUEST]: (state: BlogState) => {
+    const newState = { ...state }
+    return newState
+  },
   [actions.GET_POSTS_REJECTED]: (state: BlogState) => {
+    const newState = { ...state }
+    return newState
+  },
+  [actions.CREATE_POST_REQUEST]: (state: BlogState) => {
+    const newState = { ...state }
+    return newState
+  },
+  [actions.CREATE_POST_FULFILLED]: (
+    state: BlogState,
+    action: ReturnType<typeof actions.createPostFulfilled>,
+  ) => {
+    const postsById = { ...state.postsById }
+    const newPost = action.payload
+    if (newPost) {
+      const newState = {
+        ...state,
+        postsById: { [`${newPost.id}`]: newPost, ...postsById },
+      }
+      return newState
+    }
+  },
+  [actions.CREATE_POST_REJECTED]: (state: BlogState) => {
     const newState = { ...state }
     return newState
   },
