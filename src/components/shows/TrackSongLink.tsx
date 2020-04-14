@@ -91,7 +91,7 @@ const TrackSongLink: React.FC<Props> = ({ track }) => {
                     </Popover>
                 </span>
             ) : (
-                    <Link component={RouterLink} to={`/songs/${track.song_slug}`} > {track.song_title} </Link>
+                    <Link component={RouterLink} to={`/songs/${track.song_slug}`} > {track.song_title}</Link>
                 )}
 
         </>

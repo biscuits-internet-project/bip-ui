@@ -18,6 +18,9 @@ const baseTheme = {
       },
       MuiTextField: {
         marginBottom: 10
+      },
+      MUIDataTableFilter: {
+        width: 300
       }
     }
   },
@@ -31,6 +34,11 @@ export const darkTheme = createMuiTheme({
     secondary: { light: purple[100], main: purple[300], dark: purple[500] },
   },
   overrides: {
+    MUIDataTableFilter: {
+      root: {
+        width: 300
+      }
+    },
     MuiLink: {
       root: {
         color: "#BB86FC"

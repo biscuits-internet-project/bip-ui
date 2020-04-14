@@ -38,6 +38,7 @@ const AvatarMenu: React.FC = () => {
 						onClose={handleClose}
 					>
 						<MenuItem onClick={handleClose} component={RouterLink} to="/account">Account</MenuItem>
+						<MenuItem onClick={handleClose} component={RouterLink} to="/my-shows">My Shows</MenuItem>
 						{/* <MenuItem onClick={handleClose} component={RouterLink} to="/my-stuff">My Stuff</MenuItem> */}
 						<MenuItem onClick={handleLogout}>Logout</MenuItem>
 						{admin && <Divider></Divider>}
@@ -46,7 +47,7 @@ const AvatarMenu: React.FC = () => {
 				</>
 			) : (
 				<>
-					{/* <LinkButton to="/login" text="login" /> */}
+					<LinkButton to="/login" text="login" />
 				</>
 			)
 		}

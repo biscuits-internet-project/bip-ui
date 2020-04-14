@@ -1,16 +1,18 @@
 import React from 'react';
 import { Link as RouterLink} from 'react-router-dom'
-import { Helmet } from "react-helmet";
 import PageHeading from '../shared/PageHeading';
 import { Card, CardContent, Typography, Link } from '@material-ui/core';
 import Paragraph from '../shared/Paragraph';
+import HtmlHead from '../shared/HtmlHead';
 
 const Gear: React.FC = () => {
 	return (
 		<>
-			<Helmet>
-				<title>Biscuits Internet Project - Movie Scores</title>
-			</Helmet>
+			<HtmlHead
+				title="Live Movie Scores"
+				description="Akira, Tron, and every other time the band played a set synched to a movie."
+				image_url="https://discobiscuits.net/akira.jpg"
+			/>
 			<PageHeading text="Live Movie Scores"/>
 
 			<Card>

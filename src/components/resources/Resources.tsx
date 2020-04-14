@@ -1,15 +1,16 @@
 import React from 'react';
-import { Helmet } from "react-helmet";
 import { Grid } from '@material-ui/core';
 import ResourceCard from './ResourceCard';
 import PageHeading from '../shared/PageHeading';
+import HtmlHead from '../shared/HtmlHead';
 
 const Resources: React.FC = () => {
 	return (
 		<>
-			<Helmet>
-				<title>Biscuits Internet Project - Resources</title>
-			</Helmet>
+			<HtmlHead
+			  title="Band History, Rock Operas, Terminology, Film Score and More"
+			  description="The ultimate collection of Disco Biscuits history." />
+
 			<PageHeading text="Resources"/>
 
 			<Grid container spacing={3} alignItems="stretch">

@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import { Helmet } from "react-helmet";
 import PageHeading from '../shared/PageHeading';
 import { Card, CardHeader, CardContent, ListItem, List, Link } from '@material-ui/core';
 import Paragraph from '../shared/Paragraph';
+import HtmlHead from '../shared/HtmlHead';
 const BandHistory: React.FC = () => {
 	const divider = (
 		<>
@@ -19,9 +19,7 @@ const BandHistory: React.FC = () => {
 	}
 	return (
 		<>
-			<Helmet>
-				<title>Biscuits Internet Project - The Band</title>
-			</Helmet>
+			<HtmlHead title="Band History" description="From their early days in Philadelphia as Zex Sea to their current lineup as The Disco Biscuits, read more about the band members, who they are, and how they came together." />
 			<PageHeading text="Band History" />
 			<Card>
 				<CardHeader title={"Current Members"}>

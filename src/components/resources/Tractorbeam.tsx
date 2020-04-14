@@ -1,16 +1,18 @@
 import React from 'react';
 import { Link as RouterLink } from "react-router-dom";
-import { Helmet } from "react-helmet";
 import PageHeading from '../shared/PageHeading';
 import { Link } from '@material-ui/core';
 import Paragraph from '../shared/Paragraph';
+import HtmlHead from '../shared/HtmlHead';
 
 const Tractorbeam: React.FC = () => {
 	return (
 		<>
-			<Helmet>
-				<title>Biscuits Internet Project - Tractorbeam</title>
-			</Helmet>
+			<HtmlHead
+				title="Tractorbeam"
+				description="All things serve the Beam. Debuted in 2007, this Disco Biscuits alter-ego played instrumental versions of tdb originals and covers until reinventing themselves in 2019."
+				image_url="https://discobiscuits.net/tractorbeam.jpg"
+			/>
 			<PageHeading text="Tractor Beam" />
 			<Paragraph>
 				Tractorbeam, like <Link component={RouterLink} to="/resources/the-perfume">The Perfume</Link>, is a pseudonym the Disco Biscuits perform under.

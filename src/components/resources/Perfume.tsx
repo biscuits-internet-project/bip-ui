@@ -1,16 +1,19 @@
 import React from 'react';
 import { Link as RouterLink } from "react-router-dom"
-import { Helmet } from "react-helmet";
 import PageHeading from '../shared/PageHeading';
 import { Link } from '@material-ui/core';
 import Paragraph from '../shared/Paragraph';
+import HtmlHead from '../shared/HtmlHead';
 
 const Gear: React.FC = () => {
 	return (
 		<>
-			<Helmet>
-				<title>Biscuits Internet Project - The Perfume</title>
-			</Helmet>
+			<HtmlHead
+				title="The Perfume"
+				description="Don’t miss these Disco Biscuits doppelgangers if you have the chance. Performing alternate versions of songs like Devo Frog Legs and surf punk Kitchen Mitts, catching a Perfume set is a rare treat for fans."
+				image_url="https://discobiscuits.net/drops.jpg"
+			/>
+
 			<PageHeading text="The Perfume" />
 			<Paragraph>
 				The Disco Biscuits first performed under the moniker "The Perfume"

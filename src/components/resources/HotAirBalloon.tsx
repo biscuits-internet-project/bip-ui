@@ -1,11 +1,11 @@
 import React from 'react';
 import { HashLink } from 'react-router-hash-link';
 import { Link as RouterLink } from 'react-router-dom'
-import { Helmet } from "react-helmet";
 import PageHeading from '../shared/PageHeading';
 import { Link, Typography, ListItem, createStyles, Theme, makeStyles, Card, CardContent, Grid } from '@material-ui/core';
 import OperaMenuCard from './OperaMenuCard';
 import Paragraph from '../shared/Paragraph';
+import HtmlHead from '../shared/HtmlHead';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -367,9 +367,11 @@ at his last chance to fly
 
 	return (
 		<>
-			<Helmet>
-				<title>Biscuits Internet Project - The Hot Air Balloon</title>
-			</Helmet>
+			<HtmlHead
+				title="The Hot Air Balloon"
+				description="The band’s first full length rock opera, written by Jon Gutwillig and debuted at the band’s 1998 New Year’s Eve show at Silk City in Philadelphia."
+				image_url="http://discobiscuits.net/hot-air-balloon.jpg"
+			/>
 			<PageHeading text="The Hot Air Balloon" />
 
 			<Card>
