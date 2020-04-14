@@ -30,7 +30,7 @@ const Blog: React.FC = () => {
     const { value } = e.target
     dispatch(
       setFilter({
-        namespace: 'venuesFilter',
+        namespace: 'venuesFilter name whatever you want',
         filterInfo: {
           filterValue: value,
           addWhatEverYouWant: 'sort by some shit',
