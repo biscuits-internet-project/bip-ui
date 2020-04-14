@@ -15,3 +15,7 @@ export type IPost = {
 export type BlogState = {
   postsById: { [key: string]: IPost }
 }
+
+export type PostState = {
+  state: 'draft' | 'published'
+}

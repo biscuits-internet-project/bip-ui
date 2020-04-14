@@ -28,13 +28,23 @@ export const createPostRejected = () =>
   ({ type: CREATE_POST_REJECTED } as const)
 
 //ASYNC ACTIONS
-export const fetchPosts = () => {
+export const fetchPosts = (state: 'draft' | 'published', currentUser) => {
   return async (dispatch) => {
     dispatch(getPosts())
-    const venues: AxiosResponse = await axios.get(
-      `${process.env.REACT_APP_API_URL}/blog_posts?state=published`,
-    )
-    dispatch(getPostsFulfilled(venues.data))
+    // const posts: AxiosResponse = await axios.get(
+    //   `${process.env.REACT_APP_API_URL}/blog_posts?state=draft`,
+    // )
+    const posts: AxiosResponse = await axios({
+      method: 'get',
+      url: `${process.env.REACT_APP_API_URL}/blog_posts?state=${
+        state ? state : 'published'
+      }`,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: currentUser?.token,
+      },
+    })
+    dispatch(getPostsFulfilled(posts.data))
   }
 }
 

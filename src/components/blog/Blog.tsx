@@ -13,7 +13,7 @@ const Blog: React.FC = () => {
     (state: RootState) => state.loading.GET_POSTS,
   )
   useEffect(() => {
-    dispatch(fetchPosts())
+    dispatch(fetchPosts('draft', state.currentUser))
   }, [])
 
   const postBlog = useCallback(() => {
