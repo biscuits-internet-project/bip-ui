@@ -3,6 +3,7 @@ import { AppContext } from '../../context/AppProvider'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../stores/reducers'
 import { fetchPosts, createPostAsync } from '../../stores/blog/actions'
+import { setFilter } from '../../stores/filters/actions'
 import { postsSelector } from '../../stores/blog/selectors'
 
 const Blog: React.FC = () => {
@@ -25,6 +26,20 @@ const Blog: React.FC = () => {
     dispatch(createPostAsync(dummy, state.currentUser))
   }, [])
 
+  const testFilter = (e) => {
+    const { value } = e.target
+    dispatch(
+      setFilter({
+        namespace: 'venuesFilter',
+        filterInfo: {
+          filterValue: value,
+          addWhatEverYouWant: 'sort by some shit',
+          moreStuff: 'all this can be accssed by the same selector',
+        },
+      }),
+    )
+  }
+
   if (postsLoading) {
     return <h1>Loading....</h1>
   }
@@ -38,6 +53,7 @@ const Blog: React.FC = () => {
         </div>
       ))}
       <button onClick={postBlog}>Add Dummy Blog Post</button>
+      <input onChange={testFilter} />
     </div>
   )
 }
