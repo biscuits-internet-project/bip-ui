@@ -11,6 +11,7 @@ import PageHeading from '../shared/PageHeading';
 import { AppContext } from '../../context/AppProvider';
 import SongForm from './SongForm';
 import Paragraph from '../shared/Paragraph';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 
 export interface ISong {
 	id: string,
@@ -23,11 +24,15 @@ export interface ISong {
 	tabs?: string,
 	title: string,
 	times_played: number,
+	shows_since_last_played: number,
 	first_played_show?: IShow,
 	last_played_show?: IShow,
 	history?: string,
 	featured_lyric?: string,
 	date_last_played?: Date
+	most_common_year: number,
+	least_common_year: number,
+	yearly_play_chart_data: string
 }
 
 interface ISongPlayed {
@@ -187,6 +192,14 @@ const Song: React.FC = () => {
 							</TableRow>
 							<TableRow>
 								<TableCell>
+									Shows since last played
+									</TableCell>
+								<TableCell>
+									{song.shows_since_last_played}
+								</TableCell>
+							</TableRow>
+							<TableRow>
+								<TableCell>
 									Debut
 									</TableCell>
 								<TableCell>
@@ -243,6 +256,37 @@ const Song: React.FC = () => {
 											</span>
 										</>
 									}
+								</TableCell>
+							</TableRow>
+							<TableRow>
+								<TableCell>
+									# of times played by year
+								</TableCell>
+								<TableCell>
+									<BarChart width={600} height={300} data={song.yearly_play_chart_data} margin={{top: 5, right: 30, left: 20, bottom: 5}}>
+								    <CartesianGrid strokeDasharray="3 3"/>
+								    <XAxis dataKey="name" style={{ fill: '#FFF' }} />
+								    <YAxis unit=" plays" angle={-45} yAxisId="left" orientation='left' style={{ fill: '#FFF' }} />
+								    <Tooltip cursor={{ fill: "#333" }}/>
+								    <Legend />
+								    <Bar name="Times Played" dataKey="plays" fill="#BB86FC" yAxisId="left" />
+							    </BarChart>
+								</TableCell>
+							</TableRow>
+							<TableRow>
+								<TableCell>
+									Most common year
+								</TableCell>
+								<TableCell>
+									{song.most_common_year}
+								</TableCell>
+							</TableRow>
+							<TableRow>
+								<TableCell>
+									Least common year
+								</TableCell>
+								<TableCell>
+									{song.least_common_year}
 								</TableCell>
 							</TableRow>
 							{song.notes &&
