@@ -34,8 +34,6 @@ import ProgressBar from '../shared/ProgressBar'
 import { ISong } from '../../stores/songs/types'
 import { useSelector, useDispatch } from 'react-redux'
 import { songsSelector } from '../../stores/songs/selectors'
-import { fetchSongs } from '../../stores/songs/actions'
-import { RootState } from '../../stores/reducers'
 
 interface ITrack {
   id: string
