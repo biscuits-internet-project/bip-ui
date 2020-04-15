@@ -68,6 +68,10 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: theme.typography.pxToRem(15),
       fontWeight: theme.typography.fontWeightRegular,
     },
+    chart_heading: {
+      textAlign: `center`,
+      fontSize: theme.typography.pxToRem(20)
+    },
     chart_container: {
       border: '1px solid #424242',
       'border-radius': `5px`,
@@ -349,7 +353,7 @@ const Song: React.FC = () => {
           </TableContainer>
 
           <div  className={classes.chart_container}>
-            <Typography className={classes.heading}>Times Played Per Year</Typography>
+            <Typography className={classes.chart_heading}>Times Played Per Year</Typography>
             <ResponsiveContainer height={300} >
               <BarChart data={song.yearly_play_chart_data} margin={{top: 5, right: 30, left: 20, bottom: 5}}>
                 <CartesianGrid strokeDasharray="3 3"/>
