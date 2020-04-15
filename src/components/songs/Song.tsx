@@ -32,7 +32,7 @@ import Paragraph from '../shared/Paragraph'
 import HtmlHead from '../shared/HtmlHead'
 import ProgressBar from '../shared/ProgressBar'
 import { ISong } from '../../stores/songs/types'
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 interface ISongPlayed {
   annotations: string[]
@@ -61,6 +61,16 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: theme.typography.pxToRem(15),
       fontWeight: theme.typography.fontWeightRegular,
     },
+    chart_container: {
+      border: '1px solid #424242',
+      'border-radius': `5px`,
+      padding: `10px 0px 0px`,
+      margin: `20px 0px`,
+      [theme.breakpoints.up('md')]: {
+        padding: `50px 50px 10px`,
+      },
+    }
+
   }),
 )
 
@@ -260,21 +270,6 @@ const Song: React.FC = () => {
 							</TableRow>
 							<TableRow>
 								<TableCell>
-									# of times played by year
-								</TableCell>
-								<TableCell>
-									<BarChart width={600} height={300} data={song.yearly_play_chart_data} margin={{top: 5, right: 30, left: 20, bottom: 5}}>
-								    <CartesianGrid strokeDasharray="3 3"/>
-								    <XAxis dataKey="name" style={{ fill: '#FFF' }} />
-								    <YAxis unit=" plays" angle={-45} yAxisId="left" orientation='left' style={{ fill: '#FFF' }} />
-								    <Tooltip cursor={{ fill: "#333" }}/>
-								    <Legend />
-								    <Bar name="Times Played" dataKey="plays" fill="#BB86FC" yAxisId="left" />
-							    </BarChart>
-								</TableCell>
-							</TableRow>
-							<TableRow>
-								<TableCell>
 									Most common year
 								</TableCell>
 								<TableCell>
@@ -328,7 +323,19 @@ const Song: React.FC = () => {
 						</Table>
 					</TableContainer>
 
-          <div style={{ height: 20 }}></div>
+          <div  className={classes.chart_container}>
+            <Typography className={classes.heading}>Times Played Per Year</Typography>
+	          <ResponsiveContainer height={300} >
+							<BarChart data={song.yearly_play_chart_data} margin={{top: 5, right: 30, left: 20, bottom: 5}}>
+						    <CartesianGrid strokeDasharray="3 3"/>
+						    <XAxis dataKey="name" style={{ fill: '#FFF' }} />
+						    <YAxis unit=" plays" angle={-45} yAxisId="left" orientation='left' style={{ fill: '#FFF' }} />
+						    <Tooltip cursor={{ fill: "#333" }} labelStyle={{ color: "rgb(187, 134, 252)" }}/>
+						    <Legend />
+						    <Bar name="Times Played" dataKey="plays" fill="#BB86FC" yAxisId="left" />
+					    </BarChart>
+					   </ResponsiveContainer>
+					</div>
 
           {song.lyrics && (
             <ExpansionPanel>
