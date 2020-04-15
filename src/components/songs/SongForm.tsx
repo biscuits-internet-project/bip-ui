@@ -41,8 +41,12 @@ const initialValues: ISong = {
   tabs: '',
   author_id: '',
   times_played: 0,
+  shows_since_last_played: 0,
   first_played_show: undefined,
   last_played_show: undefined,
+  most_common_year: 0,
+  least_common_year: 0,
+  yearly_play_chart_data: '',
   author_name: '',
 }
 
