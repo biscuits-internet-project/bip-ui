@@ -16,7 +16,6 @@ import Moment from 'react-moment'
 import HtmlHead from '../shared/HtmlHead'
 import { useSelector } from 'react-redux'
 import { songsForTableSelector } from '../../stores/songs/selectors'
-import { ISong } from '../../stores/songs/types'
 
 const Songs: React.FC = () => {
   const { state } = useContext(AppContext)

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { Link as RouterLink, useParams } from 'react-router-dom'
 import axios, { AxiosResponse } from 'axios'
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { IVenue } from '../../stores/venues/types'
 import { Theme, createStyles, makeStyles } from '@material-ui/core/styles'
 import {
@@ -32,9 +33,11 @@ import Paragraph from '../shared/Paragraph'
 import HtmlHead from '../shared/HtmlHead'
 import ProgressBar from '../shared/ProgressBar'
 import { ISong } from '../../stores/songs/types'
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { useSelector, useDispatch } from 'react-redux'
+import { songsSelector } from '../../stores/songs/selectors'
 
-interface ISongPlayed {
+interface ITrack {
+  id: string
   annotations: string[]
   position: number
   segue: string
@@ -43,6 +46,10 @@ interface ISongPlayed {
   show: IShow
   note: string
   all_timer: boolean
+  previous_track?: ITrack
+  next_track?: ITrack
+  song?: ISong
+  song_id: string
 }
 
 interface IShow {
@@ -82,12 +89,13 @@ const Song: React.FC = () => {
   const [song, setSong] = useState<ISong | undefined>(undefined)
   const [formOpen, setFormOpen] = useState(false)
   const [id, setId] = useState('')
-  const [songsPlayed, setSongsPlayed] = useState<ISongPlayed[]>([])
-  const [allTimers, setAllTimers] = useState<ISongPlayed[]>([])
-  const [jamCharts, setJamCharts] = useState<ISongPlayed[]>([])
-  const [displayTracks, setDisplayTracks] = useState<ISongPlayed[]>([])
+  const [songsPlayed, setTracks] = useState<ITrack[]>([])
+  const [allTimers, setAllTimers] = useState<ITrack[]>([])
+  const [jamCharts, setJamCharts] = useState<ITrack[]>([])
+  const [displayTracks, setDisplayTracks] = useState<ITrack[]>([])
   const { currentUser } = state
   const admin = currentUser?.roles.includes('admin')
+  const songs = useSelector(songsSelector)
 
   const initViewJamCharts = state.viewJamCharts ? true : false
 
@@ -119,34 +127,51 @@ const Song: React.FC = () => {
 
   useEffect(() => {
     setLoading(true)
+    if (songs.length === 0) {
+      return
+    }
     const fetchSong = async () => {
       const song: AxiosResponse = await axios.get(
         `${process.env.REACT_APP_API_URL}/songs/${params.id}`,
       )
       setSong(song.data)
 
-      const tracks: AxiosResponse = await axios.get(
+      const resp: AxiosResponse = await axios.get(
         `${process.env.REACT_APP_API_URL}/tracks/songs/${params.id}`,
       )
 
-      setSongsPlayed(tracks.data)
-      const allTimers = tracks.data.filter((x) => x.all_timer)
+      let tracks: ITrack[] = resp.data
+
+      tracks.forEach((track) => {
+        if (track.previous_track) {
+          track.previous_track.song = songs.find(
+            (s) => s.id === track.previous_track?.song_id,
+          )
+        }
+        if (track.next_track) {
+          track.next_track.song = songs.find(
+            (s) => s.id === track.next_track?.song_id,
+          )
+        }
+      })
+      setTracks(tracks)
+
+      const allTimers = tracks.filter((x) => x.all_timer)
       setAllTimers(allTimers)
-      const jamCharts = tracks.data.filter(
-        (x) => x.note != null && x.note !== '',
-      )
+      const jamCharts = tracks.filter((x) => x.note != null && x.note !== '')
       setJamCharts(jamCharts)
 
       if (initViewJamCharts) {
         setDisplayTracks(jamCharts)
       } else {
-        setDisplayTracks(tracks.data)
+        setDisplayTracks(tracks)
       }
 
       setLoading(false)
     }
     fetchSong()
-  }, [initViewJamCharts, params.id])
+  }, [initViewJamCharts, params.id, songs])
+
   return (
     <>
       {song && (
@@ -347,9 +372,7 @@ const Song: React.FC = () => {
                 <Typography className={classes.heading}>Lyrics</Typography>
               </ExpansionPanelSummary>
               <ExpansionPanelDetails>
-                <Paragraph>
-                  <div dangerouslySetInnerHTML={{ __html: song.lyrics }} />
-                </Paragraph>
+                <Paragraph dangerouslySetInnerHTML={{ __html: song.lyrics }} />
               </ExpansionPanelDetails>
             </ExpansionPanel>
           )}
@@ -380,9 +403,7 @@ const Song: React.FC = () => {
                 <Typography className={classes.heading}>Guitar Tabs</Typography>
               </ExpansionPanelSummary>
               <ExpansionPanelDetails>
-                <Paragraph>
-                  <div dangerouslySetInnerHTML={{ __html: song.tabs }} />
-                </Paragraph>
+                <Paragraph dangerouslySetInnerHTML={{ __html: song.tabs }} />
               </ExpansionPanelDetails>
             </ExpansionPanel>
           )}
@@ -402,34 +423,62 @@ const Song: React.FC = () => {
           <TableHead>
             <TableRow>
               <TableCell>Show</TableCell>
+              <TableCell>Song Before</TableCell>
+              <TableCell>Song After</TableCell>
               <TableCell>Notes</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {displayTracks.map((s: ISongPlayed) => (
-              <TableRow>
+            {displayTracks.map((track: ITrack) => (
+              <TableRow key={track.id}>
                 <TableCell>
-                  <Link component={RouterLink} to={`/shows/${s.show.slug}`}>
+                  <Link component={RouterLink} to={`/shows/${track.show.slug}`}>
                     <Typography>
-                      <Moment format="M/D/YY">{s.show.date}</Moment>
+                      <Moment format="M/D/YY">{track.show.date}</Moment>
                     </Typography>
                     <Typography>
-                      {s.venue.name}
+                      {track.venue.name}
                       <br />
-                      {s.venue.city}
+                      {track.venue.city}
                       <span>, </span>
-                      {s.venue.state}
+                      {track.venue.state}
                     </Typography>
                   </Link>
-                  {s.show.relisten_url && (
+                  {track.show.relisten_url && (
                     <Typography style={{ marginTop: 6 }}>
-                      <Link href={s.show.relisten_url} target="blank">
+                      <Link href={track.show.relisten_url} target="blank">
                         <img src="/relisten.png" alt="relisten" />
                       </Link>
                     </Typography>
                   )}
                 </TableCell>
-                <TableCell style={{ width: '70%' }}>{s.note}</TableCell>
+                <TableCell>
+                  {track.previous_track && (
+                    <>
+                      <Link
+                        component={RouterLink}
+                        to={`/songs/${track.previous_track.song?.slug}`}
+                      >
+                        {track.previous_track?.song?.title}
+                      </Link>{' '}
+                      {track.previous_track?.segue}
+                    </>
+                  )}
+                </TableCell>
+                <TableCell>
+                  {track.next_track && (
+                    <>
+                      {track.segue} {''}
+                      <Link
+                        component={RouterLink}
+                        to={`/songs/${track.next_track.song?.slug}`}
+                      >
+                        {track.next_track?.song?.title}
+                      </Link>
+                    </>
+                  )}
+                </TableCell>
+                <TableCell>{track.note}</TableCell>
               </TableRow>
             ))}
           </TableBody>
