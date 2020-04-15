@@ -355,7 +355,8 @@ const Song: React.FC = () => {
                 <CartesianGrid strokeDasharray="3 3"/>
                 <XAxis dataKey="name" style={{ fill: '#FFF' }} />
                 <YAxis unit=" plays" angle={-45} yAxisId="left" orientation='left' style={{ fill: '#FFF' }} />
-                <Tooltip cursor={{ fill: "#333" }} labelStyle={{ color: "rgb(187, 134, 252)" }}/>
+                <Tooltip cursor={{ fill: "rgba(66, 66, 66, 0.75)" }} 
+                  contentStyle={{ backgroundColor: 'rgba(81, 81, 81, 1)', borderColor: '#000', borderRadius: '5px' }}/>
                 <Legend />
                 <Bar name="Times Played" dataKey="plays" fill="#BB86FC" yAxisId="left" />
               </BarChart>
