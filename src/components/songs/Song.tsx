@@ -210,7 +210,7 @@ const Song: React.FC = () => {
               <div style={{ height: 20 }}></div>
             </>
           )}
-					<TableContainer component={Paper}>
+          <TableContainer component={Paper}>
             <Table>
               <TableRow>
                 <TableCell>Author</TableCell>
@@ -282,85 +282,85 @@ const Song: React.FC = () => {
                     </Link>
                   )}
 
-									{song.last_played_show && song.last_played_show.relisten_url &&
-										<>
-											<span style={{ paddingLeft: 12, verticalAlign: "middle" }}>
-												<Link href={song.last_played_show.relisten_url} target="blank">
-													<img src="/relisten.png" alt="relisten" />
-												</Link>
-											</span>
-										</>
-									}
-								</TableCell>
-							</TableRow>
-							<TableRow>
-								<TableCell>
-									Most common year
-								</TableCell>
-								<TableCell>
-									{song.most_common_year}
-								</TableCell>
-							</TableRow>
-							<TableRow>
-								<TableCell>
-									Least common year
-								</TableCell>
-								<TableCell>
-									{song.least_common_year}
-								</TableCell>
-							</TableRow>
-							{song.notes &&
-								<TableRow>
-									<TableCell>
-										Notes
-									</TableCell>
-									<TableCell>
-										{song.notes}
-									</TableCell>
-								</TableRow>
-							}
-							{allTimers.length > 0 &&
-								<TableRow>
-									<TableCell>
-										All Timers
-									</TableCell>
-									<TableCell>
-										{allTimers.map((allTimer) => {
-											return (
-												<Typography key={allTimer.show.slug}>
-													<Link component={RouterLink} to={`/shows/${allTimer.show.slug}`}>
-														<Moment format="M/DD/YYYY">
-															{allTimer.show.date}
-														</Moment>
-														<span> - </span>
-														{allTimer.show.venue.name}
-														<span> - </span>
-														{allTimer.show.venue.city}
-														<span>, </span>
-														{allTimer.show.venue.state}
-													</Link>
-												</Typography>
-											)
-										})}
-									</TableCell>
-								</TableRow>
-							}
-						</Table>
-					</TableContainer>
+                  {song.last_played_show && song.last_played_show.relisten_url &&
+                    <>
+                      <span style={{ paddingLeft: 12, verticalAlign: "middle" }}>
+                        <Link href={song.last_played_show.relisten_url} target="blank">
+                          <img src="/relisten.png" alt="relisten" />
+                        </Link>
+                      </span>
+                    </>
+                  }
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>
+                  Most common year
+                </TableCell>
+                <TableCell>
+                  {song.most_common_year}
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>
+                  Least common year
+                </TableCell>
+                <TableCell>
+                  {song.least_common_year}
+                </TableCell>
+              </TableRow>
+              {song.notes &&
+                <TableRow>
+                  <TableCell>
+                    Notes
+                  </TableCell>
+                  <TableCell>
+                    {song.notes}
+                  </TableCell>
+                </TableRow>
+              }
+              {allTimers.length > 0 &&
+                <TableRow>
+                  <TableCell>
+                    All Timers
+                  </TableCell>
+                  <TableCell>
+                    {allTimers.map((allTimer) => {
+                      return (
+                        <Typography key={allTimer.show.slug}>
+                          <Link component={RouterLink} to={`/shows/${allTimer.show.slug}`}>
+                            <Moment format="M/DD/YYYY">
+                              {allTimer.show.date}
+                            </Moment>
+                            <span> - </span>
+                            {allTimer.show.venue.name}
+                            <span> - </span>
+                            {allTimer.show.venue.city}
+                            <span>, </span>
+                            {allTimer.show.venue.state}
+                          </Link>
+                        </Typography>
+                      )
+                    })}
+                  </TableCell>
+                </TableRow>
+              }
+            </Table>
+          </TableContainer>
 
           <div  className={classes.chart_container}>
             <Typography className={classes.heading}>Times Played Per Year</Typography>
-	          <ResponsiveContainer height={300} >
-							<BarChart data={song.yearly_play_chart_data} margin={{top: 5, right: 30, left: 20, bottom: 5}}>
-						    <CartesianGrid strokeDasharray="3 3"/>
-						    <XAxis dataKey="name" style={{ fill: '#FFF' }} />
-						    <YAxis unit=" plays" angle={-45} yAxisId="left" orientation='left' style={{ fill: '#FFF' }} />
-						    <Tooltip cursor={{ fill: "#333" }} labelStyle={{ color: "rgb(187, 134, 252)" }}/>
-						    <Legend />
-						    <Bar name="Times Played" dataKey="plays" fill="#BB86FC" yAxisId="left" />
-					    </BarChart>
-					   </ResponsiveContainer>
-					</div>
+            <ResponsiveContainer height={300} >
+              <BarChart data={song.yearly_play_chart_data} margin={{top: 5, right: 30, left: 20, bottom: 5}}>
+                <CartesianGrid strokeDasharray="3 3"/>
+                <XAxis dataKey="name" style={{ fill: '#FFF' }} />
+                <YAxis unit=" plays" angle={-45} yAxisId="left" orientation='left' style={{ fill: '#FFF' }} />
+                <Tooltip cursor={{ fill: "#333" }} labelStyle={{ color: "rgb(187, 134, 252)" }}/>
+                <Legend />
+                <Bar name="Times Played" dataKey="plays" fill="#BB86FC" yAxisId="left" />
+              </BarChart>
+             </ResponsiveContainer>
+          </div>
 
           {song.lyrics && (
             <ExpansionPanel>
