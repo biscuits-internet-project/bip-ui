@@ -1,5 +1,5 @@
 import createReducer from '../../lib/createReducer'
-import { IPost, BlogState } from './types'
+import { IBlogPost, BlogState } from './types'
 import * as actions from './actions'
 
 const initialState: BlogState = {
@@ -17,7 +17,7 @@ export default createReducer(initialState, {
   ) => {
     const postsById = { ...state.postsById }
     const data = action.payload
-    data.forEach((venue: IPost) => {
+    data.forEach((venue: IBlogPost) => {
       postsById[`${venue.id}`] = {
         ...postsById[`${venue.id}`],
         ...venue,
@@ -27,10 +27,6 @@ export default createReducer(initialState, {
       ...state,
       postsById,
     }
-    return newState
-  },
-  [actions.CREATE_POST_REQUEST]: (state: BlogState) => {
-    const newState = { ...state }
     return newState
   },
   [actions.GET_POSTS_REJECTED]: (state: BlogState) => {
@@ -53,6 +49,47 @@ export default createReducer(initialState, {
         postsById: { [`${newPost.id}`]: newPost, ...postsById },
       }
       return newState
+    }
+  },
+  [actions.CREATE_POST_REJECTED]: (state: BlogState) => {
+    const newState = { ...state }
+    return newState
+  },
+  [actions.UPDATE_POST_REQUEST]: (state: BlogState) => {
+    const newState = { ...state }
+    return newState
+  },
+  [actions.UPDATE_POST_FULFILLED]: (
+    state: BlogState,
+    action: ReturnType<typeof actions.updatePostFulfilled>,
+  ) => {
+    const postsById = { ...state.postsById }
+    const newPost = action.payload
+    if (newPost) {
+      const newState = {
+        ...state,
+        postsById: { ...postsById, [`${newPost.id}`]: newPost },
+      }
+      return newState
+    }
+  },
+  [actions.CREATE_POST_REJECTED]: (state: BlogState) => {
+    const newState = { ...state }
+    return newState
+  },
+  [actions.DELETE_POST_REQUEST]: (state: BlogState) => {
+    const newState = { ...state }
+    return newState
+  },
+  [actions.DELETE_POST_FULFILLED]: (
+    state: BlogState,
+    action: ReturnType<typeof actions.deletePostFulfilled>,
+  ) => {
+    const postsById = { ...state.postsById }
+    delete postsById[action.payload]
+    return {
+      ...state,
+      postsById,
     }
   },
   [actions.CREATE_POST_REJECTED]: (state: BlogState) => {

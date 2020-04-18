@@ -1,17 +1,18 @@
-export type IPost = {
-  id?: String
-  blurb: String
-  content: String
-  published_at?: String
-  slug?: String
-  state?: String
-  title: String
+export type IBlogPost = {
+  id?: string
+  blurb: string
+  content: string
+  published_at?: string
+  slug?: string
+  state?: string | boolean
+  title: string
+  primary_image_url?: string
   user?: {
-    avatar_url?: String
-    username?: String
+    avatar_url?: string
+    username?: string
   }
 }
 
 export type BlogState = {
-  postsById: { [key: string]: IPost }
+  postsById: { [key: string]: IBlogPost }
 }
