@@ -8,6 +8,7 @@ import TextAreaField from '../shared/TextAreaField'
 import Uploader from '../shared/Uploader'
 import TextEditorField from '../shared/TextEditorField'
 import CheckboxField from '../shared/CheckboxField'
+import ChipField from '../shared/ChipField'
 import Button from '@material-ui/core/Button'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import { useSelector, useDispatch } from 'react-redux'
@@ -35,7 +36,7 @@ const BlogForm = ({ editId }) => {
   )
   const submitPost = (values: IBlogPost) => {
     const postValues = values
-    postValues.state = values.state ? 'published' : undefined
+    postValues.state = values.state ? 'published' : 'draft'
     dispatch(
       editId
         ? updatePostAsync(postValues, state.currentUser)
@@ -43,8 +44,9 @@ const BlogForm = ({ editId }) => {
     )
   }
   const editData = useSelector((state: RootState) => {
-    const data = state.blog.postsById[editId]
+    const data = { ...state.blog.postsById[editId] }
     data.state = data.state === 'published'
+    console.log(data)
     return data
   })
   const initialData = editData || {
@@ -53,6 +55,7 @@ const BlogForm = ({ editId }) => {
     content: '',
     primary_image: '',
     state: false,
+    tag_list: [],
   }
   return (
     <div>
@@ -75,6 +78,7 @@ const BlogForm = ({ editId }) => {
             />
             <TextEditorField name="content" label="Content" />
             <CheckboxField name="state" label="publish?" />
+            <ChipField name="tag_list" label="Tags" />
             <Box display="flex" justifyContent="flex-end" marginTop="16px">
               <Button
                 variant="contained"

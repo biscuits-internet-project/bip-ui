@@ -7,6 +7,7 @@ export type IBlogPost = {
   state?: string | boolean
   title: string
   primary_image_url?: string
+  tags: string[]
   user?: {
     avatar_url?: string
     username?: string
