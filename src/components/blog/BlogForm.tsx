@@ -46,6 +46,7 @@ const BlogForm = ({ editId }) => {
   const editData = useSelector((state: RootState) => {
     const data = { ...state.blog.postsById[editId] }
     data.state = data.state === 'published'
+    console.log(data)
     return data
   })
   const initialData = editData.id
