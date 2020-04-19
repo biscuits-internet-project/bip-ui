@@ -42,6 +42,7 @@ const BlogPost: React.FC = () => {
       <img src={post.primary_image_url} width={300} />
       {/* need to dangerously_set_html */}
       <div>{post.content}</div>
+      {/* add chips somewhere */}
       <Comments id={postId} user={state.currentUser} />
     </div>
   )
