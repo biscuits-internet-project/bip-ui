@@ -9,12 +9,17 @@ const Comments = ({ id, user }) => {
   const comments =
     useSelector((state: RootState) => state.blog.postsById[id].comments) || []
   const [commentText, setCommentText] = useState('')
-  console.log(comments, 'jhjhjhj')
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
-      <h5>Comments</h5>
+      <h2>Comments</h2>
       {comments.map((comment) => (
-        <div>{comment?.content}</div>
+        <>
+          <div>{comment?.content}</div>
+          <div style={{ display: 'flex' }}>
+            <img src={comment?.user?.avatar_url || ''} width={30} height={30} />
+            <h5>{comment?.user?.username || ''}</h5>
+          </div>
+        </>
       ))}
       <TextField
         margin="normal"
