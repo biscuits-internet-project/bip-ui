@@ -48,7 +48,6 @@ const ChipField: React.FC<IChipField> = ({ label, name }) => {
     }
   }
   const handleDelete = (chip: string) => {
-    console.log(chip)
     const newArray = field.value.filter((val: string) => chip !== val)
     helpers.setValue(newArray)
   }

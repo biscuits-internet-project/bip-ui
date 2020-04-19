@@ -96,4 +96,23 @@ export default createReducer(initialState, {
     const newState = { ...state }
     return newState
   },
+  [actions.CREATE_COMMENT_REQUEST]: (state: BlogState) => {
+    const newState = { ...state }
+    return newState
+  },
+  [actions.CREATE_COMMENT_FULFILLED]: (
+    state: BlogState,
+    action: ReturnType<typeof actions.createCommentFulfilled>,
+  ) => {
+    const newState = { ...state }
+    const post = newState.postsById[action.payload.id]
+    // FIX when comments is returned
+    const comments = post.comments ? post.comments : []
+    post.comments = [...comments, action.payload.comment]
+    return newState
+  },
+  [actions.CREATE_COMMENT_REJECTED]: (state: BlogState) => {
+    const newState = { ...state }
+    return newState
+  },
 })

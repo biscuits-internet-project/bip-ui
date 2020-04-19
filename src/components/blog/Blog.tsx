@@ -2,8 +2,15 @@ import React, { useEffect, useCallback, useContext, useState } from 'react'
 import { AppContext } from '../../context/AppProvider'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../stores/reducers'
-import { fetchPosts, deletePostAsync } from '../../stores/blog/actions'
-import { draftPostsSelector } from '../../stores/blog/selectors'
+import {
+  fetchPosts,
+  deletePostAsync,
+  createCommentAsync,
+} from '../../stores/blog/actions'
+import {
+  draftPostsSelector,
+  publishedPostsSelector,
+} from '../../stores/blog/selectors'
 import {
   Link,
   Grid,
@@ -13,13 +20,15 @@ import {
   DialogContent,
 } from '@material-ui/core'
 import BlogForm from './BlogForm'
+import Comments from './Comments'
 
 const Blog: React.FC = () => {
   const { state } = useContext(AppContext)
   const [formOpen, setFormOpen] = useState(false)
   const [editId, setEditId] = useState(null)
   const dispatch = useDispatch()
-  const posts = useSelector(draftPostsSelector)
+  const publishedPosts = useSelector(publishedPostsSelector)
+  const draftPosts = useSelector(draftPostsSelector)
   const postsLoading = useSelector(
     (state: RootState) => state.loading.GET_POSTS,
   )
@@ -32,15 +41,15 @@ const Blog: React.FC = () => {
   )
 
   useEffect(() => {
-    dispatch(fetchPosts(state.currentUser))
+    // These will likely be in different components when styling is polished
+    dispatch(fetchPosts(state.currentUser, 'published'))
+    //dispatch(fetchPosts(state.currentUser, 'draft'))
   }, [])
 
   useEffect(() => {
     createPostLoading === false && setFormOpen(false)
     updatePostLoading === false && setFormOpen(false)
   }, [createPostLoading, updatePostLoading])
-
-  console.log(state.currentUser)
 
   if (postsLoading) {
     return <h1>Loading....</h1>
@@ -62,8 +71,8 @@ const Blog: React.FC = () => {
   }
   return (
     <div>
-      <h1>Blog</h1>
-      {posts.map((post) => (
+      <h1>Published Posts</h1>
+      {publishedPosts.map((post) => (
         <div>
           <img
             width="60px"
@@ -75,6 +84,26 @@ const Blog: React.FC = () => {
             }
           />
           {post.title}, {post.blurb}, {post.content}, {post.state}{' '}
+          <Comments id={post.id} user={state.currentUser} />
+          {/* We can conditionally render these depending on roles/user etc. */}
+          <button onClick={() => handleEdit(post.id)}>edit</button>
+          <button onClick={() => handleDelete(post.id)}>delete</button>
+        </div>
+      ))}
+      <h1>Draft Posts</h1>
+      {draftPosts.map((post) => (
+        <div>
+          <img
+            width="60px"
+            height="60px"
+            src={
+              post.primary_image_url
+                ? post.primary_image_url
+                : 'https://cdn3.iconfinder.com/data/icons/christmas-flat-square-rounded-vol-3/150/cookies__biscuits__sweets__cake-512.png'
+            }
+          />
+          {post.title}, {post.blurb}, {post.content}, {post.state}{' '}
+          {/* We can conditionally render these depending on roles/user etc. */}
           <button onClick={() => handleEdit(post.id)}>edit</button>
           <button onClick={() => handleDelete(post.id)}>delete</button>
         </div>

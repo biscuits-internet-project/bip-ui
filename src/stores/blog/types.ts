@@ -8,6 +8,14 @@ export type IBlogPost = {
   title: string
   primary_image_url?: string
   tags: string[]
+  comments: {
+    id: string
+    content: string
+    user?: {
+      avatar_url?: string
+      username?: string
+    }
+  }[]
   user?: {
     avatar_url?: string
     username?: string

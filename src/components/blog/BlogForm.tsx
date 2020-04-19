@@ -46,21 +46,23 @@ const BlogForm = ({ editId }) => {
   const editData = useSelector((state: RootState) => {
     const data = { ...state.blog.postsById[editId] }
     data.state = data.state === 'published'
-    console.log(data)
     return data
   })
-  const initialData = editData || {
-    title: '',
-    blurb: '',
-    content: '',
-    primary_image: '',
-    state: false,
-    tag_list: [],
-  }
+  const initialData = editData.id
+    ? editData
+    : {
+        title: '',
+        blurb: '',
+        content: '',
+        primary_image: '',
+        state: false,
+        tag_list: [],
+      }
   return (
     <div>
       <Formik
         enableReinitialize
+        //@ts-ignore
         initialValues={initialData}
         onSubmit={submitPost}
         validationSchema={BlogFormSchema}
