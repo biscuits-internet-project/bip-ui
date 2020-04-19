@@ -33,6 +33,22 @@ export default createReducer(initialState, {
     const newState = { ...state }
     return newState
   },
+  [actions.GET_POST_BY_ID_FULFILLED]: (
+    state: BlogState,
+    action: ReturnType<typeof actions.getPostByIdFulfilled>,
+  ) => {
+    const postsById = { ...state.postsById }
+    const data = action.payload
+    if (data && data.id) {
+      postsById[data.id] = data
+    }
+
+    const newState = {
+      ...state,
+      postsById,
+    }
+    return newState
+  },
   [actions.CREATE_POST_REQUEST]: (state: BlogState) => {
     const newState = { ...state }
     return newState

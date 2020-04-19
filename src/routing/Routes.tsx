@@ -13,6 +13,7 @@ import Tour from '../components/Tour'
 import Resources from '../components/resources/Resources'
 import About from '../components/About'
 import Blog from '../components/blog/Blog'
+import BlogPost from '../components/blog/BlogPost'
 import Contact from '../components/Contact'
 import ResetPassword from '../components/identity/ResetPassword'
 import Login from '../components/identity/Login'
@@ -97,6 +98,7 @@ const Routes: React.FC = () => {
       <Route path="/resources" exact component={Resources} />
       <Route path="/about" exact component={About} />
       <Route path="/blog" exact component={Blog} />
+      <Route path="/blog/:postId" exact component={BlogPost} />
       <Route path="/contact" exact component={Contact} />
       <Route path="/register/confirm" exact component={Register} />
       <Route path="/password/reset/:token" exact component={ResetPassword} />

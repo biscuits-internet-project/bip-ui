@@ -13,6 +13,17 @@ export const getPostsFulfilled = (payload: IBlogPost[]) =>
 
 export const getPostsRejected = () => ({ type: GET_POSTS_REJECTED } as const)
 
+//GET POST BY ID
+export const GET_POST_BY_ID_REQUEST = 'GET_POST_BY_ID_REQUEST'
+export const GET_POST_BY_ID_FULFILLED = 'GET_POST_BY_ID_FULFILLED'
+export const GET_POST_BY_ID_REJECTED = 'GET_POST_BY_ID_REJECTED'
+
+export const getPostById = () => ({ type: GET_POST_BY_ID_REQUEST } as const)
+export const getPostByIdFulfilled = (payload: IBlogPost) =>
+  ({ type: GET_POST_BY_ID_FULFILLED, payload } as const)
+export const getPostByIdRejected = (payload) =>
+  ({ type: GET_POST_BY_ID_REJECTED, payload } as const)
+
 //CREATE POST
 export const CREATE_POST_REQUEST = 'CREATE_POST_REQUEST'
 export const CREATE_POST_FULFILLED = 'CREATE_POST_FULFILLED'
@@ -73,7 +84,7 @@ export const createCommentRejected = () =>
 export const fetchPosts = (currentUser, type = 'published') => {
   return async (dispatch) => {
     dispatch(getPosts())
-    const venues: AxiosResponse = await axios({
+    const posts: AxiosResponse = await axios({
       method: 'get',
       url: `${process.env.REACT_APP_API_URL}/blog_posts?state=${type}`,
       headers: {
@@ -81,7 +92,26 @@ export const fetchPosts = (currentUser, type = 'published') => {
         Authorization: currentUser?.token,
       },
     })
-    dispatch(getPostsFulfilled(venues.data))
+    dispatch(getPostsFulfilled(posts.data))
+  }
+}
+
+export const getPostByIdAsync = (postSlug, currentUser) => {
+  return async (dispatch) => {
+    dispatch(getPostById())
+    try {
+      const post: AxiosResponse = await axios({
+        method: 'get',
+        url: `${process.env.REACT_APP_API_URL}/blog_posts/${postSlug}`,
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: currentUser?.token,
+        },
+      })
+      dispatch(getPostByIdFulfilled(post.data))
+    } catch (error) {
+      dispatch(getPostByIdRejected(error))
+    }
   }
 }
 

@@ -2,6 +2,8 @@ import React, { useEffect, useCallback, useContext, useState } from 'react'
 import { AppContext } from '../../context/AppProvider'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../stores/reducers'
+import { useHistory } from 'react-router-dom'
+
 import {
   fetchPosts,
   deletePostAsync,
@@ -27,6 +29,7 @@ const Blog: React.FC = () => {
   const [formOpen, setFormOpen] = useState(false)
   const [editId, setEditId] = useState(null)
   const dispatch = useDispatch()
+  const history = useHistory()
   const publishedPosts = useSelector(publishedPostsSelector)
   const draftPosts = useSelector(draftPostsSelector)
   const postsLoading = useSelector(
@@ -43,7 +46,7 @@ const Blog: React.FC = () => {
   useEffect(() => {
     // These will likely be in different components when styling is polished
     dispatch(fetchPosts(state.currentUser, 'published'))
-    //dispatch(fetchPosts(state.currentUser, 'draft'))
+    dispatch(fetchPosts(state.currentUser, 'draft'))
   }, [])
 
   useEffect(() => {
@@ -71,9 +74,19 @@ const Blog: React.FC = () => {
   }
   return (
     <div>
+      <Button variant="contained" onClick={handleOpen}>
+        Add New Post
+      </Button>
       <h1>Published Posts</h1>
       {publishedPosts.map((post) => (
-        <div>
+        <div
+          onClick={() => history.push(`/blog/${post.id}`)}
+          style={{
+            border: '1px solid white',
+            margin: '16px 0px',
+            cursor: 'pointer',
+          }}
+        >
           <img
             width="60px"
             height="60px"
@@ -84,7 +97,6 @@ const Blog: React.FC = () => {
             }
           />
           {post.title}, {post.blurb}, {post.content}, {post.state}{' '}
-          <Comments id={post.id} user={state.currentUser} />
           {/* We can conditionally render these depending on roles/user etc. */}
           <button onClick={() => handleEdit(post.id)}>edit</button>
           <button onClick={() => handleDelete(post.id)}>delete</button>
@@ -92,7 +104,14 @@ const Blog: React.FC = () => {
       ))}
       <h1>Draft Posts</h1>
       {draftPosts.map((post) => (
-        <div>
+        <div
+          onClick={() => history.push(`/blog/${post.id}`)}
+          style={{
+            border: '1px solid white',
+            margin: '16px 0px',
+            cursor: 'pointer',
+          }}
+        >
           <img
             width="60px"
             height="60px"
@@ -108,7 +127,6 @@ const Blog: React.FC = () => {
           <button onClick={() => handleDelete(post.id)}>delete</button>
         </div>
       ))}
-      <button onClick={handleOpen}>Add Blog</button>
       <Dialog open={formOpen} onClose={() => handleClose()}>
         <DialogTitle>Add Song</DialogTitle>
         <DialogContent>
