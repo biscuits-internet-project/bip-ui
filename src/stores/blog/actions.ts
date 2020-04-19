@@ -55,13 +55,27 @@ export const deletePostFulfilled = (payload: string) =>
 export const deletePostRejected = () =>
   ({ type: DELETE_POST_REJECTED } as const)
 
+//CREATE COMMENT
+export const CREATE_COMMENT_REQUEST = 'CREATE_COMMENT_REQUEST'
+export const CREATE_COMMENT_FULFILLED = 'CREATE_COMMENT_FULFILLED'
+export const CREATE_COMMENT_REJECTED = 'CREATE_COMMENT_REJECTED'
+
+export const createComment = (payload) =>
+  ({ type: CREATE_COMMENT_REQUEST, payload } as const)
+
+export const createCommentFulfilled = (payload) =>
+  ({ type: CREATE_COMMENT_FULFILLED, payload } as const)
+
+export const createCommentRejected = () =>
+  ({ type: CREATE_COMMENT_REJECTED } as const)
+
 //ASYNC ACTIONS
-export const fetchPosts = (currentUser) => {
+export const fetchPosts = (currentUser, type = 'published') => {
   return async (dispatch) => {
     dispatch(getPosts())
     const venues: AxiosResponse = await axios({
       method: 'get',
-      url: `${process.env.REACT_APP_API_URL}/blog_posts?state=draft`,
+      url: `${process.env.REACT_APP_API_URL}/blog_posts?state=${type}`,
       headers: {
         'Content-Type': 'application/json',
         Authorization: currentUser?.token,
@@ -122,5 +136,24 @@ export const deletePostAsync = (id: string, currentUser) => {
     })
 
     dispatch(deletePostFulfilled(id))
+  }
+}
+
+export const createCommentAsync = (id, text, currentUser) => {
+  return async (dispatch) => {
+    dispatch(createComment(id))
+    const comment: AxiosResponse = await axios({
+      method: 'post',
+      url: `${process.env.REACT_APP_API_URL}/blog_posts/${id}/comments`,
+      data: {
+        content: text,
+      },
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: currentUser?.token,
+      },
+    })
+
+    dispatch(createCommentFulfilled({ id, comment: comment.data }))
   }
 }

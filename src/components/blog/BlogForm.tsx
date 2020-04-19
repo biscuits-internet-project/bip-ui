@@ -49,18 +49,21 @@ const BlogForm = ({ editId }) => {
     console.log(data)
     return data
   })
-  const initialData = editData || {
-    title: '',
-    blurb: '',
-    content: '',
-    primary_image: '',
-    state: false,
-    tag_list: [],
-  }
+  const initialData = editData.id
+    ? editData
+    : {
+        title: '',
+        blurb: '',
+        content: '',
+        primary_image: '',
+        state: false,
+        tag_list: [],
+      }
   return (
     <div>
       <Formik
         enableReinitialize
+        //@ts-ignore
         initialValues={initialData}
         onSubmit={submitPost}
         validationSchema={BlogFormSchema}
