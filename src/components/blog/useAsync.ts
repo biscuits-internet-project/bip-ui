@@ -7,7 +7,11 @@ const useAsync = (action) => {
   const dispatch = useDispatch()
   const { name, func } = action
 
-  const newFunc = useCallback((...args) => dispatch(func(...args)), [])
+  let newFunc
+
+  if (dispatch && func) {
+    newFunc = (...args) => dispatch(func(...args))
+  }
   const error: Boolean = useSelector(
     (state: ErrorState) => state.error[name] && state.error[name].error,
   )
