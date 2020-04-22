@@ -1,9 +1,11 @@
-import { useEffect, useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 const useAsync = (action) => {
   const dispatch = useDispatch()
   const { name, func } = action
+
+  const newFunc = useCallback((...args) => dispatch(func(...args)), [])
   //@ts-ignore
   const error = useSelector(
     //@ts-ignore
@@ -17,9 +19,6 @@ const useAsync = (action) => {
     loading,
     error,
   ])
-  console.log('error', error, 'loading', loading, 'success', success)
-
-  const newFunc = (...args) => dispatch(func(...args))
   return [newFunc, loading, error, success]
 }
 
