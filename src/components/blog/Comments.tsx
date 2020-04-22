@@ -13,13 +13,13 @@ const Comments = ({ id, user }) => {
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       <h2>Comments</h2>
       {comments.map((comment) => (
-        <>
+        <div key={comment.id}>
           <div>{comment?.content}</div>
           <div style={{ display: 'flex' }}>
             <img src={comment?.user?.avatar_url || ''} width={30} height={30} />
             <h5>{comment?.user?.username || ''}</h5>
           </div>
-        </>
+        </div>
       ))}
       <TextField
         margin="normal"

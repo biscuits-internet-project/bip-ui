@@ -3,7 +3,11 @@ import { AppContext } from '../../context/AppProvider'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../stores/reducers'
 import { useParams } from 'react-router-dom'
-import { getPostByIdAsync } from '../../stores/blog/actions'
+import {
+  getPostByIdAsync,
+  newgetPostByIdAsync,
+} from '../../stores/blog/actions'
+import useAsync from './useAsync'
 
 import {
   Link,
@@ -16,24 +20,23 @@ import {
 import Comments from './Comments'
 
 const BlogPost: React.FC = () => {
+  // These can be name whatever you want but need to be in that order e.g
+  // [dispatchSinglePost, singlePostLoading, singlePostError, singlePostSuccess] = useAsync(/*this is the name of the object from the actions file*/)
+  const [dispatchFunc, loading, error, success] = useAsync(newgetPostByIdAsync)
   const { state } = useContext(AppContext)
-  const dispatch = useDispatch()
   const { postId } = useParams()
-
   const post = useSelector((state: RootState) => state.blog.postsById[postId])
-  const loading = useSelector(
-    (state: RootState) => state.loading.GET_POST_BY_ID,
-  )
-  const error = useSelector((state: RootState) => state.error.GET_POST_BY_ID)
   useEffect(() => {
-    dispatch(getPostByIdAsync(postId, state.currentUser))
+    if (success) alert('do something if the request is a success')
+  }, [success])
+  useEffect(() => {
+    dispatchFunc(postId, state.currentUser)
   }, [])
-  console.log(loading)
-  if (loading !== false) {
-    return <div>loading</div>
-  }
-  if (error && error.error) {
+  if (error) {
     return <div>Error!</div>
+  }
+  if (loading || !post) {
+    return <div>loading</div>
   }
   return (
     <div>
