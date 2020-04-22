@@ -187,3 +187,24 @@ export const createCommentAsync = (id, text, currentUser) => {
     dispatch(createCommentFulfilled({ id, comment: comment.data }))
   }
 }
+
+// Use this as a model
+export const newgetPostByIdAsync = {
+  name: 'GET_POST_BY_ID',
+  func: (postSlug, currentUser) => async (dispatch) => {
+    dispatch(getPostById())
+    try {
+      const post: AxiosResponse = await axios({
+        method: 'get',
+        url: `${process.env.REACT_APP_API_URL}/blog_posts/${postSlug}`,
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: currentUser?.token,
+        },
+      })
+      dispatch(getPostByIdFulfilled(post.data))
+    } catch (error) {
+      dispatch(getPostByIdRejected(error))
+    }
+  },
+}
