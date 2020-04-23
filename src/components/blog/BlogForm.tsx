@@ -41,7 +41,7 @@ const BlogForm = ({ editId }) => {
     errorCreate,
     successCreate,
   ] = useAsync(createPostAsync)
-
+  console.log(successUpdate)
   const createPostLoading = useSelector(
     (state: RootState) => state.loading.CREATE_POST,
   )

@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { ErrorState } from '../../stores/error/types'
 import { LoadingState } from '../../stores/loading/types'
@@ -22,6 +22,11 @@ const useAsync = (action) => {
     loading,
     error,
   ])
+  useEffect(() => {
+    if (success === true) {
+      dispatch({ type: `${name}_CLEAR` })
+    }
+  }, [success])
   return [newFunc, loading, error, success]
 }
 
