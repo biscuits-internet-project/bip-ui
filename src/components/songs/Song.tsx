@@ -1,7 +1,16 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { Link as RouterLink, useParams } from 'react-router-dom'
 import axios, { AxiosResponse } from 'axios'
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from 'recharts'
 import { IVenue } from '../../stores/venues/types'
 import { Theme, createStyles, makeStyles } from '@material-ui/core/styles'
 import {
@@ -70,7 +79,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     chart_heading: {
       textAlign: `center`,
-      fontSize: theme.typography.pxToRem(20)
+      fontSize: theme.typography.pxToRem(20),
     },
     chart_container: {
       border: '1px solid #424242',
@@ -80,8 +89,7 @@ const useStyles = makeStyles((theme: Theme) =>
       [theme.breakpoints.up('md')]: {
         padding: `50px 50px 10px`,
       },
-    }
-
+    },
   }),
 )
 
@@ -205,7 +213,6 @@ const Song: React.FC = () => {
             </DialogContent>
           </Dialog>
 
-
           {song.featured_lyric && (
             <>
               <Paragraph>
@@ -286,53 +293,49 @@ const Song: React.FC = () => {
                     </Link>
                   )}
 
-                  {song.last_played_show && song.last_played_show.relisten_url &&
+                  {song.last_played_show && song.last_played_show.relisten_url && (
                     <>
-                      <span style={{ paddingLeft: 12, verticalAlign: "middle" }}>
-                        <Link href={song.last_played_show.relisten_url} target="blank">
+                      <span
+                        style={{ paddingLeft: 12, verticalAlign: 'middle' }}
+                      >
+                        <Link
+                          href={song.last_played_show.relisten_url}
+                          target="blank"
+                        >
                           <img src="/relisten.png" alt="relisten" />
                         </Link>
                       </span>
                     </>
-                  }
+                  )}
                 </TableCell>
               </TableRow>
               <TableRow>
-                <TableCell>
-                  Most common year
-                </TableCell>
-                <TableCell>
-                  {song.most_common_year}
-                </TableCell>
+                <TableCell>Most common year</TableCell>
+                <TableCell>{song.most_common_year}</TableCell>
               </TableRow>
               <TableRow>
-                <TableCell>
-                  Least common year
-                </TableCell>
-                <TableCell>
-                  {song.least_common_year}
-                </TableCell>
+                <TableCell>Least common year</TableCell>
+                <TableCell>{song.least_common_year}</TableCell>
               </TableRow>
-              {song.notes &&
+              {song.notes && (
                 <TableRow>
-                  <TableCell>
-                    Notes
-                  </TableCell>
-                  <TableCell>
-                    {song.notes}
-                  </TableCell>
+                  <TableCell>Notes</TableCell>
+                  <TableCell>{song.notes}</TableCell>
                 </TableRow>
-              }
-              {allTimers.length > 0 &&
+              )}
+              {allTimers.length > 0 && (
                 <TableRow>
-                  <TableCell>
+                  <TableCell style={{ verticalAlign: 'top' }}>
                     All Timers
                   </TableCell>
                   <TableCell>
                     {allTimers.map((allTimer) => {
                       return (
                         <Typography key={allTimer.show.slug}>
-                          <Link component={RouterLink} to={`/shows/${allTimer.show.slug}`}>
+                          <Link
+                            component={RouterLink}
+                            to={`/shows/${allTimer.show.slug}`}
+                          >
                             <Moment format="M/DD/YYYY">
                               {allTimer.show.date}
                             </Moment>
@@ -348,23 +351,45 @@ const Song: React.FC = () => {
                     })}
                   </TableCell>
                 </TableRow>
-              }
+              )}
             </Table>
           </TableContainer>
 
-          <div  className={classes.chart_container}>
-            <Typography className={classes.chart_heading}>Times Played Per Year</Typography>
-            <ResponsiveContainer height={300} >
-              <BarChart data={song.yearly_play_chart_data} margin={{top: 5, right: 30, left: 20, bottom: 5}}>
-                <CartesianGrid strokeDasharray="3 3"/>
+          <div className={classes.chart_container}>
+            <Typography className={classes.chart_heading}>
+              Times Played Per Year
+            </Typography>
+            <ResponsiveContainer height={300}>
+              <BarChart
+                data={song.yearly_play_chart_data}
+                margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="name" style={{ fill: '#FFF' }} />
-                <YAxis unit=" plays" angle={-45} yAxisId="left" orientation='left' style={{ fill: '#FFF' }} />
-                <Tooltip cursor={{ fill: "rgba(66, 66, 66, 0.75)" }} 
-                  contentStyle={{ backgroundColor: 'rgba(81, 81, 81, 1)', borderColor: '#000', borderRadius: '5px' }}/>
+                <YAxis
+                  unit=" plays"
+                  angle={-45}
+                  yAxisId="left"
+                  orientation="left"
+                  style={{ fill: '#FFF' }}
+                />
+                <Tooltip
+                  cursor={{ fill: 'rgba(66, 66, 66, 0.75)' }}
+                  contentStyle={{
+                    backgroundColor: 'rgba(81, 81, 81, 1)',
+                    borderColor: '#000',
+                    borderRadius: '5px',
+                  }}
+                />
                 <Legend />
-                <Bar name="Times Played" dataKey="plays" fill="#BB86FC" yAxisId="left" />
+                <Bar
+                  name="Times Played"
+                  dataKey="plays"
+                  fill="#BB86FC"
+                  yAxisId="left"
+                />
               </BarChart>
-             </ResponsiveContainer>
+            </ResponsiveContainer>
           </div>
 
           {song.lyrics && (
