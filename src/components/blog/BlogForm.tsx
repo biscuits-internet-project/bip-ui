@@ -14,7 +14,7 @@ import Box from '@material-ui/core/Box'
 import { RootState } from '../../stores/reducers'
 import { IBlogPost } from '../../stores/blog/types'
 import { createPostAsync, updatePostAsync } from '../../stores/blog/actions'
-import useAsync from './useAsync'
+import useAsync from '../../stores/useAsync'
 import { useSnackbar } from 'notistack'
 import axios, { AxiosResponse } from 'axios'
 
@@ -42,7 +42,7 @@ const BlogForm = ({ editId }) => {
     errorCreate,
     successCreate,
   ] = useAsync(createPostAsync)
-  console.log(successUpdate)
+
   const createPostLoading = useSelector(
     (state: RootState) => state.loading.CREATE_POST,
   )
@@ -59,7 +59,6 @@ const BlogForm = ({ editId }) => {
   const submitPost = (values: IBlogPost) => {
     const postValues = values
     postValues.state = values.state ? 'published' : 'draft'
-    console.log(postValues)
     dispatch(
       editId
         ? dispatchFuncUpdate(postValues, state.currentUser)

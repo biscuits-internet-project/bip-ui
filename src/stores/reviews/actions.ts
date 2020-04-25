@@ -15,6 +15,7 @@ export const getReviewsRejected = () =>
   ({ type: GET_REVIEWS_REJECTED } as const)
 
 //CREATE REVIEW
+export const CREATE_REVIEW = 'CREATE_REVIEW'
 export const CREATE_REVIEW_REQUEST = 'CREATE_REVIEW_REQUEST'
 export const CREATE_REVIEW_FULFILLED = 'CREATE_REVIEW_FULFILLED'
 export const CREATE_REVIEW_REJECTED = 'CREATE_REVIEW_REJECTED'
@@ -29,6 +30,7 @@ export const createReviewRejected = () =>
   ({ type: CREATE_REVIEW_REJECTED } as const)
 
 //UPDATE REVIEW
+export const UPDATE_REVIEW = 'UPDATE_REVIEW'
 export const UPDATE_REVIEW_REQUEST = 'UPDATE_REVIEW_REQUEST'
 export const UPDATE_REVIEW_FULFILLED = 'UPDATE_REVIEW_FULFILLED'
 export const UPDATE_REVIEW_REJECTED = 'UPDATE_REVIEW_REJECTED'
@@ -67,50 +69,52 @@ export const fetchReviews = (showId) => {
   }
 }
 
-export const createReviewAsync = (
-  showId: string,
-  review: IReview,
-  currentUser,
-) => {
-  return async (dispatch) => {
-    dispatch(createReview(review))
-    try {
-      const newReview: AxiosResponse = await axios({
-        method: 'post',
-        url: `${process.env.REACT_APP_API_URL}/shows/${showId}/reviews`,
-        data: review,
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: currentUser?.token,
-        },
-      })
-      dispatch(createReviewFulfilled(newReview.data))
-    } catch (e) {
-      dispatch(createReviewRejected())
+export const createReviewAsync = {
+  name: CREATE_REVIEW,
+  func: (showId: string, review: IReview, currentUser) => {
+    return async (dispatch) => {
+      dispatch(createReview(review))
+      try {
+        const newReview: AxiosResponse = await axios({
+          method: 'post',
+          url: `${process.env.REACT_APP_API_URL}/shows/${showId}/reviews`,
+          data: review,
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: currentUser?.token,
+          },
+        })
+        dispatch(createReviewFulfilled(newReview.data))
+      } catch (e) {
+        dispatch(createReviewRejected())
+      }
     }
-  }
+  },
 }
 
-export const updateReviewAsync = (review: IReview, currentUser) => {
-  const formData = new FormData()
-  Object.keys(review).forEach((key) => formData.append(key, review[key]))
-  return async (dispatch) => {
-    dispatch(updateReview(review))
-    try {
-      const updatedReview: AxiosResponse = await axios({
-        method: 'put',
-        url: `${process.env.REACT_APP_API_URL}/reviews/${review.id}`,
-        data: formData,
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: currentUser?.token,
-        },
-      })
-      dispatch(updateReviewFulfilled(updatedReview.data))
-    } catch (e) {
-      dispatch(updateReviewRejected())
+export const updateReviewAsync = {
+  name: UPDATE_REVIEW,
+  func: (review: IReview, currentUser) => {
+    const formData = new FormData()
+    Object.keys(review).forEach((key) => formData.append(key, review[key]))
+    return async (dispatch) => {
+      dispatch(updateReview(review))
+      try {
+        const updatedReview: AxiosResponse = await axios({
+          method: 'put',
+          url: `${process.env.REACT_APP_API_URL}/reviews/${review.id}`,
+          data: formData,
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: currentUser?.token,
+          },
+        })
+        dispatch(updateReviewFulfilled(updatedReview.data))
+      } catch (e) {
+        dispatch(updateReviewRejected())
+      }
     }
-  }
+  },
 }
 
 export const deleteReviewAsync = (id: string, currentUser) => {

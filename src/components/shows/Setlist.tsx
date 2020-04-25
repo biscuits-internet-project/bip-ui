@@ -152,15 +152,15 @@ const Setlist: React.FC<ISetlist> = ({ show }) => {
             spacing={4}
             dir="row"
           >
-            <Grid item alignContent="center" className={classes.interaction}>
+            <Grid item className={classes.interaction}>
               <Typography>Rating</Typography>
               <ShowRating showId={show.id} currentUser={currentUser} />
             </Grid>
-            <Grid item alignContent="center" className={classes.interaction}>
+            <Grid item className={classes.interaction}>
               <Typography>Saw it</Typography>
               <SawItSwitch showId={show.id} currentUser={currentUser} />
             </Grid>
-            <Grid item alignContent="center" className={classes.interaction}>
+            <Grid item className={classes.interaction}>
               <Typography>Favorite</Typography>
               <FavoriteSwitch showId={show.id} currentUser={currentUser} />
             </Grid>

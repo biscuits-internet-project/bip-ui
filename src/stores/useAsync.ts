@@ -1,7 +1,7 @@
 import { useEffect, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { ErrorState } from '../../stores/error/types'
-import { LoadingState } from '../../stores/loading/types'
+import { ErrorState } from './error/types'
+import { LoadingState } from './loading/types'
 
 const useAsync = (action) => {
   const dispatch = useDispatch()

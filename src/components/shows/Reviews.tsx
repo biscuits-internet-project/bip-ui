@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
+import { Link as RouterLink } from 'react-router-dom'
 import {
   Typography,
   Grid,
@@ -66,8 +67,8 @@ const Reviews: React.FC<Props> = ({ show }) => {
   }
 
   const handleClose = () => {
+    setReview(undefined)
     setFormOpen(false)
-    setTimeout(() => setReview(undefined), 300)
   }
 
   if (reviewsLoading) {
@@ -113,39 +114,45 @@ const Reviews: React.FC<Props> = ({ show }) => {
         </Paper>
       )}
 
+      {!currentUser && (
+        <Paragraph style={{ marginTop: 20 }}>
+          <Link component={RouterLink} to="/login">
+            Login to add a review
+          </Link>
+        </Paragraph>
+      )}
+
       {reviews.map((review) => {
         return (
-          <>
-            <Paper className={styles.review}>
-              <Typography className={styles.author}>
-                by {review.user?.username} on{' '}
-                <Moment format="M/D/YY">{review.created_at}</Moment>
-              </Typography>
+          <Paper key={String(review.id)} className={styles.review}>
+            <Typography className={styles.author}>
+              by {review.user?.username} on{' '}
+              <Moment format="M/D/YY">{review.created_at}</Moment>
+            </Typography>
 
-              <Paragraph>
-                {review.content &&
-                  review.content.split('\n').map((item, key) => {
-                    return (
-                      <span key={key}>
-                        {item}
-                        <br />
-                      </span>
-                    )
-                  })}
-              </Paragraph>
+            <Paragraph>
+              {review.content &&
+                review.content.split('\n').map((item, key) => {
+                  return (
+                    <span key={key}>
+                      {item}
+                      <br />
+                    </span>
+                  )
+                })}
+            </Paragraph>
 
-              {review.user?.username === username && (
-                <>
-                  <Link
-                    style={{ cursor: 'pointer' }}
-                    onClick={() => handleOpen(review)}
-                  >
-                    Edit
-                  </Link>
-                </>
-              )}
-            </Paper>
-          </>
+            {review.user?.username === username && (
+              <>
+                <Link
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => handleOpen(review)}
+                >
+                  Edit
+                </Link>
+              </>
+            )}
+          </Paper>
         )
       })}
     </>

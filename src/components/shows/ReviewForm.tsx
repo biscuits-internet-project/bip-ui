@@ -16,86 +16,90 @@ import { useDispatch, useSelector } from 'react-redux'
 import { IShow } from './Show'
 import Moment from 'react-moment'
 import * as Yup from 'yup'
-import { RootState } from '../../stores/reducers'
+import useAsync from '../../stores/useAsync'
 
 interface Props {
   show: IShow
   review?: IReview
-  handleClose: (string) => void
+  handleClose: () => void
 }
 
 const ReviewForm: React.FC<Props> = ({ show, review, handleClose }) => {
   const { state } = useContext(AppContext)
   const dispatch = useDispatch()
   const [formData, setFormData] = useState(review || { content: '' })
-  const [deleteOpen, setDeleteOpen] = useState(false)
   const { enqueueSnackbar } = useSnackbar()
-  const { currentUser } = state
+  const [
+    dispatchFuncCreate,
+    loadingCreate,
+    errorCreate,
+    successCreate,
+  ] = useAsync(createReviewAsync)
+  const [
+    dispatchFuncUpdate,
+    loadingUpdate,
+    errorUpdate,
+    successUpdate,
+  ] = useAsync(updateReviewAsync)
 
   const validationSchema = Yup.object().shape({
     content: Yup.string().required('Content is required'),
   })
 
-  const handleDeleteOpen = () => {
-    setDeleteOpen(true)
-  }
-
-  const deleteReview = useCallback(async () => {
+  const deleteReview = () => {
     if (review) {
       dispatch(deleteReviewAsync(String(review.id), state.currentUser))
       enqueueSnackbar('Review deleted', { variant: 'success' })
-      handleClose('delete')
+      handleClose()
     }
-  }, [enqueueSnackbar, review, currentUser, handleClose])
+  }
 
-  const errorOnCreate = useSelector(
-    (state: RootState) => state.error.CREATE_REVIEW,
-  )
-  const loading = useSelector((state: RootState) => state.loading.CREATE_REVIEW)
+  const saveReview = (values: IReview) => {
+    dispatch(
+      review
+        ? dispatchFuncUpdate(values, state.currentUser)
+        : dispatchFuncCreate(show.id, values, state.currentUser),
+    )
+  }
 
   useEffect(() => {
-    if (loading === false && errorOnCreate && errorOnCreate.error) {
-      enqueueSnackbar('An error occurred', {
-        variant: 'error',
-      })
-    } else if (
-      loading === false &&
-      errorOnCreate &&
-      errorOnCreate.error === false
-    ) {
-      enqueueSnackbar('Review added', {
+    if (successUpdate) {
+      enqueueSnackbar(`Successfully updated review`, {
         variant: 'success',
       })
-      handleClose('form')
+      handleClose()
     }
-  }, [loading, errorOnCreate])
+    if (successCreate) {
+      enqueueSnackbar(`Successfully created review`, {
+        variant: 'success',
+      })
+      handleClose()
+    }
+  }, [successCreate, successUpdate])
 
-  const saveReview = useCallback(
-    async (values: IReview, actions: FormikHelpers<IReview>) => {
-      if (review) {
-        dispatch(updateReviewAsync(values, state.currentUser))
-      } else {
-        dispatch(createReviewAsync(show.id, values, state.currentUser))
-      }
-    },
-    [enqueueSnackbar, handleClose, currentUser],
-  )
+  useEffect(() => {
+    if (errorUpdate) {
+      enqueueSnackbar(`An error occurred`, {
+        variant: 'error',
+      })
+    }
+    if (errorCreate) {
+      enqueueSnackbar(`An error occurred`, {
+        variant: 'error',
+      })
+    }
+  }, [errorCreate, errorUpdate])
+
+  if (loadingCreate || loadingUpdate) {
+    return <div>Loading...</div>
+  }
 
   return (
     <div>
-      {review && (
-        <DeleteConfirm
-          handleClose={() => handleClose('delete')}
-          deleteOpen={deleteOpen}
-          handleDelete={deleteReview}
-        >
-          Review of&nbsp;<Moment format="M/D/YY">{show.date}</Moment>
-        </DeleteConfirm>
-      )}
       <Formik
         enableReinitialize
         initialValues={formData}
-        onSubmit={(values, actions) => saveReview(values, actions)}
+        onSubmit={(values, actions) => saveReview(values)}
         validationSchema={validationSchema}
       >
         {(props: FormikProps<IReview>) => (
@@ -113,7 +117,13 @@ const ReviewForm: React.FC<Props> = ({ show, review, handleClose }) => {
               <Grid item>
                 {review && (
                   <div style={{ alignContent: 'right' }}>
-                    <Button onClick={() => handleDeleteOpen()}>Delete</Button>
+                    <Button
+                      onClick={() =>
+                        window.confirm('You sure?') && deleteReview()
+                      }
+                    >
+                      Delete
+                    </Button>
                   </div>
                 )}
               </Grid>
