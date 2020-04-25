@@ -14,6 +14,7 @@ export const getPostsFulfilled = (payload: IBlogPost[]) =>
 export const getPostsRejected = () => ({ type: GET_POSTS_REJECTED } as const)
 
 //GET POST BY ID
+export const GET_POST_BY_ID = 'GET_POST_BY_ID'
 export const GET_POST_BY_ID_REQUEST = 'GET_POST_BY_ID_REQUEST'
 export const GET_POST_BY_ID_FULFILLED = 'GET_POST_BY_ID_FULFILLED'
 export const GET_POST_BY_ID_REJECTED = 'GET_POST_BY_ID_REJECTED'
@@ -25,6 +26,7 @@ export const getPostByIdRejected = (payload) =>
   ({ type: GET_POST_BY_ID_REJECTED, payload } as const)
 
 //CREATE POST
+export const CREATE_POST = 'CREATE_POST'
 export const CREATE_POST_REQUEST = 'CREATE_POST_REQUEST'
 export const CREATE_POST_FULFILLED = 'CREATE_POST_FULFILLED'
 export const CREATE_POST_REJECTED = 'CREATE_POST_REJECTED'
@@ -35,10 +37,11 @@ export const createPost = (payload: IBlogPost) =>
 export const createPostFulfilled = (payload: IBlogPost) =>
   ({ type: CREATE_POST_FULFILLED, payload } as const)
 
-export const createPostRejected = () =>
-  ({ type: CREATE_POST_REJECTED } as const)
+export const createPostRejected = (payload) =>
+  ({ type: CREATE_POST_REJECTED, payload } as const)
 
-//CREATE POST
+//UPDATEPOST
+export const UPDATE_POST = 'UPDATE_POST'
 export const UPDATE_POST_REQUEST = 'UPDATE_POST_REQUEST'
 export const UPDATE_POST_FULFILLED = 'UPDATE_POST_FULFILLED'
 export const UPDATE_POST_REJECTED = 'UPDATE_POST_REJECTED'
@@ -49,8 +52,8 @@ export const updatePost = (payload: IBlogPost) =>
 export const updatePostFulfilled = (payload: IBlogPost) =>
   ({ type: UPDATE_POST_FULFILLED, payload } as const)
 
-export const updatePostRejected = () =>
-  ({ type: UPDATE_POST_REJECTED } as const)
+export const updatePostRejected = (payload) =>
+  ({ type: UPDATE_POST_REJECTED, payload } as const)
 
 //DELETE POST
 export const DELETE_POST_REQUEST = 'DELETE_POST_REQUEST'
@@ -63,8 +66,8 @@ export const deletePost = (payload: string) =>
 export const deletePostFulfilled = (payload: string) =>
   ({ type: DELETE_POST_FULFILLED, payload } as const)
 
-export const deletePostRejected = () =>
-  ({ type: DELETE_POST_REJECTED } as const)
+export const deletePostRejected = (payload) =>
+  ({ type: DELETE_POST_REJECTED, payload } as const)
 
 //CREATE COMMENT
 export const CREATE_COMMENT_REQUEST = 'CREATE_COMMENT_REQUEST'
@@ -115,57 +118,75 @@ export const getPostByIdAsync = (postSlug, currentUser) => {
   }
 }
 
-export const createPostAsync = (post: IBlogPost, currentUser) => {
-  const formData = new FormData()
-  Object.keys(post).forEach((key) => formData.append(key, post[key]))
-  return async (dispatch) => {
-    dispatch(createPost(post))
-    const newPost: AxiosResponse = await axios({
-      method: 'post',
-      url: `${process.env.REACT_APP_API_URL}/blog_posts`,
-      data: formData,
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        Authorization: currentUser?.token,
-      },
-    })
+export const createPostAsync = {
+  name: CREATE_POST,
+  func: (post: IBlogPost, currentUser) => {
+    const formData = new FormData()
+    Object.keys(post).forEach((key) => formData.append(key, post[key]))
+    return async (dispatch) => {
+      dispatch(createPost(post))
 
-    dispatch(createPostFulfilled(newPost.data))
-  }
+      try {
+        const newPost: AxiosResponse = await axios({
+          method: 'post',
+          url: `${process.env.REACT_APP_API_URL}/blog_posts`,
+          data: formData,
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: currentUser?.token,
+          },
+        })
+        dispatch(createPostFulfilled(newPost.data))
+      } catch (error) {
+        dispatch(createPostRejected(error))
+      }
+    }
+  },
 }
 
-export const updatePostAsync = (post: IBlogPost, currentUser) => {
-  const formData = new FormData()
-  Object.keys(post).forEach((key) => formData.append(key, post[key]))
-  return async (dispatch) => {
-    dispatch(updatePost(post))
-    const updatedPost: AxiosResponse = await axios({
-      method: 'put',
-      url: `${process.env.REACT_APP_API_URL}/blog_posts/${post.id}`,
-      data: formData,
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        Authorization: currentUser?.token,
-      },
-    })
+export const updatePostAsync = {
+  name: UPDATE_POST,
+  func: (post: IBlogPost, currentUser) => {
+    const formData = new FormData()
+    Object.keys(post).forEach((key) => formData.append(key, post[key]))
+    return async (dispatch) => {
+      dispatch(updatePost(post))
+      try {
+        const updatedPost: AxiosResponse = await axios({
+          method: 'put',
+          url: `${process.env.REACT_APP_API_URL}/blog_posts/${post.id}`,
+          data: formData,
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: currentUser?.token,
+          },
+        })
 
-    dispatch(updatePostFulfilled(updatedPost.data))
-  }
+        dispatch(updatePostFulfilled(updatedPost.data))
+      } catch (error) {
+        dispatch(updatePostRejected(error))
+      }
+    }
+  },
 }
 
 export const deletePostAsync = (id: string, currentUser) => {
   return async (dispatch) => {
     dispatch(deletePost(id))
-    const updatedPost: AxiosResponse = await axios({
-      method: 'delete',
-      url: `${process.env.REACT_APP_API_URL}/blog_posts/${id}`,
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        Authorization: currentUser?.token,
-      },
-    })
+    try {
+      await axios({
+        method: 'delete',
+        url: `${process.env.REACT_APP_API_URL}/blog_posts/${id}`,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: currentUser?.token,
+        },
+      })
 
-    dispatch(deletePostFulfilled(id))
+      dispatch(deletePostFulfilled(id))
+    } catch (error) {
+      dispatch(deletePostRejected(error))
+    }
   }
 }
 
@@ -190,8 +211,8 @@ export const createCommentAsync = (id, text, currentUser) => {
 
 // Use this as a model
 export const newgetPostByIdAsync = {
-  name: 'GET_POST_BY_ID',
-  func: (postSlug, currentUser) => async (dispatch) => {
+  name: GET_POST_BY_ID,
+  func: (postSlug: string, currentUser) => async (dispatch) => {
     dispatch(getPostById())
     try {
       const post: AxiosResponse = await axios({

@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useCallback, useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import axios, { AxiosResponse } from 'axios'
-import Tracklist, { ITrack } from './Tracklist'
-import { Typography, Link, Card, CardContent, Grid } from '@material-ui/core'
+import { ITrack } from './Tracklist'
+import { Typography, Grid } from '@material-ui/core'
 import Moment from 'react-moment'
 import PageHeading from '../shared/PageHeading'
 import Gallery from 'react-photo-gallery'
@@ -11,6 +11,7 @@ import { AppContext } from '../../context/AppProvider'
 import LinkButton from '../shared/LinkButton'
 import HtmlHead from '../shared/HtmlHead'
 import Setlist from './Setlist'
+import ShowReviews from './Reviews'
 
 export interface IShow {
   id: string
@@ -52,7 +53,7 @@ const Show: React.FC = () => {
   const [viewerIsOpen, setViewerIsOpen] = useState(false)
   const [firstThumbUrl, setFirstThumbUrl] = useState('')
 
-  const openLightbox = useCallback((event, { photo, index }) => {
+  const openLightbox = useCallback((event, { index }) => {
     setCurrentImage(index)
     setViewerIsOpen(true)
   }, [])
@@ -128,19 +129,21 @@ const Show: React.FC = () => {
               )}
             </Grid>
           </Grid>
-          <div>
-            {show.notes && (
-              <div>
-                <Typography
-                  variant="body2"
-                  dangerouslySetInnerHTML={{ __html: show.notes }}
-                />
-                <br />
-              </div>
-            )}
 
-            <Setlist show={show} />
-          </div>
+          {show.notes && (
+            <div>
+              <Typography
+                variant="body2"
+                dangerouslySetInnerHTML={{ __html: show.notes }}
+              />
+              <br />
+            </div>
+          )}
+
+          <Setlist show={show} />
+
+          <ShowReviews show={show} />
+
           {show.youtube_ids.map((id) => {
             return (
               <div

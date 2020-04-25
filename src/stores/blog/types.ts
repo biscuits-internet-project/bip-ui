@@ -2,7 +2,7 @@ export type IBlogPost = {
   id?: string
   blurb: string
   content: string
-  published_at?: string
+  published_at?: Date
   slug?: string
   state?: string | boolean
   title: string
@@ -15,6 +15,8 @@ export type IBlogPost = {
       avatar_url?: string
       username?: string
     }
+    created_at: Date
+    updated_at: Date
   }[]
   user?: {
     avatar_url?: string

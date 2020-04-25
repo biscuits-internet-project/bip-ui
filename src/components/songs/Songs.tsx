@@ -52,9 +52,9 @@ const Songs: React.FC = () => {
     {
       name: 'Author',
       options: {
+        display: false,
         filter: true,
-        sort: true,
-        sortDirection: 'none',
+        sort: false,
         searchable: true,
       },
     },
@@ -90,7 +90,7 @@ const Songs: React.FC = () => {
   ]
 
   const options = {
-    responsive: 'scrollFullHeight',
+    responsive: 'stacked',
     filterType: 'multiselect',
     pagination: true,
     print: false,
@@ -150,6 +150,7 @@ const Songs: React.FC = () => {
           )}
         </Grid>
       </Grid>
+
       <MUIDataTable data={songs} columns={columns} options={options} />
 
       <Dialog open={formOpen} onClose={() => handleClose()}>
