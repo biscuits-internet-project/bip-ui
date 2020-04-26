@@ -35,6 +35,7 @@ import EditShow from '../components/shows/EditShow'
 import Users from '../components/users/Users'
 import JamCharts from '../components/songs/JamCharts'
 import UserShows from '../components/identity/UserShows'
+import Admin from '../components/admin/Admin'
 
 const Routes: React.FC = () => {
   return (
@@ -54,6 +55,7 @@ const Routes: React.FC = () => {
       <PrivateRoute path="/admin/users" exact component={Users} adminOnly />
       <PrivateRoute path="/account" exact component={Account} />
       <PrivateRoute path="/my-shows" exact component={UserShows} />
+      <PrivateRoute path="/admin" exact component={Admin} adminOnly />
 
       <Route path="/" exact component={LatestShows} />
       <Route path="/login" component={Login} />
