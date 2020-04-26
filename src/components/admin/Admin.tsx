@@ -14,10 +14,12 @@ import {
   Grid,
   Avatar,
   Typography,
+  Link,
 } from '@material-ui/core'
 import { AppContext } from '../../context/AppProvider'
 import axios, { AxiosResponse } from 'axios'
 import PageHeading from '../shared/PageHeading'
+import LinkButton from '../shared/LinkButton'
 
 interface IMetrics {
   total_show_count: number
@@ -75,7 +77,16 @@ const Admin: React.FC = () => {
       </Helmet>
       <Grid container justify="space-between">
         <Grid item>
-          <PageHeading text="Admin" />
+          <PageHeading text="Admin Dashboard" />
+        </Grid>
+        <Grid item>
+          <Link
+            underline="none"
+            href={`${process.env.REACT_APP_API_URL}/clear`}
+            target="blank"
+          >
+            <Button>Clear Cache</Button>
+          </Link>
         </Grid>
       </Grid>
 
