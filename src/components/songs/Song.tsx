@@ -44,6 +44,7 @@ import ProgressBar from '../shared/ProgressBar'
 import { ISong } from '../../stores/songs/types'
 import { useSelector, useDispatch } from 'react-redux'
 import { songsSelector } from '../../stores/songs/selectors'
+import RelistenInlineIconLink from '../shared/RelistenInlineIconLink'
 
 interface ITrack {
   id: string
@@ -263,18 +264,9 @@ const Song: React.FC = () => {
                   )}
                   {song.first_played_show &&
                     song.first_played_show.relisten_url && (
-                      <>
-                        <span
-                          style={{ paddingLeft: 12, verticalAlign: 'middle' }}
-                        >
-                          <Link
-                            href={song.first_played_show.relisten_url}
-                            target="blank"
-                          >
-                            <img src="/relisten.png" alt="relisten" />
-                          </Link>
-                        </span>
-                      </>
+                      <RelistenInlineIconLink
+                        url={song.first_played_show.relisten_url}
+                      />
                     )}
                 </TableCell>
               </TableRow>
@@ -298,20 +290,12 @@ const Song: React.FC = () => {
                     </Link>
                   )}
 
-                  {song.last_played_show && song.last_played_show.relisten_url && (
-                    <>
-                      <span
-                        style={{ paddingLeft: 12, verticalAlign: 'middle' }}
-                      >
-                        <Link
-                          href={song.last_played_show.relisten_url}
-                          target="blank"
-                        >
-                          <img src="/relisten.png" alt="relisten" />
-                        </Link>
-                      </span>
-                    </>
-                  )}
+                  {song.last_played_show &&
+                    song.last_played_show.relisten_url && (
+                      <RelistenInlineIconLink
+                        url={song.last_played_show.relisten_url}
+                      />
+                    )}
                 </TableCell>
               </TableRow>
               <TableRow>
@@ -351,6 +335,11 @@ const Song: React.FC = () => {
                             <span>, </span>
                             {allTimer.show.venue.state}
                           </Link>
+                          {allTimer.show.relisten_url && (
+                            <RelistenInlineIconLink
+                              url={allTimer.show.relisten_url}
+                            />
+                          )}
                         </Typography>
                       )
                     })}
