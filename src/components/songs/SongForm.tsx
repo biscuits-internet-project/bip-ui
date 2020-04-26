@@ -48,6 +48,7 @@ const initialValues: ISong = {
   least_common_year: 0,
   yearly_play_chart_data: '',
   author_name: '',
+  guitar_tabs_url: '',
 }
 
 const SongFormSchema = Yup.object().shape({
@@ -190,7 +191,11 @@ const SongForm: React.FC<ISongForm> = ({ id, handleClose }) => {
             <TextAreaField name="featured_lyric" label="Featured Lyric" />
             <TextAreaField name="notes" label="Notes" />
             <TextEditorField name="lyrics" label="Lyrics" />
-            <TextEditorField name="tabs" label="Tabs" />
+            <TextField
+              name="guitar_tabs_url"
+              type="text"
+              label="Guitar Tabs URL"
+            />
 
             <div style={{ height: 20 }}></div>
             <Grid container justify="space-between">

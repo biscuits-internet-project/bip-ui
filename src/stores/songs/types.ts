@@ -15,9 +15,10 @@ export interface ISong {
   featured_lyric?: string
   date_last_played?: Date
   shows_since_last_played?: number
-  most_common_year?: number,
-  least_common_year?: number,
+  most_common_year?: number
+  least_common_year?: number
   yearly_play_chart_data?: string
+  guitar_tabs_url?: string
 }
 
 export type SongState = {

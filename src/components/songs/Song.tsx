@@ -206,7 +206,12 @@ const Song: React.FC = () => {
               )}
             </Grid>
           </Grid>
-          <Dialog open={formOpen} onClose={() => handleClose('form')}>
+          <Dialog
+            open={formOpen}
+            onClose={() => handleClose('form')}
+            maxWidth="md"
+            fullWidth
+          >
             <DialogTitle>Edit Song</DialogTitle>
             <DialogContent>
               <SongForm id={id} handleClose={() => handleClose('form')} />
@@ -352,6 +357,16 @@ const Song: React.FC = () => {
                   </TableCell>
                 </TableRow>
               )}
+              {song.guitar_tabs_url && (
+                <TableRow>
+                  <TableCell>Guitar Tabs</TableCell>
+                  <TableCell>
+                    <Link href={song.guitar_tabs_url} target="blank">
+                      {song.guitar_tabs_url}
+                    </Link>
+                  </TableCell>
+                </TableRow>
+              )}
             </Table>
           </TableContainer>
 
@@ -423,21 +438,6 @@ const Song: React.FC = () => {
               </ExpansionPanelDetails>
             </ExpansionPanel>
           )}
-          {song.tabs && (
-            <ExpansionPanel>
-              <ExpansionPanelSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel1a-content"
-                id="panel1a-header"
-              >
-                <Typography className={classes.heading}>Guitar Tabs</Typography>
-              </ExpansionPanelSummary>
-              <ExpansionPanelDetails>
-                <Paragraph dangerouslySetInnerHTML={{ __html: song.tabs }} />
-              </ExpansionPanelDetails>
-            </ExpansionPanel>
-          )}
-
           <div style={{ height: 20 }}></div>
         </>
       )}
