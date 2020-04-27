@@ -45,30 +45,9 @@ import { ISong } from '../../stores/songs/types'
 import { useSelector, useDispatch } from 'react-redux'
 import { songsSelector } from '../../stores/songs/selectors'
 import RelistenInlineIconLink from '../shared/RelistenInlineIconLink'
+import Tracks from './Tracks'
+import { ITrack } from './Tracks'
 
-interface ITrack {
-  id: string
-  annotations: string[]
-  position: number
-  segue: string
-  set: string
-  venue: IVenue
-  show: IShow
-  note: string
-  all_timer: boolean
-  previous_track?: ITrack
-  next_track?: ITrack
-  song?: ISong
-  song_id: string
-}
-
-interface IShow {
-  date: Date
-  notes?: string
-  slug: string
-  venue: IVenue
-  relisten_url?: string
-}
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -102,10 +81,10 @@ const Song: React.FC = () => {
   const [song, setSong] = useState<ISong | undefined>(undefined)
   const [formOpen, setFormOpen] = useState(false)
   const [id, setId] = useState('')
-  const [songsPlayed, setTracks] = useState<ITrack[]>([])
   const [allTimers, setAllTimers] = useState<ITrack[]>([])
-  const [jamCharts, setJamCharts] = useState<ITrack[]>([])
-  const [displayTracks, setDisplayTracks] = useState<ITrack[]>([])
+  //const [jamCharts, setJamCharts] = useState<ITrack[]>([])
+  //const [displayTracks, setDisplayTracks] = useState<ITrack[]>([])
+  const [tracks, setTracks] = useState<ITrack[]>([])
   const { currentUser } = state
   const admin = currentUser?.roles.includes('admin')
   const songs = useSelector(songsSelector)
@@ -127,15 +106,6 @@ const Song: React.FC = () => {
     type === 'form' ? setFormOpen(false) : setDeleteOpen(false)
     setFormOpen(false)
     setTimeout(() => setId(''), 500)
-  }
-
-  const toggleView = (jamcharts) => {
-    if (jamcharts) {
-      setDisplayTracks(jamCharts)
-    } else {
-      setDisplayTracks(songsPlayed)
-    }
-    dispatch({ type: 'TOGGLE_VIEW_JAM_CHARTS', payload: jamcharts })
   }
 
   useEffect(() => {
@@ -171,14 +141,14 @@ const Song: React.FC = () => {
 
       const allTimers = tracks.filter((x) => x.all_timer)
       setAllTimers(allTimers)
-      const jamCharts = tracks.filter((x) => x.note != null && x.note !== '')
-      setJamCharts(jamCharts)
+      // const jamCharts = tracks.filter((x) => x.note != null && x.note !== '')
+      // setJamCharts(jamCharts)
 
-      if (initViewJamCharts) {
-        setDisplayTracks(jamCharts)
-      } else {
-        setDisplayTracks(tracks)
-      }
+      // if (initViewJamCharts) {
+      //   setDisplayTracks(jamCharts)
+      // } else {
+      //   setDisplayTracks(tracks)
+      // }
 
       setLoading(false)
     }
@@ -299,7 +269,9 @@ const Song: React.FC = () => {
                 </TableCell>
               </TableRow>
               <TableRow>
-                <TableCell>Most common year</TableCell>
+                <TableCell style={{ minWidth: 125 }}>
+                  Most common year
+                </TableCell>
                 <TableCell>{song.most_common_year}</TableCell>
               </TableRow>
               <TableRow>
@@ -351,7 +323,7 @@ const Song: React.FC = () => {
                   <TableCell>Guitar Tabs</TableCell>
                   <TableCell>
                     <Link href={song.guitar_tabs_url} target="blank">
-                      {song.guitar_tabs_url}
+                      Sick Barber Licks
                     </Link>
                   </TableCell>
                 </TableRow>
@@ -428,83 +400,12 @@ const Song: React.FC = () => {
             </ExpansionPanel>
           )}
           <div style={{ height: 20 }}></div>
+
+          <Tracks tracks={tracks}></Tracks>
+
+          {loading && <ProgressBar />}
         </>
       )}
-
-      <Box style={{ marginTop: 0, marginBottom: 10, textAlign: 'right' }}>
-        <Button onClick={() => toggleView(!state.viewJamCharts)}>
-          {state.viewJamCharts ? 'View All' : 'View Jam Charts'}
-        </Button>
-      </Box>
-
-      <TableContainer component={Paper}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Show</TableCell>
-              <TableCell>Song Before</TableCell>
-              <TableCell>Song After</TableCell>
-              <TableCell>Notes</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {displayTracks.map((track: ITrack) => (
-              <TableRow key={track.id}>
-                <TableCell>
-                  <Link component={RouterLink} to={`/shows/${track.show.slug}`}>
-                    <Typography>
-                      <Moment format="M/D/YY">{track.show.date}</Moment>
-                    </Typography>
-                    <Typography>
-                      {track.venue.name}
-                      <br />
-                      {track.venue.city}
-                      <span>, </span>
-                      {track.venue.state}
-                    </Typography>
-                  </Link>
-                  {track.show.relisten_url && (
-                    <Typography style={{ marginTop: 6 }}>
-                      <Link href={track.show.relisten_url} target="blank">
-                        <img src="/relisten.png" alt="relisten" />
-                      </Link>
-                    </Typography>
-                  )}
-                </TableCell>
-                <TableCell>
-                  {track.previous_track && (
-                    <>
-                      <Link
-                        component={RouterLink}
-                        to={`/songs/${track.previous_track.song?.slug}`}
-                      >
-                        {track.previous_track?.song?.title}
-                      </Link>{' '}
-                      {track.previous_track?.segue}
-                    </>
-                  )}
-                </TableCell>
-                <TableCell>
-                  {track.next_track && (
-                    <>
-                      {track.segue} {''}
-                      <Link
-                        component={RouterLink}
-                        to={`/songs/${track.next_track.song?.slug}`}
-                      >
-                        {track.next_track?.song?.title}
-                      </Link>
-                    </>
-                  )}
-                </TableCell>
-                <TableCell>{track.note}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-
-      {loading && <ProgressBar />}
     </>
   )
 }

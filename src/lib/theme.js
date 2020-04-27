@@ -49,11 +49,31 @@ export const darkTheme = createMuiTheme({
     MUIDataTableBodyCell: {
       stackedCommon: {
         height: 'inherit !important',
+        padding: '12px !important',
+        overflowWrap: 'break-word',
+        wordWrap: 'break-word',
+      },
+      cellStackedSmall: {
+        width: '25% !important',
+        color: 'silver',
+      },
+      responsiveStackedSmall: {
+        width: '75% !important',
+      },
+    },
+    MUIDataTableBodyRow: {
+      responsiveStacked: {
+        //borderBottom: 'solid 5px rgba(0, 0, 0, 0.15) !important',
       },
     },
     MuiTableCell: {
       root: {
         borderBottom: '0px',
+      },
+    },
+    MuiTableRow: {
+      root: {
+        verticalAlign: 'top',
       },
     },
   },

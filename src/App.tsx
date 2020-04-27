@@ -127,7 +127,14 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     content: {
       flexGrow: 1,
-      padding: theme.spacing(3),
+      [theme.breakpoints.up('xs')]: {
+        paddingLeft: theme.spacing(1),
+        paddingRight: theme.spacing(1),
+        paddingTop: theme.spacing(2),
+      },
+      [theme.breakpoints.up('sm')]: {
+        padding: theme.spacing(3),
+      },
     },
     footer: {
       marginTop: 30,
