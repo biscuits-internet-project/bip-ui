@@ -54,11 +54,11 @@ export const darkTheme = createMuiTheme({
         wordWrap: 'break-word',
       },
       cellStackedSmall: {
-        width: '25% !important',
+        width: '30% !important',
         color: 'silver',
       },
       responsiveStackedSmall: {
-        width: '75% !important',
+        width: '70% !important',
       },
     },
     MUIDataTableBodyRow: {
