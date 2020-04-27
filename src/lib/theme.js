@@ -46,12 +46,18 @@ export const darkTheme = createMuiTheme({
         color: '#BB86FC',
       },
     },
+    MUIDataTable: {
+      tableRoot: {
+        tableLayout: 'fixed',
+      },
+    },
     MUIDataTableBodyCell: {
+      root: {
+        whiteSpace: 'normal !important',
+      },
       stackedCommon: {
         height: 'inherit !important',
         padding: '12px !important',
-        overflowWrap: 'break-word',
-        wordWrap: 'break-word',
       },
       cellStackedSmall: {
         width: '30% !important',

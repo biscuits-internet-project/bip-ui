@@ -332,44 +332,42 @@ const Song: React.FC = () => {
             </Table>
           </TableContainer>
 
-          <Hidden xsDown implementation="css">
-            <div className={classes.chart_container}>
-              <Typography className={classes.chart_heading}>
-                Times Played Per Year
-              </Typography>
-              <ResponsiveContainer height={300}>
-                <BarChart
-                  data={song.yearly_play_chart_data}
-                  margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-                >
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" style={{ fill: '#FFF' }} />
-                  <YAxis
-                    unit=" plays"
-                    angle={-45}
-                    yAxisId="left"
-                    orientation="left"
-                    style={{ fill: '#FFF' }}
-                  />
-                  <Tooltip
-                    cursor={{ fill: 'rgba(66, 66, 66, 0.75)' }}
-                    contentStyle={{
-                      backgroundColor: 'rgba(81, 81, 81, 1)',
-                      borderColor: '#000',
-                      borderRadius: '5px',
-                    }}
-                  />
-                  <Legend />
-                  <Bar
-                    name="Times Played"
-                    dataKey="plays"
-                    fill="#BB86FC"
-                    yAxisId="left"
-                  />
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-          </Hidden>
+          <div className={classes.chart_container}>
+            <Typography className={classes.chart_heading}>
+              Times Played Per Year
+            </Typography>
+            <ResponsiveContainer height={300}>
+              <BarChart
+                data={song.yearly_play_chart_data}
+                margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" style={{ fill: '#FFF' }} />
+                <YAxis
+                  unit=" plays"
+                  angle={-45}
+                  yAxisId="left"
+                  orientation="left"
+                  style={{ fill: '#FFF' }}
+                />
+                <Tooltip
+                  cursor={{ fill: 'rgba(66, 66, 66, 0.75)' }}
+                  contentStyle={{
+                    backgroundColor: 'rgba(81, 81, 81, 1)',
+                    borderColor: '#000',
+                    borderRadius: '5px',
+                  }}
+                />
+                <Legend />
+                <Bar
+                  name="Times Played"
+                  dataKey="plays"
+                  fill="#BB86FC"
+                  yAxisId="left"
+                />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
 
           {song.lyrics && (
             <ExpansionPanel>
