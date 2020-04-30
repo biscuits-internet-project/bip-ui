@@ -22,6 +22,7 @@ export interface ITrack {
   next_track?: ITrack
   song?: ISong
   song_id: string
+  average_rating: number
 }
 
 interface Props {

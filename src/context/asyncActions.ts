@@ -102,11 +102,18 @@ const asyncActions = (dispatch: Dispatch<Action>) => {
       })
       dispatch({ type: 'GET_RATINGS', payload: ratings.data })
     },
-    postRating: async (token: string, showId: string, value: number) => {
+    postRating: async (
+      token: string,
+      rateableType: string,
+      rateableId: string,
+      value: number,
+    ) => {
       const data = { value: value }
       await axios({
         method: 'post',
-        url: `${process.env.REACT_APP_API_URL}/shows/${showId}/rate`,
+        url: `${
+          process.env.REACT_APP_API_URL
+        }/${rateableType.toLowerCase()}s/${rateableId}/rate`,
         data: data,
         headers: {
           'Content-Type': 'application/json',
@@ -115,7 +122,11 @@ const asyncActions = (dispatch: Dispatch<Action>) => {
       })
       dispatch({
         type: 'UPDATE_RATING',
-        payload: { show_id: showId, value: value },
+        payload: {
+          rateable_type: rateableType,
+          rateable_id: rateableId,
+          value: value,
+        },
       })
     },
   }
