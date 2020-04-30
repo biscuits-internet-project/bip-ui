@@ -17,7 +17,7 @@ import {
 import Moment from 'react-moment'
 import { AppContext } from '../../context/AppProvider'
 import SawItSwitch from './SawItSwitch'
-import ShowRating from './ShowRating'
+import Rating from './Rating'
 import FavoriteSwitch from './FavoriteSwitch'
 import moment from 'moment'
 
@@ -101,8 +101,9 @@ const ListShows = ({ shows }) => {
                         />
                       </TableCell>
                       <TableCell>
-                        <ShowRating
-                          showId={show.id}
+                        <Rating
+                          rateable_id={show.id}
+                          rateable_type="Show"
                           currentUser={currentUser}
                         />
                       </TableCell>

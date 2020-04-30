@@ -16,7 +16,7 @@ import {
 } from '@material-ui/core'
 import StarIcon from '@material-ui/icons/Star'
 import SawItSwitch from './SawItSwitch'
-import ShowRating from './ShowRating'
+import Rating from './Rating'
 import FavoriteSwitch from './FavoriteSwitch'
 import { AppContext } from '../../context/AppProvider'
 
@@ -142,7 +142,7 @@ const Setlist: React.FC<ISetlist> = ({ show }) => {
             dangerouslySetInnerHTML={{ __html: show.notes }}
           />
         )}
-        <Tracklist tracks={show.tracks}></Tracklist>
+        <Tracklist show={show}></Tracklist>
 
         {currentUser ? (
           <Grid
@@ -154,7 +154,11 @@ const Setlist: React.FC<ISetlist> = ({ show }) => {
           >
             <Grid item className={classes.interaction}>
               <Typography>Rating</Typography>
-              <ShowRating showId={show.id} currentUser={currentUser} />
+              <Rating
+                rateable_id={show.id}
+                rateable_type="Song"
+                currentUser={currentUser}
+              />
             </Grid>
             <Grid item className={classes.interaction}>
               <Typography>Saw it</Typography>

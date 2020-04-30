@@ -31,7 +31,8 @@ export interface IShow {
 }
 
 export interface IRating {
-  show_id: string
+  rateable_id: string
+  rateable_type: string
   value: number
 }
 

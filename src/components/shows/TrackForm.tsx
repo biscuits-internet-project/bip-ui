@@ -39,6 +39,7 @@ const initialValues: ITrack = {
   set: '',
   annotations: [],
   annotations_with_newlines: '',
+  average_rating: 0,
 }
 
 const TrackForm: React.FC<Props> = ({ track, show, handleClose }) => {

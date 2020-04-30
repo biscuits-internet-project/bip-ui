@@ -136,7 +136,11 @@ const appReducer = (state: AppState, action: Action): AppState => {
       }
     case 'UPDATE_RATING':
       let ratings = state.ratings
-      const i = ratings.findIndex((r) => r.show_id === action.payload.show_id)
+      const i = ratings.findIndex(
+        (r) =>
+          r.rateable_id === action.payload.rateable_id &&
+          r.rateable_type === action.payload.rateable_type,
+      )
       if (i > -1) {
         ratings[i] = action.payload
       } else {
