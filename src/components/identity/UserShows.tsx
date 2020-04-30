@@ -60,8 +60,16 @@ const UserShows: React.FC = () => {
             <TableCell>{state.attendances.length}</TableCell>
           </TableRow>
           <TableRow>
-            <TableCell>Rated:</TableCell>
-            <TableCell>{state.ratings.length}</TableCell>
+            <TableCell>Shows Rated:</TableCell>
+            <TableCell>
+              {state.ratings.filter((r) => r.rateable_type === 'Show').length}
+            </TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>Song Versions Rated:</TableCell>
+            <TableCell>
+              {state.ratings.filter((r) => r.rateable_type === 'Track').length}
+            </TableCell>
           </TableRow>
           <TableRow>
             <TableCell>Average Rating:</TableCell>

@@ -156,7 +156,7 @@ const Setlist: React.FC<ISetlist> = ({ show }) => {
               <Typography>Rating</Typography>
               <Rating
                 rateable_id={show.id}
-                rateable_type="Song"
+                rateable_type="Show"
                 currentUser={currentUser}
               />
             </Grid>
