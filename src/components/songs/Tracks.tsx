@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { Link as RouterLink } from 'react-router-dom'
-import { Link, Button, Typography, Box } from '@material-ui/core'
+import { Link, Button, Typography, Box, Chip } from '@material-ui/core'
 import MUIDataTable from 'mui-datatables'
 import { AppContext } from '../../context/AppProvider'
 import Moment from 'react-moment'
@@ -23,6 +23,7 @@ export interface ITrack {
   song?: ISong
   song_id: string
   average_rating: number
+  tags: string[]
 }
 
 interface Props {
@@ -56,6 +57,7 @@ const Tracks: React.FC<Props> = ({ tracks }) => {
       t.previous_track?.segue,
     ],
     [t.segue, t.next_track?.song?.slug, t.next_track?.song?.title],
+    t.tags,
     t.note,
   ])
 
@@ -129,6 +131,24 @@ const Tracks: React.FC<Props> = ({ tracks }) => {
               </Link>
             </>
           )
+        },
+      },
+    },
+    {
+      name: 'Tags',
+      options: {
+        filter: true,
+        sort: false,
+        searchable: true,
+        filterType: 'checkbox',
+        customBodyRender: (tags) => {
+          if (tags === undefined || tags.length === 0) {
+            return
+          } else {
+            return tags.map((tag) => (
+              <Chip size="small" label={tag} color="primary" />
+            ))
+          }
         },
       },
     },
