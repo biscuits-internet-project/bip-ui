@@ -140,13 +140,13 @@ const Tracks: React.FC<Props> = ({ tracks }) => {
         filter: true,
         sort: false,
         searchable: true,
-        filterType: 'checkbox',
+        filterType: 'multiselect',
         customBodyRender: (tags) => {
           if (tags === undefined || tags.length === 0) {
             return
           } else {
             return tags.map((tag) => (
-              <Chip size="small" label={tag} color="primary" />
+              <Chip size="small" label={tag} color="secondary" />
             ))
           }
         },
