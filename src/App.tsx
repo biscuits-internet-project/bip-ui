@@ -20,7 +20,6 @@ import {
   Hidden,
   Divider,
   Box,
-  Grid,
 } from '@material-ui/core'
 import {
   Notes,
@@ -30,17 +29,15 @@ import {
   CardTravel,
   Info,
   Album,
+  Radio,
 } from '@material-ui/icons'
 import { SnackbarProvider } from 'notistack'
 import Routes from './routing/Routes'
 import AvatarMenu from './components/identity/AvatarMenu'
 import ScrollUpButton from 'react-scroll-up-button'
 import { fetchVenues } from './stores/venues/actions'
-import { IVenue } from './stores/venues/types'
-import { venuesSelector } from './stores/venues/selectors'
 import { fetchSongs } from './stores/songs/actions'
-import { songsSelector } from './stores/songs/selectors'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 interface sideMenuItem {
   name: string | undefined
@@ -82,6 +79,11 @@ const itemList: sideMenuItem[] = [
     name: 'resources',
     label: 'Resources',
     icon: <Info />,
+  },
+  {
+    name: 'resources/touchdowns-all-day',
+    label: 'touchdowns all day w/ jon barber',
+    icon: <Radio />,
   },
 ]
 

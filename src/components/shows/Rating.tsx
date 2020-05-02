@@ -44,6 +44,7 @@ const Rating: React.FC<Props> = ({
     <StyledRating
       name={rateable_id}
       icon={<TdbIcon />}
+      precision={0.5}
       value={
         state.ratings.find(
           (r) =>
