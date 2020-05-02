@@ -81,7 +81,7 @@ const Setlist: React.FC<ISetlist> = ({ show }) => {
                 {show.average_rating > 0 && (
                   <Chip
                     icon={<StarIcon />}
-                    label={Math.round(show.average_rating * 10) / 10}
+                    label={Math.round(show.average_rating * 100) / 100}
                     size="small"
                     style={{ marginRight: 2 }}
                   />
