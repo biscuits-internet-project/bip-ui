@@ -198,8 +198,8 @@ const Song: React.FC = () => {
               <div style={{ height: 20 }}></div>
             </>
           )}
-          <TableContainer component={Paper}>
-            <Table>
+          <TableContainer component={Paper} style={{ padding: 5 }}>
+            <Table size="small">
               <TableRow>
                 <TableCell>Author</TableCell>
                 <TableCell>{song.author_name}</TableCell>
