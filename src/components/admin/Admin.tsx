@@ -23,11 +23,15 @@ import LinkButton from '../shared/LinkButton'
 
 interface IMetrics {
   total_show_count: number
-  ratings_distinct_user_count: number
+  show_ratings_distinct_user_count: number
+  track_ratings_distinct_user_count: number
   ratings_distinct_show_count: number
+  ratings_distinct_track_count: number
+  track_ratings_count: number
+  show_ratings_count: number
   user_count: number
-  rating_count: number
   review_count: number
+  review_users_count: number
   sawit_count: number
   favorite_count: number
   blog_post_count: number
@@ -53,18 +57,6 @@ const Admin: React.FC = () => {
     }
     fetchMetrics()
   }, [])
-
-  const handleDelete = async (id?: string) => {
-    const metrics = await axios({
-      method: 'get',
-      url: `${process.env.REACT_APP_API_URL}/metrics`,
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: currentUser?.token,
-      },
-    })
-    setMetrics(metrics.data)
-  }
 
   if (metrics === undefined) {
     return <Typography>Loading...</Typography>
@@ -106,20 +98,34 @@ const Admin: React.FC = () => {
               <TableCell>{metrics.total_show_count}</TableCell>
             </TableRow>
             <TableRow>
-              <TableCell>Ratings Unique User Count</TableCell>
-              <TableCell>{metrics.ratings_distinct_user_count}</TableCell>
+              <TableCell>Show Ratings</TableCell>
+              <TableCell>
+                {metrics.show_ratings_distinct_user_count} users
+                <br />
+                {metrics.ratings_distinct_show_count} shows
+                <br />
+                {metrics.show_ratings_count} total
+                <br />
+              </TableCell>
             </TableRow>
             <TableRow>
-              <TableCell>Ratings Unique Show Count</TableCell>
-              <TableCell>{metrics.ratings_distinct_show_count}</TableCell>
+              <TableCell>Track Ratings</TableCell>
+              <TableCell>
+                {metrics.track_ratings_distinct_user_count} users
+                <br />
+                {metrics.ratings_distinct_track_count} tracks
+                <br />
+                {metrics.track_ratings_count} total
+                <br />
+              </TableCell>
             </TableRow>
             <TableRow>
-              <TableCell>Show Rating Count</TableCell>
-              <TableCell>{metrics.rating_count}</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Show Review Count</TableCell>
-              <TableCell>{metrics.review_count}</TableCell>
+              <TableCell>Show Reviews</TableCell>
+              <TableCell>
+                {metrics.review_count} reviews
+                <br />
+                {metrics.review_users_count} users
+              </TableCell>
             </TableRow>
             <TableRow>
               <TableCell>Sawit Count</TableCell>
