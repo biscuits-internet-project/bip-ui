@@ -63,8 +63,12 @@ const BlogCard: React.FC<Props> = ({ post, handleEdit, handleDelete }) => {
           </Link>
         </Typography>
         <Paragraph variant="body2" style={{ color: 'silver' }}>
-          <em>posted on by {post.user?.username} on </em>
-          <Moment format="M/D/YY">{post.published_at}</Moment>
+          <em>
+            posted on by {post.user?.username} on{' '}
+            <Moment format="M/D/YY">
+              {post.published_at || post.created_at}
+            </Moment>
+          </em>
         </Paragraph>
         <Paragraph>{post.blurb}</Paragraph>
 

@@ -66,15 +66,16 @@ const ChipField: React.FC<IChipField> = ({ label, name }) => {
         />
       </div>
       <div style={{ position: 'relative', right: 0, top: 0 }}>
-        {field.value.map((chip: string, index: number) => (
-          <Chip
-            key={index}
-            className={classes.chip}
-            label={chip}
-            color="primary"
-            onDelete={() => handleDelete(chip)}
-          />
-        ))}
+        {field.value &&
+          field.value.map((chip: string, index: number) => (
+            <Chip
+              key={index}
+              className={classes.chip}
+              label={chip}
+              color="primary"
+              onDelete={() => handleDelete(chip)}
+            />
+          ))}
       </div>
     </div>
   )

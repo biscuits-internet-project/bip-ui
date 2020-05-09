@@ -3,6 +3,7 @@ export type IBlogPost = {
   blurb: string
   content: string
   published_at?: Date
+  created_at?: Date
   slug?: string
   state?: string | boolean
   title: string
