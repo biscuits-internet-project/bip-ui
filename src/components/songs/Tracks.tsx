@@ -161,6 +161,21 @@ const Tracks: React.FC<Props> = ({ tracks }) => {
         searchable: true,
         filterType: 'checkbox',
         customFilterListOptions: { render: (v) => `Jam Charts: ${v}` },
+        customBodyRender: (value) => {
+          return (
+            <>
+              {value &&
+                value.split('\n').map((item, key) => {
+                  return (
+                    <span key={key}>
+                      {item}
+                      <br />
+                    </span>
+                  )
+                })}
+            </>
+          )
+        },
         filterOptions: {
           names: ['Yes'],
           logic: (chart, filters) => {

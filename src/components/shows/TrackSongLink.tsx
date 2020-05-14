@@ -136,7 +136,16 @@ const TrackSongLink: React.FC<Props> = ({ show, track }) => {
             )}
 
             {track.note && (
-              <Paragraph style={{ marginTop: 20 }}>{track.note}</Paragraph>
+              <Paragraph style={{ marginTop: 20 }}>
+                {track.note.split('\n').map((item, key) => {
+                  return (
+                    <span key={key}>
+                      {item}
+                      <br />
+                    </span>
+                  )
+                })}
+              </Paragraph>
             )}
           </>
         </Popover>

@@ -94,7 +94,16 @@ const Song: React.FC = () => {
                     </Typography>
                   )}
                 </TableCell>
-                <TableCell style={{ width: '50%' }}>{track.note}</TableCell>
+                <TableCell style={{ width: '50%' }}>
+                  {track.note.split('\n').map((item, key) => {
+                    return (
+                      <span key={key}>
+                        {item}
+                        <br />
+                      </span>
+                    )
+                  })}
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>

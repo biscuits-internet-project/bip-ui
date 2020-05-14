@@ -11,7 +11,7 @@ export interface ITracklist {
 export interface ITrack {
   id: string
   slug: string
-  note: ''
+  note: string
   all_timer: false
   song_title: string
   song_slug: string
