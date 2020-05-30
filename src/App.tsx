@@ -1,5 +1,5 @@
 import React, { useContext, ReactElement, useEffect } from 'react'
-import { Switch, Link as RouterLink, useHistory } from 'react-router-dom'
+import { Switch, NavLink as RouterLink, useHistory } from 'react-router-dom'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import { ThemeProvider } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
@@ -20,6 +20,7 @@ import {
   Hidden,
   Divider,
   Box,
+  Collapse,
 } from '@material-ui/core'
 import {
   Notes,
@@ -30,6 +31,9 @@ import {
   Info,
   Album,
   Radio,
+  ExpandLess,
+  ExpandMore,
+  Settings,
 } from '@material-ui/icons'
 import { SnackbarProvider } from 'notistack'
 import Routes from './routing/Routes'
@@ -38,56 +42,9 @@ import ScrollUpButton from 'react-scroll-up-button'
 import { fetchVenues } from './stores/venues/actions'
 import { fetchSongs } from './stores/songs/actions'
 import { useDispatch } from 'react-redux'
+import AppMenu from './AppMenu'
 
-interface sideMenuItem {
-  name: string | undefined
-  label: string
-  icon: ReactElement
-}
-const itemList: sideMenuItem[] = [
-  {
-    name: '',
-    label: 'Home',
-    icon: <Home />,
-  },
-  {
-    name: 'shows',
-    label: 'Shows',
-    icon: <QueueMusic />,
-  },
-  {
-    name: 'songs',
-    label: 'Songs',
-    icon: <Album />,
-  },
-  {
-    name: 'jam-charts',
-    label: 'Jam Charts',
-    icon: <Notes />,
-  },
-  {
-    name: 'venues',
-    label: 'Venues',
-    icon: <Room />,
-  },
-  {
-    name: 'tour',
-    label: 'Tour Dates',
-    icon: <CardTravel />,
-  },
-  {
-    name: 'resources',
-    label: 'Resources',
-    icon: <Info />,
-  },
-  {
-    name: 'resources/touchdowns-all-day',
-    label: 'touchdowns all day w/ jon barber',
-    icon: <Radio />,
-  },
-]
-
-const drawerWidth = 190
+const drawerWidth = 240
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -168,15 +125,8 @@ const useStyles = makeStyles((theme: Theme) =>
         fontSize: `2.8rem`,
       },
     },
-    sidebarText: {
-      textTransform: 'lowercase',
-    },
   }),
 )
-
-function ListItemLink(props) {
-  return <ListItem button component="a" {...props} />
-}
 
 const App: React.FC = () => {
   const history = useHistory()
@@ -184,6 +134,11 @@ const App: React.FC = () => {
   const { state, asyncActions } = useContext(AppContext)
   const [mobileOpen, setMobileOpen] = React.useState(false)
   const dispatch = useDispatch()
+  const [openCollapse, setOpenCollapse] = React.useState(false)
+
+  function handleOpenSettings() {
+    setOpenCollapse(!openCollapse)
+  }
 
   useEffect(() => {
     dispatch(fetchVenues())
@@ -215,28 +170,6 @@ const App: React.FC = () => {
       behavior: 'smooth',
     })
   }, [history.location.pathname])
-
-  const drawer = (
-    <>
-      <List>
-        {itemList.map((item: sideMenuItem) => {
-          return (
-            <ListItemLink
-              component={RouterLink}
-              key={item.name}
-              to={`/${item.name}`}
-            >
-              <ListItemIcon>{item.icon}</ListItemIcon>
-              <ListItemText
-                className={classes.sidebarText}
-                primary={item.label}
-              />
-            </ListItemLink>
-          )
-        })}
-      </List>
-    </>
-  )
 
   return (
     <React.Fragment>
@@ -298,7 +231,7 @@ const App: React.FC = () => {
                   }}
                   onClick={handleDrawerToggle}
                 >
-                  {drawer}
+                  <AppMenu />
                 </Drawer>
               </Hidden>
               <Hidden xsDown implementation="css">
@@ -309,7 +242,7 @@ const App: React.FC = () => {
                   variant="permanent"
                   open
                 >
-                  {drawer}
+                  <AppMenu />
                 </Drawer>
               </Hidden>
             </nav>
