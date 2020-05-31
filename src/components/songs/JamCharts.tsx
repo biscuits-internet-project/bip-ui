@@ -31,7 +31,7 @@ export interface ITrack {
   all_timer: boolean
 }
 
-const Song: React.FC = () => {
+const JamCharts: React.FC = () => {
   const [loading, setLoading] = useState(false)
   const [tracks, setTracks] = useState<ITrack[]>([])
 
@@ -114,4 +114,4 @@ const Song: React.FC = () => {
     </>
   )
 }
-export default Song
+export default JamCharts

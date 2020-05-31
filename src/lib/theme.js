@@ -82,6 +82,11 @@ export const darkTheme = createMuiTheme({
         verticalAlign: 'top',
       },
     },
+    MuiListItemText: {
+      inset: {
+        fontSize: '11px !important',
+      },
+    },
   },
 })
 
