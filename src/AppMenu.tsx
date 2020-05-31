@@ -91,7 +91,7 @@ const AppMenu: React.FC = () => {
                   return (
                     <ListItem className={classes.sidebarChild}>
                       <Link
-                        component={RouterLink}
+                        component={NavLink}
                         to={child.link}
                         activeClassName={classes.sidebarChildActive}
                         className={classes.sidebarChildInactive}

@@ -90,13 +90,13 @@ const ShowsTopRated: React.FC = () => {
 
   const options = {
     responsive: "stacked",
-    filterType: "multiselect",
-    pagination: true,
+    pagination: false,
     print: false,
+    filter: false,
     download: false,
     selectableRows: "none",
     selectableRowsHeader: false,
-    searchOpen: true,
+    searchOpen: false,
     viewColumns: false,
   };
 
