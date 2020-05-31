@@ -1,5 +1,5 @@
 import React from "react";
-import { Route } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
 import LatestShows from "../components/shows/LatestShows";
 import Shows from "../components/shows/Shows";
@@ -41,7 +41,7 @@ import NotFound from "../NotFound";
 
 const Routes: React.FC = () => {
   return (
-    <React.Fragment>
+    <Switch>
       <PrivateRoute path="/admin/shows/create" exact component={AddShow} adminOnly />
       <PrivateRoute path="/admin/shows/edit/:id" exact component={EditShow} adminOnly />
       <PrivateRoute path="/admin/users" exact component={Users} adminOnly />
@@ -85,7 +85,8 @@ const Routes: React.FC = () => {
       <Route path="/contact" exact component={Contact} />
       <Route path="/register/confirm" exact component={Register} />
       <Route path="/password/reset/:token" exact component={ResetPassword} />
-    </React.Fragment>
+      <Route component={NotFound} />
+    </Switch>
   );
 };
 
