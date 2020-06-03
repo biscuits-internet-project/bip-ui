@@ -3,7 +3,7 @@ import { makeStyles, createStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import { Notes, QueueMusic, Home, Room, CardTravel, Info, Album, Radio } from "@material-ui/icons";
 import { BrowserRouter as Router, Link as RouterLink, Route, NavLink } from "react-router-dom";
-import { ListItemIcon, ListItem, ListItemText, Link } from "@material-ui/core";
+import { ListItemIcon, ListItem, ListItemText, Link, Typography } from "@material-ui/core";
 import { purple } from "@material-ui/core/colors";
 
 const appMenuItems = [
@@ -69,43 +69,67 @@ const AppMenu: React.FC = () => {
   const classes = useStyles();
 
   return (
-    <List>
-      {appMenuItems.map((item) => (
-        <Route path={item.link}>
-          {({ match }) => (
-            <>
-              <ListItemLink
-                component={RouterLink}
-                key={item.name}
-                to={`${item.link}`}
-                className={match && item.name !== "Home" ? classes.sidebarItemActive : classes.sidebarItem}
-              >
-                <ListItemIcon>
-                  <item.Icon style={match && item.name !== "Home" ? { color: "#BB86FC" } : undefined} />
-                </ListItemIcon>
-                <ListItemText primary={item.name} />
-              </ListItemLink>
+    <>
+      <List>
+        {appMenuItems.map((item) => (
+          <Route path={item.link}>
+            {({ match }) => (
+              <>
+                <ListItemLink
+                  component={RouterLink}
+                  key={item.name}
+                  to={`${item.link}`}
+                  className={match && item.name !== "Home" ? classes.sidebarItemActive : classes.sidebarItem}
+                >
+                  <ListItemIcon>
+                    <item.Icon style={match && item.name !== "Home" ? { color: "#BB86FC" } : undefined} />
+                  </ListItemIcon>
+                  <ListItemText primary={item.name} />
+                </ListItemLink>
 
-              {match &&
-                item.children.map((child) => {
-                  return (
-                    <ListItem className={classes.sidebarChild}>
-                      <Link
-                        component={NavLink}
-                        to={child.link}
-                        activeClassName={classes.sidebarChildActive}
-                        className={classes.sidebarChildInactive}
-                      >
-                        {child.name}
-                      </Link>
-                    </ListItem>
-                  );
-                })}
-            </>
-          )}
-        </Route>
-      ))}
-    </List>
+                {match &&
+                  item.children.map((child) => {
+                    return (
+                      <ListItem className={classes.sidebarChild}>
+                        <Link
+                          component={NavLink}
+                          to={child.link}
+                          activeClassName={classes.sidebarChildActive}
+                          className={classes.sidebarChildInactive}
+                        >
+                          {child.name}
+                        </Link>
+                      </ListItem>
+                    );
+                  })}
+              </>
+            )}
+          </Route>
+        ))}
+      </List>
+
+      <div style={{ height: 50 }}></div>
+
+      <div style={{ textAlign: "center" }}>
+        <Typography variant="body2" style={{ fontSize: "13px" }}>
+          Help keep the BIP ad-free
+        </Typography>
+        <div style={{ height: 10 }}></div>
+        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+          <input type="hidden" name="cmd" value="_donations" />
+          <input type="hidden" name="business" value="Q9D9ZYV22XPD8" />
+          <input type="hidden" name="currency_code" value="USD" />
+          <input
+            type="image"
+            src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif"
+            name="submit"
+            title="PayPal - The safer, easier way to pay online!"
+            alt="Donate with PayPal button"
+          />
+          <img alt="" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" />
+        </form>
+      </div>
+    </>
   );
 };
 
