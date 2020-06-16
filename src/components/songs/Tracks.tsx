@@ -1,37 +1,37 @@
-import React, { useContext } from 'react'
-import { Link as RouterLink } from 'react-router-dom'
-import { Link, Button, Typography, Box, Chip } from '@material-ui/core'
-import MUIDataTable from 'mui-datatables'
-import { AppContext } from '../../context/AppProvider'
-import Moment from 'react-moment'
-import { IVenue } from '../../stores/venues/types'
-import { IShow } from '../shows/Show'
-import { ISong } from '../../stores/songs/types'
+import React, { useContext } from "react";
+import { Link as RouterLink } from "react-router-dom";
+import { Link, Button, Typography, Box, Chip } from "@material-ui/core";
+import MUIDataTable from "mui-datatables";
+import { AppContext } from "../../context/AppProvider";
+import Moment from "react-moment";
+import { IVenue } from "../../stores/venues/types";
+import { IShow } from "../shows/Show";
+import { ISong } from "../../stores/songs/types";
 
 export interface ITrack {
-  id: string
-  annotations: string[]
-  position: number
-  segue: string
-  set: string
-  venue: IVenue
-  show: IShow
-  note: string
-  all_timer: boolean
-  previous_track?: ITrack
-  next_track?: ITrack
-  song?: ISong
-  song_id: string
-  average_rating: number
-  tags: string[]
+  id: string;
+  annotations: string[];
+  position: number;
+  segue: string;
+  set: string;
+  venue: IVenue;
+  show: IShow;
+  note: string;
+  all_timer: boolean;
+  previous_track?: ITrack;
+  next_track?: ITrack;
+  song?: ISong;
+  song_id: string;
+  average_rating: number;
+  tags: string[];
 }
 
 interface Props {
-  tracks: ITrack[]
+  tracks: ITrack[];
 }
 
 const Tracks: React.FC<Props> = ({ tracks }) => {
-  const { state } = useContext(AppContext)
+  const { state } = useContext(AppContext);
 
   // const toggleView = (jamcharts) => {
   //   if (jamcharts) {
@@ -43,31 +43,20 @@ const Tracks: React.FC<Props> = ({ tracks }) => {
   // }
 
   const data = tracks.map((t: ITrack) => [
-    [
-      t.show.slug,
-      t.show.date,
-      t.venue.name,
-      t.venue.city,
-      t.venue.state,
-      t.show.relisten_url,
-    ],
-    [
-      t.previous_track?.song?.slug,
-      t.previous_track?.song?.title,
-      t.previous_track?.segue,
-    ],
+    [t.show.slug, t.show.date, t.venue.name, t.venue.city, t.venue.state, t.show.relisten_url],
+    [t.previous_track?.song?.slug, t.previous_track?.song?.title, t.previous_track?.segue],
     [t.segue, t.next_track?.song?.slug, t.next_track?.song?.title],
     t.tags,
     t.note,
-  ])
+  ]);
 
   const columns = [
     {
-      name: 'Show',
+      name: "Show",
       options: {
         filter: false,
         sort: true,
-        sortDirection: 'desc',
+        sortDirection: "desc",
         searchable: true,
         customBodyRender: (value) => {
           return (
@@ -92,12 +81,12 @@ const Tracks: React.FC<Props> = ({ tracks }) => {
                 </Typography>
               )}
             </>
-          )
+          );
         },
       },
     },
     {
-      name: 'Before',
+      name: "Before",
       options: {
         display: true,
         filter: false,
@@ -108,97 +97,90 @@ const Tracks: React.FC<Props> = ({ tracks }) => {
             <>
               <Link component={RouterLink} to={`/songs/${value[0]}`}>
                 {value[1]}
-              </Link>{' '}
+              </Link>{" "}
               {value[2]}
             </>
-          )
+          );
         },
       },
     },
     {
-      name: 'After',
+      name: "After",
       options: {
         display: true,
         filter: false,
         sort: false,
-        searchable: false,
+        searchable: true,
         customBodyRender: (value) => {
           return (
             <>
-              {value[0]} {''}
+              {value[0]} {""}
               <Link component={RouterLink} to={`/songs/${value[1]}`}>
                 {value[2]}
               </Link>
             </>
-          )
+          );
         },
       },
     },
     {
-      name: 'Tags',
+      name: "Tags",
       options: {
         filter: true,
         sort: false,
         searchable: true,
-        filterType: 'multiselect',
+        filterType: "multiselect",
         customBodyRender: (tags) => {
           if (tags === undefined || tags.length === 0) {
-            return
+            return;
           } else {
-            return tags.map((tag) => (
-              <Chip size="small" label={tag} color="secondary" />
-            ))
+            return tags.map((tag) => <Chip size="small" label={tag} color="secondary" />);
           }
         },
       },
     },
     {
-      name: 'Jam Charts',
+      name: "Jam Charts",
       options: {
         filter: true,
         sort: true,
-        sortDirection: 'none',
+        sortDirection: "none",
         searchable: true,
-        filterType: 'checkbox',
+        filterType: "checkbox",
         customFilterListOptions: { render: (v) => `Jam Charts: ${v}` },
         customBodyRender: (value) => {
           return (
             <>
               {value &&
-                value.split('\n').map((item, key) => {
+                value.split("\n").map((item, key) => {
                   return (
                     <span key={key}>
                       {item}
                       <br />
                     </span>
-                  )
+                  );
                 })}
             </>
-          )
+          );
         },
         filterOptions: {
-          names: ['Yes'],
+          names: ["Yes"],
           logic: (chart, filters) => {
-            if (filters.length)
-              return !(
-                filters.includes('Yes') &&
-                chart !== null &&
-                chart !== ''
-              )
-            return false
+            if (filters.length) return !(filters.includes("Yes") && chart !== null && chart !== "");
+            return false;
           },
         },
       },
     },
-  ]
+  ];
 
   const options = {
-    responsive: 'stacked',
-    filterType: 'multiselect',
+    responsive: "stacked",
+    filterType: "multiselect",
     pagination: true,
     print: false,
     download: false,
-    selectableRows: 'none',
+    selectableRows: "none",
     selectableRowsHeader: false,
     searchOpen: true,
     viewColumns: false,
@@ -208,32 +190,22 @@ const Tracks: React.FC<Props> = ({ tracks }) => {
       return data.sort((a, b) => {
         if (colIndex === 0) {
           return (
-            (a.data[colIndex][1].toLowerCase() <
-            b.data[colIndex][1].toLowerCase()
-              ? -1
-              : 1) * (order === 'desc' ? 1 : -1)
-          )
+            (a.data[colIndex][1].toLowerCase() < b.data[colIndex][1].toLowerCase() ? -1 : 1) *
+            (order === "desc" ? 1 : -1)
+          );
         } else if (colIndex === 1) {
           return (
-            ((a.data[colIndex] ?? '').toLowerCase() <
-            (b.data[colIndex] ?? '').toLowerCase()
-              ? -1
-              : 1) * (order === 'desc' ? 1 : -1)
-          )
+            ((a.data[colIndex] ?? "").toLowerCase() < (b.data[colIndex] ?? "").toLowerCase() ? -1 : 1) *
+            (order === "desc" ? 1 : -1)
+          );
         } else if (colIndex === 4) {
-          return (
-            (new Date(a.data[colIndex]) < new Date(b.data[colIndex]) ? -1 : 1) *
-            (order === 'desc' ? 1 : -1)
-          )
+          return (new Date(a.data[colIndex]) < new Date(b.data[colIndex]) ? -1 : 1) * (order === "desc" ? 1 : -1);
         } else {
-          return (
-            (a.data[colIndex] < b.data[colIndex] ? -1 : 1) *
-            (order === 'asc' ? 1 : -1)
-          )
+          return (a.data[colIndex] < b.data[colIndex] ? -1 : 1) * (order === "asc" ? 1 : -1);
         }
-      })
+      });
     },
-  }
+  };
 
   return (
     <>
@@ -243,6 +215,6 @@ const Tracks: React.FC<Props> = ({ tracks }) => {
 
       <MUIDataTable data={data} columns={columns} options={options} />
     </>
-  )
-}
-export default Tracks
+  );
+};
+export default Tracks;
