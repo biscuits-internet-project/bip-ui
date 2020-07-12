@@ -12,6 +12,7 @@ import LinkButton from "../shared/LinkButton";
 import HtmlHead from "../shared/HtmlHead";
 import Setlist from "./Setlist";
 import ShowReviews from "./Reviews";
+import moment from "moment";
 
 export interface IShow {
   id: string;
@@ -97,9 +98,12 @@ const Show: React.FC = () => {
       {show && (
         <>
           <HtmlHead
-            title={`${show.date} at ${show.venue.name} - ${show.venue.city}, ${show.venue.state}`}
+            title={`${moment(show.date).format("M/D/YY")} - ${show.venue.city}, ${show.venue.state} - ${
+              show.venue.name
+            } - DiscoBiscuits.net`}
             description={`Setlist, photos, and reviews of The Disco Biscuits show from ${show.date} at ${show.venue.name}`}
             image_url={firstThumbUrl ? firstThumbUrl : undefined}
+            hide_title_prefix={true}
           />
           <Grid container justify="space-between">
             <Grid item>
