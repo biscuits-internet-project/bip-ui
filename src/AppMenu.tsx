@@ -1,7 +1,7 @@
 import React from "react";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
-import { Notes, QueueMusic, Home, Room, CardTravel, Info, Album, Radio } from "@material-ui/icons";
+import { Description, Notes, QueueMusic, Home, Room, CardTravel, Info, Album, Radio } from "@material-ui/icons";
 import { BrowserRouter as Router, Link as RouterLink, Route, NavLink } from "react-router-dom";
 import { ListItemIcon, ListItem, ListItemText, Link, Typography } from "@material-ui/core";
 import { purple } from "@material-ui/core/colors";
@@ -54,9 +54,9 @@ const appMenuItems = [
     children: [],
   },
   {
-    link: "/resources/touchdowns-all-day",
-    name: "touchdowns all day w/ jon barber",
-    Icon: Radio,
+    link: "/blog",
+    name: "a clamouring sound",
+    Icon: Description,
     children: [],
   },
 ];
