@@ -54,7 +54,7 @@ const appMenuItems = [
     children: [],
   },
   {
-    link: "/blog",
+    link: "/a-clamouring-sound",
     name: "a clamouring sound",
     Icon: Description,
     children: [],

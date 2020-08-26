@@ -82,6 +82,8 @@ const Routes: React.FC = () => {
       <Route path="/about" exact component={About} />
       <Route path="/blog" exact component={Blog} />
       <Route path="/blog/:postId" exact component={BlogPost} />
+      <Route path="/a-clamouring-sound" exact component={Blog} />
+      <Route path="/a-clamouring-sound/:postId" exact component={BlogPost} />
       <Route path="/contact" exact component={Contact} />
       <Route path="/register/confirm" exact component={Register} />
       <Route path="/password/reset/:token" exact component={ResetPassword} />
