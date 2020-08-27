@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
-import LatestShows from "../components/shows/LatestShows";
+import Home from "../components/Home";
 import Shows from "../components/shows/Shows";
 import Show from "../components/shows/Show";
 import Songs from "../components/songs/Songs";
@@ -49,7 +49,7 @@ const Routes: React.FC = () => {
       <PrivateRoute path="/my-shows" exact component={UserShows} />
       <PrivateRoute path="/admin" exact component={Admin} adminOnly />
 
-      <Route path="/" exact component={LatestShows} />
+      <Route path="/" exact component={Home} />
       <Route path="/login" component={Login} />
       <Route path="/privacy" component={Privacy} />
       <Route path="/resources/history" exact component={BandHistory} />
