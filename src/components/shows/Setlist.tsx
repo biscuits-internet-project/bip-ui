@@ -1,27 +1,19 @@
-import React, { useContext } from 'react'
-import { Link as RouterLink } from 'react-router-dom'
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles'
-import Tracklist from './Tracklist'
-import { IShow } from './Show'
-import Moment from 'react-moment'
-import {
-  Typography,
-  Link,
-  Card,
-  CardHeader,
-  CardContent,
-  Avatar,
-  Grid,
-  Chip,
-} from '@material-ui/core'
-import StarIcon from '@material-ui/icons/Star'
-import SawItSwitch from './SawItSwitch'
-import Rating from './Rating'
-import FavoriteSwitch from './FavoriteSwitch'
-import { AppContext } from '../../context/AppProvider'
+import React, { useContext } from "react";
+import { Link as RouterLink } from "react-router-dom";
+import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
+import Tracklist from "./Tracklist";
+import { IShow } from "./Show";
+import Moment from "react-moment";
+import { Typography, Link, Card, CardHeader, CardContent, Avatar, Grid, Chip, Tooltip } from "@material-ui/core";
+import StarIcon from "@material-ui/icons/Star";
+import SawItSwitch from "./SawItSwitch";
+import Rating from "./Rating";
+import FavoriteSwitch from "./FavoriteSwitch";
+import { AppContext } from "../../context/AppProvider";
+import RateReviewIcon from "@material-ui/icons/RateReview";
 
 export interface ISetlist {
-  show: IShow
+  show: IShow;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -40,28 +32,28 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     media: {
       height: 0,
-      paddingTop: '56.25%', // 16:9
+      paddingTop: "56.25%", // 16:9
     },
     avatar: {
       width: theme.spacing(2.5),
       height: theme.spacing(2.5),
       marginTop: 4,
-      marginLeft: 1,
-      marginRight: 1,
-      display: 'inline-block',
+      marginLeft: 2,
+      marginRight: 2,
+      display: "inline-block",
     },
     interaction: {
-      textAlign: 'center',
+      textAlign: "center",
       marginBottom: 4,
       //height: 100
     },
-  }),
-)
+  })
+);
 
 const Setlist: React.FC<ISetlist> = ({ show }) => {
-  const { state } = useContext(AppContext)
-  const { currentUser } = state
-  const classes = useStyles()
+  const { state } = useContext(AppContext);
+  const { currentUser } = state;
+  const classes = useStyles();
   return (
     <Card className={classes.root}>
       <CardHeader
@@ -77,49 +69,44 @@ const Setlist: React.FC<ISetlist> = ({ show }) => {
               </Link>
             </Grid>
             <Grid item>
-              <div style={{ textAlign: 'right' }}>
+              <div style={{ textAlign: "right" }}>
                 {show.average_rating > 0 && (
                   <Chip
                     icon={<StarIcon />}
                     label={Math.round(show.average_rating * 100) / 100}
                     size="small"
-                    style={{ marginRight: 2 }}
+                    style={{ marginRight: 4, marginTop: -8 }}
                   />
                 )}
 
                 {(show.show_youtubes_count > 0 ||
                   show.relisten_url ||
+                  show.reviews_count > 0 ||
                   show.show_photos_count > 0) && (
-                  <Chip
-                    size="small"
-                    label={
-                      <>
-                        {show.relisten_url && (
-                          <Link target="blank" href={show.relisten_url}>
-                            <Avatar
-                              alt="relisten"
-                              src="/icons/relisten.png"
-                              className={classes.avatar}
-                            />
-                          </Link>
-                        )}
-                        {show.show_youtubes_count > 0 && (
-                          <Avatar
-                            alt="youtube"
-                            src="/icons/youtube.png"
-                            className={classes.avatar}
-                          />
-                        )}
-                        {show.show_photos_count > 0 && (
-                          <Avatar
-                            alt="photos"
-                            src="/icons/photos.png"
-                            className={classes.avatar}
-                          />
-                        )}
-                      </>
-                    }
-                  />
+                  <>
+                    {show.relisten_url && (
+                      <Tooltip title="Relisten">
+                        <Link target="blank" href={show.relisten_url}>
+                          <Avatar alt="relisten" src="/icons/relisten.png" className={classes.avatar} />
+                        </Link>
+                      </Tooltip>
+                    )}
+                    {show.show_youtubes_count > 0 && (
+                      <Tooltip title="Youtube">
+                        <Avatar alt="youtube" src="/icons/youtube.png" className={classes.avatar} />
+                      </Tooltip>
+                    )}
+                    {show.reviews_count > 0 && (
+                      <Tooltip title="Reviews">
+                        <RateReviewIcon className={classes.avatar} />
+                      </Tooltip>
+                    )}
+                    {show.show_photos_count > 0 && (
+                      <Tooltip title="Photos">
+                        <Avatar alt="photos" src="/icons/photos.png" className={classes.avatar} />
+                      </Tooltip>
+                    )}
+                  </>
                 )}
               </div>
             </Grid>
@@ -136,29 +123,14 @@ const Setlist: React.FC<ISetlist> = ({ show }) => {
         }
       />
       <CardContent style={{ paddingTop: 0, paddingBottom: 0 }}>
-        {show.notes && (
-          <Typography
-            variant="body2"
-            dangerouslySetInnerHTML={{ __html: show.notes }}
-          />
-        )}
+        {show.notes && <Typography variant="body2" dangerouslySetInnerHTML={{ __html: show.notes }} />}
         <Tracklist show={show}></Tracklist>
 
         {currentUser ? (
-          <Grid
-            container
-            alignItems="center"
-            justify="flex-end"
-            spacing={4}
-            dir="row"
-          >
+          <Grid container alignItems="center" justify="flex-end" spacing={4} dir="row">
             <Grid item className={classes.interaction}>
               <Typography>Rating</Typography>
-              <Rating
-                rateable_id={show.id}
-                rateable_type="Show"
-                currentUser={currentUser}
-              />
+              <Rating rateable_id={show.id} rateable_type="Show" currentUser={currentUser} />
             </Grid>
             <Grid item className={classes.interaction}>
               <Typography>Saw it</Typography>
@@ -174,7 +146,7 @@ const Setlist: React.FC<ISetlist> = ({ show }) => {
         )}
       </CardContent>
     </Card>
-  )
-}
+  );
+};
 
-export default Setlist
+export default Setlist;

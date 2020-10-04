@@ -29,6 +29,7 @@ export interface IShow {
   average_rating: number;
   ratings_count: number;
   show_photos_count: number;
+  reviews_count: number;
   show_youtubes_count: number;
 }
 
