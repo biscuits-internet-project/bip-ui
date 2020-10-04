@@ -34,7 +34,8 @@ const useStyles = makeStyles((theme: Theme) =>
 const Home: React.FC = () => {
   const { state } = useContext(AppContext);
   const [shows, setShows] = useState<IShow[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [searchShows, setSearchShows] = useState<IShow[]>([]);
+  const [searchLoading, setSearchLoading] = useState(false);
   const dispatch = useDispatch();
   const publishedPosts = useSelector(publishedPostsSelector);
   const postsLoading = useSelector((state: RootState) => state.loading.GET_POSTS);
@@ -73,10 +74,17 @@ const Home: React.FC = () => {
           for updates on new content and features!
         </Typography>
 
+        <ShowSearch setShows={setSearchShows} setLoading={setSearchLoading}></ShowSearch>
+
         <Grid container spacing={4}>
           <Grid item md={8} className={classes.setlists}>
-            <ShowSearch setShows={setShows} setLoading={setLoading}></ShowSearch>
-            {loading && <ProgressBar />}
+            {searchLoading && <ProgressBar />}
+            {searchShows.map((show) => {
+              return <Setlist key={show.slug} show={show} />;
+            })}
+
+            <Typography variant="h2">Recent Shows</Typography>
+            <div style={{ height: 10 }}></div>
             {shows.map((show) => {
               return <Setlist key={show.slug} show={show} />;
             })}

@@ -85,11 +85,11 @@ const Setlist: React.FC<ISetlist> = ({ show }) => {
                   show.show_photos_count > 0) && (
                   <>
                     {show.relisten_url && (
-                      <Tooltip title="Relisten">
-                        <Link target="blank" href={show.relisten_url}>
+                      <Link target="blank" href={show.relisten_url}>
+                        <Tooltip title="Relisten">
                           <Avatar alt="relisten" src="/icons/relisten.png" className={classes.avatar} />
-                        </Link>
-                      </Tooltip>
+                        </Tooltip>
+                      </Link>
                     )}
                     {show.show_youtubes_count > 0 && (
                       <Tooltip title="Youtube">
