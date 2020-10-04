@@ -90,6 +90,8 @@ const Home: React.FC = () => {
             })}
           </Grid>
           <Grid item md={4} className={classes.blog}>
+            <Typography variant="h2">A Clamouring Sound</Typography>
+            <div style={{ height: 10 }}></div>
             {publishedPosts.slice(0, 5).map((post) => (
               <>
                 <Box style={{ marginBottom: 20 }}>
