@@ -7,6 +7,7 @@ import Moment from "react-moment";
 import { IVenue } from "../../stores/venues/types";
 import { IShow } from "../shows/Show";
 import { ISong } from "../../stores/songs/types";
+import StarIcon from "@material-ui/icons/Star";
 
 export interface ITrack {
   id: string;
@@ -48,6 +49,7 @@ const Tracks: React.FC<Props> = ({ tracks }) => {
     [t.segue, t.next_track?.song?.slug, t.next_track?.song?.title],
     t.tags,
     t.note,
+    t.average_rating,
   ]);
 
   const columns = [
@@ -169,6 +171,29 @@ const Tracks: React.FC<Props> = ({ tracks }) => {
             if (filters.length) return !(filters.includes("Yes") && chart !== null && chart !== "");
             return false;
           },
+        },
+      },
+    },
+    {
+      name: "Rating",
+      options: {
+        display: true,
+        filter: false,
+        sort: true,
+        searchable: false,
+        customBodyRender: (rating) => {
+          return (
+            <>
+              {rating > 0 && (
+                <Chip
+                  icon={<StarIcon />}
+                  label={Math.round(rating * 100) / 100}
+                  size="small"
+                  style={{ marginRight: 4, marginTop: -8 }}
+                />
+              )}
+            </>
+          );
         },
       },
     },
