@@ -2,7 +2,17 @@ import React, { useState, useEffect, useContext } from "react";
 import axios, { AxiosResponse } from "axios";
 import { IShow } from "./shows/Show";
 import Setlist from "./shows/Setlist";
-import { Typography, Link, Grid, Box, makeStyles, Theme, createStyles } from "@material-ui/core";
+import {
+  Typography,
+  Link,
+  Grid,
+  Box,
+  makeStyles,
+  Theme,
+  createStyles,
+  useMediaQuery,
+  useTheme,
+} from "@material-ui/core";
 import ShowSearch from "./shared/ShowSearch";
 import HtmlHead from "./shared/HtmlHead";
 import ProgressBar from "./shared/ProgressBar";
@@ -13,6 +23,7 @@ import { fetchPosts } from "../stores/blog/actions";
 import { AppContext } from "../context/AppProvider";
 import BlogCard from "./blog/BlogCard";
 import { styles } from "@material-ui/pickers/views/Calendar/Calendar";
+import moment from "moment";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -40,6 +51,9 @@ const Home: React.FC = () => {
   const publishedPosts = useSelector(publishedPostsSelector);
   const postsLoading = useSelector((state: RootState) => state.loading.GET_POSTS);
   const classes = useStyles();
+  const theme = useTheme();
+
+  const elevateLatestSetlist = useMediaQuery(theme.breakpoints.down("sm"));
 
   useEffect(() => {
     dispatch(fetchPosts(state.currentUser, "published"));
@@ -73,9 +87,10 @@ const Home: React.FC = () => {
           </Link>{" "}
           for updates on new content and features!
         </Typography>
-
         <ShowSearch setShows={setSearchShows} setLoading={setSearchLoading}></ShowSearch>
-
+        {elevateLatestSetlist && moment(shows[0].date).isAfter(moment().subtract(3, "days"), "day") && (
+          <Setlist show={shows[0]} />
+        )}
         <Grid container spacing={4}>
           <Grid item md={8} className={classes.setlists}>
             {searchLoading && <ProgressBar />}

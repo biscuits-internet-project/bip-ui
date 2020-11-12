@@ -26,7 +26,7 @@ import Perfume from "../components/resources/Perfume";
 import Account from "../components/identity/Account";
 import Privacy from "../components/Privacy";
 import HotAirBalloon from "../components/resources/HotAirBalloon";
-import Gear from "../components/resources/Gear";
+import Mixes from "../components/resources/Mixes";
 import Music from "../components/resources/Music";
 import ChemicalWarfareBrigade from "../components/resources/ChemcialWarfareBrigade";
 import SideProjects from "../components/resources/SideProjects";
@@ -53,7 +53,7 @@ const Routes: React.FC = () => {
       <Route path="/login" component={Login} />
       <Route path="/privacy" component={Privacy} />
       <Route path="/resources/history" exact component={BandHistory} />
-      <Route path="/resources/gear" exact component={Gear} />
+      <Route path="/resources/running-mixes" exact component={Mixes} />
       <Route path="/resources/music" exact component={Music} />
       <Route path="/resources/chemical-warfare-brigade" exact component={ChemicalWarfareBrigade} />
       <Route path="/resources/hot-air-balloon" exact component={HotAirBalloon} />
