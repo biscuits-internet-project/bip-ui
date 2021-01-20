@@ -106,7 +106,7 @@ const Resources: React.FC = () => {
         <Grid item xs={12} sm={6} md={6} lg={4} xl={3} style={{ display: "flex", height: "auto" }}>
           <ResourceCard
             title="Running Mixes"
-            content=""
+            content="Stream or download long-form continuous mixes of hand-selected Biscuits jams in mp3 format. These are perfect for the gym, the track, or the trail, and they're also a great way to focus on exceptional jams!"
             image="/mixes.jpg"
             url="/resources/running-mixes"
           ></ResourceCard>
