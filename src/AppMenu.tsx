@@ -1,10 +1,9 @@
 import React from "react";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
-import { Description, Notes, QueueMusic, Home, Room, CardTravel, Info, Album, Radio } from "@material-ui/icons";
-import { BrowserRouter as Router, Link as RouterLink, Route, NavLink } from "react-router-dom";
+import { Description, QueueMusic, Home, Room, CardTravel, Info, Album } from "@material-ui/icons";
+import { Link as RouterLink, Route, NavLink } from "react-router-dom";
 import { ListItemIcon, ListItem, ListItemText, Link, Typography } from "@material-ui/core";
-import { purple } from "@material-ui/core/colors";
 
 const appMenuItems = [
   {
@@ -72,7 +71,7 @@ const AppMenu: React.FC = () => {
     <>
       <List>
         {appMenuItems.map((item) => (
-          <Route path={item.link}>
+          <Route path={item.link} key={item.link}>
             {({ match }) => (
               <>
                 <ListItemLink
