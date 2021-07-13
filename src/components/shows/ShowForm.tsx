@@ -4,8 +4,6 @@ import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import axios, { AxiosResponse } from "axios";
 import { Button } from "@material-ui/core";
-import DateFnsUtils from "@date-io/date-fns";
-import { MuiPickersUtilsProvider, KeyboardDatePicker } from "@material-ui/pickers";
 import { AppContext } from "../../context/AppProvider";
 import SelectField, { ISelectOption } from "../shared/SelectField";
 import TextField from "../shared/TextFieldContainer";
@@ -21,7 +19,7 @@ export interface IShowForm {
 interface IShowValues {
   id: string;
   notes: string;
-  date: Date;
+  date: string;
   venue_id: string;
   relisten_url: string;
 }
@@ -29,51 +27,50 @@ interface IShowValues {
 const initialValues: IShowValues = {
   id: "",
   notes: "",
-  date: new Date(),
   venue_id: "",
+  date: formatDate(new Date()),
   relisten_url: "",
 };
+
+function formatDate(date) {
+  var d = new Date(date),
+    month = "" + (d.getMonth() + 1),
+    day = "" + d.getDate(),
+    year = d.getFullYear();
+
+  if (month.length < 2) month = "0" + month;
+  if (day.length < 2) day = "0" + day;
+
+  return [year, month, day].join("-");
+}
 
 const ShowForm: React.FC<IShowForm> = ({ show }) => {
   const { state } = useContext(AppContext);
   const history = useHistory();
   const [formData, setFormData] = useState(initialValues);
   const { enqueueSnackbar } = useSnackbar();
-  const [selectedDate, setSelectedDate] = useState(show ? null : new Date());
   const { currentUser } = state;
   const venues = useSelector(venuesSelector);
 
-  const handleDateChange = (date: Date | null) => {
-    setSelectedDate(date);
-  };
-
   useEffect(() => {
     if (show) {
-      setFormData(show);
-      setSelectedDate(show.date);
+      setFormData({
+        date: formatDate(show.date),
+        notes: show.notes,
+        id: show.id,
+        venue_id: show.venue_id,
+        relisten_url: show.relisten_url,
+      });
     }
   }, [show]);
 
-  function formatDate(date) {
-    var d = new Date(date),
-      month = "" + (d.getMonth() + 1),
-      day = "" + d.getDate(),
-      year = d.getFullYear();
-
-    if (month.length < 2) month = "0" + month;
-    if (day.length < 2) day = "0" + day;
-
-    return [year, month, day].join("-");
-  }
-
   const handleSubmit = useCallback(
     async (values: IShowValues, actions: FormikHelpers<IShowValues>) => {
-      var formattedDate = formatDate(values.date);
       const resp: AxiosResponse = await axios({
         method: show ? "put" : "post",
         url: `${process.env.REACT_APP_API_URL}/shows/${show ? show.id : ""}`,
         data: {
-          date: formattedDate,
+          date: values.date,
           venue_id: values.venue_id,
           notes: values.notes,
           relisten_url: values.relisten_url,
@@ -112,36 +109,9 @@ const ShowForm: React.FC<IShowForm> = ({ show }) => {
 
   return (
     <>
-      <Formik
-        enableReinitialize
-        initialValues={formData}
-        onSubmit={(values, actions) => handleSubmit(values, actions)}
-        // validate={(values) => {
-        //     return validateYupSchema(values, validationSchema, false)
-        //         .catch((err) => {
-        //             return yupToFormErrors(err)
-        //         })
-        // }}
-      >
+      <Formik enableReinitialize initialValues={formData} onSubmit={(values, actions) => handleSubmit(values, actions)}>
         <Form>
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <KeyboardDatePicker
-              disableToolbar
-              variant="inline"
-              format="MM/dd/yyyy"
-              margin="normal"
-              id="date"
-              name="date"
-              label="Date"
-              inputVariant="outlined"
-              value={selectedDate}
-              onChange={handleDateChange}
-              style={{ width: 200 }}
-              KeyboardButtonProps={{
-                "aria-label": "change date",
-              }}
-            />
-          </MuiPickersUtilsProvider>
+          <TextField type="text" name="date" label="Date (ex 1999-12-30)" />
           <SelectField options={venueOptions} name="venue_id" label="Venue" />
           <TextField type="text" name="relisten_url" label="Relisten URL" />
           <TextAreaField name="notes" label="Notes" rows={3} />
