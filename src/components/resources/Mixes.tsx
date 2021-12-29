@@ -4,7 +4,7 @@ import { Helmet } from "react-helmet";
 import PageHeading from "../shared/PageHeading";
 import Paragraph from "../shared/Paragraph";
 
-const Gear: React.FC = () => {
+const Mixes: React.FC = () => {
   let mixes = [
     {
       url: "http://runlikeh3ll.com/tdb/The%20Disco%20Biscuits%20-%20Air%20Song%20Running%20Mix.mp3",
@@ -142,4 +142,4 @@ const Gear: React.FC = () => {
     </>
   );
 };
-export default Gear;
+export default Mixes;

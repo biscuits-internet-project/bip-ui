@@ -38,6 +38,7 @@ import UserShows from "../components/identity/UserShows";
 import Admin from "../components/admin/Admin";
 import ShowsTopRated from "../components/shows/ShowsTopRated";
 import NotFound from "../NotFound";
+import ThinkTank from "../components/resources/ThinkTank";
 
 const Routes: React.FC = () => {
   return (
@@ -63,6 +64,7 @@ const Routes: React.FC = () => {
       <Route path="/resources/tractorbeam" exact component={Tractorbeam} />
       <Route path="/resources/media" exact component={Media} />
       <Route path="/resources/touchdowns-all-day" exact component={Touchdowns} />
+      <Route path="/resources/think-tank" exact component={ThinkTank} />
       <Route path="/setlists.php" exact component={Shows} />
       <Route path="/shows/top-rated" exact component={ShowsTopRated} />
       <Route path="/shows" exact component={Shows} />

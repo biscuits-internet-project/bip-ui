@@ -76,8 +76,7 @@ const Home: React.FC = () => {
       <HtmlHead title="" description="Disco Biscuits setlists, reviews, ratings, band history, and more." />
       <div>
         <Typography variant="body1" style={{ fontSize: 16, marginBottom: 15 }}>
-          Welcome to the Biscuits Internet Project 2.0 - more content than ever before in an easily searchable format.
-          Go ahead...search for something! &nbsp; This is just the beginning – follow us on{" "}
+          Welcome to the Biscuits Internet Project 2.0! Give us a follow on{" "}
           <Link href="https://twitter.com/tdbdotnet" target="blank">
             twitter
           </Link>{" "}
@@ -87,6 +86,9 @@ const Home: React.FC = () => {
           </Link>{" "}
           for updates on new content and features!
         </Typography>
+        <Link href="/resources/think-tank">
+          <img src="/think-tank-banner.jpg" height="40" style={{ marginBottom: 20 }}></img>
+        </Link>
         <ShowSearch setShows={setSearchShows} setLoading={setSearchLoading}></ShowSearch>
         {elevateLatestSetlist && moment(shows[0].date).isAfter(moment().subtract(3, "days"), "day") && (
           <Setlist show={shows[0]} />

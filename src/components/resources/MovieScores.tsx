@@ -5,7 +5,7 @@ import { Card, CardContent, Typography, Link } from '@material-ui/core';
 import Paragraph from '../shared/Paragraph';
 import HtmlHead from '../shared/HtmlHead';
 
-const Gear: React.FC = () => {
+const MovieScores: React.FC = () => {
 	return (
 		<>
 			<HtmlHead
@@ -68,4 +68,4 @@ const Gear: React.FC = () => {
 		</>
 	)
 }
-export default Gear
+export default MovieScores 

@@ -23,14 +23,6 @@ const Resources: React.FC = () => {
             url="/resources/history"
           ></ResourceCard>
         </Grid>
-        {/* <Grid item xs={12} sm={6} md={6} lg={4} xl={3} style={{display: 'flex', height: "auto"}}>
-					<ResourceCard
-					  title="Gear"
-					  content="Ever wondered what brand of delay pedal Aaron uses on his Roland JP8000?  Here is as much as we know about the band’s setup."
-					  image="/gear.jpg"
-					  url="/resources/gear"
-					></ResourceCard>
-				</Grid> */}
         <Grid item xs={12} sm={6} md={6} lg={4} xl={3} style={{ display: "flex", height: "auto" }}>
           <ResourceCard
             title="Musical Terminology"
@@ -109,6 +101,14 @@ const Resources: React.FC = () => {
             content="Stream or download long-form continuous mixes of hand-selected Biscuits jams in mp3 format. These are perfect for the gym, the track, or the trail, and they're also a great way to focus on exceptional jams!"
             image="/mixes.jpg"
             url="/resources/running-mixes"
+          ></ResourceCard>
+        </Grid>
+        <Grid item xs={12} sm={6} md={6} lg={4} xl={3} style={{ display: "flex", height: "auto" }}>
+          <ResourceCard
+            title="Think Tank"
+            content="Stream or download long-form continuous mixes of hand-selected Biscuits jams in mp3 format. These are perfect for the gym, the track, or the trail, and they're also a great way to focus on exceptional jams!"
+            image="/think-tank.jpg"
+            url="/resources/think-tank"
           ></ResourceCard>
         </Grid>
       </Grid>
