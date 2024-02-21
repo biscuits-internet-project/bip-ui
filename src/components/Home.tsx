@@ -30,13 +30,13 @@ const useStyles = makeStyles((theme: Theme) =>
     setlists: {
       order: 1,
       [theme.breakpoints.down("sm")]: {
-        order: 2,
+        order: 1,
       },
     },
     blog: {
       order: 2,
       [theme.breakpoints.down("sm")]: {
-        order: 1,
+        order: 2,
       },
     },
   })
