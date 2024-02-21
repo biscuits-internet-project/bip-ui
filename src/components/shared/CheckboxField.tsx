@@ -29,7 +29,7 @@ const CheckboxField: React.FC<ICheckboxField> = ({label, name, value}) => {
           />
         }
         labelPlacement="start"
-        label="Cover"
+        label={label}
         />
       </div>
     )

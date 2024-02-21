@@ -24,14 +24,21 @@ export interface ISelectOption {
 const SelectField: React.FC<ISelectField> = ({label, name, value, options,submitCount = 0}) => {
     const [field,meta] = useField({name,value})
     const fieldError = !!meta.error && (submitCount > 0 || meta.touched)
+    const inputLabel = React.useRef<HTMLLabelElement>(null);
+    const [labelWidth, setLabelWidth] = React.useState(0);
+    React.useEffect(() => {
+      setLabelWidth(inputLabel.current!.offsetWidth);
+    }, []);
     return (
       <>
-        <FormControl variant="outlined" fullWidth margin="dense" error={fieldError}>
-        <InputLabel id="label">{label}</InputLabel>
+        <FormControl variant="outlined" fullWidth margin="normal" error={fieldError}>
+        <InputLabel ref={inputLabel} id="label">{label}</InputLabel>
         <Select
-          error={fieldError} 
+          error={fieldError}
           //helperText={fieldError && meta.error}
           value={value}
+          variant="outlined"
+          labelWidth={labelWidth}
           {...field}
         >
           {options.map((option) => <MenuItem key={option.value} value={option.value}>{option.label}</MenuItem>)}

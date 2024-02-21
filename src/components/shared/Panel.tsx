@@ -1,6 +1,5 @@
 import React from 'react'
 import Typography from '@material-ui/core/Typography';
-import { FolderOutlined} from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -26,8 +25,7 @@ const Panel = ({children, title, width = '100%'}) => {
     return (
         <>
         <div className={classes.container}>
-            <FolderOutlined color="secondary" className={classes.icon}/>
-            <Typography variant='h6'>{title}</Typography>
+            <Typography variant='h3'>{title}</Typography>
         </div>
         <Card style={{width, marginBottom: '16px'}}>
             <CardContent>
