@@ -53,8 +53,6 @@ const Home: React.FC = () => {
   const classes = useStyles();
   const theme = useTheme();
 
-  const elevateLatestSetlist = useMediaQuery(theme.breakpoints.down("sm"));
-
   useEffect(() => {
     dispatch(fetchPosts(state.currentUser, "published"));
   }, []);
@@ -75,21 +73,7 @@ const Home: React.FC = () => {
     <>
       <HtmlHead title="" description="Disco Biscuits setlists, reviews, ratings, band history, and more." />
       <div>
-        <Typography variant="body1" style={{ fontSize: 16, marginBottom: 15 }}>
-          Welcome to the Biscuits Internet Project 2.0! Give us a follow on{" "}
-          <Link href="https://twitter.com/tdbdotnet" target="blank">
-            twitter
-          </Link>{" "}
-          and{" "}
-          <Link href="https://instagram.com/tdbdotnet" target="blank">
-            instagram
-          </Link>{" "}
-          for updates on new content and features!
-        </Typography>
         <ShowSearch setShows={setSearchShows} setLoading={setSearchLoading}></ShowSearch>
-        {elevateLatestSetlist && moment(shows[0].date).isAfter(moment().subtract(3, "days"), "day") && (
-          <Setlist show={shows[0]} />
-        )}
         <Grid container spacing={4}>
           <Grid item md={8} className={classes.setlists}>
             {searchLoading && <ProgressBar />}
